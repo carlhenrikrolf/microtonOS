@@ -7,7 +7,7 @@ verbose = True
 # modules
 import mido
 import mtsespy as mts
-import numpy.random as rand
+import numpy as np
 import threading
 import time
 from midi_implementation.exquis import exquis as xq
@@ -194,21 +194,29 @@ class Script:
 		tunings[self.tuning_id].color_notes()
 		self.color_flip()
 	def flicker(self):
+		t = 0
 		while True:
-			time.sleep(0.2)
-			for _ in range(6):
-				if xq.is_menu():
-					break
-				else:
-					time.sleep(0.05)
-					size = rand.randint(10)
-					keys = [rand.randint(61) for _ in range(size)]
+			time.sleep(0.1)
+			t = (t + 1) % 20
+			opacity = (np.sin(6.28 * t / 20)+1)/8+0.25
+			for key in xq.keys:
+				new_color = [0,0,0]
+				for rgb in range(0,3):
+					new_color[rgb] = int(opacity * xq.current_key_colors[key][rgb])
+				exquis_output.send(xq.sysex(xq.color_key, key, new_color))
+				time.sleep(0.001)
+			burst = np.random.randint(-80,20)
+			if burst >= 10:
+				for _ in range(burst):
+					keys = [np.random.randint(61) for _ in range(10)]
 					for key in keys:
+						time.sleep(0.005)
 						new_color = [0,0,0]
-						opacity = rand.randint(50,100)/100
+						opacity = np.random.randint(20,100)/100
 						for rgb in range(0,3):
 							new_color[rgb] = int(opacity * xq.current_key_colors[key][rgb])
 						exquis_output.send(xq.sysex(xq.color_key, key, new_color))
+						time.sleep(0.0001)
 			
 			
 
@@ -216,7 +224,7 @@ class Script:
 if mts.has_ipc():
 	mts.reinitialize()
 halberstadt_output = Outport(client_name, name='Halberstadt')
-exquis_output = Outport(client_name, name='Exquis')
+exquis_output = Outport(client_name, name='Exquis', verbose=False)
 def active_sensing():
 	xq.active_sensing(exquis_output)
 t = Tunings()
@@ -228,6 +236,7 @@ initialised = [
 	halberstadt_inport.open,
 	exquis_inport.open,
 	active_sensing,
+	script.flicker,
 ]
 with mts.Master():
 	make_threads(initialised)

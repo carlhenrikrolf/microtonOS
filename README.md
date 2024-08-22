@@ -65,6 +65,7 @@ Making a xenharmonic synth out of a Raspberry Pi
 ## Installation
 - Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
 - Download the software above and install the software above.
+	- Python packages should be installed in a virtual environment at /home/pi/.venv/
 - The username should be 'pi'.
 - Install config files and systemd files with 'update_*.sh' scripts.
 

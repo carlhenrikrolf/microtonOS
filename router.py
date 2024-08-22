@@ -226,7 +226,8 @@ class Script:
 					exquis_to_engine.send(msg)
 	def exquis_from_mtsesp(self, msg):
 		if xq.is_sysex(msg): # also keep sending active sensing in mts
-			to_exquis.send(msg)
+			if xq.is_active_sensing(msg) or not self.menu_latched:
+				to_exquis.send(msg)
 		else:
 			exquis_to_engine.send(msg)
 	def halberstadt_from_mtsesp(self,msg):
