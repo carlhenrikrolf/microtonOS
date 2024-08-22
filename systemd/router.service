@@ -1,0 +1,16 @@
+[Unit]
+Description=Start Router
+After=graphical.target
+
+[Service]
+User=root
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+ExecStart=/home/pi/Scripts/router.py
+Restart=on-failure
+RestartSec=2s
+KillMode=control-group
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target

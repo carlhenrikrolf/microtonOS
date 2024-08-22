@@ -1,0 +1,234 @@
+#! /home/pi/.venv/bin/python3
+
+# parameters
+client_name = 'MTS-ESP Master'
+verbose = True
+
+# modules
+import mido
+import mtsespy as mts
+import numpy.random as rand
+import threading
+import time
+from midi_implementation.exquis import exquis as xq
+from utils import Outport, Inport, make_threads
+
+# definitions
+def retune(interval=2.0, n_divisions=12, hz440=440.0, concert_a=69):
+	frequencies = [hz440]*128
+	for note in range(0,128):
+		frequencies[note] = hz440 * interval**(1.0*(note-concert_a)/n_divisions)
+	mts.set_note_tunings(frequencies)
+	
+class EdYoverZinX:
+	hz440 = 440.0
+	concert_a = 69
+	white_keys = [0, 2, 3, 5, 7, 8, 10]
+	def __init__(self,
+		X: int,
+		Y: int,
+		Z: int,
+		halberstadt: list,
+		scale_name='Unnamed',
+		bottom_switch=12,
+	):
+		self.X = X
+		self.Y = Y
+		self.Z = Z
+		self.halberstadt = halberstadt
+		self.scale_name = scale_name
+		self.bottom_switch = bottom_switch
+		self.reset()
+	def reset(self):
+		mts.set_scale_name(self.scale_name)
+		retune(interval=self.Y*1.0/self.Z, n_divisions=self.X, hz440=self.hz440, concert_a=self.concert_a)
+		self.current_halberstadt = [i if type(i) is int else i[0] for i in self.halberstadt]
+		self.color_notes()
+	def color_notes(self):
+		xq.recolor_keys(exquis_output, color=xq.blank)
+		for octave in range(0,10):
+			for k, n in enumerate(self.current_halberstadt):
+				note = self.concert_a + n + self.X*(octave-5)
+				if note in xq.get_notes():
+					for key in xq.to_keys(note):
+						xq.send(exquis_output, xq.sysex(xq.color_key, key, (xq.red if k in self.white_keys else xq.yellow)))
+	def halberstadtify(self, note):
+		note_letter = (note+12+12*5-self.concert_a) % 12
+		octave = (note+12+12*5-self.concert_a) // 12
+		return self.current_halberstadt[note_letter] + self.concert_a + self.X*(octave-5)
+	def remap(self, msg):
+		if msg.type in ['note_on', 'note_off', 'polytouch']:
+			if msg.note in range(self.bottom_switch,self.bottom_switch+12) and msg.channel == 0:
+				if msg.type == 'note_off' or (msg.type == 'note_on' and msg.velocity == 0):
+					switch = (msg.note - self.bottom_switch + 12 - 12*5 - self.concert_a) % 12
+					if type(self.halberstadt[switch]) is tuple:
+						into = (self.halberstadt[switch].index(self.current_halberstadt[switch]) + 1) % len(self.halberstadt[switch])
+						self.current_halberstadt[switch] = self.halberstadt[switch][into]
+						self.color_notes()
+			else:
+				note = self.halberstadtify(msg.note)
+				if note in range(0,128):
+					if msg.type == 'polytouch':
+						halberstadt_output.send(
+							mido.Message('polytouch', note=note, value=msg.value, channel=msg.channel)
+						)
+					else:
+						halberstadt_output.send(
+							mido.Message(msg.type, note=note, velocity=msg.velocity, channel=msg.channel)
+						)
+
+
+# tunings
+class Tunings:
+	def __init__(self):
+		self.tunings = []
+		self.tunings.append(
+			EdYoverZinX(
+				X=12,
+				Y=2,
+				Z=1,
+				halberstadt=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+				scale_name='12edo',
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=24,
+				Y=2,
+				Z=1,
+				halberstadt=[(1,0), (3,4), (4,5), (7,6), (9,8), (11,10), (13,12), (14,15), (17,16), (19,18), (21,20), (23,22)],
+				scale_name='24edo',
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=17,
+				Y=2,
+				Z=1,
+				halberstadt=[0, 1, (2,3), 4, (5,6), 7, 8, (9,10), 11, (12,13), 14, (15,16)],
+				scale_name='17edo',
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=29,
+				Y=2,
+				Z=1,
+				halberstadt=[0, (2,3), (4,5), 7, (9,10), 12, (14,15), (16,17), 19, (21,22), 24, (26,27)],
+				scale_name='29edo',
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=19,
+				Y=2,
+				Z=1,
+				halberstadt=[0, (2,1), (3,4), 5, (7,6), 8, (10,9), (11,12), 13, (15,14), 16, (18,17)],
+				scale_name='19edo'
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=31,
+				Y=2,
+				Z=1,
+				halberstadt=[(0,1), (3,2), (5,4), 8, (11,10), (13,14), (16,15), (18,17), 21, (24,23), (26,27), (29,28)],
+				scale_name='31edo',
+			)
+		)
+		
+		
+
+class Script:
+	def __init__(self):
+		self.tuning_id = 0
+		self.left_right = False
+		self.up_down = False
+	def process_halberstadt(self, msg):
+		if msg.type in ['note_on', 'note_off', 'polytouch']:
+			if msg.channel == 0:
+				msg.note -= 12
+		tunings[self.tuning_id].remap(msg)
+	def process_exquis(self, msg):
+		if not xq.is_menu(msg):
+			if xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]):
+				tunings[0].reset()
+			switch_tuning = self.switch_tuning(msg)
+			if switch_tuning:
+				tunings[self.tuning_id].reset()
+			self.flip(msg)
+			if not xq.is_sysex(msg):
+				exquis_output.send(msg)
+		if xq.is_menu(msg,xq.released):
+			xq.set_map(exquis_output, xq.current_map, xq.current_crop)
+			self.resend()
+	def color_flip(self):
+		if self.left_right:
+			xq.send(exquis_output, xq.sysex(xq.color_button, xq.page_right, xq.white))
+		else:
+			xq.send(exquis_output, xq.sysex(xq.color_button, xq.page_right, xq.green))
+		if self.up_down:
+			xq.send(exquis_output, xq.sysex(xq.color_button, xq.page_left, xq.white))
+		else:
+			xq.send(exquis_output, xq.sysex(xq.color_button, xq.page_left, xq.green))
+	def flip(self, msg):
+		if xq.is_sysex(msg, [xq.click, xq.page_right, xq.pressed]):
+			xq.flip_left_right(exquis_output)
+			self.left_right = not self.left_right
+			self.color_flip()
+		elif xq.is_sysex(msg, [xq.click, xq.page_left, xq.pressed]):
+			xq.flip_up_down(exquis_output)
+			self.up_down = not self.up_down
+			self.color_flip()
+	def switch_tuning(self, msg):
+		if msg.type == 'sysex':
+			if msg in [xq.sysex(xq.clockwise, xq.knob1, speed) for speed in xq.speeds]:
+				self.tuning_id = (self.tuning_id + 1) % len(tunings)
+				return True
+			elif msg in [xq.sysex(xq.counter_clockwise, xq.knob1, speed) for speed in xq.speeds]:
+				self.tuning_id = (self.tuning_id - 1) % len(tunings)
+				return True
+		else:
+			return False
+	def resend(self):
+		tunings[self.tuning_id].color_notes()
+		self.color_flip()
+	def flicker(self):
+		while True:
+			time.sleep(0.2)
+			for _ in range(6):
+				if xq.is_menu():
+					break
+				else:
+					time.sleep(0.05)
+					size = rand.randint(10)
+					keys = [rand.randint(61) for _ in range(size)]
+					for key in keys:
+						new_color = [0,0,0]
+						opacity = rand.randint(50,100)/100
+						for rgb in range(0,3):
+							new_color[rgb] = int(opacity * xq.current_key_colors[key][rgb])
+						exquis_output.send(xq.sysex(xq.color_key, key, new_color))
+			
+			
+
+# run script
+if mts.has_ipc():
+	mts.reinitialize()
+halberstadt_output = Outport(client_name, name='Halberstadt')
+exquis_output = Outport(client_name, name='Exquis')
+def active_sensing():
+	xq.active_sensing(exquis_output)
+t = Tunings()
+tunings = t.tunings
+script = Script()
+halberstadt_inport = Inport(script.process_halberstadt, client_name, name='Halberstadt')
+exquis_inport = Inport(script.process_exquis, client_name, name='Exquis')
+initialised = [
+	halberstadt_inport.open,
+	exquis_inport.open,
+	active_sensing,
+]
+with mts.Master():
+	make_threads(initialised)
+	
