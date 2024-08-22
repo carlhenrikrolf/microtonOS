@@ -6,7 +6,7 @@ After=graphical.target
 User=root
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/Scripts/router.py
+ExecStart=/home/pi/microtonOS/router.py
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group

@@ -6,7 +6,7 @@ After=graphical.target
 User=root
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/Scripts/pianoteq_wrapper.py
+ExecStart=/home/pi/microtonOS/pianoteq_wrapper.py
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group

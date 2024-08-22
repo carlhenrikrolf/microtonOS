@@ -1,1 +1,1 @@
-cp -f /home/pi/Scripts/asound.conf /etc/asound.conf
+cp -f /home/pi/microtonOS/config/asound.conf /etc/asound.conf

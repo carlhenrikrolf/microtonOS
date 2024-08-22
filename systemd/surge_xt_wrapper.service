@@ -6,7 +6,7 @@ After=graphical.target
 User=root
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/Scripts/surge_xt_wrapper.py
+ExecStart=/home/pi/microtonOS/surge_xt_wrapper.py
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group

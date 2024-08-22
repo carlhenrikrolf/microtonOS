@@ -357,7 +357,7 @@ class Percussion:
 class TuneBFree:
 	def __init__(self):
 		self.path = '/home/pi/tuneBfree/build/tuneBfree'
-		self.cfg = '/home/pi/Scripts/tuneBfree-config/my.cfg'
+		self.cfg = '/home/pi/microtonOS/tuneBfree-config/my.cfg'
 		self.user = 'pi'
 		self.options=['--dumpcc']
 	def restart(self):
@@ -375,7 +375,7 @@ class TuneBFree:
 class Script:
 	
 	tuneBfree_path = '/home/pi/tuneBfree/build/tuneBfree'
-	cfg_path = '/home/pi/Scripts/tuneBfree-config/my.cfg'
+	cfg_path = '/home/pi/microtonOS/tuneBfree-config/my.cfg'
 	wait = 0.3
 	
 	def __init__(self):
