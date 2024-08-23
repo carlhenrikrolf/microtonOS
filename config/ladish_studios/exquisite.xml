@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<!--
+ladish Studio configuration.
+-->
+<!-- Wed Aug 14 16:03:05 2024 -->
+<studio>
+  <jack>
+    <conf>
+      <parameter path="/engine/driver">alsa</parameter>
+      <parameter path="/driver/device">hw:sndrpihifiberry,0</parameter>
+    </conf>
+    <clients>
+      <client name="system" uuid="78b412db-3286-47f7-a799-6e22062da7e4">
+        <ports>
+          <port name="capture_1" uuid="f421d6da-34cb-44a0-a20e-6c89fb615181" />
+          <port name="capture_2" uuid="6e9398bc-e53b-4eb8-b7a3-656b2de13daf" />
+          <port name="playback_1" uuid="3e30f1d8-2809-4f29-b9dc-5b5d9e681fab" />
+          <port name="playback_2" uuid="dcb064c1-5d0e-4abf-a991-244d6020c970" />
+        </ports>
+      </client>
+      <client name="claudia" uuid="5bf0a631-cc4e-4137-aad0-b8a1ae6cfa8e">
+        <ports>
+        </ports>
+      </client>
+      <client name="a2j" uuid="be23a242-e2b2-11de-b795-002618af5e42">
+        <ports>
+          <port name="Midi Through (capture): Midi Through Port-0" uuid="ad067e77-5bb0-49a4-82cb-5c3403c26d1a" />
+          <port name="Midi Through (playback): Midi Through Port-0" uuid="c6866e0d-5e12-45e8-afbf-9804a2ee7873" />
+          <port name="Exquis (capture): Exquis MIDI 1" uuid="99285f9f-4219-4917-b66d-701e3e416c85" />
+          <port name="Exquis (playback): Exquis MIDI 1" uuid="dd23dd6c-c7f1-47b4-8b69-7eca9c2a03c3" />
+          <port name="Exquis (capture): Exquis MIDI 2" uuid="76aa1d28-25ac-468a-b828-1d9a0a95e504" />
+          <port name="Exquis (playback): Exquis MIDI 2" uuid="b957776e-6663-4f81-a2f4-99bb0962a235" />
+          <port name="MTS-ESP Master (capture): Exquis from MTS-ESP Master" uuid="a22c5b39-e71b-491a-90c1-636b2b9d5331" />
+          <port name="MTS-ESP Master (capture): Halberstadt from MTS-ESP Master" uuid="00e7891c-c7a9-4414-9767-3bedf02cff6b" />
+          <port name="MTS-ESP Master (playback): Exquis to MTS-ESP Master" uuid="984c96d6-f7a5-4d82-baa8-d7e1f6d02af1" />
+          <port name="MTS-ESP Master (playback): Halberstadt to MTS-ESP Master" uuid="61baf156-4d8d-4b6b-9589-ee3403bb2623" />
+          <port name="reface CP (capture): reface CP MIDI 1" uuid="7d2cde20-3658-4978-b3e9-f8722995dc3c" />
+          <port name="reface CP (playback): reface CP MIDI 1" uuid="f25799e6-6f40-4470-8ed4-fba9d6743797" />
+          <port name="Reface CP Wrapper (capture): from Reface CP Wrapper" uuid="291c6521-715e-4b53-b7cd-ce7c90ae67ec" />
+          <port name="Reface CP Wrapper (playback): to Reface CP Wrapper" uuid="daf1cdd4-f056-4be9-8fe2-c73107b9c6c4" />
+          <port name="Surge XT Wrapper (capture): from Surge XT Wrapper" uuid="cc1e9a01-aa4a-485c-a89c-bd6628359e43" />
+          <port name="Surge XT Wrapper (playback): to Surge XT Wrapper" uuid="90f3f898-2ac1-490a-836c-39d0c94b2823" />
+          <port name="tuneBfree Wrapper (capture): from tuneBfree Wrapper" uuid="7771e3c8-c77e-4c51-8043-31c9cae919df" />
+          <port name="tuneBfree Wrapper (playback): to tuneBfree Wrapper" uuid="7ac40082-bca6-43ff-a17d-1b16d15d5bd2" />
+          <port name="Router (capture): MTS-ESP (Exquis) from Router" uuid="c969ce2b-8d63-4780-a856-366ad5dd0b4d" />
+          <port name="Router (capture): MTS-ESP (Halberstadt) from Router" uuid="99b18ed1-5c0c-492d-9ff8-0d475c2c4d32" />
+          <port name="Router (capture): Exquis from Router" uuid="6f37d187-d57f-4a1b-9843-c885d00573e8" />
+          <port name="Router (capture): Reface CP from Router" uuid="e876ab2c-8e9c-4ef3-b564-fd500c0afe3c" />
+          <port name="Router (playback): Exquis to Router" uuid="629ca796-0951-46f5-8711-8f4d31ff01a4" />
+          <port name="Router (playback): Reface CP to Router" uuid="c269b5cf-28bf-41ed-b4a7-257fac8460bc" />
+          <port name="Router (playback): MTS-ESP (Exquis) to Router" uuid="23077f6c-37b1-4310-b569-a7837c93da42" />
+          <port name="Router (playback): MTS-ESP (Halberstadt) to Router" uuid="e00974ec-5eea-4cd6-bca8-51838115f7cf" />
+          <port name="Pianoteq Wrapper (capture): from Pianoteq Wrapper" uuid="e66db84a-c4bc-4497-83ff-dfa9ccff81d3" />
+          <port name="Pianoteq Wrapper (playback): to Pianoteq Wrapper" uuid="84e6c192-5947-4d9f-a639-7099b2bacd3f" />
+        </ports>
+      </client>
+      <client name="Pianoteq" uuid="b5c68e27-c485-4546-97da-5a7c5a20c03d">
+        <ports>
+          <port name="midi_in" uuid="ad7ad63c-e024-4aab-8c05-419819b07603" />
+          <port name="out_1" uuid="1a1ebccc-611c-4bb2-8e90-fb0e3e510f95" />
+          <port name="out_2" uuid="aa365b89-bc7f-4edc-a3a3-0f31b9d48f67" />
+          <port name="out_3" uuid="45c5eae5-447e-410b-9a25-cda0f7f2fee0" />
+          <port name="out_4" uuid="3c4083b1-5826-4aff-a0db-63e2d563edf4" />
+          <port name="out_5" uuid="b62a3914-fa37-4c9c-a1b4-0207f00fb71b" />
+        </ports>
+      </client>
+      <client name="Surge XT" uuid="65d5e5d0-d5a7-4fbf-a8bd-4fc2cf99174f">
+        <ports>
+          <port name="out_1" uuid="7500c281-b378-4ab7-be82-dd52e6668e8f" />
+          <port name="out_2" uuid="1f31ff9b-6079-4440-a00f-86ef84a1de56" />
+        </ports>
+      </client>
+    </clients>
+  </jack>
+  <clients>
+    <client name="Hardware Capture" uuid="47c1cd18-7b21-4389-bec4-6e0658e1d6b1" naming="app">
+      <ports>
+        <port name="capture_1" uuid="f421d6da-34cb-44a0-a20e-6c89fb615181" type="audio" direction="output" />
+        <port name="capture_2" uuid="6e9398bc-e53b-4eb8-b7a3-656b2de13daf" type="audio" direction="output" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1550.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1200.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1550.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1200.0</key>
+      </dict>
+    </client>
+    <client name="Hardware Playback" uuid="b2a0bb06-28d8-4bfe-956e-eb24378f9629" naming="app">
+      <ports>
+        <port name="playback_1" uuid="3e30f1d8-2809-4f29-b9dc-5b5d9e681fab" type="audio" direction="input" />
+        <port name="playback_2" uuid="dcb064c1-5d0e-4abf-a991-244d6020c970" type="audio" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">2192.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1847.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">2192.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1847.0</key>
+      </dict>
+    </client>
+    <client name="Midi Through" uuid="384c3163-cb13-4389-b76e-bffab2a4be2c" naming="app">
+      <ports>
+        <port name="Midi Through Port-0" uuid="ad067e77-5bb0-49a4-82cb-5c3403c26d1a" type="midi" direction="output" />
+        <port name="Midi Through Port-0" uuid="c6866e0d-5e12-45e8-afbf-9804a2ee7873" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1923.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1205.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1923.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1205.0</key>
+      </dict>
+    </client>
+    <client name="Exquis" uuid="a881cf6d-52b1-4f98-ba5f-d6a60961ca30" naming="app">
+      <ports>
+        <port name="Exquis MIDI 1" uuid="99285f9f-4219-4917-b66d-701e3e416c85" type="midi" direction="output" />
+        <port name="Exquis MIDI 1" uuid="dd23dd6c-c7f1-47b4-8b69-7eca9c2a03c3" type="midi" direction="input" />
+        <port name="Exquis MIDI 2" uuid="76aa1d28-25ac-468a-b828-1d9a0a95e504" type="midi" direction="output" />
+        <port name="Exquis MIDI 2" uuid="b957776e-6663-4f81-a2f4-99bb0962a235" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1347.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1666.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1347.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1666.0</key>
+      </dict>
+    </client>
+    <client name="MTS-ESP Master" uuid="0583e0fa-c91b-4bb0-85a2-fc8841d854dc" naming="app">
+      <ports>
+        <port name="Exquis from MTS-ESP Master" uuid="a22c5b39-e71b-491a-90c1-636b2b9d5331" type="midi" direction="output" />
+        <port name="Halberstadt from MTS-ESP Master" uuid="00e7891c-c7a9-4414-9767-3bedf02cff6b" type="midi" direction="output" />
+        <port name="Exquis to MTS-ESP Master" uuid="984c96d6-f7a5-4d82-baa8-d7e1f6d02af1" type="midi" direction="input" />
+        <port name="Halberstadt to MTS-ESP Master" uuid="61baf156-4d8d-4b6b-9589-ee3403bb2623" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1655.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1400.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1655.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1400.0</key>
+      </dict>
+    </client>
+    <client name="Pianoteq" uuid="b060dfda-8492-4cda-a62c-c73ae3d24748" naming="app">
+      <ports>
+        <port name="midi_in" uuid="ad7ad63c-e024-4aab-8c05-419819b07603" type="midi" direction="input" />
+        <port name="out_1" uuid="1a1ebccc-611c-4bb2-8e90-fb0e3e510f95" type="audio" direction="output" />
+        <port name="out_2" uuid="aa365b89-bc7f-4edc-a3a3-0f31b9d48f67" type="audio" direction="output" />
+        <port name="out_3" uuid="45c5eae5-447e-410b-9a25-cda0f7f2fee0" type="audio" direction="output" />
+        <port name="out_4" uuid="3c4083b1-5826-4aff-a0db-63e2d563edf4" type="audio" direction="output" />
+        <port name="out_5" uuid="b62a3914-fa37-4c9c-a1b4-0207f00fb71b" type="audio" direction="output" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">2136.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1520.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">2136.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1520.0</key>
+      </dict>
+    </client>
+    <client name="reface CP" uuid="3b1692e4-c189-4316-9f73-740b1fe6a1d3" naming="app">
+      <ports>
+        <port name="reface CP MIDI 1" uuid="7d2cde20-3658-4978-b3e9-f8722995dc3c" type="midi" direction="output" />
+        <port name="reface CP MIDI 1" uuid="f25799e6-6f40-4470-8ed4-fba9d6743797" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1467.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1551.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1467.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1551.0</key>
+      </dict>
+    </client>
+    <client name="Reface CP Wrapper" uuid="858ec58d-8e3f-42aa-b2f4-c091ff9d7fd8" naming="app">
+      <ports>
+        <port name="from Reface CP Wrapper" uuid="291c6521-715e-4b53-b7cd-ce7c90ae67ec" type="midi" direction="output" />
+        <port name="to Reface CP Wrapper" uuid="daf1cdd4-f056-4be9-8fe2-c73107b9c6c4" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1911.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1305.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1911.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1305.0</key>
+      </dict>
+    </client>
+    <client name="Surge XT Wrapper" uuid="d803e531-ec39-4b38-bf77-e4f57193d6ca" naming="app">
+      <ports>
+        <port name="from Surge XT Wrapper" uuid="cc1e9a01-aa4a-485c-a89c-bd6628359e43" type="midi" direction="output" />
+        <port name="to Surge XT Wrapper" uuid="90f3f898-2ac1-490a-836c-39d0c94b2823" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1550.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1332.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1550.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1332.0</key>
+      </dict>
+    </client>
+    <client name="Surge XT" uuid="b4d7f10c-b394-499e-b36d-60c4d167cd36" naming="app">
+      <ports>
+        <port name="out_1" uuid="7500c281-b378-4ab7-be82-dd52e6668e8f" type="audio" direction="output" />
+        <port name="out_2" uuid="1f31ff9b-6079-4440-a00f-86ef84a1de56" type="audio" direction="output" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1442.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1457.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1442.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1457.0</key>
+      </dict>
+    </client>
+    <client name="tuneBfree Wrapper" uuid="83f2a856-be32-4c66-a1f0-53f222809d7b" naming="app">
+      <ports>
+        <port name="from tuneBfree Wrapper" uuid="7771e3c8-c77e-4c51-8043-31c9cae919df" type="midi" direction="output" />
+        <port name="to tuneBfree Wrapper" uuid="7ac40082-bca6-43ff-a17d-1b16d15d5bd2" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1082.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1473.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1082.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1473.0</key>
+      </dict>
+    </client>
+    <client name="Router" uuid="04ee4de3-ddfa-4cb3-bf62-4208f2349555" naming="app">
+      <ports>
+        <port name="MTS-ESP (Exquis) from Router" uuid="c969ce2b-8d63-4780-a856-366ad5dd0b4d" type="midi" direction="output" />
+        <port name="MTS-ESP (Halberstadt) from Router" uuid="99b18ed1-5c0c-492d-9ff8-0d475c2c4d32" type="midi" direction="output" />
+        <port name="Exquis from Router" uuid="6f37d187-d57f-4a1b-9843-c885d00573e8" type="midi" direction="output" />
+        <port name="Reface CP from Router" uuid="e876ab2c-8e9c-4ef3-b564-fd500c0afe3c" type="midi" direction="output" />
+        <port name="Exquis to Router" uuid="629ca796-0951-46f5-8711-8f4d31ff01a4" type="midi" direction="input" />
+        <port name="Reface CP to Router" uuid="c269b5cf-28bf-41ed-b4a7-257fac8460bc" type="midi" direction="input" />
+        <port name="MTS-ESP (Exquis) to Router" uuid="23077f6c-37b1-4310-b569-a7837c93da42" type="midi" direction="input" />
+        <port name="MTS-ESP (Halberstadt) to Router" uuid="e00974ec-5eea-4cd6-bca8-51838115f7cf" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1765.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1669.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1765.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1669.0</key>
+      </dict>
+    </client>
+    <client name="Pianoteq Wrapper" uuid="37132322-eaa6-43f1-99cf-67fd25174762" naming="app">
+      <ports>
+        <port name="from Pianoteq Wrapper" uuid="e66db84a-c4bc-4497-83ff-dfa9ccff81d3" type="midi" direction="output" />
+        <port name="to Pianoteq Wrapper" uuid="84e6c192-5947-4d9f-a639-7099b2bacd3f" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1169.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1375.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/x_split">1169.0</key>
+        <key name="http://kxstudio.sf.net/ns/canvas/y_split">1375.0</key>
+      </dict>
+    </client>
+  </clients>
+  <connections>
+    <connection port1="1a1ebccc-611c-4bb2-8e90-fb0e3e510f95" port2="3e30f1d8-2809-4f29-b9dc-5b5d9e681fab" />
+    <connection port1="aa365b89-bc7f-4edc-a3a3-0f31b9d48f67" port2="dcb064c1-5d0e-4abf-a991-244d6020c970" />
+    <connection port1="7500c281-b378-4ab7-be82-dd52e6668e8f" port2="3e30f1d8-2809-4f29-b9dc-5b5d9e681fab" />
+    <connection port1="1f31ff9b-6079-4440-a00f-86ef84a1de56" port2="dcb064c1-5d0e-4abf-a991-244d6020c970" />
+    <connection port1="7d2cde20-3658-4978-b3e9-f8722995dc3c" port2="c269b5cf-28bf-41ed-b4a7-257fac8460bc" />
+    <connection port1="e876ab2c-8e9c-4ef3-b564-fd500c0afe3c" port2="f25799e6-6f40-4470-8ed4-fba9d6743797" />
+    <connection port1="99b18ed1-5c0c-492d-9ff8-0d475c2c4d32" port2="61baf156-4d8d-4b6b-9589-ee3403bb2623" />
+    <connection port1="00e7891c-c7a9-4414-9767-3bedf02cff6b" port2="e00974ec-5eea-4cd6-bca8-51838115f7cf" />
+    <connection port1="99285f9f-4219-4917-b66d-701e3e416c85" port2="629ca796-0951-46f5-8711-8f4d31ff01a4" />
+    <connection port1="6f37d187-d57f-4a1b-9843-c885d00573e8" port2="dd23dd6c-c7f1-47b4-8b69-7eca9c2a03c3" />
+    <connection port1="c969ce2b-8d63-4780-a856-366ad5dd0b4d" port2="984c96d6-f7a5-4d82-baa8-d7e1f6d02af1" />
+    <connection port1="a22c5b39-e71b-491a-90c1-636b2b9d5331" port2="23077f6c-37b1-4310-b569-a7837c93da42" />
+  </connections>
+  <applications>
+  </applications>
+</studio>

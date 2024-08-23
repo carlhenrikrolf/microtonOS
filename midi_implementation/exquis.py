@@ -69,6 +69,21 @@ class Exquis:
 	
 	polling_time = 0.0005
 	
+	## cc
+	sounds_control = 31
+	record_control = 32
+	loops_control = 33
+	snaps_control = 34
+	
+	knob1_control = 41
+	button1_control = 21
+	knob2_control = 42
+	button2_control = 22
+	knob3_control = 43
+	button3_control = 23
+	knob4_control = 44
+	button4_control = 24
+	
 	def __init__(self):
 		self.last_sensing = time.perf_counter_ns()
 		self.current_map = [27, 28, 29, 30, 31, 32, 31, 32, 33, 34, 35, 34, 35, 36, 37, 38, 39, 38, 39, 40, 41, 42, 41, 42, 43, 44, 45, 46, 45, 46, 47, 48, 49, 48, 49, 50, 51, 52, 53, 52, 53, 54, 55, 56, 55, 56, 57, 58, 59, 60, 59, 60, 61, 62, 63, 62, 63, 64, 65, 66, 67] 
@@ -276,6 +291,9 @@ class Exquis:
 		
 	def to_knob(self, button):
 		return button - 10
+		
+	def wait(self):
+		time.sleep(self.polling_time)
 		
 		
 			

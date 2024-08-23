@@ -137,12 +137,10 @@ class Sounds:
 					self.reset_engines()
 					xq.send(to_exquis, xq.sysex(xq.color_key, msg.note, xq.white))
 					exquis_to_engine.change(engine)
-					exquis_to_engine.send(mido.Message('reset'))
 				elif self.current_device == self.reface_cp:
 					self.reset_engines()
 					xq.send(to_exquis, xq.sysex(xq.color_key, msg.note, xq.white))
 					reface_cp_to_engine.change(engine)
-					reface_cp_to_engine.send(mido.Message('reset'))
 				if exquis_to_engine.name == reface_cp_to_engine.name:
 					if exquis_to_engine.name != 'Reface CP Wrapper' or is_connected('reface CP MIDI 1'):
 						xq.send(to_exquis, xq.sysex(xq.color_knob, xq.to_knob(self.exquis), xq.white))
@@ -184,6 +182,7 @@ class Script:
 		self.last_reface_cp_note = 0
 		self.menu = None
 		self.menu_latched = False
+		self.reface_cp_is_local = True
 	def from_exquis(self, msg):
 		if msg.type == 'note_on':
 			self.last_exquis_note = msg.note
@@ -207,23 +206,36 @@ class Script:
 		elif (msg.type == 'pitchwheel' or msg.is_cc(74)) and self.last_exquis_note <= self.last_reface_cp_note:
 			pass
 		else:
-			exquis_to_mtsesp.send(msg)
-			if msg.type in ['aftertouch', 'polytouch'] and exquis_to_engine.name != reface_cp_to_engine.name:
-				msg.channel = 0
-				reface_cp_to_engine.send(msg)
+			if exquis_to_engine.name == 'Reface CP Wrapper' and (xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]) or xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])):
+				exquis_to_mtsesp.send(xq.sysex(xq.click, xq.button1, xq.pressed))
+			else:
+				exquis_to_mtsesp.send(msg)
+				if msg.type in ['aftertouch', 'polytouch'] and exquis_to_engine.name != reface_cp_to_engine.name:
+					msg.channel = 0
+					reface_cp_to_engine.send(msg)
+			
 	def from_reface_cp(self, msg):
-		if msg.type == 'control_change':
-			to_reface_cp.send(msg)
-		if hasattr(msg, 'channel'):
-			msg.channel = 0
-		if msg.type in ['note_on', 'note_off']:
-			halberstadt_to_mtsesp.send(msg)
-			if msg.type == 'note_on':
-				self.last_reface_cp_note = msg.note
+		if reface_cp_to_engine.name != 'Reface CP Wrapper':
+			if self.reface_cp_is_local:
+				to_reface_cp.send(cp.local_control(cp.off))
+			self.reface_cp_is_local = False
+			if msg.type == 'control_change':
+				to_reface_cp.send(msg)
+			if hasattr(msg, 'channel'):
+				msg.channel = 0
+			if msg.type in ['note_on', 'note_off']:
+				halberstadt_to_mtsesp.send(msg)
+				if msg.type == 'note_on':
+					self.last_reface_cp_note = msg.note
+			else:
+				reface_cp_to_engine.send(msg)
+				if msg.is_cc(64) and exquis_to_engine.name != reface_cp_to_engine.name:
+						exquis_to_engine.send(msg)
 		else:
-			reface_cp_to_engine.send(msg)
-			if msg.is_cc(64) and exquis_to_engine.name != reface_cp_to_engine.name:
-					exquis_to_engine.send(msg)
+			if not self.reface_cp_is_local:
+				to_reface_cp.send(cp.local_control(cp.on))
+			self.reface_cp_is_local = True
+		
 	def exquis_from_mtsesp(self, msg):
 		if xq.is_sysex(msg): # also keep sending active sensing in mts
 			if xq.is_active_sensing(msg) or not self.menu_latched:

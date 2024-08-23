@@ -193,31 +193,26 @@ class Script:
 	def resend(self):
 		tunings[self.tuning_id].color_notes()
 		self.color_flip()
-	def flicker(self):
-		t = 0
+	def fire(self):
+		period_range = range(1,11)
+		step_sigma = 0.3
+		sleep_lambda = 100 # ms
+		opacity_range = [0.6, 1]
+		
+		period = list(period_range)[int(len(period_range)/2)]
 		while True:
-			time.sleep(0.1)
-			t = (t + 1) % 20
-			opacity = (np.sin(6.28 * t / 20)+1)/8+0.25
-			for key in xq.keys:
-				new_color = [0,0,0]
-				for rgb in range(0,3):
-					new_color[rgb] = int(opacity * xq.current_key_colors[key][rgb])
-				exquis_output.send(xq.sysex(xq.color_key, key, new_color))
-				time.sleep(0.001)
-			burst = np.random.randint(-80,20)
-			if burst >= 10:
-				for _ in range(burst):
-					keys = [np.random.randint(61) for _ in range(10)]
-					for key in keys:
-						time.sleep(0.005)
-						new_color = [0,0,0]
-						opacity = np.random.randint(20,100)/100
-						for rgb in range(0,3):
-							new_color[rgb] = int(opacity * xq.current_key_colors[key][rgb])
-						exquis_output.send(xq.sysex(xq.color_key, key, new_color))
-						time.sleep(0.0001)
-			
+			new_period = period + 1 - np.random.randint(3)
+			if new_period in period_range:
+				period = new_period
+			for step in range(period):
+				for key in xq.keys:
+					opacity = (np.sin(2*np.pi*np.random.normal(step, step_sigma) / period) + 1) / 2
+					opacity *= max(opacity_range) - min(opacity_range)
+					opacity += min(opacity_range)
+					color = [int(opacity*xq.current_key_colors[key][rgb]) for rgb in range(3)]
+					exquis_output.send(xq.sysex(xq.color_key, key, color))
+					xq.wait()
+				time.sleep(np.random.poisson(sleep_lambda)/1000)
 			
 
 # run script
@@ -236,7 +231,7 @@ initialised = [
 	halberstadt_inport.open,
 	exquis_inport.open,
 	active_sensing,
-	script.flicker,
+	script.fire,
 ]
 with mts.Master():
 	make_threads(initialised)

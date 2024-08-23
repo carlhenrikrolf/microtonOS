@@ -6,7 +6,7 @@ After=graphical.target
 User=pi
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart='/home/pi/Pianoteq 8 STAGE/arm-64bit/Pianoteq 8 STAGE'
+ExecStart='/home/pi/microtonOS/start_pianoteq.sh' --headless
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group
