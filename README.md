@@ -1,6 +1,8 @@
 # microtonOS
 Making a xenharmonic synth out of a Raspberry Pi
 
+![My Setup](my_setup.jpeg)
+
 ## Hardware
 - Yamaha Reface CP
 	- Official power supply---12.0V, 0.7A, and 8.4W (included with Reface CP) 
