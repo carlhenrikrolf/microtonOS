@@ -127,10 +127,11 @@ The best option is probably from Novation (e.g. the Launchpad X), but other pad 
 More pricey options for square layouts include the Linnstrument and the Deluge.
 More pricey options for a hexagonal layout includes Lumatone and Starr Labs.
 C-thru may also be affordable for a hexagonal layout but it does not have LEDs and is no longer in production.
-Chromatone is another non-LED option for a hexagonal layout, so are digital accordions produced by e.g. Roland.
+Chromatone is another non-LED option for a hexagonal layout, so are digital accordions produced by e.g. Roland. For a gallery, see these [isomorphic keyboards](learn/isomorphic_keyboards.md)
 - Other Raspberry Pi kits include Zynthian, Blokas Patchbox OS with or without Blokas PiSound, Squishbox.
 - Hpi Instruments software/hardware aldo does microtonal transformation (midi) as does Tubbutec (for modular synths).
 - Xentotune by Naren Ratan. Together with boss pedal and guitar.
+
 
 ## Mistakes and Dead Ends
 - Reface CP does allow microtuning but only monophonically, maybe I should have gotten a Korg Minilogue XD instead?
