@@ -210,9 +210,6 @@ class Script:
 				exquis_to_mtsesp.send(xq.sysex(xq.click, xq.button1, xq.pressed))
 			else:
 				exquis_to_mtsesp.send(msg)
-				if msg.type in ['aftertouch', 'polytouch'] and exquis_to_engine.name != reface_cp_to_engine.name:
-					msg.channel = 0
-					reface_cp_to_engine.send(msg)
 			
 	def from_reface_cp(self, msg):
 		if reface_cp_to_engine.name != 'Reface CP Wrapper':

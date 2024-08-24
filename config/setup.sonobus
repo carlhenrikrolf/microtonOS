@@ -2,7 +2,7 @@
 
 <PROPERTIES>
   <VALUE name="audioSetup">
-    <DEVICESETUP deviceType="JACK" audioOutputDeviceName="system" audioInputDeviceName="system"
+    <DEVICESETUP deviceType="JACK" audioOutputDeviceName="system" audioInputDeviceName=""
                  audioDeviceRate="48000.0" audioDeviceBufferSize="1024"/>
   </VALUE>
   <VALUE name="filterStateXML">
@@ -46,8 +46,8 @@
       <PARAM id="wet" value="0.9999999403953552"/>
       <ExtraState UseUdpPort="0" ChangeQualForAll="0" ChangeRecvQualForAll="0"
                   DefaultRecordingOptions="1" DefaultRecordingFormat="3" DefaultRecordingBitsPerSample="24"
-                  RecordSelfPreFx="1" RecordSelfSilenceWhenMuted="1" RecordFinishOpen="1"
-                  DefaultRecordDir="/home/pi/Music/SonoBus" DefaultRecordDirURL="file:///home/pi/Music/SonoBus"
+                  RecordSelfPreFx="1" RecordSelfSilenceWhenMuted="0" RecordFinishOpen="1"
+                  DefaultRecordDir="/media/pi/USB" DefaultRecordDirURL="file:///media/pi/USB"
                   LastBrowseDir="/home/pi/Music/SonoBus" SliderSnapToMouse="1"
                   DisableKeyShortcuts="0" PeerDisplayMode="0" lastChatWidth="250"
                   lastChatShown="0" chatFontSizeOffset="0" chatFixedWidthFont="0"
