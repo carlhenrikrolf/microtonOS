@@ -51,7 +51,7 @@ class EdYoverZinX:
 				note = self.concert_a + n + self.X*(octave-5)
 				if note in xq.get_notes():
 					for key in xq.to_keys(note):
-						xq.send(exquis_output, xq.sysex(xq.color_key, key, (xq.red if k in self.white_keys else xq.yellow)))
+						xq.send(exquis_output, xq.sysex(xq.color_key, key, (xq.dark_red if k in self.white_keys else xq.yellow)))
 	def halberstadtify(self, note):
 		note_letter = (note+12+12*5-self.concert_a) % 12
 		octave = (note+12+12*5-self.concert_a) // 12

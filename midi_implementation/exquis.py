@@ -50,11 +50,21 @@ class Exquis:
 	exquis_blue = [0x38, 0x1D, 0x41]
 	exquis_white = [0x7F, 0x5F, 0x3F]
 	red = [127, 0, 0]
-	green = [0, 127, 0]
+	lime = [0, 127, 0]
+	green = [0, 64, 0]
 	white = [127, 127, 127]
+	cyan = [0, 127, 127]
+	teal = [0, 64, 64]
+	navy = [0, 0, 64]
+	magenta = [127, 0, 127]
+	purple = [64, 0, 64]
+	maroon = [64, 0, 0]
 	blue = [0, 0, 127]
 	yellow = [127, 127, 0]
-	orange = [127, 63, 0]
+	chartreuse = [64, 127, 0]
+	orange = [127, 83, 0]
+	coral = [127, 64, 0]
+	dark_red = [70, 0, 0]
 	
 	### transmitted
 	click = 0x08
