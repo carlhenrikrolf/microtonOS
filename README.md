@@ -127,7 +127,7 @@ The best option is probably from Novation (e.g. the Launchpad X), but other pad 
 More pricey options for square layouts include the Linnstrument and the Deluge.
 More pricey options for a hexagonal layout includes Lumatone and Starr Labs.
 C-thru may also be affordable for a hexagonal layout but it does not have LEDs and is no longer in production.
-Chromatone is another non-LED option for a hexagonal layout, so are digital accordions produced by e.g. Roland. For a gallery, see these [isomorphic keyboards](learn/isomorphic_keyboards.md)
+Chromatone is another non-LED option for a hexagonal layout, so are digital accordions produced by e.g. Roland. For a gallery, see these [isomorphic keyboards](learn/isomorphic_keyboards.md).
 - Other Raspberry Pi kits include Zynthian, Blokas Patchbox OS with or without Blokas PiSound, Squishbox.
 - Hpi Instruments software/hardware aldo does microtonal transformation (midi) as does Tubbutec (for modular synths).
 - Xentotune by Naren Ratan. Together with boss pedal and guitar.
@@ -139,19 +139,5 @@ Chromatone is another non-LED option for a hexagonal layout, so are digital acco
 - Raspberry Pi 4, I had a good deal for, but you really want the CPU of the 5.
 - Non-DIY approaches to sound modules do not seem feasible, e.g., Midiplus PianoEngine seems like the best piano module that could act microtonally (through GM), but it does not seem that good.
 There are multiple decent organ modules, e.g. the Ferrofish B4000+, but they do not support polyphonic microtonality for more than 3 channels and those channels would have different timbres as they correspond to upper and lower manuals as well as pedals.
+- Learning about [tuning standards](learn/tuning_standards.md).
 
-
-## Appendix
-
-### Tuning Standards
-
-|    | polyphony | midi | dynamic
-|----|-----------|------|--------
-| pitchbend | no | yes | yes
-| midi polyphonic expression (MPE) | 15 | yes | yes
-| general midi (GM1, GM2) | 14--15 | yes | yes
-| multitimbral (not guaranteed!) | 16 | yes | yes
-| midi tuning standard (MTS) | 127--127x16 | yes (sysex) | both dynamic and static
-| midi tuning standard extraperipheral sensing (MTS-ESP) | 127--127x16 | no (shared object for Linux/Mac/Windows) | both dynamic and static
-| Scala files (.scl + .kbm) | limited by other components | no (Linux/Mac/Windows file) | no
-| Tuning file (.tun) | limited by other components | no (Linux/Mac/Windows file) | no
