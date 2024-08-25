@@ -79,7 +79,7 @@ Making a xenharmonic synth out of a Raspberry Pi
 
 **24edo.** Used in contemporary arabic music.
 
-**17edo.** Approximates classical Iranian music.
+**17edo.** Approximates classical [Iranian music](learn/iranian.md).
 
 **29edo.** Approximates classical Arabic music.
 
