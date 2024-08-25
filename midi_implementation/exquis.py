@@ -305,6 +305,15 @@ class Exquis:
 	def wait(self):
 		time.sleep(self.polling_time)
 		
+	def transpose(self, port, shift):
+		new_map = self.default_map
+		for key in self.keys:
+			new_map[key] = self.current_map[key] + shift
+			if not (new_map[key] in range(0,128)):
+				return False
+		self.set_map(port, new_map, self.current_crop)
+		return True
+		
 		
 			
 		

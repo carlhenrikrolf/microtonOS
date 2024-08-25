@@ -43,6 +43,7 @@ class EdYoverZinX:
 		mts.set_scale_name(self.scale_name)
 		retune(interval=self.Y*1.0/self.Z, n_divisions=self.X, hz440=self.hz440, concert_a=self.concert_a)
 		self.current_halberstadt = [i if type(i) is int else i[0] for i in self.halberstadt]
+		xq.transpose(exquis_output, 2) # add dependency on tuning in shift
 		self.color_notes()
 	def color_notes(self):
 		xq.recolor_keys(exquis_output, color=xq.blank)
@@ -151,12 +152,13 @@ class Script:
 		tunings[self.tuning_id].remap(msg)
 	def process_exquis(self, msg):
 		if not xq.is_menu(msg):
-			if xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]):
+			if xq.is_sysex(msg, [xq.click, xq.button2, xq.pressed]):
 				tunings[0].reset()
 			switch_tuning = self.switch_tuning(msg)
 			if switch_tuning:
 				tunings[self.tuning_id].reset()
 			self.flip(msg)
+			self.shift_notes(msg)
 			if not xq.is_sysex(msg):
 				exquis_output.send(msg)
 		if xq.is_menu(msg,xq.released):
@@ -182,14 +184,25 @@ class Script:
 			self.color_flip()
 	def switch_tuning(self, msg):
 		if msg.type == 'sysex':
-			if msg in [xq.sysex(xq.clockwise, xq.knob1, speed) for speed in xq.speeds]:
+			if msg in [xq.sysex(xq.clockwise, xq.knob2, speed) for speed in xq.speeds]:
 				self.tuning_id = (self.tuning_id + 1) % len(tunings)
 				return True
-			elif msg in [xq.sysex(xq.counter_clockwise, xq.knob1, speed) for speed in xq.speeds]:
+			elif msg in [xq.sysex(xq.counter_clockwise, xq.knob2, speed) for speed in xq.speeds]:
 				self.tuning_id = (self.tuning_id - 1) % len(tunings)
 				return True
 		else:
 			return False
+	def shift_notes(self, msg):
+		shift = None
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]):
+			_, shift = xq.is_sysex(msg, [xq.clockwise, xq.knob1, any])
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any]):
+			_, shift = xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])
+			shift *= -1
+		if shift is not None:
+			go = xq.transpose(exquis_output, shift)
+			if go:
+				tunings[self.tuning_id].color_notes()
 	def resend(self):
 		tunings[self.tuning_id].color_notes()
 		self.color_flip()
