@@ -195,10 +195,11 @@ class Script:
 	def shift_notes(self, msg):
 		shift = None
 		if xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]):
-			_, shift = xq.is_sysex(msg, [xq.clockwise, xq.knob1, any])
+			#_, shift = xq.is_sysex(msg, [xq.clockwise, xq.knob1, any])
+			shift = 1
 		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any]):
-			_, shift = xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])
-			shift *= -1
+			#_, shift = xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])
+			shift = -1
 		if shift is not None:
 			go = xq.transpose(exquis_output, shift)
 			if go:
@@ -244,7 +245,7 @@ initialised = [
 	halberstadt_inport.open,
 	exquis_inport.open,
 	active_sensing,
-	script.fire,
+	#script.fire,
 ]
 with mts.Master():
 	make_threads(initialised)

@@ -97,7 +97,7 @@ Making a xenharmonic synth out of a Raspberry Pi
 
 **9edo.** Approximates Indonesian classical music.
 
-**53edo.** Approximates Indian classical music. Also approximates Turkish music and music from the Western Sahel (e.g. Mali).
+**53edo.** Approximates Indian classical music. Also approximates Turkish music and music from the [Western Sahel](learn/west_sahelian.md) (e.g. Mali).
 
 ### Layouts
 
