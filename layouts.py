@@ -20,22 +20,22 @@ def exquis_layout(width=3, top_note=67):
 	
 	if width in range(1,6):
 		last_note = top_note
-		for row in [10, 8, 6, 4, 2, 0]:
-			for col in range(5, -1, -1):
-				note = last_note - (5 - col)
-				mapping[row][col] = note
-			last_note = note - 5 + overlap + 1
-		last_note = top_note - 6 + overlap
-		for row in [9, 7, 5, 3, 1]:
-			for col in range(4, -1, -1):
-				note = last_note - (4 - col)
-				mapping[row][col] = note
-			last_note = note - 6 + overlap + 1
+		for row in range(10, -1, -1):
+			if row % 2 == 0: # is even
+				for col in range(5, -1, -1):
+					note = last_note - (5 - col)
+					mapping[row][col] = note
+				last_note = note - 1 + overlap
+			else:
+				for col in range(4, -1, -1):
+					note = last_note - (4 - col)
+					mapping[row][col] = note
+				last_note = note - 1 + overlap
 		output = []
 		for row in mapping:
 			for key in row:
 				output.append(key)
-		return output
+		return mapping
 						
 	elif width in range(6,11):
 		for row in [10, 8, 6]:
@@ -51,5 +51,5 @@ def exquis_layout(width=3, top_note=67):
 	else:
 		raise ValueError('width must be in range [1, 11)')
 		
-print(exquis_layout())
+print(exquis_layout(width=5))
 	
