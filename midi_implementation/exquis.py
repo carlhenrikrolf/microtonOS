@@ -77,7 +77,7 @@ class Exquis:
 	
 	default_key_colors = [[0,0,0]]*61
 	
-	polling_time = 0.0005
+	polling_time = 0.00001
 	
 	## cc
 	sounds_control = 31

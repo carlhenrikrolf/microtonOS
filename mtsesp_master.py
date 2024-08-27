@@ -38,12 +38,12 @@ class EdYoverZinX:
 		self.halberstadt = halberstadt
 		self.scale_name = scale_name
 		self.bottom_switch = bottom_switch
-		self.reset()
+		self.current_halberstadt = [i if type(i) is int else i[0] for i in self.halberstadt]
 	def reset(self):
 		mts.set_scale_name(self.scale_name)
 		retune(interval=self.Y*1.0/self.Z, n_divisions=self.X, hz440=self.hz440, concert_a=self.concert_a)
 		self.current_halberstadt = [i if type(i) is int else i[0] for i in self.halberstadt]
-		xq.transpose(exquis_output, 2) # add dependency on tuning in shift
+		#xq.transpose(exquis_output, 2) # add dependency on tuning in shift
 		self.color_notes()
 	def color_notes(self):
 		xq.recolor_keys(exquis_output, color=xq.blank)
@@ -145,6 +145,9 @@ class Script:
 		self.tuning_id = 0
 		self.left_right = False
 		self.up_down = False
+		self.width = 3
+		xq.set_map(exquis_output, xq.exquis_layout(top_note=69), xq.no_crop)
+		tunings[self.tuning_id].reset()
 	def process_halberstadt(self, msg):
 		if msg.type in ['note_on', 'note_off', 'polytouch']:
 			if msg.channel == 0:
@@ -159,6 +162,7 @@ class Script:
 				tunings[self.tuning_id].reset()
 			self.flip(msg)
 			self.shift_notes(msg)
+			self.change_width(msg)
 			if not xq.is_sysex(msg):
 				exquis_output.send(msg)
 		if xq.is_menu(msg,xq.released):
@@ -204,6 +208,24 @@ class Script:
 			go = xq.transpose(exquis_output, shift)
 			if go:
 				tunings[self.tuning_id].color_notes()
+	def change_width(self, msg):
+		changed = False
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob3, any]):
+			self.width = 1 if self.width == 10 else self.width + 1
+			changed = True
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob3, any]):
+			self.width = 10 if self.width == 1 else self.width - 1
+			changed = True
+		if changed:
+			xq.set_map(exquis_output, xq.exquis_layout(width=self.width, top_note=69), xq.no_crop)
+			tunings[self.tuning_id].color_notes()
+			if self.left_right:
+				self.left_right = False
+				self.flip(xq.sysex(xq.click, xq.page_right, xq.pressed))
+			if self.up_down:
+				self.up_down = False
+				self.flip(xq.sysex(xq.click, xq.page_left, xq.pressed))
+			
 	def resend(self):
 		tunings[self.tuning_id].color_notes()
 		self.color_flip()
