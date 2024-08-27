@@ -314,6 +314,8 @@ class Exquis:
 		self.set_map(port, new_map, self.current_crop)
 		return True
 		
+	def set_opacity(self, level, color):
+		 return [round(level*rgb) for rgb in color]
 		
 			
 		
