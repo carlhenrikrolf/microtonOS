@@ -94,15 +94,6 @@ class Tunings:
 		)
 		self.tunings.append(
 			EdYoverZinX(
-				X=24,
-				Y=2,
-				Z=1,
-				halberstadt=[(1,0), (3,4), (4,5), (7,6), (9,8), (11,10), (13,12), (14,15), (17,16), (19,18), (21,20), (23,22)],
-				scale_name='24edo',
-			)
-		)
-		self.tunings.append(
-			EdYoverZinX(
 				X=17,
 				Y=2,
 				Z=1,
@@ -112,20 +103,29 @@ class Tunings:
 		)
 		self.tunings.append(
 			EdYoverZinX(
-				X=29,
-				Y=2,
-				Z=1,
-				halberstadt=[0, (2,3), (4,5), 7, (9,10), 12, (14,15), (16,17), 19, (21,22), 24, (26,27)],
-				scale_name='29edo',
-			)
-		)
-		self.tunings.append(
-			EdYoverZinX(
 				X=19,
 				Y=2,
 				Z=1,
 				halberstadt=[0, (2,1), (3,4), 5, (7,6), 8, (10,9), (11,12), 13, (15,14), 16, (18,17)],
 				scale_name='19edo'
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=24,
+				Y=2,
+				Z=1,
+				halberstadt=[(1,0), (3,4), (4,5), (7,6), (9,8), (11,10), (13,12), (14,15), (17,16), (19,18), (21,20), (23,22)],
+				scale_name='24edo',
+			)
+		)
+		self.tunings.append(
+			EdYoverZinX(
+				X=29,
+				Y=2,
+				Z=1,
+				halberstadt=[0, (2,3), (4,5), 7, (9,10), 12, (14,15), (16,17), 19, (21,22), 24, (26,27)],
+				scale_name='29edo',
 			)
 		)
 		self.tunings.append(
@@ -146,7 +146,8 @@ class Script:
 		self.left_right = False
 		self.up_down = False
 		self.width = 3
-		xq.set_map(exquis_output, xq.exquis_layout(top_note=69), xq.no_crop)
+		self.top_note = 69
+		xq.set_map(exquis_output, xq.exquis_layout(width=self.width, top_note=self.top_note), xq.no_crop)
 		tunings[self.tuning_id].reset()
 	def process_halberstadt(self, msg):
 		if msg.type in ['note_on', 'note_off', 'polytouch']:
@@ -187,44 +188,84 @@ class Script:
 			self.up_down = not self.up_down
 			self.color_flip()
 	def switch_tuning(self, msg):
+		switch = True
 		if msg.type == 'sysex':
 			if msg in [xq.sysex(xq.clockwise, xq.knob2, speed) for speed in xq.speeds]:
-				self.tuning_id = (self.tuning_id + 1) % len(tunings)
-				return True
+				if self.tuning_id == len(tunings) - 1:
+					switch = False
+				else:
+					self.tuning_id += 1
 			elif msg in [xq.sysex(xq.counter_clockwise, xq.knob2, speed) for speed in xq.speeds]:
-				self.tuning_id = (self.tuning_id - 1) % len(tunings)
-				return True
-		else:
-			return False
+				if self.tuning_id == 0:
+					switch = False
+				else:
+					self.tuning_id -= 1
+			else:
+				switch = False
+		return switch
+			
 	def shift_notes(self, msg):
-		shift = None
+		#shift = None
+		#if xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]):
+		#	#_, shift = xq.is_sysex(msg, [xq.clockwise, xq.knob1, any])
+		#	shift = 1
+		#elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any]):
+		#	#_, shift = xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])
+		#	shift = -1
+		#if shift is not None:
+		#	go = xq.transpose(exquis_output, shift)
+		#	if go:
+		#		tunings[self.tuning_id].color_notes()
+		shifted = True
 		if xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]):
-			#_, shift = xq.is_sysex(msg, [xq.clockwise, xq.knob1, any])
-			shift = 1
+			if self.top_note == 127:
+				shifted = False
+			else:
+				self.top_note += 1
 		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any]):
-			#_, shift = xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])
-			shift = -1
-		if shift is not None:
-			go = xq.transpose(exquis_output, shift)
-			if go:
-				tunings[self.tuning_id].color_notes()
+			if self.top_note == len(xq.keys) - 1:
+				shifted = False
+			else:
+				self.top_note -= 1
+		else:
+			shifted = False
+		if shifted:
+			self.new_layout()
+		
 	def change_width(self, msg):
-		changed = False
+		changed = True
 		if xq.is_sysex(msg, [xq.clockwise, xq.knob3, any]):
-			self.width = 1 if self.width == 10 else self.width + 1
-			changed = True
+			if self.width == 10:
+				changed = False
+			else:
+				self.width += 1
 		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob3, any]):
-			self.width = 10 if self.width == 1 else self.width - 1
-			changed = True
+			if self.width == 1:
+				changed = False
+			else:
+				self.width -= 1
+		else:
+			changed = False
 		if changed:
-			xq.set_map(exquis_output, xq.exquis_layout(width=self.width, top_note=69), xq.no_crop)
-			tunings[self.tuning_id].color_notes()
-			if self.left_right:
-				self.left_right = False
-				self.flip(xq.sysex(xq.click, xq.page_right, xq.pressed))
-			if self.up_down:
-				self.up_down = False
-				self.flip(xq.sysex(xq.click, xq.page_left, xq.pressed))
+			#xq.set_map(exquis_output, xq.exquis_layout(width=self.width, top_note=69), xq.no_crop)
+			#tunings[self.tuning_id].color_notes()
+			#if self.left_right:
+			#	self.left_right = False
+			#	self.flip(xq.sysex(xq.click, xq.page_right, xq.pressed))
+			#if self.up_down:
+			#	self.up_down = False
+			#	self.flip(xq.sysex(xq.click, xq.page_left, xq.pressed))
+			self.new_layout()
+				
+	def new_layout(self):
+		xq.set_map(exquis_output, xq.exquis_layout(width=self.width, top_note=self.top_note), xq.no_crop)
+		tunings[self.tuning_id].color_notes()
+		if self.left_right:
+			self.left_right = False
+			self.flip(xq.sysex(xq.click, xq.page_right, xq.pressed))
+		if self.up_down:
+			self.up_down = False
+			self.flip(xq.sysex(xq.click, xq.page_left, xq.pressed))
 			
 	def resend(self):
 		tunings[self.tuning_id].color_notes()

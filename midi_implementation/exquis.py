@@ -77,7 +77,7 @@ class Exquis:
 	
 	default_key_colors = [[0,0,0]]*61
 	
-	polling_time = 0.00001
+	polling_time = 0.0001 # should be less than 0,0005 and more than 0.00001
 	
 	## cc
 	sounds_control = 31
@@ -319,7 +319,7 @@ class Exquis:
 		 
 	
 	def exquis_layout(self, width=3, top_note=67):
-	
+		
 		assert top_note in range(60, 128)
 		mapping = [[0]*6 if row % 2 == 0 else [0]*5 for row in range(0,11)]
 		overlap = (10 - width) % 5
@@ -345,7 +345,7 @@ class Exquis:
 					for col in range(5, -1, -1):
 						note = last_note - (5 - col)
 						mapping[row][col] = note
-					last_note = note - 5 + overlap
+					last_note = note - 1 - 5 + overlap
 				else:
 					for col in range(4, -1, -1):
 						note = last_note - (4 - col)
@@ -357,7 +357,7 @@ class Exquis:
 					for col in range(5, -1, -1):
 						note = last_note - (5 - col)
 						mapping[row][col] = note
-					last_note = note - 5 + overlap
+					last_note = note  - 1 - 5 + overlap
 				else:
 					for col in range(4, -1, -1):
 						note = last_note - (4 - col)

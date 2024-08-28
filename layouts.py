@@ -27,7 +27,7 @@ def exquis_layout(width=3, top_note=67):
 				for col in range(5, -1, -1):
 					note = last_note - (5 - col)
 					mapping[row][col] = note
-				last_note = note - 5 + overlap
+				last_note = note - 1 - 5 + overlap
 			else:
 				for col in range(4, -1, -1):
 					note = last_note - (4 - col)
@@ -39,7 +39,7 @@ def exquis_layout(width=3, top_note=67):
 				for col in range(5, -1, -1):
 					note = last_note - (5 - col)
 					mapping[row][col] = note
-				last_note = note - 5 + overlap
+				last_note = note  - 1 - 5 + overlap
 			else:
 				for col in range(4, -1, -1):
 					note = last_note - (4 - col)
@@ -55,5 +55,5 @@ def exquis_layout(width=3, top_note=67):
 			output.append(key)
 	return mapping
 		
-print(exquis_layout())
+print(exquis_layout(top_note=69, width=7))
 	
