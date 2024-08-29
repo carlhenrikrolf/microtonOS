@@ -178,14 +178,14 @@ class Sounds:
 class Script:
 	
 	def __init__(self):
-		self.last_exquis_note = 127
-		self.last_reface_cp_note = 0
+		#self.last_exquis_note = 127
+		#self.last_reface_cp_note = 0
 		self.menu = None
 		self.menu_latched = False
 		self.reface_cp_is_local = True
 	def from_exquis(self, msg):
-		if msg.type == 'note_on':
-			self.last_exquis_note = msg.note
+		#if msg.type == 'note_on':
+		#	self.last_exquis_note = msg.note
 		if xq.is_menu(msg, xq.pressed):
 			if not self.menu_latched:
 				self.menu_latched = True
@@ -203,13 +203,13 @@ class Script:
 		if self.menu_latched:
 			if self.menu == xq.sounds:
 				sounds.menu(msg)
-		elif (msg.type == 'pitchwheel' or msg.is_cc(74)) and self.last_exquis_note <= self.last_reface_cp_note:
-			pass
+		#elif (msg.type == 'pitchwheel' or msg.is_cc(74)) and self.last_exquis_note <= self.last_reface_cp_note:
+		#	pass
+		#else:
+		#	if exquis_to_engine.name == 'Reface CP Wrapper' and (xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]) or xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])):
+		#		exquis_to_mtsesp.send(xq.sysex(xq.click, xq.button1, xq.pressed))
 		else:
-			if exquis_to_engine.name == 'Reface CP Wrapper' and (xq.is_sysex(msg, [xq.clockwise, xq.knob1, any]) or xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, any])):
-				exquis_to_mtsesp.send(xq.sysex(xq.click, xq.button1, xq.pressed))
-			else:
-				exquis_to_mtsesp.send(msg)
+			exquis_to_mtsesp.send(msg)
 			
 	def from_reface_cp(self, msg):
 		if reface_cp_to_engine.name != 'Reface CP Wrapper':
@@ -222,8 +222,8 @@ class Script:
 				msg.channel = 0
 			if msg.type in ['note_on', 'note_off']:
 				halberstadt_to_mtsesp.send(msg)
-				if msg.type == 'note_on':
-					self.last_reface_cp_note = msg.note
+				#if msg.type == 'note_on':
+				#	self.last_reface_cp_note = msg.note
 			else:
 				reface_cp_to_engine.send(msg)
 				if msg.is_cc(64) and exquis_to_engine.name != reface_cp_to_engine.name:

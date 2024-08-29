@@ -202,6 +202,8 @@ class Script:
 					self.tuning_id -= 1
 			else:
 				switch = False
+		else:
+			switch = False
 		return switch
 			
 	def shift_notes(self, msg):
