@@ -75,14 +75,15 @@ class RefaceCP:
 		if port is not None:
 			port.send(msg.Message('control_change', control=control, value=self.sustain_value, channel=msg.channel))
 		return is_sustain
-		
+	
+	# I think I'm gonna have to redo this and incorporate the switch control as well
 	def tremolo(self, port=None, msg=None, new_depth=tremolo_wah_depth_control, new_rate=tremolo_wah_rate_control):
 		is_tremolo = False
 		is_on = (self.tremolo_wah_value == self.up)
 		if msg is not None:
 			if msg.is_cc(self.tremolo_wah_control):
 				self.tremolo_wah_value = msg.value
-				is_tremolo = (self.tremolo_wah_value == self.up)
+				is_tremolo = (self.tremolo_wah_value == self.up) # this won't work as we also want to see when it is turned off
 			elif msg.is_cc(self.tremolo_wah_depth_control):
 				self.tremolo_wah_depth_value = msg.value
 				if port is not None and is_on:
@@ -95,7 +96,6 @@ class RefaceCP:
 			port.send(msg.Message('control_change', control=new_depth, value=self.tremolo_wah_depth_value, channel=msg.channel))
 			port.send(msg.Message('control_change', control=new_rate, value=self.tremolo_wah_rate_value, channel=msg.channel))
 		return is_tremolo
-		
 			
 
 		

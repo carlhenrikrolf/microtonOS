@@ -100,16 +100,28 @@ Making a xenharmonic synth out of a Raspberry Pi
 **53edo.** Approximates Indian classical music. Also approximates Turkish music and music from the [Western Sahel](learn/west_sahelian.md) (e.g. Mali).
 
 ### Layouts
+d is a distance parameter. A suitible value is the size of the minor or neutral third.
 
-**Exquis.** Similar to Gerhard and harmonic table.
+**Preset 0.**
+d=3 is the Exquis default layout.
+![Preset 0](layouts/exquis.svg)
 
-**Accordion B.**
+**Preset 1.**
+d=3 is the harmonic table.
+The harmonic table has been used in C-thru's AXiS controller as well as in the Lumatone controller.
+![Preset 1](layouts/harmonic_table.svg)
 
-**Accordion C.**
+**Preset 2.**
+d=3 is the Wicki--Hayden layout suggested for the bandoneón.
+Most bandoneóns, however, use a non-isomorphic layout that is different for the left and right hands and for pulling or pushing the bellows.
+Imagine that for several different tunings!
+Life is short so that is something we will ignore.
+![Preset 2](layouts/wicki-hayden.svg)
 
-**Wicki-Hayden.** Used on some bandoneóns.
-
-**Jazz.** Not in use elsewhere what I know of. Good for playing jazzy chords and shell voicings. Semi-isomorphic (i.e. you have to learn two shapes for each chord rather than 1).
+**Preset 3.**
+Any value of d corresponds to the Bosanquet--Wilson layout, which is similar to what is used in chromatic button accordeons for d=4.
+f3(d)=1 if d%3==0 else round(d), where % is the mod operator and round(d) rounds to nearest integer.
+![Preset 3](layouts/bosanquet-wilson.svg)
 
 ## Communities
 - Exquis/Dualo Discord and forum
