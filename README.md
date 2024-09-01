@@ -71,11 +71,22 @@ Making a xenharmonic synth out of a Raspberry Pi
 - The username should be 'pi'.
 - Install config files and systemd files with 'update_*.sh' scripts.
 
-## Presets
 
-### Tuning
-
+## Tuning Presets
 By default, the top note is concert A (440 Hz), but this can be changed according to step size.
+Equally divided octave (also known as equal temperament) is abbreviated as edo.
+Other intervals can alse be equally divided.
+The tuning presets are assigned to four different classes:
+(1) Default contains 12edo and white keys on the piano correspond to white lights on the Exquis.
+(2) Microtonal contains equal-step tunings with a step size smaller than one semitone (100 cents).
+White keys on the piano have red light, black keys have yellow light.
+(3) Macrotonal contains equal-step tunings with a step size larger than one semitone.
+White keys on the piano have green light, black keys have cyan light.
+Only every other octave (or other period) is lit.
+(4) Unequal contains tunings with non-equal step sizes.
+White keys on the piano have magenta light, black keys have blue light.
+If the step size is larger than one semitone, only every other period is lit.
+
 
 <b>5edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
 Used in Bantu music (e.g. in Ugandan music) and Indonesian classical music.
@@ -110,14 +121,14 @@ Used in Indonesian classical music as an alternative to 9edo.
 <b>19edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Approximates 1/3 meantone tuning used in classical European music from the 1600s.
 
-<b>Partial 48edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+<b>Partial 48edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 22-note subset of 48edo.
 Used in contemporary Turkish music.
 
 <b>22edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Used in experimental music.
 
-<b>Partial 53edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+<b>Partial 53edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 22-note subset of 53edo.
 Approximates Indian classical music---in particular, its 22 shrutis.
 Used in many other cultures as well including Turkish classical music and [West-Sahelian](learn/west_sahelian.md) classical music.
@@ -132,7 +143,7 @@ Approximates classical Arabic music.
 Approximates 1/4 meantone tuning used in classical European music from the 1600s.
 
 
-### Layouts
+## Layout Presets
 d is a distance parameter. A suitible value is the size of the minor or neutral third.
 Below, the presets are named after the layout for d=3.
 
