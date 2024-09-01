@@ -104,23 +104,31 @@ d is a distance parameter. A suitible value is the size of the minor or neutral 
 
 **Preset 0.**
 d=3 is the Exquis default layout.
+d=3 plus left--right flip is the Gerhard layout used in Shiverware's Musix Pro.
 ![Preset 0](layouts/exquis.svg)
 
 **Preset 1.**
 d=3 is the harmonic table.
-The harmonic table has been used in C-thru's AXiS controller as well as in the Lumatone controller.
+The harmonic table has been used in C-thru's AXiS controllers as well as in the Lumatone controller.
+d=2 is the Park layout used in Shiverware's Musix Pro.
 ![Preset 1](layouts/harmonic_table.svg)
 
 **Preset 2.**
-d=3 is the Wicki--Hayden layout suggested for the bandoneón.
-Most bandoneóns, however, use a non-isomorphic layout that is different for the left and right hands and for pulling or pushing the bellows.
-Imagine that for several different tunings!
-Life is short so that is something we will ignore.
+d=3 is the Wicki--Hayden layout. For calculations, see below. The Wicki--Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
+The bandoneón typically uses a non-isomorphic layout that is different between the left and right hands as well as whether the instrument is squeezed or dragged. Life is short so we will ignore such complex layouts.
 ![Preset 2](layouts/wicki-hayden.svg)
 
+f<sub>3</sub>(d)=round(d/3) if d%3 > 0 else max{i: i%2 > 0, 1 <= i < d/3},
+
+where round(x) rounds x to the nearest integer and x%y > 0 if and only if x is not divisible by y. It is easiest to break this down into two cases. If d is not divisible by 3, f<sub>3</sub>(d) is the integer nearest the fraction d/3. Otherwise, it is the largest odd integer less than d/3. For example, if you want to use d=6 for 24edo and you use round(d/3) instead (as in the first case), the layout will only use half of the tones and be equivalent to 12edo.
+
 **Preset 3.**
-Any value of d corresponds to the Bosanquet--Wilson layout, which is similar to what is used in chromatic button accordeons for d=4.
-f3(d)=1 if d%3==0 else round(d), where % is the mod operator and round(d) rounds to nearest integer.
+Bosanquet--Wilson layouts.
+d=3 is the Jankó layout.
+d=4 is the type C accordion layout.
+d=4 plus left--right flip corresponds to both the type B accordion layout and the dugmetara layout (popular in the Balkans).
+d=5, 6, 8, and 13
+correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 53edo respecrively. 
 ![Preset 3](layouts/bosanquet-wilson.svg)
 
 ## Communities
