@@ -75,29 +75,62 @@ Making a xenharmonic synth out of a Raspberry Pi
 
 ### Tuning
 
-**12edo.** Used in contemporary music. Limited use in classical Chinese music.
+By default, the top note is concert A (440 Hz), but this can be changed according to step size.
 
-**24edo.** Used in contemporary arabic music.
+<b>5edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
+Used in Bantu music (e.g. in Ugandan music) and Indonesian classical music.
 
-**17edo.** Approximates classical [Iranian music](learn/iranian.md).
+<b>7edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
+Used in Bantu music (e.g. in Zimbabwean music).
 
-**29edo.** Approximates classical Arabic music.
+<b>13ed3 (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
+Bohlen--Pierce scale.
+Used in experimental music.
 
-**9ed3/2.** Wendy Carlos's Alpha Scale. Can also be used to approximate maqam Saba in Arabic music.
+<b>9edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
+Approximates Indonesian classical music.
 
-**19edo.** Approximates 1/3 meantone tuning used in classical European music from the 1600s.
+<b>5edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
+A 10-note superset of 5edo. When ascending every other note is 10 Hz lower than the next resulting in compressed octaves.
+Used in Indonesian classical music as an alternative to 5edo.
 
-**31edo.** Approximates 1/4 meantone tuning used in classical European music from the 1600s.
+**12edo (default).** Used in contemporary music. Limited use in classical Chinese music.
 
-**13ed3.** Bohlen--Pierce Scale used in experimental music.
+<b>9ed3/2 (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Wendy Carlos's Alpha Scale. Can also be used to approximate maqam Saba in Arabic music.
 
-**7edo.** Used in Bantu music (e.g. in Zimbabwean music).
+<b>17edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Approximates [Iranian classical music](learn/iranian.md).
 
-**5edo.** Used in Bantu music (e.g. in Ugandan music) and Indonesian classical music
+<b>9edo+ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
+An 18-note superset of 9edo.
+When ascending every other note is 10 Hz higher than the last resulting in stretched octave.
+Used in Indonesian classical music as an alternative to 9edo.
 
-**9edo.** Approximates Indonesian classical music.
+<b>19edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Approximates 1/3 meantone tuning used in classical European music from the 1600s.
 
-**53edo.** Approximates Indian classical music. Also approximates Turkish music and music from the [Western Sahel](learn/west_sahelian.md) (e.g. Mali).
+<b>Partial 48edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+A 22-note subset of 48edo.
+Used in contemporary Turkish music.
+
+<b>22edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Used in experimental music.
+
+<b>Partial 53edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+A 22-note subset of 53edo.
+Approximates Indian classical music---in particular, its 22 shrutis.
+Used in many other cultures as well including Turkish classical music and [West-Sahelian](learn/west_sahelian.md) classical music.
+
+<b>24edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Used in contemporary arabic music.
+
+<b>29edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Approximates classical Arabic music.
+
+<b>31edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+Approximates 1/4 meantone tuning used in classical European music from the 1600s.
+
 
 ### Layouts
 d is a distance parameter. A suitible value is the size of the minor or neutral third.
