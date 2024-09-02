@@ -1,7 +1,7 @@
 # Xenharmonic Chords
 A common way to analyse chords and chord progressions is through functional harmony.
 Functional harmony is, however, difficult to generalise to other tuning systems.
-Therefore, I first describe a simplified theory of harmony in 12edo, which I then generalsie to any tuning system.
+Therefore, I first describe a simplified theory of harmony in 12edo, which I then generalise to any tuning system.
 
 ## Tension and Release in 12edo
 Release chords (also known as consonant chords) sound good in isolation and often occur at the end of a song or section thereof.
@@ -57,7 +57,7 @@ The amount can be any amount, but 1,2, or 3 steps in 12edo are common, for examp
 
 **Descending fifths.**
 In descending fifths, the roots either descend by a fifth or ascend by a fourth (5 in 12edo).
-An example is the II-V-I progression, for example: Bbm7, Eb13, D69.
+An example is the II-V-I progression, for example: Bbm7, Eb13, Db69.
 A progression can be both planing and descending fifth at the same time.
 
 **Common notes.**
@@ -72,11 +72,15 @@ If the tuning has poor approximations of the fifths, you can remove that rule.
 Similarly for tunings with poor approximations of the octave.
 If both the fifth and the octave are poorly approximated, harmony according to these principles will become very difficult.
 For such tunings, another theory would be preferable.
+For such tunings, consider using the harmonic series just intonation, on which there are ample resources elsewhere.
 Generalising tension chords is trivial ...
 
 Generalising progressions is easy by using scale steps.
+It is especially easy when the notes are mapped to a traditional piano (Halberstadt) layout.
 I wonder if that is why descending scale steps are so common in contemporary Middle Eastern and Indian musics.
+(Note that Middle Eastern and Indian classical musics do not use harmony apart from parallel octaves and bass drone notes.)
 Planing is easy if the tuning has steps of equal size, such as an edo, ed3/2, etc.
+It is especially easy if notes are mapped to an isomorpic keyboard layout.
 For unequal tunings, more care must be taken and planing may not even be possible.
 Descending fifths is possible if both fifths and octaves are well approximated.
 Note that if both the fifth and the octave are well approximated, then the fouth will also be.
