@@ -14,14 +14,13 @@ Notes in a scale can have many different functions; the *finalis* is interpreted
 |dastgah segah | 2, 5, 7, 9, 12, 15 | 3, 7, 10, 13, 17, 21, 24 | Ep |
 |dastgah nava | 3, 4, 7, 10, 12, 16, 17 | 4, 6, 10, 14, 17, 20, 24 | G |
 |dastgah homayun | 2, 6, 7, 10, 11, 15 | 3, 8, 10, 14, 16, 20, 24 | G |
-|avaz bayat-e-esfahan^[homayun] | 3, 4, 7, 10, 12, 16, 17 | 4, 6, 10, 14, 17, 22, 24 | G |
+|avaz bayat-e-esfahan| 3, 4, 7, 10, 12, 16, 17 | 4, 6, 10, 14, 17, 22, 24 | G |
 |dastgah chahargah | 2, 6, 7, 10, 12, 16, 17 | 3, 8, 10, 14, 17, 22, 24 | C |
 |dastgah mahur | 3, 6, 7, 10, 13, 16, 17 | 4, 8, 10, 14, 18, 22, 24 | C |
-|dastgah rast-panjgah^[mahur] | 3, 6, 7, 10, 13, 16, 17  | 4, 8, 10, 14, 18, 22, 24 | F |
+|dastgah rast-panjgah | 3, 6, 7, 10, 13, 16, 17  | 4, 8, 10, 14, 18, 22, 24 | F |
 
-[homayun]: Avaz bayat-e-esfahan is a mode of dastgah homayun.
-[mahur]: Dastgah rast-panjgah is a transposition of dastgah mahur.
-
+Avaz bayat-e-esfahan is a mode of dastgah homayun.
+Dastgah rast-panjgah is a transposition of dastgah mahur.
 Numbers within () represent alternative notes that can for example be used instead when descending.
 
 Iranian classical music make use of European musical notation with two added accidentals.
