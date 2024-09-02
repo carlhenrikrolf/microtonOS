@@ -43,26 +43,7 @@ Making a xenharmonic synth out of a Raspberry Pi
 - cargo
 - Raspberry Pi OS (Bookworm) 64bit
 
-## Literature
-- *Inside Arabic Music* and maqamworld.org. The book contains additional information on tuning and sayr (modulation pathways).
-- *The Real Arab Book* by Jacob Nakav
-- Xen Wiki
-- Wikipedia
-- Scala website
-- Oud for guitarists
-- Adam Neely
-- Learning Lumatone
-- Zhea(nna) Erose
-- Tolgahan Cogulu
-- Between the Lines
-- Encyclopedia Iranica
-- Anuja Kamat
-- Amir El Saffar
-- Tarek Yamani
-- Maya Youssef
-- koramusic.org
-- sevish.com
-- Tonalsoft Encyclopedia
+
 
 ## Installation
 - Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
@@ -70,6 +51,9 @@ Making a xenharmonic synth out of a Raspberry Pi
 	- Python packages should be installed in a virtual environment at /home/pi/.venv/
 - The username should be 'pi'.
 - Install config files and systemd files with 'update_*.sh' scripts.
+
+### Customisation
+For usage with other software and hardware synthesisers, it is useful to know something about [tuning standards](learn/tuning_standards.md).
 
 
 ## Tuning Presets
@@ -102,7 +86,7 @@ Used in experimental music.
 Approximates Indonesian classical music.
 
 <b>5edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
-A 10-note superset of 5edo. When ascending every other note is 10 Hz lower than the next resulting in compressed octaves.
+A 10-note superset of 5edo. When ascending every other note is 10 Hz higher than the last resulting in compressed octaves.
 Used in Indonesian classical music as an alternative to 5edo.
 
 **12edo (default).** Used in contemporary music. Limited use in classical Chinese music.
@@ -113,9 +97,9 @@ Wendy Carlos's Alpha Scale. Can also be used to approximate maqam Saba in Arabic
 <b>17edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Approximates [Iranian classical music](learn/iranian.md).
 
-<b>9edo+ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
+<b>9edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 An 18-note superset of 9edo.
-When ascending every other note is 10 Hz higher than the last resulting in stretched octave.
+When ascending every other note is 10 Hz lower than the next resulting in stretched octave.
 Used in Indonesian classical music as an alternative to 9edo.
 
 <b>19edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
@@ -176,12 +160,36 @@ d=5, 6, 8, and 13
 correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 53edo respectively. 
 ![Jankó](layouts/bosanquet-wilson.svg)
 
+## Whereto from Here?
+Making [xenharmonic chord progressions](learn/xenharmonic_chords.md).
+
 ## Communities
 - Exquis/Dualo Discord and forum
 - Zynthian forum and wiki
 - Xenharmonic Alliance Discord
 - Surge Discord
 - Modartt forum
+
+## Literature
+- *Inside Arabic Music* and maqamworld.org. The book contains additional information on tuning and sayr (modulation pathways).
+- *The Real Arab Book* by Jacob Nakav
+- Xen Wiki
+- Wikipedia
+- Scala website
+- Oud for guitarists
+- Adam Neely
+- Learning Lumatone
+- Zhea(nna) Erose
+- Tolgahan Cogulu
+- Between the Lines
+- Encyclopedia Iranica
+- Anuja Kamat
+- Amir El Saffar
+- Tarek Yamani
+- Maya Youssef
+- koramusic.org
+- sevish.com
+- Tonalsoft Encyclopedia
  
 
 ## Alternatives and Future Work
@@ -204,5 +212,4 @@ Chromatone is another non-LED option for a hexagonal layout, so are digital acco
 - Raspberry Pi 4, I had a good deal for, but you really want the CPU of the 5.
 - Non-DIY approaches to sound modules do not seem feasible, e.g., Midiplus PianoEngine seems like the best piano module that could act microtonally (through GM), but it does not seem that good.
 There are multiple decent organ modules, e.g. the Ferrofish B4000+, but they do not support polyphonic microtonality for more than 3 channels and those channels would have different timbres as they correspond to upper and lower manuals as well as pedals.
-- Learning about [tuning standards](learn/tuning_standards.md).
 
