@@ -7,13 +7,14 @@ Therefore, I first describe a simplified theory of harmony in 12edo, which I the
 Release chords (also known as consonant chords) sound good in isolation and often occur at the end of a song or section thereof.
 Tension chords do not sound good on there own, but alternating between tension chord and release chords makes a song more interesting.
 
+**Release.**
 I define release chords as having five features: the root, the voice, fifths, octaves, and deletions.
 For example, consider the chord Am7.
-The root (0 in any tuning system) is A---the lowest tone.
-The voice is the minor third (3 in 12edo).
+The *root* (0 in any tuning system) is A---the lowest tone.
+The *voice* is the minor third (3 in 12edo).
 It is written as m in the chord symbol.
 It can, however, be any other (ascending) interval and gives the chord its character.
-Fifths (7 in 12 edo) can be added (ascending) to already present notes in the chord.
+*Fifths* (7 in 12 edo) can be added (ascending) to already present notes in the chord.
 Adding a fifth above the root is so common it is not even notated.
 (Am7 without the fifth could be written as Am7(no5).)
 The minor seventh (10 in 12edo) is a fifth above the minot third. 
@@ -23,17 +24,18 @@ Adding 11 fifths to the root would mean using all 12 tones of 12edo, which would
 How many fifths that can be added vary according to personally tastes and musical styles, see the table below.
 |style     |voices (in 12edo)|fifths (number of)|
 |----------|-----------------|------------------|
-|rock, metal, many tradional musics|7|0|
+|rock, metal, many traditional musics|7|0|
 |pop, hip hop, European classical music, and many more|3,4,5|1 to 2|
 |jazz, RnB|2,3,4,5|2 to 5|
 |flamenco|2,3,4,5|1 to 6|
 |salsa, tango|8,9|2 to 3|
 |12-tone music|any|up to 11|
 
-Octaves (12 in 12edo) can be added (ascending or, as long as the root is the lowest, descending) to already present nnnotes in the chord.
-If the note is duplicated across octaves, it can be deleted.
+*Octaves* (12 in 12edo) can be added (ascending or, as long as the root is the lowest, descending) to already present nnnotes in the chord.
+If the note is duplicated across octaves, it can be *deleted*.
 Otherwise, deletion will still keep the chord as a release chord but its charcter may change.
 
+**Tension.**
 A tension chord is any chord that is not a release chord.
 For example, E7b9b13 is a tension chord for all styles except 12-tone music.
 The major third (4 in 12edo, implicit in the notation) has the major 7th (11 in 12edo) a fifth above---not the minor seventh.
@@ -43,18 +45,22 @@ A natural thirteenth (21 in 12edo) would be acceptable in a release chord, but n
 ## Progressions in 12edo
 There are four common types of chord progressions that can be combined in different ways: scale steps, planing, descending fifths, common notes.
 
+**Scale steps.**
 In scale steps, chord notes are picked from the scale to form the first chord.
 In the second chord, each note is either moved up or down one scale step.
 This can be repeated.
 Descending is more common as exemplified in different versions of the Andalusian cadence: Am, G, F, Em.
 
+**Planing.**
 In planing, the all the notes in the second chord have been moved by the same amount.
 The amount can be any amount, but 1,2, or 3 steps in 12edo are common, for example: Dmaj7, Fmaj7, Emaj7, Ebmaj7.
 
-In descending fifth, the roots either descend by a fifth or ascend by a fourth (5 in 12edo).
+**Descending fifths.**
+In descending fifths, the roots either descend by a fifth or ascend by a fourth (5 in 12edo).
 An example is the II-V-I progression, for example: Bbm7, Eb13, D69.
 A progression can be both planing and descending fifth at the same time.
 
+**Common notes.**
 In common notes (also known as connecting notes), the second chord shares at least one note with the first.
 An example is tritone substitution/half Andalusian cadence, for example: F7#9#11, E(b9).
 Another common example is any progression where the root does not change but other notes do.
