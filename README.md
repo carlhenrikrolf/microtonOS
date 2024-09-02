@@ -128,7 +128,7 @@ Used in contemporary arabic music.
 Approximates classical Arabic music.
 
 <b>31edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
-Approximates 1/4 meantone tuning used in [European classical music](european..md) from the 1600s.
+Approximates 1/4 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
 Closely approximates the harmonic seventh (the seventh harmonic in just intonation).
 
 ## Layout Presets
