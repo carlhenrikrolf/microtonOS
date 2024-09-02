@@ -1,4 +1,7 @@
-# West Sahelian Classical Music
+# West-Sahelian Classical Music
+
+> [!warning]
+> My knowledge of West-Sahelian music is limited and mistakes are very likely.
 
 names | 53edo
 ------|------

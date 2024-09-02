@@ -29,7 +29,7 @@ How many fifths that can be added vary according to personally tastes and musica
 |jazz, RnB|2,3,4,5|2 to 5|
 |flamenco|2,3,4,5|1 to 6|
 |salsa, tango|8,9|2 to 3|
-|12-tone music|any|up to 11|
+|12-tone music|any|unlimited|
 
 *Octaves* (12 in 12edo) can be added (ascending or, as long as the root is the lowest, descending) to already present nnnotes in the chord.
 If the note is duplicated across octaves, it can be *deleted*.

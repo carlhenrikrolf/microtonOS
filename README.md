@@ -73,10 +73,10 @@ If the step size is larger than one semitone, only every other period is lit.
 
 
 <b>5edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Used in Bantu music (e.g. in Ugandan music) and Indonesian classical music.
+Used in [Bantu traditional music](learn/bantu.md) (e.g. in Ugandan music) and Indonesian classical music.
 
 <b>7edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Used in Bantu music (e.g. in Zimbabwean music).
+Used in [Bantu traditional music](learn/bantu.md) (e.g. in Zimbabwean music).
 
 <b>13ed3 (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
 Bohlen--Pierce scale.
@@ -89,7 +89,10 @@ Approximates Indonesian classical music.
 A 10-note superset of 5edo. When ascending every other note is 10 Hz higher than the last resulting in compressed octaves.
 Used in Indonesian classical music as an alternative to 5edo.
 
-**12edo (default).** Used in contemporary music. Limited use in classical Chinese music.
+**12edo (default).** Used in contemporary music. Limited use in East Asian classical music.
+Used in [American urban music](learn/american.md).
+Used in [Romani traditional music](learn/romani.md).
+
 
 <b>9ed3/2 (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Wendy Carlos's Alpha Scale. Can also be used to approximate maqam Saba in Arabic music.
@@ -103,10 +106,11 @@ When ascending every other note is 10 Hz lower than the next resulting in stretc
 Used in Indonesian classical music as an alternative to 9edo.
 
 <b>19edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
-Approximates 1/3 meantone tuning used in classical European music from the 1600s.
+Approximates 1/3 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
+The minor and major third closely approximates their justly tuned counterparts, but the cost is that the fifth is not close to its justly tuned counterpart.
 
 <b>Partial 48edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
-A 22-note subset of 48edo.
+A 19-note subset of 48edo.
 Used in contemporary Turkish music.
 
 <b>22edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
@@ -124,8 +128,8 @@ Used in contemporary arabic music.
 Approximates classical Arabic music.
 
 <b>31edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
-Approximates 1/4 meantone tuning used in classical European music from the 1600s.
-
+Approximates 1/4 meantone tuning used in [European classical music](european..md) from the 1600s.
+Closely approximates the harmonic seventh (the seventh harmonic in just intonation).
 
 ## Layout Presets
 d is a distance parameter. A suitible value is the size of the minor or neutral third.
