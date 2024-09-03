@@ -85,9 +85,10 @@ Used in experimental music.
 <b>9edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
 Approximates [Indonesian classical music](learn/indonesian.md).
 
-<b>5edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
-A 10-note superset of 5edo. When ascending every other note is 10 Hz higher than the last resulting in compressed octaves.
-Used in [Indonesian classical music](learn/indonesian.md) as an alternative to 5edo.
+<b>Pythagorean (<font color="magenta">un</font><font color="blue">equal</font>).</b>
+Ancient tuning that seems to have been discovered independently by different cultures.
+Some intervals sound really consonant, but the problem is that others sound very dissonant.
+That is the problem that equal step tunings solve.
 
 **12edo (default).** Used in contemporary music.
 Was independently discovered in [Europe](learn/european.md) and [China](learn/east_asian.md).
@@ -97,7 +98,7 @@ Approximates [Ethiopian classical music](learn/ethiopian.md).
 
 
 <b>9ed3/2 (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
-Wendy Carlos's Alpha Scale. Can also be used to approximate maqam Saba in Arabic music.
+Wendy Carlos's Alpha Scale. Can also be used to approximate maqam saba in [Arabic music](learn/arabic.md).
 
 <b>17edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Approximates [Iranian classical music](learn/iranian.md).
@@ -113,7 +114,7 @@ The minor and major third closely approximates their justly tuned counterparts, 
 
 <b>Partial 48edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 19-note subset of 48edo.
-Used in contemporary Turkish music.
+Used in contemporary [Turkish music](learn/turkish.md).
 
 <b>22edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Used in experimental music.
@@ -121,16 +122,16 @@ Used in experimental music.
 <b>Partial 53edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 22-note subset of 53edo.
 Approximates [Indian classical music](learn/indian.md) well---in particular, its 22 shrutis.
-Used in Turkish classical music.
+Used in [Turkish classical music](learn/turkish.md).
 After to 12edo, it is the tuning that can approximate the largest number of traditional musics including (apart from Indian and Turkish):
 [West-Sahelian classical music](learn/west_sahelian.md) and
 [East-Asian classical music](learn/east_asian.md).
 
 <b>24edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
-Used in contemporary arabic music.
+Used in contemporary [Arabic music](learn/arabic.md).
 
 <b>29edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
-Approximates classical Arabic music.
+Approximates [Arabic classical music](learn/arabic.md).
 
 <b>31edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Approximates 1/4 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
