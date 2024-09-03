@@ -1,5 +1,7 @@
 # European Classical Music
 
+12edo was independently discovered by Simon Stevin in Europe.
+
 |     | 12edo | 19edo | 31edo |
 |-----|-------|-------|-------|
 |major (ionian) | 2, 4, 5, 7, 9, 11, 12 | 3, 6, 8, 11, 14, 17, 19 | 5, 10, 13, 18, 23, 28, 31 |

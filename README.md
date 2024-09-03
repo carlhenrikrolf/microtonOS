@@ -90,6 +90,7 @@ A 10-note superset of 5edo. When ascending every other note is 10 Hz higher than
 Used in Indonesian classical music as an alternative to 5edo.
 
 **12edo (default).** Used in contemporary music. Limited use in East Asian classical music.
+Was independently discovered in [Europe](learn/european.md) and [China](learn/east_asian.md).
 Used in [American urban music](learn/american.md).
 Used in [Romani traditional music](learn/romani.md).
 
