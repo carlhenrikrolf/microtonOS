@@ -11,6 +11,7 @@ Alternatives to Intuitive Instruments Exquis
 ![Hexboard](hexboard.jpeg)
 ![H-pi Instruments Tonal Plexus](h-pi_instruments_tonal_plexus.jpg)
 ![Intuitive Instruments Dualo](intuitive_instruments_dualo.webp)
+![Ketron](ketron.jpg)
 ![Linnstrument](linnstrument.jpeg)
 ![Lumatone](lumatone.jpg)
 ![Madrona Labs Soundplane](madrona_labs_soundplane.jpg)

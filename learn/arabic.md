@@ -12,7 +12,7 @@
 |jins musta'ar | 5, 7 | 6, 9 |
 |jins mukhalif sharqi | 3, 2 | 4, 2 |
 
-|     |      |mode|
+|     |      |     |mode|
 |-----|------|-----|----|
 |jins rast | jins nikriz | jins 'ajam | 0|
 |jins bayati | jins hijaz | jins nahawand | 1|
