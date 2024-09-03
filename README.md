@@ -120,7 +120,7 @@ Used in experimental music.
 
 <b>Partial 53edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 22-note subset of 53edo.
-Approximates Indian classical music well---in particular, its 22 shrutis.
+Approximates [Indian classical music](learn/indian.md) well---in particular, its 22 shrutis.
 Used in Turkish classical music.
 After to 12edo, it is the tuning that can approximate the largest number of traditional musics including (apart from Indian and Turkish):
 [West-Sahelian classical music](learn/west_sahelian.md) and
