@@ -73,7 +73,7 @@ If the step size is larger than one semitone, only every other period is lit.
 
 
 <b>5edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Used in [Bantu traditional music](learn/bantu.md) (e.g. in Ugandan music) and Indonesian classical music.
+Used in [Bantu traditional music](learn/bantu.md) (e.g. in Ugandan music) and [Indonesian classical music](learn/indonesian.md).
 
 <b>7edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
 Used in [Bantu traditional music](learn/bantu.md) (e.g. in Zimbabwean music).
@@ -83,16 +83,17 @@ Bohlen--Pierce scale.
 Used in experimental music.
 
 <b>9edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Approximates Indonesian classical music.
+Approximates [Indonesian classical music](learn/indonesian.md).
 
 <b>5edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 10-note superset of 5edo. When ascending every other note is 10 Hz higher than the last resulting in compressed octaves.
-Used in Indonesian classical music as an alternative to 5edo.
+Used in [Indonesian classical music](learn/indonesian.md) as an alternative to 5edo.
 
-**12edo (default).** Used in contemporary music. Limited use in East Asian classical music.
+**12edo (default).** Used in contemporary music.
 Was independently discovered in [Europe](learn/european.md) and [China](learn/east_asian.md).
 Used in [American urban music](learn/american.md).
 Used in [Romani traditional music](learn/romani.md).
+Approximates [Ethiopian classical music](learn/ethiopian.md).
 
 
 <b>9ed3/2 (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
@@ -104,7 +105,7 @@ Approximates [Iranian classical music](learn/iranian.md).
 <b>9edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 An 18-note superset of 9edo.
 When ascending every other note is 10 Hz lower than the next resulting in stretched octave.
-Used in Indonesian classical music as an alternative to 9edo.
+Used in [Indonesian classical music](learn/indonesian.md) as an alternative to 9edo.
 
 <b>19edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Approximates 1/3 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
@@ -119,8 +120,11 @@ Used in experimental music.
 
 <b>Partial 53edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
 A 22-note subset of 53edo.
-Approximates Indian classical music---in particular, its 22 shrutis.
-Used in many other cultures as well including Turkish classical music and [West-Sahelian](learn/west_sahelian.md) classical music.
+Approximates Indian classical music well---in particular, its 22 shrutis.
+Used in Turkish classical music.
+After to 12edo, it is the tuning that can approximate the largest number of traditional musics including (apart from Indian and Turkish):
+[West-Sahelian classical music](learn/west_sahelian.md) and
+[East-Asian classical music](learn/east_asian.md).
 
 <b>24edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
 Used in contemporary arabic music.
