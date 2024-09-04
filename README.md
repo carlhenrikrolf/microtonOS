@@ -89,6 +89,7 @@ Approximates [Indonesian classical music](learn/indonesian.md).
 Ancient tuning that seems to have been discovered independently by different cultures.
 Some intervals sound really consonant, but the problem is that others sound very dissonant.
 That is the problem that equal step tunings solve.
+See [just intonation](learn/just_intonation.md).
 
 **12edo (default).** Used in contemporary music.
 Was independently discovered in [Europe](learn/european.md) and [China](learn/east_asian.md).

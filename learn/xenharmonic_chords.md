@@ -9,17 +9,17 @@ Tension chords do not sound good on there own, but alternating between tension c
 
 **Release.**
 I define release chords as having five features: the root, the voice, fifths, octaves, and deletions.
-For example, consider the chord Am7.
+For example, consider the chord A-7 (A-minor seventh, sometimes m is used instead of -).
 The *root* (0 in any tuning system) is A---the lowest tone.
 The *voice* is the minor third (3 in 12edo).
-It is written as m in the chord symbol.
+It is written as - in the chord symbol.
 It can, however, be any other (ascending) interval and gives the chord its character.
 *Fifths* (7 in 12 edo) can be added (ascending) to already present notes in the chord.
 Adding a fifth above the root is so common it is not even notated.
-(Am7 without the fifth could be written as Am7(no5).)
+(Am7 without the fifth could be written as A-7(no5).)
 The minor seventh (10 in 12edo) is a fifth above the minot third. 
 It is written as 7 in the chord symbol.
-A fifth can be added to the fifth to form an Am9 and/or to the seventh to form an Am11.
+A fifth can be added to the fifth to form an A-9 and/or to the seventh to form an A-11.
 Adding 11 fifths to the root would mean using all 12 tones of 12edo, which would be difficult to call a release chord.
 How many fifths that can be added vary according to personally tastes and musical styles, see the table below.
 |style     |voices (in 12edo)|fifths (number of)|
@@ -85,3 +85,5 @@ For unequal tunings, more care must be taken and planing may not even be possibl
 Descending fifths is possible if both fifths and octaves are well approximated.
 Note that if both the fifth and the octave are well approximated, then the fouth will also be.
 Generalising common notes is trivial!
+
+
