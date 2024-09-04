@@ -2,8 +2,9 @@
 
 <PROPERTIES>
   <VALUE name="audioSetup">
-    <DEVICESETUP deviceType="JACK" audioOutputDeviceName="system" audioInputDeviceName=""
-                 audioDeviceRate="48000.0" audioDeviceBufferSize="1024"/>
+    <DEVICESETUP deviceType="ALSA" audioOutputDeviceName="JACK Audio Connection Kit"
+                 audioInputDeviceName="JACK Audio Connection Kit" audioDeviceRate="48000.0"
+                 audioDeviceBufferSize="512"/>
   </VALUE>
   <VALUE name="filterStateXML">
     <SonoBusAoO>
