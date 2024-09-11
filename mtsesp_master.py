@@ -13,6 +13,7 @@ import time
 from midi_implementation.exquis import exquis as xq
 from utils import Outport, Inport, make_threads
 
+
 # definitions
 def retune(interval=2.0, n_divisions=12, hz440=440.0, concert_a=69):
 	frequencies = [hz440]*128
