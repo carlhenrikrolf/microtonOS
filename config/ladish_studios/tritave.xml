@@ -2,7 +2,7 @@
 <!--
 ladish Studio configuration.
 -->
-<!-- Wed Sep  4 13:15:16 2024 -->
+<!-- Mon Sep  9 15:29:39 2024 -->
 <studio>
   <jack>
     <conf>
@@ -53,6 +53,8 @@ ladish Studio configuration.
           <port name="Router (playback): Reface CP to Router" uuid="e8808c9c-23e3-490b-b4c0-807b528e49e8" />
           <port name="Router (playback): MTS-ESP (Exquis) to Router" uuid="8d7ca814-3f8b-4d71-9052-a615df981c9a" />
           <port name="Router (playback): MTS-ESP (Halberstadt) to Router" uuid="b42c8aba-f17a-4d66-abdb-b3cb8811407b" />
+          <port name="WIDI Master (capture): WIDI Master Bluetooth" uuid="d000dded-7468-4bc0-ad36-f28be17d2af7" />
+          <port name="WIDI Master (playback): WIDI Master Bluetooth" uuid="88c395d8-f7f4-45e6-85ff-89236f1ad4c9" />
         </ports>
       </client>
       <client name="claudia" uuid="f5937843-ee8b-471c-a76f-87fb2387e4ce">
@@ -89,16 +91,16 @@ ladish Studio configuration.
           <port name="out_1" uuid="f691ee17-7672-46c2-bbaa-464584b833bc" />
         </ports>
       </client>
-      <client name="sonobus.C.5292.4" uuid="e9d291db-f082-4b32-afdc-9834ecaec62c">
+      <client name="sonobus.C.1679.6" uuid="2ea45195-c882-4f0a-b4bf-3b2a198c57db">
         <ports>
-          <port name="in_000" uuid="3dc37df4-67d3-46cc-b77e-3f59d8ca2183" />
-          <port name="in_001" uuid="6f13f764-aa07-4aa9-b6eb-628b15886291" />
+          <port name="in_000" uuid="3f8dcd2b-e7af-4bd0-b127-08d85db9dbf3" />
+          <port name="in_001" uuid="bb3d4c4e-aa31-4150-a301-5e655fc33d29" />
         </ports>
       </client>
-      <client name="sonobus.P.5292.5" uuid="82b08897-3896-4dc0-8b8f-54eb9b3905c8">
+      <client name="sonobus.P.1679.7" uuid="6ac8196e-3bdb-466b-9a24-2794489d6a6f">
         <ports>
-          <port name="out_000" uuid="3219aece-26b9-4898-84ff-8f99215af0ed" />
-          <port name="out_001" uuid="8a8d4aac-3360-4a38-a478-87e6f0172335" />
+          <port name="out_000" uuid="220e00ea-0f8b-4c28-9e36-910401e48518" />
+          <port name="out_001" uuid="45facb50-5000-4c78-9f09-c8eca1a8e3e4" />
         </ports>
       </client>
     </clients>
@@ -303,24 +305,26 @@ ladish Studio configuration.
         <key name="http://ladish.org/ns/canvas/y">1769.0</key>
       </dict>
     </client>
-    <client name="sonobus.C.5292.4" uuid="ca761668-ff1c-4e7a-b8cf-49c3a7df2b99" naming="app">
+    <client name="sonobus.C.1679.6" uuid="0ec631d7-956b-494f-9eff-2611e8db8c5c" naming="app">
       <ports>
-        <port name="in_000" uuid="3dc37df4-67d3-46cc-b77e-3f59d8ca2183" type="audio" direction="input" />
-        <port name="in_001" uuid="6f13f764-aa07-4aa9-b6eb-628b15886291" type="audio" direction="input" />
+        <port name="in_000" uuid="3f8dcd2b-e7af-4bd0-b127-08d85db9dbf3" type="audio" direction="input" />
+        <port name="in_001" uuid="bb3d4c4e-aa31-4150-a301-5e655fc33d29" type="audio" direction="input" />
       </ports>
-      <dict>
-        <key name="http://ladish.org/ns/canvas/x">2152.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1724.0</key>
-      </dict>
     </client>
-    <client name="sonobus.P.5292.5" uuid="3b8274ea-0948-4c3a-9190-88de3c4c6f7d" naming="app">
+    <client name="sonobus.P.1679.7" uuid="5e71ab10-a232-45ab-985e-c3c547b9b4b8" naming="app">
       <ports>
-        <port name="out_000" uuid="3219aece-26b9-4898-84ff-8f99215af0ed" type="audio" direction="output" />
-        <port name="out_001" uuid="8a8d4aac-3360-4a38-a478-87e6f0172335" type="audio" direction="output" />
+        <port name="out_000" uuid="220e00ea-0f8b-4c28-9e36-910401e48518" type="audio" direction="output" />
+        <port name="out_001" uuid="45facb50-5000-4c78-9f09-c8eca1a8e3e4" type="audio" direction="output" />
+      </ports>
+    </client>
+    <client name="WIDI Master" uuid="f2f5053c-7a37-4370-a010-2218de2d5683" naming="app">
+      <ports>
+        <port name="WIDI Master Bluetooth" uuid="d000dded-7468-4bc0-ad36-f28be17d2af7" type="midi" direction="output" />
+        <port name="WIDI Master Bluetooth" uuid="88c395d8-f7f4-45e6-85ff-89236f1ad4c9" type="midi" direction="input" />
       </ports>
       <dict>
-        <key name="http://ladish.org/ns/canvas/x">1670.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1301.0</key>
+        <key name="http://ladish.org/ns/canvas/x">1014.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1513.0</key>
       </dict>
     </client>
   </clients>
@@ -344,16 +348,11 @@ ladish Studio configuration.
     <connection port1="19423437-902b-4cf5-bfc3-3452db8a3dda" port2="87af3f71-a470-4ef2-a2bc-d246ec62ff36" />
     <connection port1="1f980586-8b0f-42d4-b9fd-7685014861e6" port2="a7b44c53-4fa9-4175-81b7-cdd7ef340c52" />
     <connection port1="f691ee17-7672-46c2-bbaa-464584b833bc" port2="87af3f71-a470-4ef2-a2bc-d246ec62ff36" />
-    <connection port1="3219aece-26b9-4898-84ff-8f99215af0ed" port2="a7b44c53-4fa9-4175-81b7-cdd7ef340c52" />
-    <connection port1="8a8d4aac-3360-4a38-a478-87e6f0172335" port2="87af3f71-a470-4ef2-a2bc-d246ec62ff36" />
-    <connection port1="04baaf42-7614-4f50-9355-0d7e7aa0644a" port2="3dc37df4-67d3-46cc-b77e-3f59d8ca2183" />
-    <connection port1="19423437-902b-4cf5-bfc3-3452db8a3dda" port2="6f13f764-aa07-4aa9-b6eb-628b15886291" />
-    <connection port1="925f49a7-091d-4cc3-920a-a09d254d04e5" port2="3dc37df4-67d3-46cc-b77e-3f59d8ca2183" />
-    <connection port1="e53a4144-0f45-4fed-9f6c-1449ea9fdce3" port2="6f13f764-aa07-4aa9-b6eb-628b15886291" />
-    <connection port1="8663f599-7b51-4921-835f-4f3bef7ec671" port2="3dc37df4-67d3-46cc-b77e-3f59d8ca2183" />
-    <connection port1="4323769d-b865-4fe0-94f0-b3a58b2e871c" port2="6f13f764-aa07-4aa9-b6eb-628b15886291" />
-    <connection port1="1f980586-8b0f-42d4-b9fd-7685014861e6" port2="3dc37df4-67d3-46cc-b77e-3f59d8ca2183" />
-    <connection port1="f691ee17-7672-46c2-bbaa-464584b833bc" port2="6f13f764-aa07-4aa9-b6eb-628b15886291" />
+    <connection port1="554575ca-beae-4f87-8ab8-28255ae108e3" port2="3f8dcd2b-e7af-4bd0-b127-08d85db9dbf3" />
+    <connection port1="84b2d65c-1ec4-4d42-9113-a3bbfd97048b" port2="bb3d4c4e-aa31-4150-a301-5e655fc33d29" />
+    <connection port1="220e00ea-0f8b-4c28-9e36-910401e48518" port2="a7b44c53-4fa9-4175-81b7-cdd7ef340c52" />
+    <connection port1="45facb50-5000-4c78-9f09-c8eca1a8e3e4" port2="87af3f71-a470-4ef2-a2bc-d246ec62ff36" />
+    <connection port1="d000dded-7468-4bc0-ad36-f28be17d2af7" port2="e8808c9c-23e3-490b-b4c0-807b528e49e8" />
   </connections>
   <applications>
   </applications>
