@@ -12,18 +12,33 @@ import time
 from midi_implementation.exquis import exquis as xq
 from utils import Outport, Inport, make_threads
 
+## Tuning
+
 # utilities
 def to_cents(ratio):
+	"""
+		Converts a frequency ratio to cents
+	"""
 	return 1200*np.log(ratio)/np.log(2)
 	
 def equal_step_tuning(steps=12, numerator=2, denominator=1):
+	"""
+		Produces a <steps> equally divided <numerator>/<denominator> tuning.
+		Output is one equave in cents starting at 0.0 cents.
+	"""
 	equave = [0.0]*steps
 	ratio = 1
 	for step in range(steps):
-		equave = to_cents(ratio)
+		equave[step] = to_cents(ratio)
 		ratio *= (numerator/denominator)**(1/steps)
+	return equave
 		
 def pythagorean(steps=12):
+	"""
+		Produces a Pythagorean tuning.
+		Default is 12 steps per octave.
+		Output is one octave in cents starting at 0.0
+	"""
 	octave = [0.0]*steps
 	ratio = 1
 	for tone in range(steps):
@@ -47,27 +62,98 @@ class BaseTuning:
 	key_switches = range(0, 24)
 	foot_switch = 64
 	
+	# the manuals have a sparser set of notes and may require more than 128 notes,
+	# hence they are spread out over 3 channels, which would still be more than 7 octaves for 53edo.
+	master_channel = 0
+	exquis_master = 0
+	member_channels = range(1,16)
+	exquis_members = range(1,10)
+	lower_manual_channels = [10, 11, 12]
+	lower_manual_main = lower_manual_channels[1]
+	upper_manuals_channels = [13, 14, 15]
+	upper_manual_main = upper_manual_channels[1]
+	
+	
 	white = None
 	black = None
 	alternating = False
 	self.frequencies = None
 	self.tuning_name = 'Unnamed'
 	
+	def reset_lower_manual(self):
+		raise Warning('reset_lower_manual must be defined in child class')
+	
+	def reset_upper_manual(self):
+		raise Warning('reset_upper_manual must be defined in child class')
+	
 	def color_keys(self):
 		 raise Warning('color_keys must be defined in child class')
 	
-	def reset(self,
-		octave_shift,
-		):
+	def reset(self,octave_shift=0,reset_switches=False):
+		"""
+			Resets the tuning.
+		"""
 		mts.set_note_tunings(self.frequencies**octave_shift)
 		mts.set_scale_name(self.tuning_name)
+		if reset_switches:
+			self.reset_lower_manual()
+			self.reset_upper_manual()
 		self.color_keys()
 		
-	def equal_step_tuning(self, steps=12, numerator=2, denominator=1):
-		frequencies = [self.concert_a_frequency]*128
-		for note in range(128):
-			frequencies[note] *= (numerator/denominator)**((note-self.concert_a)/steps
-		return frequencies
+	def default_args(self, tuning_name, lower_manual=None, upper_manual=None):
+		if tuning_name is not None:
+			self.tuning_name = tuning_name
+		if lower_manual is not None:
+			if upper_manual is not None:
+				self.upper_manual = upper_manual
+			else:
+				self.upper_manual = lower_manual
+		
+	def remap_exquis(self, msg):
+		raise Warning('remap_exquis must be defined in child class')
+		
+	def remap_lower_manual(self, msg):
+		raise Warning('remap_lower_manual must be defined in child class')
+	
+	def remap_upper_manual(self, msg):
+		raise Warning('remap_upper_manual must be defined in child class')
+		
+	def dispatch_exquis(self, msg):
+		"""
+			Dispatches incoming channels from Exquis to another set of channels.
+		"""
+			...
+			return msg
+			
+	def dispatch_lower_manual(self, msg):
+		"""
+			Splits incoming lower manual to several channels.
+		"""
+			...
+			return msg
+			
+	def dispatch_upper_manual(self, msg)
+		"""
+			Splits incoming upper manual to several channels.
+		"""
+			...
+			return msg
+			
+	def merge_channels(self, msg): # This will necessitate that I put it in a separate file. Maybe should also apply to layouts?
+		"""
+			Merges the channels such that only 1, 2, 3 are in use.
+			Useful for setBfree or other synths that are not 'omni'
+		"""
+			if hasattr(msg, 'channel'):
+				if msg.channel == self.master_channel or msg.channel in self.member_channels:
+					msg.channel = 0
+				elif msg.channel in self.lower_manual_channels:
+					msg.channel = 1
+				elif msg.channel in self.upper_manuals_channels:
+					msg.channel = 2
+			return msg
+			
+			
 		
 
 
@@ -78,7 +164,7 @@ class Default(BaseTuning): # only 12edo
 	self.black = xq.blank
 	
 	def __init__(self):
-		self.tuning_name = '12edo'
+		self.default_args('12edo')
 			 
 class Micro(BaseTuning): # e.g. 17edo, 19edo, 22edo, 24edo, 29edo, 31edo
 	
@@ -90,10 +176,10 @@ class Micro(BaseTuning): # e.g. 17edo, 19edo, 22edo, 24edo, 29edo, 31edo
 		steps: int,
 		numerator: int,
 		denominator: int,
-		halberstadt_map: list,
+		lower_manual: list,
+		upper_manual=None,
 		):
-		if tuning_name is not None:
-			self.tuning_name = tuning_name
+		self.default_args(tuning_name, lower,_manual, upper_manual)
 	
 class Macro(BaseTuning): # e.g. 5edo, 7edo, 9edo, 13ed3
 	
@@ -106,10 +192,10 @@ class Macro(BaseTuning): # e.g. 5edo, 7edo, 9edo, 13ed3
 		steps: int,
 		numerator: int,
 		denominator: int,
-		halberstadt_map: list,
+		lower_manual: list,
+		upper_manual=None,
 		):
-		if tuning_name is not None:
-			self.tuning_name = tuning_name
+		self.default_args(tuning_name, lower,_manual, upper_manual)
 
 # the below are considered 'uneven' for now
 class Subset(BaseTuning): # e.g. 48edo, 53edo
@@ -123,10 +209,10 @@ class Subset(BaseTuning): # e.g. 48edo, 53edo
 		steps: int,
 		numerator: int,
 		denominator: int,
-		halberstadt_map: list,
+		lower_manual: list,
+		upper_manual=None,
 		):
-		if tuning_name is not None:
-			self.tuning_name = tuning_name
+		self.default_args(tuning_name, lower,_manual, upper_manual)
 	
 class Ombak(BaseTuning): # e.g. 7edo-ombak, 5edo+ombak
 	
@@ -141,10 +227,10 @@ class Ombak(BaseTuning): # e.g. 7edo-ombak, 5edo+ombak
 		steps: int,
 		numerator: int,
 		denominator: int,
-		halberstadt_map: list,
+		lower_manual: list,
+		upper_manual=None,
 		):
-		if tuning_name is not None:
-			self.tuning_name = tuning_name
+		self.default_args(tuning_name, lower_manual, upper_manual)
 	
 class Octave(BaseTuning): # e.g. Pythagorean, 7 notes from Wendy Carlos's harmonic scale
 	
@@ -156,8 +242,7 @@ class Octave(BaseTuning): # e.g. Pythagorean, 7 notes from Wendy Carlos's harmon
 		frequencies: [float]*12,
 		is_filtered=[False]*12,
 		):
-		if tuning_name is not None:
-			self.tuning_name = tuning_name
+		self.default_args(tuning_name)
 	
 class Arbitrary(BaseTuning): # e.g. the harmonic series
 	
@@ -169,13 +254,12 @@ class Arbitrary(BaseTuning): # e.g. the harmonic series
 		frequencies: [float]*128,
 		is_filtered=[False]*128,
 		):
-		if tuning_name is not None:
-			self.tuning_name = tuning_name
+		self.default_args(tuning_name)
 		
 tunings = [
 	Macro('5edo', 5, 2, 1, [None, 0, None, 1, None, None, 2, None, 3, None, 4, None]),
 	Macro('7edo', ...),
-	Octave('Just7', ...),
+	Octave('Just7', ...), # should I add a stepsize in 12edo to modulate there?
 	Macro('13ed3', ...),
 	Macro('9edo', ...),
 	Ombak('5edo+ombak', ...),
@@ -198,5 +282,126 @@ tunings = [
 	Micro('36edo', ...),
 	Arbitrary('Harmonic Series', ...),
 	]
+	
+
+class Layouts:
+	
+	def crop(self, overlap, split=False):
+		...
+	
+	def exquis(self, width=3, top_note=67):
+	
+		assert top_note in range(60, 128)
+		mapping = [[0]*6 if row % 2 == 0 else [0]*5 for row in range(0,11)]
+		overlap = (10 - width) % 5
+		
+		if width in range(1,6):
+			last_note = top_note
+			for row in range(10, -1, -1):
+				if row % 2 == 0: # is even
+					for col in range(5, -1, -1):
+						note = last_note - (5 - col)
+						mapping[row][col] = note
+					last_note = note - 1 + overlap
+				else:
+					for col in range(4, -1, -1):
+						note = last_note - (4 - col)
+						mapping[row][col] = note
+					last_note = note - 1 + overlap
+							
+		elif width in range(6,11):
+			last_note = top_note
+			for row in range(10, 5, -1):
+				if row % 2 == 0: # is even
+					for col in range(5, -1, -1):
+						note = last_note - (5 - col)
+						mapping[row][col] = note
+					last_note = note - 1 - 5 + overlap
+				else:
+					for col in range(4, -1, -1):
+						note = last_note - (4 - col)
+						mapping[row][col] = note
+					last_note = note - 6 + overlap
+			last_note = top_note - 6 + 1
+			for row in range(4, -1, -1):
+				if row % 2 == 0: # is even
+					for col in range(5, -1, -1):
+						note = last_note - (5 - col)
+						mapping[row][col] = note
+					last_note = note  - 1 - 5 + overlap
+				else:
+					for col in range(4, -1, -1):
+						note = last_note - (4 - col)
+						mapping[row][col] = note
+					last_note = note - 6 + overlap
+			
+		else:
+			raise ValueError('width must be in range [1, 11)')
+			
+		output = []
+		for row in mapping:
+			for key in row:
+				output.append(key)
+		return output
+		
+
+## Controls
+class Controls:
+	
+	def __init__(self):
+		...
+		
+	def octave(self, msg):
+		if 
+	
+	def orientation(self, ...):
+		...
+		
+	def transposition(self, ...):
+		...
+	
+	def tuning(self, ...):
+		...
+		
+	def dilation(self, ...):
+		...
+		
+	def layout(self, ...):
+		...
+		
+		
+
+class Script:
+	def __init__(self):
+		...
 
 
+## Script
+
+
+
+
+from_exquis = ...
+from_lower_manual = ...
+from_upper_manual = ...
+script = Script()
+to_exquis = ...
+to_lower_manual = ...
+to_upper_manual = ...
+	
+		
+
+# comments
+# --------
+# tuning is controlled by
+# 1. octave buttons
+# 2. knob 2 (tuning preset)
+# mapping is controlled by
+# 1. page buttons
+# 2. knob 1 (transpose)
+# 3. knob 3 (dilation)
+# 4. knob 4 (layout preset)
+# at each change all tuning/mapping respectively is reset
+#
+# tuning preset is chosen by picking an element from the tunings array and resetting
+# octave is chosen by passing an octave argument to reset
