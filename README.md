@@ -169,7 +169,7 @@ d=4 is the type C accordion layout.
 d=4 plus left--right flip corresponds to both the type B accordion layout and the dugmetara layout (popular in the Balkans).
 d=5, 6, 8, and 13
 correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 53edo respectively. 
-![Jankó](layouts/bosanquet-wilson.svg)
+![Jankó](layouts/janko.svg)
 
 ## Whereto from Here?
 Making [xenharmonic chord progressions](learn/xenharmonic_chords.md).
