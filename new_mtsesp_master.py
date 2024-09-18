@@ -37,12 +37,12 @@ def pythagorean(steps=12):
 	"""
 		Produces a Pythagorean tuning.
 		Default is 12 steps per octave.
-		Output is one octave in cents starting at 0.0
+		Output is one octave in intervals.
 	"""
 	octave = [0.0]*steps
 	ratio = 1
 	for tone in range(steps):
-		octave[tone] = to_cents(ratio)
+		octave[tone] = ratio
 		if tone % 2 == 0:
 			ratio *= 3/2
 		else:
@@ -151,10 +151,7 @@ class BaseTuning:
 					msg.channel = 1
 				elif msg.channel in self.upper_manuals_channels:
 					msg.channel = 2
-			return msg
-			
-			
-		
+			return msg		
 
 
 # different classes of tunings
@@ -256,18 +253,39 @@ class Arbitrary(BaseTuning): # e.g. the harmonic series
 		):
 		self.default_args(tuning_name)
 		
+class Custom(BaseTuning):
+	
+	self.white = xq.blank
+	self.black = xq.white
+	
+	def __init__(self,
+		steps,
+		numerator,
+		denominator,
+		):
+		self.default_args('Custom')
+		
 tunings = [
 	Macro('5edo', 5, 2, 1, [None, 0, None, 1, None, None, 2, None, 3, None, 4, None]),
-	Macro('7edo', ...),
-	Octave('Just7', ...), # should I add a stepsize in 12edo to modulate there?
-	Macro('13ed3', ...),
-	Macro('9edo', ...),
+	Macro('7edo', 7, 2, 1, [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6]),
+	Octave('Just7', [1, None, 9/8, None, 5/4, 11/8, None, 3/2, None, 13/8, None 7/4, None]),
+	Macro('13ed3', 13, 3, 1,
+		[
+			0, None, 1, None, 2, 3, 4, 5, None, 6, None, 7,
+			8, 9, 10, None, 11, 12, None, 13, None, 14, 15, 16,
+			17, None, 18, None, 19, 20, 21, 22, None, 23, 24, 25
+		]),
+	Macro('9edo', 9, 2, 1, [0, 1, None, 2, 3, 4, 5, None, 6, None, 7, 8]),
 	Ombak('5edo+ombak', ...),
-	Macro('10edo', ...),
+	Macro('10edo', 10, 2, 1, [0, 1, 2, 3, None, 4, 5, 6, 7, 8, 9, None]), # how to relate to 5edo?
 	Default(),
-	Octave('Pythagorean', ...),
-	Micro('14edo', ...),
-	Micro('9ed3/2', ...),
+	Octave('Pythagorean', pythagorean()),
+	Micro('14edo', 14, 2, 1, [0, 1, 2, 3, (4,5), 6, 7, 8, 9, 10, 11, (12,13)]),
+	Micro('9ed3/2', 9, 3, 2,
+		[
+			0, 1, 3, 4, 5, 7, 8, 9, 10, 12, None, 13,
+			16, 17, 18, ...
+		]),
 	Micro('17edo', ...),
 	Ombak('9edo-ombak', ...),
 	Micro('19edo', ...),
