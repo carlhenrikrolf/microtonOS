@@ -145,7 +145,7 @@ Below, the presets are named after the layout for d=3.
 **Exquis.**
 d=3 is the Exquis default layout.
 d=3 plus left--right flip is the Gerhard layout used in Shiverware's Musix Pro.
-![Exquis](layouts/exquis.svg)
+![Exquis](layouts/hexagonal_vs_rectangular.svg)
 
 **Harmonic table.**
 d=3 is the harmonic table.
