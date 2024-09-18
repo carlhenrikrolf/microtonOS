@@ -169,7 +169,7 @@ The bandoneón typically uses a non-isomorphic layout that is different between 
 
 ![Wicki--Hayden](layouts/wicki-hayden.svg)
 
-$$f_3(d)=\begin{cases}\mathrm{round}\left(\frac{d}{3}\right) & \mbox{if} & d\mod 3 > 0 \\ \max\{i\in\mathbb{N}: i\mod 2 > 0, 1 \geq i < \frac{d}{3} & \mbox{otherwise} &\end{cases}$$
+$$f_3(d)=\begin{cases}\mathrm{round}\left(\frac{d}{3}\right) & \mathrm{if\ } d\mod 3 > 0 \\ \max\left\{i\in\mathbf{N}: i\mod 2 > 0, 1 \leq i < \frac{d}{3}\right\} & \mathrm{otherwise}\end{cases}$$
 
 f<sub>3</sub>(d)=round(d/3) if d%3 > 0 else max{i: i%2 > 0, 1 <= i < d/3},
 
