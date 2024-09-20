@@ -192,7 +192,12 @@ correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 5
 
 ![Jankó](layouts/janko.svg)
 
-## Whereto from Here?
+## Learn More
+
+Different kinds of [microtonal instruments](learn/microtonal_instruments.md).
+
+[Isomorphic keyboards](learn/isomorphic_keyboards.md) that are or have been in production.
+
 Making [xenharmonic chord progressions](learn/xenharmonic_chords.md).
 
 ## Communities
