@@ -1,4 +1,7 @@
 # microtonOS
+
+![Rig](rig.jpeg)
+
 Making a xenharmonic synth out of a Raspberry Pi.
 Most microtonal/xenharmonic products are geared towards music production---microtonOS is not.
 microtonOS is a synthesiser meant for jamming.
@@ -8,7 +11,7 @@ microtonOS is a knob-per-function synthesiser with carefully selected presets.
 Furthermore, it is screen-free, and, at its height, visual feedback is a somewhat culture-agnostic geometric representation of the tuning system.
 The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 midi controller + 1 Linux computer.
 
-![Rig](rig.jpeg)
+
 
 ## Hardware
 - Yamaha Reface CP
