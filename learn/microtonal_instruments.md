@@ -62,7 +62,8 @@ That results in a 24edo tuning, but other tunings are possible as well.
 The archicembalo uses two manuals with so called split keys.
 These are small black keys normally placed on top of the (bigger) black keys.
 This way it is possible to use 31edo in an intuitive layout.
-These methods have few drawbacks---especially when used with electronic instruments---which is why I use it for microtonOS.
+These methods have few drawbacks---especially when used with electronic instruments.
+Therefore, I have planned it for future versions of microtonOS.
 
 **Shift buttons.**
 In music, a shift button is a button that changes the functions of other controls either when pressed or toggled on or off.

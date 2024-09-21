@@ -48,8 +48,6 @@ def pythagorean(steps=12):
 		else:
 			ratio /= 4/3
 	return octave
-	
-harmonic_series = [to_cents(i+1) for i in range(128)]
 
 # tuning
 class BaseTuning:
@@ -219,8 +217,8 @@ class Ombak(BaseTuning): # e.g. 7edo-ombak, 5edo+ombak
 	
 	def __init__(self,
 		tuning_name: str,
-		odd: float,
 		even: float,
+		odd: float,
 		steps: int,
 		numerator: int,
 		denominator: int,
@@ -266,39 +264,47 @@ class Custom(BaseTuning):
 		self.default_args('Custom')
 		
 tunings = [
-	Macro('5edo', 5, 2, 1, [None, 0, None, 1, None, None, 2, None, 3, None, 4, None]),
+	Macro('5edo', 5, 2, 1, [None, 0, None, 1, None, None, 2, None, 3, None, 4, None], concert_a_frequency=440.0*2**(1/5)),
 	Macro('7edo', 7, 2, 1, [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6]),
-	Octave('Just7', [1, None, 9/8, None, 5/4, 11/8, None, 3/2, None, 13/8, None 7/4, None]),
-	Macro('13ed3', 13, 3, 1,
-		[
+	Octave('Just7', [1, None, 9/8, None, 5/4, 11/8, None, 3/2, None, 13/8, None 7/4, None], unit='ratios'),
+	Macro('13ed3', 13, 3, 1, [
 			0, None, 1, None, 2, 3, 4, 5, None, 6, None, 7,
 			8, 9, 10, None, 11, 12, None, 13, None, 14, 15, 16,
 			17, None, 18, None, 19, 20, 21, 22, None, 23, 24, 25
 		]),
 	Macro('9edo', 9, 2, 1, [0, 1, None, 2, 3, 4, 5, None, 6, None, 7, 8]),
-	Ombak('5edo+ombak', ...),
-	Macro('10edo', 10, 2, 1, [0, 1, 2, 3, None, 4, 5, 6, 7, 8, 9, None]), # how to relate to 5edo?
+	Ombak('5edo+ombak', 0.0, +10.0, 5, 2, 1, [
+			None, 0, None, 2, None, None, 4, None, 6, None, 8, None,
+			None, 10, None, 12, None, None, 14, None, 16, None, 18, None,
+			None, 1, None, 3, None, None, 5, None, 7, None, 9, None,
+			None, 11, None, 13, None, None, 15, None, 17, None, 19, None
+		], concert_a_frequency=440.0*2**(1/5)),
+	Macro('10edo', 10, 2, 1, [0, 1, 2, 3, None, 4, 5, 6, 7, 8, 9, None]),
 	Default(),
-	Octave('Pythagorean', pythagorean()),
+	Octave('Pythagorean', pythagorean(), unit='ratios'),
 	Micro('14edo', 14, 2, 1, [0, 1, 2, 3, (4,5), 6, 7, 8, 9, 10, 11, (12,13)]),
-	Micro('9ed3/2', 9, 3, 2,
-		[
+	Micro('9ed3/2', 9, 3, 2, [
 			0, (1,2), 3, 4, (5,6), 7, 8, 9, (10,11), 12, 13, (14,15),
 			16, 17, 18, 19, (21,20), 22, 23, 24, None, 25, None, 26
 		]),
-	Micro('17edo', ...),
-	Ombak('9edo-ombak', ...),
-	Micro('19edo', ...),
+	Micro('17edo', 17, 2, 1, [0, 1, (2,3), 4, (5,6), 7, 8, (9,10), 11, (12,13), 14, (15,16)]),
+	Ombak('9edo-ombak', -10.0, 0.0, 9, 2, 1, [
+			0, 2, None, 4, 6, 8, 10, None, 12, None, 14, 16,
+			18, 20, None, 22, 24, 26, 28, None, 30, None, 32, 34,
+			1, 3, None, 5, 7, 9, 11, None, 13, None, 15, 17,
+			19, 21, None, 23, 25, 27, 29, None, 31, None, 33, 35
+		]),
+	Micro('19edo', [0, (2,1), (3,4), 5, (7,6), 8, (10,9), (11,12), 13, (15,14), 16, (18,17)]),
 	Micro('8ed4/3'), ...),
 	Subset('48edo', ...),
 	Micro('22edo', ...),
 	Subset('53edo', ...),
-	Micro('24edo', ...),
-	Micro('29edo', ...),
-	Micro('31edo', ...),
+	Micro('24edo', 24, 2, 1, [(0,-1), (2,1), (4,3), (6,5), (7,8), (10,9), (12,11), (14,13), (16,15), (18,17), (20,19), (21,22)]),
+	Micro('29edo', 29, 2, 1, [0, (2,3), (4,5), 7, (9,10), 12, (14,15), (16,17), 19, (21,22), 24, (26,27)]),
+	Micro('31edo', 31, 2, 1, [(0,1), (3,2), (5,4), 8, (11,10), (13,14), (16,15), (18,17), 21, (24,23), (26,27), (29,28)]),
 	Micro('34edo', ...),
 	Micro('36edo', ...),
-	Arbitrary('Harmonic Series', ...),
+	Arbitrary('Harmonic Series', range(1,129), unit='ratios'),
 	]
 	
 
