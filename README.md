@@ -1,6 +1,6 @@
 # microtonOS
 
-![Rig](rig.jpeg)
+![Rig](images/rig.jpeg)
 
 Making a xenharmonic synth out of a Raspberry Pi.
 Most microtonal/xenharmonic products are geared towards music production---microtonOS is not.
@@ -161,7 +161,7 @@ How the number of steps depend on d is shown by arrows.
 Number of steps for d=3 is also given as an example in the centres of the hexagons.
 $d=3$ plus left--right flip is the Gerhard layout used in Shiverware's Musix Pro.
 
-![Exquis](layouts/hexagonal_vs_rectangular.svg)
+![Exquis](images/hexagonal_vs_rectangular.svg)
 
 To the right, you can see a suggestion on how to map the hexagonal layout to a rectangular layout.
 $d=5$.
@@ -172,13 +172,13 @@ $d=3$ is the harmonic table.
 The harmonic table has been used in C-thru's AXiS controllers as well as in the Lumatone controller.
 $d=2$ is the Park layout used in Shiverware's Musix Pro.
 
-![Harmonic table](layouts/harmonic_table.svg)
+![Harmonic table](images/harmonic_table.svg)
 
 **Wicki--Hayden.**
 $d=3$ is the Wicki--Hayden layout. For calculations, see below. The Wicki--Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
 The bandoneón typically uses a non-isomorphic layout that is different between the left and right hands as well as whether the instrument is squeezed or dragged. Life is short so we will ignore such complex layouts.
 
-![Wicki--Hayden](layouts/wicki-hayden.svg)
+![Wicki--Hayden](images/wicki-hayden.svg)
 
 $f_3$ is defined by
 
@@ -201,7 +201,7 @@ $d=4$ plus left--right flip corresponds to both the type B accordion layout and 
 $d=5, 6, 8,$ and $13$
 correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 53edo respectively. 
 
-![Jankó](layouts/janko.svg)
+![Jankó](images/janko.svg)
 
 ## Learn More
 

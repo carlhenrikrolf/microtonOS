@@ -1,5 +1,5 @@
 TARGET_PATH="/lib/systemd/system/"
-SOURCE_PATH="/home/pi/microtonOS/systemd"
+SOURCE_PATH="../../config/systemd"
 for FILE in "$SOURCE_PATH"/*; do
 	if [ -f "$FILE" ]; then
 		FILENAME=$(basename "$FILE")
