@@ -1,0 +1,6 @@
+[submodule "exquis-firmware"]
+	path = third_part/exquis-firmware
+	url = https://github.com/carlhenrikrolf/exquis-firmware.git
+[submodule "third_party/exquis-firmware"]
+	path = third_party/exquis-firmware
+	url = https://github.com/carlhenrikrolf/exquis-firmware.git
