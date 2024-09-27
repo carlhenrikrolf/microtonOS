@@ -9,16 +9,31 @@ class BaseCustom:
 	
 	def __init__(self, outport):
 		self.is_editing = False
+		
 
-class CustomTuning(BaseCustom):
+class CustomTuning(BaseCustom): # future work
 	
 	def edit(self, msg):
-		pass # go through all knob inputs
+		if xq.is_sysex(msg, [xq.click, xq.button2, xq.pressed]):
+			self.is_editing = True
+		elif xq.is_sysex(msg, [xq.click, xq.button2, xq.released]):
+			self.is_editing = False
+		else:
+			return False
+		return True
+			
 
-class CustomLayout(BaseCustom):
+class CustomLayout(BaseCustom): # future work
 	
 	def edit(self, msg):
-		pass
+		if xq.is_sysex(msg, [xq.click, xq.button4, xq.pressed]):
+			self.is_editing = True
+		elif xq.is_sysex(msg, [xq.click, xq.button4, xq.released]):
+			self.is_editing = False
+		else:
+			return False
+		return True
+			
 
 class Encoders
 
@@ -30,14 +45,10 @@ class Encoders
 		tuning_presets=24,
 		init_layout_program = ...,
 		layout_presets=4,
-		init_transposition=[69]*4,
-		transposition_range=[range(...)]*4,
-		init_dilation=[3]*4,
-		dilation_range=[range(0,8)]*4,
+		init_transposition=69,
+		init_dilation=3,
 		):
 			
-		assert layout_presets == len(init_transposition) == len(transposition_range) == len(init_dilation) == len(dilation_range)
-		
 		self.outport = outport
 		self.init_equave = init_equave
 		self.equave_range = equave_range
@@ -46,9 +57,9 @@ class Encoders
 		self.init_layout_program = init_layout_program
 		self.layout_presets = layout_presets
 		self.init_transposition = init_transposition
-		self.transposition_range = transposition_range
+		self.transposition_range = ...
 		self.init_dilation = init_dilation
-		self.dilation_range = dilation_range
+		self.dilation_range = ... 
 		
 		self.equave = init_equave
 		self.tuning_program = init_tuning_program
@@ -61,51 +72,61 @@ class Encoders
 		self.is_left_right = False
 		self.is_up_down = False
 		
+		
 	def reset(self):
+		
 		xq.send(self.outport, [xq.color_button, xq.octave_up, xq.green])
 		xq.send(self.outport, [xq.color_button, xq.octave_down, xq.green])
 		xq.send(self.outport, [xq.color_button, xq.page_right, xq.green])
 		xq.send(self.outport, [xq.color_button, xq.page_left, xq.green])
-		xq.send(self.outport, [xq.color_knob, xq.knob1, color_coding(self.init_tuning_program)[0]])
-		xq.send(self.outport, [xq.color_knob, xq.knob2, color_coding(self.init_tuning_program)[1]])
-		xq.send(self.outport, [xq.color_knob, xq.knob3, color_coding(self.init_layout_program)[0]])
-		xq.send(self.outport, [xq.color_knob, xq.knob4, color_coding(self.init_layout_program)[1]])
-		
-	def handle(self, msg):
-		if xq.is_sysex(msg):
-			self.is_menu = ...
-			self.custom_tuning.is_editing = ...
-			self.custom_layout.is_editing = ...
-			is_altered = False
-			is_altered += self.equave_up(msg)
-			is_altered += self.equave_down(msg)
-			is_altered += self.flip_left_right(msg)
-			is_altered += self.flip_up_down(msg)
+		tuning_code = color_coding(self.init_tuning_program)
+		xq.send(self.outport, [xq.color_knob, xq.knob1, tuning_code[0]])
+		xq.send(self.outport, [xq.color_knob, xq.knob2, tuning_code[1]])
+		layout_code = color_coding(self.init_layout_program)
+		xq.send(self.outport, [xq.color_knob, xq.knob3, layout_code[0]])
+		xq.send(self.outport, [xq.color_knob, xq.knob4, layout_code[1]])
+	
+	
+	def handle(self,
+		msg,
+		transposition_range,
+		dilation_range,
+		is_mos,
+		min3rd,
+		):
+			
+		self.transposition_range = transposition_range
+		if self.transposition not in self.transposition_range:
 			...
-			if is_altered:
-				return {'equave': self.equave,
-				'tuning_program': self.tuning_program,
-				'layout_program': self.layout_program,
-				'transposition': self.transposition[self.layout_program],
-				'dilation': self.dilation[self.layout_program],
-				'is_left_right': self.is_left_right,
-				'is_up_down': self.is_up_down,
-				'is_editing': ...,
-				'is_custom_tuning': ...,
-				'custom_steps': ...,
-				'custom_numerator':, ...,
-				'custom_denominator': ...,
-				'is_custom_layout': ...,
-				'custom_up': ...,
-				'custom_left': ...,
-				'custom_splits': ...,
-				}
-			return None
+		self.dilation_range = dilation_range
+		if self.dilation not in self.dilation_range:
+			...
+		self.is_mos = is_mos
+		self.min3rd = min3rd
+		
+		is_encoder = False
+		if xq.is_sysex(msg):
+			# tuning
+			is_encoder += self.equave_up(msg)
+			is_encoder += self.equave_down(msg)
+			is_encoder += self.transpose(msg)
+			is_encoder += self.switch_preset_mos(msg)
+			is_encoder += self.tuning_preset(msg)
+			is_encoder += self.custom_tuning.edit(msg)
+			# layout
+			is_encoder += self.flip_left_right(msg)
+			is_encoder += self.flip_up_down(msg)
+			is_encoder += self.dilate(msg)
+			is_encoder += self.suggest_dilation(msg)
+			is_encoder += self.layout_preset(msg)
+			is_encoder += self.custom_layout.edit(msg)
+		return bool(is_encoder)
 			
 		
 	def is_on(self):
 		is_editing = self.custom_tuning.is_editing or self.custom_layout.is_editing
 		return not is_editing and not self.is_menu
+		
 	
 	def equave_up(self, msg):
 		if xq.is_sysex(msg, [xq.click, xq.octave_up, xq.pressed]) and self.is_on():
@@ -118,6 +139,7 @@ class Encoders
 				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.dark)) # update blank
 			return True
 		return False
+		
 	
 	def equave_down(self, msg):
 		if xq.is_sysex(msg, [xq.click, xq.octave_down, xq.pressed]) and self.is_on():
@@ -131,6 +153,7 @@ class Encoders
 			return True
 		return False
 		
+		
 	def flip_left_right(self, msg):
 		if xq.is_sysex(msg, [xq.click, xq.page_right, xq.pressed]) and self.is_on():
 			self.is_left_right = not self.is_left_right
@@ -140,6 +163,7 @@ class Encoders
 				xq.send(self.outport, [xq.color_button, xq.page_right, xq.green])
 			return True
 		return False
+		
 		
 	def flip_up_down(self, msg):
 		if xq.is_sysex(msg, [xq.click, xq.page_left, xq.pressed]) and self.is_on():
@@ -151,21 +175,63 @@ class Encoders
 			return True
 		return False
 		
-	def transpose(self, msg):
-		...
 		
-	def tuning_preset(self, msg):
-		...
+	def transpose(self, msg):
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob1, None]) and self.is_on():
+			self.transpose += 1 if self.transpose+1 in self.transpose_range else 0
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, None]) and self.is_on():
+			self.transpose -= 1 if self.transpose-1 in self.transpose_range else 0
+		else:
+			return False
+		return True
+		
 		
 	def switch_preset_mos(self, msg):
-		...
+		if xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]) and self.is_on():
+			self.is_mos = not self.is_mos
+			return True
+		return False
+		
+		
+	def tuning_preset(self, msg):
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob2, None]) and self.is_on():
+			self.tuning_program += 1 if self.tuning_program+1 in range(self.tuning_presets) else 0
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]) and self.is_on():
+			self.tuning_program -= 1 if self.tuning_program-1 in range(self.tuning_presets) else 0
+		else:
+			return False
+		code = color_coding(self.tuning_program)
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, code[0]))
+ 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, code[1]))
+ 		return True
+		
 		
 	def dilate(self, msg):
-		...
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob3, None]) and self.is_on():
+			self.dilation += 1 if self.dilation+1 in self.dilation_range else 0
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob3, None]) and self.is_on():
+			self.dilation -= 1 if self.dilation-1 in self.dilation_range else 0
+		else:
+			return False
+		return True
+		
 		
 	def suggest_dilation(self, msg):
-		...
+		if xq.is_sysex(msg, [xq.click, xq.button3, xq.pressed]) and self.is_on():
+			self.dilation = self.min3rd
+			return True
+		return False
+		
 		
 	def layout_preset(self, msg):
-		...
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob4, None]) and self.is_on():
+			self.layout_program += 1 if self.layout_program+1 in range(self.layout_presets) else 0
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]) and self.is_on():
+			self.layout_program -= 1 if self.layout_program-1 in range(self.layout_presets) else 0
+		else:
+			return False
+		code = color_coding(self.layout_program)
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, code[0]))
+ 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, code[1]))
+ 		return True
 		

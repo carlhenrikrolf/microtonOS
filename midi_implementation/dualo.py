@@ -139,7 +139,7 @@ class Exquis:
 				else:
 					return False
 			else:
-				if data[2] is any:
+				if data[2] is None:
 					if indata[3:5] == data[0:2]:
 						return True, (indata[5] if len(indata[5:]) == 1 else indata[5:])
 					else:
