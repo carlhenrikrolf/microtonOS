@@ -1,5 +1,10 @@
 from midi_implementation.dualo import exquis as xq
 
+def color_coding(number):
+	digits = [xq.white, xq.green, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.dark]
+	return [digits[number // 8], digits[number % 8]]
+	
+
 class BaseCustom:
 	
 	def __init__(self, outport):
@@ -56,6 +61,16 @@ class Encoders
 		self.is_left_right = False
 		self.is_up_down = False
 		
+	def reset(self):
+		xq.send(self.outport, [xq.color_button, xq.octave_up, xq.green])
+		xq.send(self.outport, [xq.color_button, xq.octave_down, xq.green])
+		xq.send(self.outport, [xq.color_button, xq.page_right, xq.green])
+		xq.send(self.outport, [xq.color_button, xq.page_left, xq.green])
+		xq.send(self.outport, [xq.color_knob, xq.knob1, color_coding(self.init_tuning_program)[0]])
+		xq.send(self.outport, [xq.color_knob, xq.knob2, color_coding(self.init_tuning_program)[1]])
+		xq.send(self.outport, [xq.color_knob, xq.knob3, color_coding(self.init_layout_program)[0]])
+		xq.send(self.outport, [xq.color_knob, xq.knob4, color_coding(self.init_layout_program)[1]])
+		
 	def handle(self, msg):
 		if xq.is_sysex(msg):
 			self.is_menu = ...
@@ -93,40 +108,46 @@ class Encoders
 		return not is_editing and not self.is_menu
 	
 	def equave_up(self, msg):
-		if xq.is_sysex(msg, [xq.click, xq.octave_up, xq.is_pressed]) and self.is_on():
+		if xq.is_sysex(msg, [xq.click, xq.octave_up, xq.pressed]) and self.is_on():
 			self.equave += 1 if self.equave+1 in self.equave_range else 0
 			if self.equave == self.init_equave:
-				xq.send(outport, xq.sysex(xq.color, xq.octave_up, xq.green))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.green))
 			elif self.equave == max(self.equave_range):
-				xq.send(outport, xq.sysex(xq.color, xq.octave_up, xq.white))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
 			else:
-				xq.send(outport, xq.sysex(xq.color, xq.octave_up, xq.dark)) # update blank
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.dark)) # update blank
 			return True
 		return False
 	
 	def equave_down(self, msg):
-		if xq.is_sysex(msg, [xq.click, xq.octave_down, xq.is_pressed]) and self.is_on():
+		if xq.is_sysex(msg, [xq.click, xq.octave_down, xq.pressed]) and self.is_on():
 			self.equave -= 1 if self.equave-1 in self.equave_range else 0
 			if self.equave == self.init_equave:
-				xq.send(outport, xq.sysex(xq.color, xq.octave_down, xq.green))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.green))
 			elif self.equave == min(self.equave_range):
-				xq.send(outport, xq.sysex(xq.color, xq.octave_down, xq.white))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
 			else:
-				xq.send(outport, xq.sysex(xq.color, xq.octave_down, xq.dark)) # update blank
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.dark)) # update blank
 			return True
 		return False
 		
 	def flip_left_right(self, msg):
-		if xq.is_sysex(msg, [xq.click, xq.left_right, xq.is_pressed]) and self.is_on():
+		if xq.is_sysex(msg, [xq.click, xq.page_right, xq.pressed]) and self.is_on():
 			self.is_left_right = not self.is_left_right
-			# send color
+			if self.is_left_right:
+				xq.send(self.outport, [xq.color_button, xq.page_right, xq.white])
+			else:
+				xq.send(self.outport, [xq.color_button, xq.page_right, xq.green])
 			return True
 		return False
 		
 	def flip_up_down(self, msg):
-		if xq.is_sysex(msg, [xq.click, xq.up_down, xq.is_pressed]) and self.is_on():
+		if xq.is_sysex(msg, [xq.click, xq.page_left, xq.pressed]) and self.is_on():
 			self.is_up_down = not self.is_up_down
-			# send color
+			if self.is_up_down:
+				xq.send(self.outport, [xq.color_button, xq.page_left, xq.white])
+			else:
+				xq.send(self.outport, [xq.color_button, xq.page_left, xq.green])
 			return True
 		return False
 		
