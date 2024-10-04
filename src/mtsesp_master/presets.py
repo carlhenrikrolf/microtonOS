@@ -48,7 +48,7 @@ tunings = [
 	Arbitrary('Harmonic Series', range(1,129), 3, unit='ratios'),
 	]
 			
-default_tuning = 7
+default_tuning_pgm = 7
 			
 layouts = [
 	exquis,
@@ -57,18 +57,20 @@ layouts = [
 	janko,
 	]
 	
-default_layout = 0
+default_layout_pgm = 0
 
 
-class PresetData:
+class Presets:
 	
 	tunings = tunings
-	default_tuning = default_tuning
+	default_tuning_pgm = default_tuning_pgm
+	default_tuning = tunings[default_tuning_pgm]
 	n_tunings = len(tunings)
 	
 	layouts = layouts
-	default_isomorphic_layout = default_layout
-	n_layouts = len(isomorphic_layouts)
+	default_layout_pgm = default_layout_pgm
+	default_layout = layouts[default_layout_pgm]
+	n_layouts = len(layouts)
 	
 presets = Presets()
 	
