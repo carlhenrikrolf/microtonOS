@@ -1,4 +1,5 @@
 # modules
+import math
 import mido
 import mtsespy as mts
 import numpy as np
@@ -8,6 +9,9 @@ from midi_implementation.exquis import exquis as xq
 from utils import Outport, Inport, make_threads
 
 # definitions
+
+	
+
 def to_cents(ratio):
 	"""
 		Converts a frequency ratio to cents
@@ -41,6 +45,21 @@ def pythagorean(steps=12):
 		else:
 			ratio /= 4/3
 	return octave
+	
+def ombakify(ombak_on_even, ombak_on_odd, steps, numerator=2, denominator=1, reference_pitch=440.0, reference_note=69):
+		assert ombak_on_even <= 0 <= ombak_on_odd
+		frequencies = [reference_frequencies]*128
+		for i, note in enumerate(range(reference_note,128))
+			if i % 2 == 0: # is even
+				frequencies[note] *= (numerator/denominator)**((i+2)/(steps*2))
+				frequencies[note] += ombak_on_even
+			else:
+				frequencies[note] *= (numerator/denominator)**((i+1)/(steps*2))
+				frequencies[note] += ombak_on_odd
+		for i, note in enumerate(range(69,0,-1)):
+			if (1-i) % 2 == 0:
+				frequencies[note-1]
+				.... # im really too tired to think :/
 
 # tuning
 class BaseTuning:

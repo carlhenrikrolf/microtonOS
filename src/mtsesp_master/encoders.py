@@ -1,8 +1,10 @@
 from midi_implementation.dualo import exquis as xq
+from utils import color_coding
+from presets import presets
 
-def color_coding(number):
-	digits = [xq.white, xq.green, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.dark]
-	return [digits[number // 8], digits[number % 8]]
+#def color_coding(number):
+#	digits = [xq.white, xq.lime, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.dark]
+#	return [digits[number // 8], digits[number % 8]]
 	
 
 class BaseCustom:
@@ -41,10 +43,10 @@ class Encoders
 		outport,
 		init_equave=0,
 		equave_range=range(-2,3),
-		init_tuning_program = ...,
-		tuning_presets=24,
-		init_layout_program = ...,
-		layout_presets=4,
+		init_tuning_program=presets.default_tuning
+		tuning_presets=presets.n_tunings
+		init_layout_program = presets.default_layout
+		layout_presets=presets.n_layouts
 		init_transposition=69,
 		init_dilation=3,
 		):
