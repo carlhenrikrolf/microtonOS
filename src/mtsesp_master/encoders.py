@@ -4,7 +4,10 @@
 """
 
 from midi_implementation.dualo import exquis as xq
-from utils import color_coding
+
+def color_coding(number):
+	digits = [xq.white, xq.lime, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.dark]
+	return [digits[number // 8], digits[number % 8]]
 
 
 class BaseCustom: # future work
@@ -37,7 +40,7 @@ class CustomLayout(BaseCustom): # future work
 		return True
 			
 
-class Encoders
+class Encoders:
 
 	def __init__(self,
 		outport,
