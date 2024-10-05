@@ -19,23 +19,56 @@ client_name = 'New MTS-ESP master'
 
 # imports
 import mido
+from mtsesp_master.presets import init
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
 from utils import Outport, Inport, make_threads
 
 # script
 class Script:
+	
 	def __init__(self):
+		
 		self.is_init = True
+		
+		self.equave = init.equave
+		self.is_left_right = init.is_left_right
+		self.is_up_down = init.is_up_down
+		self.transposition = init.transposition
+		self.transposition_range = init.transposition_range
+		self.n_tunings = init.n_tunings
+		self.tuning_pgm = init.tuning_pgm
+		
 	def run(self, msg):
+		
 		if self.is_init:
 			encoders.reset()
 			self.is_init = False
-		left_right = encoders.flip_left_right(msg)
-		if left_right is True:
-			print('höger-vänster-speglad')
-		elif left_right is False:
-			print('höger-vänster normal')
+			
+		happened, self.equave = encoders.change_equave(msg, self.equave)
+		if happened:
+			print('ekvav =', self.equave)
+			
+		happened, self.is_left_right = encoders.flip_left_right(msg)
+		if happened:
+			print('höger--vänster-speglad är', self.is_left_right)
+		happened, self.is_up_down = encoders.flip_up_down(msg)
+		if happened:
+			print('upp--ner-speglad är', self.is_up_down)
+			
+		happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
+		if happened:
+			print('transponering = ', self.transposition)
+		happened, self.transposition = encoders.toggle_transposition(msg, self.transposition)
+		if happened:
+			print('transponering = ', self.transposition)
+			
+		happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
+		if happened:
+			print('stämning =', self.tuning_pgm)
+			
+		
+		
 		
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
 encoders = Encoders(to_isomorphic)
