@@ -66,93 +66,20 @@ class Inport:
 							if not (msg.type in ['aftertouch', 'polytouch']) and i<len(pending):
 								self.process(msg)
 						time.sleep(self.length)
-					
-class NewEngine:
-	def __init__(self, name, verbose=True):
-		self.name = name
-		self.verbose = verbose
-		while True:
-			try:
-				self.output = mido.open_output('to '+self.name)
-				self.error = False
-				break
-			except:
-				self.error = True
-				print('Failed to connect to port', self.name, 'Trying again.')
-				time.sleep(1)
-	def change(self, new):
-		self.name = new
-		self.output.close()
-		try:
-			self.output = mido.open_output('to '+self.name)
-			self.error = False
-		except:
-			self.output = mido.open_output()
-			self.error = True
-			print('Failed to connect to port', self.name, 'Connected to default port.')
-	def send(self, msg):
-		self.output.send(msg)
-		if self.verbose and not is_expression(msg):
-			if self.error:
-				print('Not sending (no connection):', msg)
-			else:
-				if self.name is None:
-					print('Send:', msg)
-				else:
-					print('Send (to '+self.name+'):', msg)
-			
-		
-					
-class Engine:
-	ids = ['']*5
-	ids[0] = 'to Acoustic Pianoteq Wrapper'
-	ids[1] = 'to Electric Pianoteq Wrapper'
-	ids[2] = 'to tuneBfree Wrapper'
-	ids[3] = 'to Surge XT Wrapper'
-	ids[4] = 'to Reface CP Wrapper'
-	def __init__(self, verbose=True):
-		self.verbose = verbose
-		self.current_engine = self.ids[0]
-		try:
-			self.outport = mido.open_output(self.current_engine)
-			self.error = False
-		except:
-			self.outport = mido.open_output()
-			self.error = True
-	def change(self, msg):
-		if msg.is_cc(0):
-			self.outport.close()
-			self.current_engine = self.ids[msg.value]
-			if msg.value < len(self.ids):
-				try:
-					self.outport = mido.open_output(self.current_engine)
-					self.error = False
-				except:
-					self.outport = mido.open_output()
-					self.error = True
-			else:
-				self.outport = mido.open_output()
-				self.error = True
-			return True
-		else:
-			return False
-	def send(self, msg):
-		self.outport.send(msg)
-		if self.verbose:
-			if self.error:
-				print('Send to NOWHERE:', msg)
-			else:
-				print('Send (to '+self.current_engine+'):', msg)
+
 				
-def make_threads(functions):
+def make_threads(functions, args=None):
 	n = len(functions)
+	args = [()]*n if args is None else args
 	threads = [None]*n
 	for i in range(n):
-		threads[i] = threading.Thread(target=functions[i], daemon=True)
+		threads[i] = threading.Thread(target=functions[i], args=args[i], daemon=True)
 	for thread in threads:
 		thread.start()
 	for thread in threads:
 		thread.join()
+		
+		
 		
 def handle_terminations(processes):
 	def signal_handler(signum, frame):

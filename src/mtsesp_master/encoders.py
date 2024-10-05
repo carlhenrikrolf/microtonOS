@@ -74,18 +74,18 @@ class Encoders:
 			Resets some saved values in this class.
 		"""
 		if self.init_equave in self.equave_range:
-			xq.send(self.outport, [xq.color_button, xq.octave_up, xq.green])
-			xq.send(self.outport, [xq.color_button, xq.octave_down, xq.green])
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.lime))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.lime))
 		else:
 			raise Warning('Initial end-point octaves not yet implemented.')
-		xq.send(self.outport, [xq.color_button, xq.page_right, xq.green])
-		xq.send(self.outport, [xq.color_button, xq.page_left, xq.green])
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.lime))
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.lime))
 		tuning_code = color_coding(self.init_tuning_pgm)
-		xq.send(self.outport, [xq.color_knob, xq.knob1, tuning_code[0]])
-		xq.send(self.outport, [xq.color_knob, xq.knob2, tuning_code[1]])
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, tuning_code[0]))
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, tuning_code[1]))
 		layout_code = color_coding(self.init_layout_pgm)
-		xq.send(self.outport, [xq.color_knob, xq.knob3, layout_code[0]])
-		xq.send(self.outport, [xq.color_knob, xq.knob4, layout_code[1]])
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, layout_code[0]))
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, layout_code[1]))
 		
 		self.is_left_right = False
 		self.is_up_down = False
@@ -98,7 +98,7 @@ class Encoders:
 		
 	def is_on(self): # for compatibility of future work
 		is_editing = self.custom_tuning.is_editing or self.custom_layout.is_editing
-		return not is_editing and not self.is_menu
+		return not is_editing
 		
 	
 	def change_equave(self, msg, equave):
@@ -133,9 +133,9 @@ class Encoders:
 		if xq.is_sysex(msg, [xq.click, xq.page_right, xq.pressed]) and self.is_on():
 			self.is_left_right = not self.is_left_right
 			if self.is_left_right:
-				xq.send(self.outport, [xq.color_button, xq.page_right, xq.white])
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.white))
 			else:
-				xq.send(self.outport, [xq.color_button, xq.page_right, xq.green])
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.green))
 			return self.is_left_right
 		return None
 		
@@ -147,9 +147,9 @@ class Encoders:
 		if xq.is_sysex(msg, [xq.click, xq.page_left, xq.pressed]) and self.is_on():
 			self.is_up_down = not self.is_up_down
 			if self.is_up_down:
-				xq.send(self.outport, [xq.color_button, xq.page_left, xq.white])
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.white))
 			else:
-				xq.send(self.outport, [xq.color_button, xq.page_left, xq.green])
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.green))
 			return self.is_up_down
 		return None
 		
@@ -200,8 +200,8 @@ class Encoders:
 			return None
 		code = color_coding(tuning_pgm)
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, code[0]))
- 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, code[1]))
- 		return tuning_pgm
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, code[1]))
+		return tuning_pgm
 		
 		
 	def dilate(self, msg, dilation, dilation_range):
@@ -249,6 +249,6 @@ class Encoders:
 			return None
 		code = color_coding(self.layout_program)
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, code[0]))
- 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, code[1]))
- 		return layout_pgm
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, code[1]))
+		return layout_pgm
 		
