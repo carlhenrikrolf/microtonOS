@@ -19,7 +19,7 @@ client_name = 'New MTS-ESP master'
 
 # imports
 import mido
-from mtsesp_master.presets import init
+from mtsesp_master.settings import init
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
 from utils import Outport, Inport, make_threads
