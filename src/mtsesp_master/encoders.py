@@ -6,7 +6,7 @@
 from midi_implementation.dualo import exquis as xq
 
 def color_coding(number):
-	digits = [xq.white, xq.lime, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.dark]
+	digits = [xq.dark, xq.lime, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.white]
 	return [digits[number // 8], digits[number % 8]]
 
 
@@ -44,15 +44,15 @@ class Encoders:
 
 	def __init__(self,
 		outport,
-		equave_range=range(-2,3),
 		equave=0,
+		equave_range=range(-2,3),
+		transposition=69,
 		n_tunings=24,
 		tuning_pgm=0,
+		dilation=3,
 		n_layouts=4,
 		layout_pgm=0,
-		transposition=69,
-		dilation=3,
-		):
+	):
 			
 		self.outport = outport
 		self.equave_range = equave_range
@@ -225,8 +225,8 @@ class Encoders:
 		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob3, None]) and self.is_on():
 			self.dilation = dilation-1 if dilation-1 in dilation_range else dilation
 		else:
-			return None
-		return self.dilation
+			return False, dilation
+		return True, self.dilation
 		
 		
 	def toggle_dilation(self, msg, min3rd):
@@ -238,26 +238,26 @@ class Encoders:
 		if xq.is_sysex(msg, [xq.click, xq.button3, xq.pressed]) and self.is_on():
 			self.dilation_is_toggled = not self.dilation_is_toggled
 			if self.dilation_is_toggled:
-				return min3rd
+				return True, min3rd
 			else:
-				return self.dilation
-		return None
+				return True, self.dilation
+		return False, self.dilation
 		
 		
-	def layout_preset(self, msg, layout_pgm, n_layouts):
+	def layout_preset(self, msg, layout_pgm):
 		"""
 			Given the current layout and the total number of layouts,
 			the function checks whether to increment or decrement
 			the layout program.
 		"""
 		if xq.is_sysex(msg, [xq.clockwise, xq.knob4, None]) and self.is_on():
-			layout_pgm = layout_pgm+1 if layout_pgm+1 < n_layouts else layout_pgm
-		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]) and self.is_on():
+			layout_pgm = layout_pgm+1 if layout_pgm+1 < self.n_layouts else layout_pgm
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob4, None]) and self.is_on():
 			layout_pgm = layout_pgm-1 if layout_pgm-1 >= 0 else layout_pgm
 		else:
-			return None
-		code = color_coding(self.layout_program)
+			return False, layout_pgm
+		code = color_coding(layout_pgm)
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, code[0]))
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, code[1]))
-		return layout_pgm
+		return True, layout_pgm
 		

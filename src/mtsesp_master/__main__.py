@@ -38,6 +38,10 @@ class Script:
 		self.transposition_range = init.transposition_range
 		self.n_tunings = init.n_tunings
 		self.tuning_pgm = init.tuning_pgm
+		self.dilation = init.dilation
+		self.dilation_range = init.dilation_range
+		self.n_layouts = init.n_layouts
+		self.layout_pgm = init.layout_pgm
 		
 	def run(self, msg):
 		
@@ -58,20 +62,39 @@ class Script:
 			
 		happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
 		if happened:
-			print('transponering = ', self.transposition)
+			print('transponering =', self.transposition)
 		happened, self.transposition = encoders.toggle_transposition(msg, self.transposition)
 		if happened:
-			print('transponering = ', self.transposition)
+			print('transponering =', self.transposition)
 			
 		happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
 		if happened:
 			print('stämning =', self.tuning_pgm)
 			
-		
+		happened, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
+		if happened:
+			print('utspädning =', self.dilation)
+		happened, self.dilation = encoders.toggle_dilation(msg, 3)
+		if happened:
+			print('utspädning =', self.dilation)
+			
+		happened, self.layout_pgm = encoders.layout_preset(msg, self.layout_pgm)
+		if happened:
+			print('layout =', self.layout_pgm)
+			
 		
 		
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
-encoders = Encoders(to_isomorphic)
+encoders = Encoders(to_isomorphic,
+	equave=init.equave,
+	equave_range=init.equave_range,
+	transposition=init.transposition,
+	n_tunings=init.n_tunings,
+	tuning_pgm=init.tuning_pgm,
+	dilation=init.dilation,
+	n_layouts=init.n_layouts,
+	layout_pgm=init.layout_pgm,
+)
 active_sensing = ActiveSensing(to_isomorphic)
 script = Script()
 from_isomorphic = Inport(script.run, client_name, name='isomorphic', verbose=False)
