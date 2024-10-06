@@ -160,15 +160,20 @@ In contrast, the mapping of notes to the isomorphic layout is independent of the
 ### Halberstadt
 
 ### Isomorphic
-$d$ is a dilation parameter.
-A suitible value is the size of the minor or neutral third.
-For a more jazzy sound, try the major third or perfect fourth.
-Below, the presets are named after the layout for $d=3$.
+I suggest to think of musically useful isomorphic layouts as belonging to one of four categories.
+Each category depends on three parameters:
+whether the layout is mirrored (flipped) in the left--right direction,
+whether it is flipped in the up--down position,
+and the value of the 'dilation'.
+The dilation is notated $d$ and defined separately for each category below.
+A suitable value is the size of the minor or neutral third.
+For a more jazzy sound (or the Studio Ghibli sound), try the major third or perfect fourth.
+Below, the layouts are named according to $d=3$.
 
 **Exquis.**
 $d=3$ is the Exquis default layout.
 How the number of steps depend on d is shown by arrows.
-Number of steps for d=3 is also given as an example in the centres of the hexagons.
+Number of steps for $d=3$ is also given as an example in the centres of the hexagons.
 $d=3$ plus left--right flip is the Gerhard layout used in Shiverware's Musix Pro.
 
 ![Exquis](images/hexagonal_vs_rectangular.svg)
@@ -190,9 +195,9 @@ The bandoneón typically uses a non-isomorphic layout that is different between 
 
 ![Wicki--Hayden](images/wicki-hayden_tilted.svg)
 
-$f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
-else $f_3(d)= \max(i\in\mathbf{N}: i\mod 2 > 0, 1 \leq i < \frac{d}{3})$,
-where $\mathrm{round}(x)$ rounds $x$ to the nearest integer and $x \mod y > 0$ if and only if $x$ is not divisible by $y$.
+Calculations. $f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
+else $f_3(d)= \max(i)$ such that $i\in\mathbf{N}$, $i\mod 2 > 0$, and $1 \leq i < \frac{d}{3})$.
+$\mathrm{round}(x)$ rounds $x$ to the nearest integer and $x \mod y > 0$ if and only if $x$ is not divisible by $y$.
 It is easiest to break this down into two cases.
 If $d$ is not divisible by $3$, $f_3(d)$ is the integer nearest the fraction $d/3$.
 Otherwise, it is the largest odd integer less than $d/3$.
