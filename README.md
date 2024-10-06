@@ -150,6 +150,16 @@ Approximates 1/4 meantone tuning used in [European classical music](learn/europe
 Closely approximates the harmonic seventh (the seventh harmonic in just intonation).
 
 ## Layout Presets
+The Halberstadt layout is the one that organs and pianos use.
+This is also the choice for most midi controllers.
+An isomorphic layout is one where one chord can be transposed without changing the relative positions of the fingers.
+It is used for button accordions as well as some niche midi controllers.
+In microtonOS, the mapping of notes to the Halberstadt layout is aligned with the tuning as a property of the tuning preset.
+In contrast, the mapping of notes to the isomorphic layout is independent of the tuning.
+
+### Halberstadt
+
+### Isomorphic
 $d$ is a dilation parameter.
 A suitible value is the size of the minor or neutral third.
 For a more jazzy sound, try the major third or perfect fourth.
@@ -178,14 +188,10 @@ $d=2$ is the Park layout used in Shiverware's Musix Pro.
 $d=3$ is the Wicki--Hayden layout. For calculations, see below. The Wicki--Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
 The bandoneón typically uses a non-isomorphic layout that is different between the left and right hands as well as whether the instrument is squeezed or dragged. Life is short so we will ignore such complex layouts.
 
-![Wicki--Hayden](images/wicki-hayden.svg)
+![Wicki--Hayden](images/wicki-hayden_tilted.svg)
 
-$f_3$ is defined by
-
-$$f_3(d)=\mathrm{round}\frac{d}{3} \mathrm{if\ } d\mod 3 > 0$$
-
-$$f_3(d)= \max(i\in\mathbf{N}: i\mod 2 > 0, 1 \leq i < \frac{d}{3}) \mathrm{otherwise}$$
-
+$f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
+else $f_3(d)= \max(i\in\mathbf{N}: i\mod 2 > 0, 1 \leq i < \frac{d}{3})$,
 where $\mathrm{round}(x)$ rounds $x$ to the nearest integer and $x \mod y > 0$ if and only if $x$ is not divisible by $y$.
 It is easiest to break this down into two cases.
 If $d$ is not divisible by $3$, $f_3(d)$ is the integer nearest the fraction $d/3$.
@@ -201,7 +207,22 @@ $d=4$ plus left--right flip corresponds to both the type B accordion layout and 
 $d=5, 6, 8,$ and $13$
 correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 53edo respectively. 
 
-![Jankó](images/janko.svg)
+![Jankó](images/janko_tilted.svg)
+
+For large $d$, the 1D tuning invariant layouts, i.e., Exquis and the harmonic table,
+benefit from a split keyboard as shown below (in respective order).
+The filled hexagons represent a muted splitting line.
+$+,0,-$ represent three consecutive steps
+(note that $+,0,-$ does not indicate whether pitch is rising or falling).
+
+![Splits](images/splits.svg)
+
+For the 2D tuning invariant layouts, i.e., Wicki--Hayden and Jankó,
+even modest values for $d$ benefit from a split.
+As these layouts are 'tilted' to fit the Exquis better,
+so are their splitting lines.
+
+![Slashes](images/slashes.svg)
 
 ## Learn More
 
