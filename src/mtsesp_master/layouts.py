@@ -1,14 +1,14 @@
 import numpy as np
 
-def generate(height, width, up, right):
-    layout = [[0]*width]*height
-    last_i = last_j = 0
-    for i in range(height-1,-1,-1):
-        for j in range(width):
-            layout[i][j] = last_j + last_i
-            last_j += right
-        last_i += up
+def generate(height, width, up, right, upper_right_note=69):
+    layout = np.zeros([height,width],int)
+    for row in range(height):
+        for col in range(width):
+            layout[row,col] = up*(height-row) + right*col
+    diff = upper_right_note - layout[0,-1]
+    layout += diff
     return layout
+    
 
 class BaseLayout:
 
@@ -41,6 +41,14 @@ class BaseLayout:
         self.layout = layout.tolist()
 
 class Exquis(BaseLayout):
+    
+    def split(...):
+        ...
+    
+    def dilate(self, dilation):
+        if dilation in range(...
+        elif ...
+        
     
     self.layout = ...
 
