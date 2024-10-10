@@ -76,23 +76,25 @@ def backslash(height, width):
     return inverted # works
     
         
-# def split(height, width, up, right, separator, kind, top_right=69):
-    # layout = generate(height, width, up, right, top_right=top_right)
-    # side =  max([y for i[0] in separator])
-    # if kind = 'parallel':
-        # lower = generate(height-side, width, up, right, top_right=layout[0,0])
-        # mid = generate(side+1, width, up, right, bottom_left=lower[0,0])
-        # mid[:-2,:].concatenate(lower)
-        # for (y,x) in separator:
-            # for i in range(y+1, height):
-                # layout[i,x] = mid[i,x]
-        # for (y,x) in separator:
-            # layout[y,x] = None
+def split(height, width, up, right, separator, kind, top_right=69):
+    layout = generate(height, width, up, right, top_right=top_right)
+    overlap = max([i[0] for i in separator]) - min([i[0] for i in separator])
+    if kind == 'parallel':
+        bottom_height = round((height-overlap)/2)
+        bottom = generate(bottom_height, width, up, right, top_right=layout[0,0])
+        mid_height = height - bottom_height + 1
+        mid = generate(mid_height, width, up, right, bottom_left=bottom[0,0])
+        lower = np.concatenate([mid[:-1,:], bottom])
+        for (y,x) in separator:
+            for i in range(y+1, height):
+                layout[i,x] = lower[i,x]
+        for i in separator:
+            layout[i] = -1 # works (I think)
     # elif kind = 'sequential':
         # ...
     # else:
         # raise Warning('kind must be parallel or sequential')
-    # return layout
+    return layout
     
 
 # class BaseLayout:
