@@ -152,68 +152,126 @@ def split(height, width, up, right, separator, kind, top_right=69): # potential 
         layout[i] = -1
     return layout
     
-
-# class BaseLayout:
-
-    # def __init__(self,
-        # length,
-        # width,
-    # ):
-        # self.length = length
-        # self.width = width
-        # self.upper_right_note = 69
-        # self.dilation = 3
-        # self.is_left_right = False
-        # self.is_up_down = False
-
-        # assert hasattr(self, 'layout')
-        # assert hasattr(self, 'update')
     
-    # def flip_left_right(self):
-        # self.layout = np.fliplr(self.layout).tolist()
-        # self.is_left_right = not self.is_left_right
-
-    # def flip_up_down(self):
-        # self.layout = np.flipud(self.layout).tolist()
-        # self.is_up_down = not self.is_up_down
-
-    # def transpose(upper_right_note):
-        # difference = upper_right_note - self.upper_right_note
-        # layout = np.array(self.layout) + difference
-        # assert (layout in range(128)).all()
-        # self.layout = layout.tolist()
-
-# class Exquis(BaseLayout):
+class BaseLayout:
     
-    # def split(...):
-        # ...
-    
-    # def dilate(self, dilation):
-        # if dilation in range(...
-        # elif ...
+    def __init__(self,
+        height,
+        width,
+        dilation=3,
+        left_right=False,
+        up_down=False,
+        top_right=69,
+    ):
+        self.height = height
+        self.width = width
+        self.dilation = dilation
+        self.left_right = left_right
+        self.up_down = up_down
+        self.top_right = top_right
         
+    def layout(self,
+        dilation=None,
+        left_right=None,
+        up_down=None,
+        top_right=None,
+    ):
+        self.dilation = self.dilation if dilation is None else dilation
+        self.left_right = self.left_right if left_right is None else left_right
+        self.up_down = self.up_down if up_down is None else up_down
+        self.top_right = self.top_right if top_right is None else top_right
+        if self.dilation not in self.dilation_range():
+            raise Warning('Dilation is not in range')
+        layout = self.prel_layout()
+        layout = np.fliplr(layout) if self.left_right else layout
+        layout = np.flipud(layout) if self.up_down else layout
+        return layout
+
+
+class Exquis(BaseLayout):
     
-    # self.layout = ...
+    def generalization(self):
+        up = self.dilation
+        right = 1
+        return up, right
+        
+    def dilation_range(self):
+        return range(1, self.width*2 - 1)
+        
+    def prel_layout(self):
+        up, right = self.generalization()
+        if self.dilation <= self.width - 1:
+            return generate(self.height, self.width, up, right, top_right=self.top_right).tolist()
+        else:
+            separator = dash(self.height, self.width)
+            return split(self.height, self.width, up, right, separator, kind='parallel', top_right=self.top_right).tolist()
+            
 
-    # def reset(self):
-        # ...
+class HarmonicTable(BaseLayout):
+    
+    def generalization(self):
+        up = -self.dilation
+        right = 2*self.dilation + 1
+        return up, right
+        
+    def dilation_range(self):
+        return range(0,42) # dummy value
+        
+    def prel_layout(self):
+        up, right = self.generalization()
+        if self.dilation < self.height/2 + (self.width-1)*5/2: # prel
+            return generate(self.height,self.width,up,right,top_right=self.top_right)
+        else:
+            separator = dash(self.height,self.width)
+            return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
+            
 
-    # def update(self,
-        # is_left_right=self.is_left_right,
-        # is_up_down=self.is_up_down,
-        # upper_right_note=self.upper_right_note,
-        # dilation=self.dilation,
-    # ):
-        # ...
+def f3(d):
+    if d % 3 > 0:
+        out = round(d/3)
+    else:
+        out = 0
+        for i in range(1,int(d/3)):
+            if i > out and i % 2 > 0:
+                out = i
+    return out
+    
 
+class WickiHayden(BaseLayout):
+    
+    def generalization(self):
+        up = -(2*self.dilation - f3(self.dilation))
+        right = 3*self.dilation - 2*f3(self.dilation)
+        return up, right
+        
+    def dilation_range(self):
+        return range(0,42) # dummy value
+        
+    def prel_layout(self):
+        up, right = self.generalization()
+        if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
+            return generate(self.height,self.width,up,right,top_right=self.top_right)
+        else:
+            separator = slash(self.height, self.width)
+            return split(self.height,self.width,up,right,separator,kind='parallel',top_right=self.top_right)
+        
 
-
-
-# class HarmonicTable(BaseLayout):
-    # ...
-
-# class WickiHayden(BaseLayout):
-    # ...
-
-# class Janko(BaseLayout):
-    # ...
+class Janko(BaseLayout):
+    
+    def generalization(self):
+        up = self.dilation - 2*f3(self.dilation)
+        right = f3(self.dilation)
+        return up, right
+        
+    def dilation_range(self):
+        return range(0,42) # dummy value
+        
+    def prel_layout(self):
+        up, right = self.generalization()
+        if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
+            return generate(self.height,self.width,up,right,top_right=self.top_right)
+        else:
+            separator = backslash(self.height, self.width)
+            return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
+        
+        
