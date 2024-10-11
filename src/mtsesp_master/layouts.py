@@ -1,6 +1,13 @@
 import numpy as np
 
+
 def generate(height, width, up, right, top_right=69, bottom_right=None, bottom_left=None, top_left=None):
+    """
+        Generate a layout with number of steps up and number of steps right.
+        The function produces a rectangular layout,
+        For a hexagonal layout, width and hight should be picked slightly larger,
+        so that the matrix can be cropped.
+    """
     layout = np.zeros([height,width],int)
     for row in range(height):
         for col in range(width):
@@ -14,15 +21,26 @@ def generate(height, width, up, right, top_right=69, bottom_right=None, bottom_l
     else:
         diff = top_right - layout[0,-1]
     layout += diff
-    return layout # works
+    return layout
+    
     
 def dash(height, width):
+    """
+        Used for splitting the layout lengthwise.
+        Produces a list of coordinates forming a straight line.
+    """
     separator = []
     for col in range(width):
         separator.append((round(height/2)-1, col))
-    return separator # works
+    return separator
+    
     
 def slash(height, width):
+    """
+        Used for splitting the layout lengthwise.
+        Produces a list of coordinates forming a diagonal line.
+        the diagonal lines goes from low left to high right.
+    """
     separator = []
     separator.append((round(height/2)-1, round(width/2)))
     while True:
@@ -62,9 +80,16 @@ def slash(height, width):
         if x not in range(width):
             break
         separator.insert(0,(y,x))
-    return separator # works
+    return separator
+    
     
 def backslash(height, width):
+    """
+        Used for splitting the layout lengthwise.
+        Produces a list of coordinates forming a diagonal line.
+        the diagonal lines goes from high left to low right.
+        That is, the reverse of the slash function.
+    """
     separator = slash(height, width)
     mid = round(height/2)-1
     n = len(separator)
@@ -73,9 +98,10 @@ def backslash(height, width):
         x = separator[i][1]
         y = mid + (mid - separator[i][0])
         inverted.append((y,x))
-    return inverted # works
+    return inverted
     
-def endpoints(separator):
+    
+def endpoints(separator): # potential add-on. add overlaps
     xmin = min([i[1] for i in separator])
     xmax = max([i[1] for i in separator])
     ymax = max([i[0] for i in separator])
@@ -98,34 +124,32 @@ def endpoints(separator):
     return left, right
     
         
-def split(height, width, up, right, separator, kind, top_right=69):
+def split(height, width, up, right, separator, kind, top_right=69): # potential addon. add overlap
+    """
+        Used to create a split layout. The separator can be a dash, a slash, or a backslash.
+        The kind is either 'parallel', meaning that
+        going past the left side on the lower takes you to right side of the higher.
+        Or, the kind is 'sequential', meaning that
+        going up the upper right corner on lower takes you to the lower left corner on higher.
+    """
     layout = generate(height, width, up, right, top_right=top_right)
     left_end, right_end = endpoints(separator)
     if kind == 'parallel':
-        bottom_height = height - separator[-1][0] - 1
+        bottom_height = height - right_end[0] - 1
         bottom = generate(bottom_height, width, up, right, top_right=layout[0,0])
-        mid_height = height - bottom_height + 1
-        mid = generate(mid_height, width, up, right, bottom_right=bottom[0,-1])
-        lower = np.concatenate([mid[:-1,:], bottom])
-        for (y,x) in separator:
-            for i in range(y+1, height):
-                layout[i,x] = lower[i,x]
-        for i in separator:
-            layout[i] = -1 # works
     elif kind == 'sequential':
-        bottom_height = height - separator[-1][0]
+        bottom_height = height - right_end[0]
         bottom = generate(bottom_height, width, up, right, top_right=layout[left_end])
-        mid_height = height - bottom_height + 1
-        mid = generate(mid_height, width, up, right, bottom_right=bottom[0,-1])
-        lower = np.concatenate([mid[:-1,:], bottom])
-        for (y,x) in separator:
-            for i in range(y+1, height):
-                layout[i,x] = lower[i,x]
-        for i in separator:
-            layout[i] = -1
-        
-    # else:
-        # raise Warning('kind must be parallel or sequential')
+    else:
+        raise Warning("kind must be either 'parallel' or 'sequential'. (If both, 'parallel takes precedence.)")
+    mid_height = height - bottom_height + 1
+    mid = generate(mid_height, width, up, right, bottom_right=bottom[0,-1])
+    lower = np.concatenate([mid[:-1,:], bottom])
+    for (y,x) in separator:
+        for i in range(y+1, height):
+            layout[i,x] = lower[i,x]
+    for i in separator:
+        layout[i] = -1
     return layout
     
 
