@@ -74,23 +74,20 @@ def backslash(height, width):
         y = mid + (mid - separator[i][0])
         inverted.append((y,x))
     return inverted # works
-    
         
 def split(height, width, up, right, separator, kind, top_right=69):
     layout = generate(height, width, up, right, top_right=top_right)
-    overlap = max([i[0] for i in separator]) - min([i[0] for i in separator])
     if kind == 'parallel':
-        bottom_height = round((height-overlap)/2)
+        bottom_height = height - separator[-1][0] - 1
         bottom = generate(bottom_height, width, up, right, top_right=layout[0,0])
         mid_height = height - bottom_height + 1
-        mid = generate(mid_height, width, up, right, bottom_left=bottom[0,0])
+        mid = generate(mid_height, width, up, right, bottom_right=bottom[0,-1])
         lower = np.concatenate([mid[:-1,:], bottom])
         for (y,x) in separator:
             for i in range(y+1, height):
                 layout[i,x] = lower[i,x]
         for i in separator:
-            layout[i] = -1 # works (I think)
-    # elif kind = 'sequential':
+            layout[i] = -1 # works
         # ...
     # else:
         # raise Warning('kind must be parallel or sequential')
