@@ -153,6 +153,12 @@ def split(height, width, up, right, separator, kind, top_right=69): # potential 
     return layout
     
     
+def clean(layout):
+	layout[np.argwhere(layout < 0)] = -1
+	layout[np.argwhere(layout >= 128)] = -1
+	return layout.tolist()
+    
+    
 class BaseLayout:
     
     def __init__(self,
@@ -185,7 +191,7 @@ class BaseLayout:
         layout = self.prel_layout()
         layout = np.fliplr(layout) if self.left_right else layout
         layout = np.flipud(layout) if self.up_down else layout
-        return layout
+        return clean(layout)
 
 
 class Exquis(BaseLayout):
@@ -201,10 +207,10 @@ class Exquis(BaseLayout):
     def prel_layout(self):
         up, right = self.generalization()
         if self.dilation <= self.width - 1:
-            return generate(self.height, self.width, up, right, top_right=self.top_right).tolist()
+            return generate(self.height, self.width, up, right, top_right=self.top_right)
         else:
             separator = dash(self.height, self.width)
-            return split(self.height, self.width, up, right, separator, kind='parallel', top_right=self.top_right).tolist()
+            return split(self.height, self.width, up, right, separator, kind='parallel', top_right=self.top_right)
             
 
 class HarmonicTable(BaseLayout):

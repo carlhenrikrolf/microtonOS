@@ -19,9 +19,10 @@ client_name = 'New MTS-ESP master'
 
 # imports
 import mido
-from mtsesp_master.settings import init
+from mtsesp_master.settings import init, layout_presets
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
+from mtsesp_master.isomorphic import isomorphic
 from utils import Outport, Inport, make_threads
 
 # script
@@ -45,42 +46,51 @@ class Script:
 		
 	def run(self, msg):
 		
-		if self.is_init:
-			encoders.reset()
-			self.is_init = False
-			
-		happened, self.equave = encoders.change_equave(msg, self.equave)
-		if happened:
-			print('ekvav =', self.equave)
-			
-		happened, self.is_left_right = encoders.flip_left_right(msg)
-		if happened:
-			print('höger--vänster-speglad är', self.is_left_right)
-		happened, self.is_up_down = encoders.flip_up_down(msg)
-		if happened:
-			print('upp--ner-speglad är', self.is_up_down)
-			
-		happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
-		if happened:
-			print('transponering =', self.transposition)
-		happened, self.transposition = encoders.toggle_transposition(msg, self.transposition)
-		if happened:
-			print('transponering =', self.transposition)
-			
-		happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
-		if happened:
-			print('stämning =', self.tuning_pgm)
-			
-		happened, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
-		if happened:
-			print('utspädning =', self.dilation)
-		happened, self.dilation = encoders.toggle_dilation(msg, 3)
-		if happened:
-			print('utspädning =', self.dilation)
-			
-		happened, self.layout_pgm = encoders.layout_preset(msg, self.layout_pgm)
-		if happened:
-			print('layout =', self.layout_pgm)
+		if not isomorphic.ignore(msg):
+		
+			if self.is_init:
+				encoders.reset()
+				self.is_init = False
+				
+			happened, self.equave = encoders.change_equave(msg, self.equave)
+			if happened:
+				print('ekvav =', self.equave)
+				
+			happened, self.is_left_right = encoders.flip_left_right(msg)
+			if happened:
+				print('höger--vänster-speglad är', self.is_left_right)
+				layout = layout_presets[self.layout_pgm].layout(left_right=self.is_left_right)
+				isomorphic.send(to_isomorphic, layout=layout)
+			happened, self.is_up_down = encoders.flip_up_down(msg)
+			if happened:
+				print('upp--ner-speglad är', self.is_up_down)
+				layout = layout_presets[self.layout_pgm].layout(up_down=self.is_up_down)
+				isomorphic.send(to_isomorphic, layout=layout)
+				
+			happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
+			if happened:
+				print('transponering =', self.transposition)
+			happened, self.transposition = encoders.toggle_transposition(msg, self.transposition)
+			if happened:
+				print('transponering =', self.transposition)
+				
+			happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
+			if happened:
+				print('stämning =', self.tuning_pgm)
+				
+			happened, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
+			if happened:
+				print('utspädning =', self.dilation)
+			happened, self.dilation = encoders.toggle_dilation(msg, 3)
+			if happened:
+				print('utspädning =', self.dilation)
+				
+			happened, self.layout_pgm = encoders.layout_preset(msg, self.layout_pgm)
+			if happened:
+				print('layout =', self.layout_pgm)
+				
+			if msg.type == 'note_on':
+				print('tonen är', msg.note, 'dvs', ['c','c#','d','d#','e','f','f#','g','g#','a','a#','b'][msg.note % 12])
 			
 		
 		

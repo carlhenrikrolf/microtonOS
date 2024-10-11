@@ -1,27 +1,50 @@
-from midi_implementation import exquis as xq
+from midi_implementation.dualo import exquis as xq
 
-def check_input(layout):
-    assert len(layout) == xq.length
-    assert all([len(row) == max(xq.widths) for row in layout])
+
+height = 11
+width = 6
+n_keys = 61
+
 
 def crop(layout):
-    for i in range(xq.length):
+    for i in range(height):
         if i % 2 != 0:
             layout[i].pop(0)
-        cropped_layout = layout
-    return cropped_layout
-
+    return layout
+    
+    
 def linearize(layout):
     mapping = []
-    for i in range(10,-1,-1):
-        mapping.append(cropped_layout[i])
+    for row in layout:
+        mapping = [*mapping, *row]
     return mapping
+    
 
-def remap(outport, layout):
-    check_input(layout)
-    cropped_layout = crop(layout)
-    mapping = linearize(cropped_layout)
-    xq.set_map(outport, mapping)
+class Isomorphic:
+	
+	null_note = 127
+	
+	def ignore(self, msg):
+		if hasattr(msg, 'note') and msg.note == self.null_note:
+			return True
+		else:
+			return False
+			
+	def send(self, outport, layout=None, coloring=None):
+		if layout is not None:
+			for i in range(height):
+				for j in range(width):
+					if layout[i][j] not in range(0,128):
+						layout[i][j] = self.null_note
+			cropped_layout = crop(layout)
+			mapping = linearize(cropped_layout)
+			print(len(mapping))
+			assert len(mapping) == n_keys
+			for key, note in enumerate(mapping):
+				xq.send(outport, xq.sysex(xq.map_key_to_note, key, note))
+				
 
-def recolor(outport, note_to_color):
-    ...
+isomorphic = Isomorphic()
+		
+			
+		
