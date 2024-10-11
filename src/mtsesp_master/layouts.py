@@ -74,9 +74,33 @@ def backslash(height, width):
         y = mid + (mid - separator[i][0])
         inverted.append((y,x))
     return inverted # works
+    
+def endpoints(separator):
+    xmin = min([i[1] for i in separator])
+    xmax = max([i[1] for i in separator])
+    ymax = max([i[0] for i in separator])
+    ymin = min([i[0] for i in separator])
+    lefts = []
+    rights = []
+    for i in separator:
+        if i[1] == xmin:
+            lefts.append(i)
+        if i[1] == xmax:
+            rights.append(i)
+    left = lefts[0]
+    for i in lefts:
+        if min(abs(i[0]-ymax),abs(i[0]-ymin)) > min(abs(left[0]-ymax),abs(left[0]-ymin)):
+            left = i
+    right = rights[0]
+    for i in rights:
+        if min(abs(i[0]-ymax),abs(i[0]-ymin)) > min(abs(right[0]-ymax),abs(right[0]-ymin)):
+            right = i     
+    return left, right
+    
         
 def split(height, width, up, right, separator, kind, top_right=69):
     layout = generate(height, width, up, right, top_right=top_right)
+    left_end, right_end = endpoints(separator)
     if kind == 'parallel':
         bottom_height = height - separator[-1][0] - 1
         bottom = generate(bottom_height, width, up, right, top_right=layout[0,0])
@@ -88,7 +112,18 @@ def split(height, width, up, right, separator, kind, top_right=69):
                 layout[i,x] = lower[i,x]
         for i in separator:
             layout[i] = -1 # works
-        # ...
+    elif kind == 'sequential':
+        bottom_height = height - separator[-1][0]
+        bottom = generate(bottom_height, width, up, right, top_right=layout[left_end])
+        mid_height = height - bottom_height + 1
+        mid = generate(mid_height, width, up, right, bottom_right=bottom[0,-1])
+        lower = np.concatenate([mid[:-1,:], bottom])
+        for (y,x) in separator:
+            for i in range(y+1, height):
+                layout[i,x] = lower[i,x]
+        for i in separator:
+            layout[i] = -1
+        
     # else:
         # raise Warning('kind must be parallel or sequential')
     return layout
