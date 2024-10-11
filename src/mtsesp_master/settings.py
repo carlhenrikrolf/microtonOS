@@ -1,4 +1,15 @@
-# to be filled out with the end goal
+from mtsesp_master.layouts import Exquis, HarmonicTable, WickiHayden, Janko
+
+
+	
+layout_presets = [
+	Exquis(11,6),
+	HarmonicTable(11,6),
+	WickiHayden(11,6),
+	Janko(11,6),
+]
+	
+	
 
 class Init:
 	
