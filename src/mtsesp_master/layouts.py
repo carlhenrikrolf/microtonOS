@@ -1,11 +1,11 @@
 import numpy as np
 
 
-def hexagonal(height, width, up, right, compensate, top_right=69): # still not working, dont know why
+def hexagonal(height, width, up, right, start, top_right=69):
 	layout = np.zeros([height,width],int)
 	for row in range(height):
 		for col in range(width):
-			term = right*(height-row+2-compensate)//2
+			term = right*((height-row+start)//2)
 			layout[row,col] = up*(height-row) + term + right*col
 	diff = top_right - layout[0,-1]
 	layout += diff
