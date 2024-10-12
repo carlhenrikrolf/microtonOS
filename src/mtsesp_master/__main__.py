@@ -48,49 +48,61 @@ class Script:
 		
 		if not isomorphic.ignore(msg):
 		
+			# initial touch
 			if self.is_init:
 				encoders.reset()
+				layout = layout_presets[self.layout_pgm].layout()
+				coloring = tuning_presets[self.tuning_pgm].coloring()
+				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 				self.is_init = False
-				
+			
+			# bottom encoders
+			# change equave
 			happened, self.equave = encoders.change_equave(msg, self.equave)
 			if happened:
 				print('ekvav =', self.equave)
-				
+			
+			# flip (mirror)
 			happened, self.is_left_right = encoders.flip_left_right(msg)
 			if happened:
 				print('höger--vänster-speglad är', self.is_left_right)
 				layout = layout_presets[self.layout_pgm].layout(left_right=self.is_left_right)
-				coloring = tuning_presets[self.tuning_pgm].coloring()
-				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
+				isomorphic.send(to_isomorphic, layout=layout)
 			happened, self.is_up_down = encoders.flip_up_down(msg)
 			if happened:
 				print('upp--ner-speglad är', self.is_up_down)
 				layout = layout_presets[self.layout_pgm].layout(up_down=self.is_up_down)
-				coloring = tuning_presets[self.tuning_pgm].coloring()
-				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
-				
+				isomorphic.send(to_isomorphic, layout=layout)
+			
+			# knobs
+			# transpose
 			happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
 			if happened:
 				print('transponering =', self.transposition)
 			happened, self.transposition = encoders.toggle_transposition(msg, self.transposition)
 			if happened:
 				print('transponering =', self.transposition)
-				
+			
+			# tuning preset
 			happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
 			if happened:
 				print('stämning =', self.tuning_pgm)
-				
+			
+			# dilate
 			happened, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
 			if happened:
 				print('utspädning =', self.dilation)
 			happened, self.dilation = encoders.toggle_dilation(msg, 3)
 			if happened:
 				print('utspädning =', self.dilation)
-				
+			
+			# layout preset
 			happened, self.layout_pgm = encoders.layout_preset(msg, self.layout_pgm)
 			if happened:
 				print('layout =', self.layout_pgm)
-				
+			
+			# notes
+			# sanity check
 			if msg.type == 'note_on':
 				print('tonen är', msg.note, 'dvs', ['c','c#','d','d#','e','f','f#','g','g#','a','a#','b'][msg.note % 12])
 			
