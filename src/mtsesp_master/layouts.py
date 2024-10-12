@@ -1,6 +1,17 @@
 import numpy as np
 
 
+def hexagonal(height, width, up, right, compensate, top_right=69): # still not working, dont know why
+	layout = np.zeros([height,width],int)
+	for row in range(height):
+		for col in range(width):
+			term = right*(height-row+2-compensate)//2
+			layout[row,col] = up*(height-row) + term + right*col
+	diff = top_right - layout[0,-1]
+	layout += diff
+	return layout
+
+
 def generate(height, width, up, right, top_right=69, bottom_right=None, bottom_left=None, top_left=None):
     """
         Generate a layout with number of steps up and number of steps right.

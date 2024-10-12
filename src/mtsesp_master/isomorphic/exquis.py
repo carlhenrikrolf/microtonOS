@@ -9,7 +9,7 @@ n_keys = 61
 def crop(layout):
     for i in range(height):
         if i % 2 != 0:
-            layout[i].pop(0)
+            layout[i].pop(-1)
     return layout
     
     
