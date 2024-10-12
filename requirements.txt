@@ -4,3 +4,4 @@ mtsespy>=0.1.0
 numpy>=1.26.4
 pycparser>=2.22
 python-rtmidi>=2.5.0
+colour>=0.1.5

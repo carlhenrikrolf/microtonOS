@@ -1,4 +1,5 @@
 from mtsesp_master.layouts import Exquis, HarmonicTable, WickiHayden, Janko
+from mtsesp_master.tunings import Default
 
 
 	
@@ -7,6 +8,10 @@ layout_presets = [
 	HarmonicTable(11,6),
 	WickiHayden(11,6),
 	Janko(11,6),
+]
+
+tuning_presets = [
+	Default(),
 ]
 	
 	

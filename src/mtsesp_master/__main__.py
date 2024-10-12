@@ -19,7 +19,7 @@ client_name = 'New MTS-ESP master'
 
 # imports
 import mido
-from mtsesp_master.settings import init, layout_presets
+from mtsesp_master.settings import init, layout_presets, tuning_presets
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
 from mtsesp_master.isomorphic import isomorphic
@@ -60,12 +60,14 @@ class Script:
 			if happened:
 				print('höger--vänster-speglad är', self.is_left_right)
 				layout = layout_presets[self.layout_pgm].layout(left_right=self.is_left_right)
-				isomorphic.send(to_isomorphic, layout=layout)
+				coloring = tuning_presets[self.tuning_pgm].coloring()
+				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 			happened, self.is_up_down = encoders.flip_up_down(msg)
 			if happened:
 				print('upp--ner-speglad är', self.is_up_down)
 				layout = layout_presets[self.layout_pgm].layout(up_down=self.is_up_down)
-				isomorphic.send(to_isomorphic, layout=layout)
+				coloring = tuning_presets[self.tuning_pgm].coloring()
+				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 				
 			happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
 			if happened:

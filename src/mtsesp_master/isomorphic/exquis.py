@@ -16,7 +16,7 @@ def crop(layout):
 def linearize(layout):
     mapping = []
     for row in layout:
-        mapping = [*mapping, *row]
+        mapping = [*row, *mapping]
     return mapping
     
 
@@ -38,10 +38,17 @@ class Isomorphic:
 						layout[i][j] = self.null_note
 			cropped_layout = crop(layout)
 			mapping = linearize(cropped_layout)
-			print(len(mapping))
 			assert len(mapping) == n_keys
-			for key, note in enumerate(mapping):
+			self.mapping = mapping
+			for key, note in enumerate(self.mapping):
 				xq.send(outport, xq.sysex(xq.map_key_to_note, key, note))
+		if coloring is not None:
+			assert len(coloring) == 128
+			self.coloring = coloring
+		for key, note in enumerate(self.mapping):
+			xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(self.coloring[note])))
+			
+			
 				
 
 isomorphic = Isomorphic()
