@@ -2,15 +2,8 @@ from midi_implementation.dualo import exquis as xq
 
 
 height = 11
-width = 6
+width = 5
 n_keys = 61
-
-
-def crop(layout):
-    for i in range(height):
-        if i % 2 != 0:
-            layout[i].pop(-1)
-    return layout
     
     
 def linearize(layout):
@@ -32,12 +25,12 @@ class Isomorphic:
 			
 	def send(self, outport, layout=None, coloring=None):
 		if layout is not None:
-			for i in range(height):
-				for j in range(width):
-					if layout[i][j] not in range(0,128):
-						layout[i][j] = self.null_note
-			cropped_layout = crop(layout)
-			mapping = linearize(cropped_layout)
+			assert len(layout) == height
+			assert min([len(row) for row in layout]) == width
+			mapping = linearize(layout)
+			for key, note in enumerate(mapping):
+				if note not in range(0,128):
+					mapping[key] = self.null_note
 			assert len(mapping) == n_keys
 			self.mapping = mapping
 			for key, note in enumerate(self.mapping):
@@ -47,8 +40,6 @@ class Isomorphic:
 			self.coloring = coloring
 		for key, note in enumerate(self.mapping):
 			xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(self.coloring[note])))
-			
-			
 				
 
 isomorphic = Isomorphic()

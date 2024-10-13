@@ -4,10 +4,10 @@ from mtsesp_master.tunings import Default
 
 	
 layout_presets = [
-	Exquis(11,6,'hexagonal'),
-	HarmonicTable(11,6,'hexagonal'),
-	WickiHayden(11,6,'hexagonal'),
-	Janko(11,6,'hexagonal'),
+	Exquis(11,5,'hexagonal'),
+	HarmonicTable(11,5,'hexagonal'),
+	WickiHayden(11,5,'hexagonal'),
+	Janko(11,5,'hexagonal'),
 ]
 
 tuning_presets = [
