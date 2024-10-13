@@ -202,10 +202,19 @@ class BaseLayout:
 		self.top_right = self.top_right if top_right is None else top_right
 		if self.dilation not in self.dilation_range():
 			raise Warning('Dilation is not in range')
-		layout = self.hexagonal() if self.kind == 'hexagonal' else self.rectangular()
-		layout = np.fliplr(layout) if self.left_right else layout # this messes up hexagonal layout
-		layout = np.flipud(layout) if self.up_down else layout
-		return clean(layout)
+		if self.kind == 'hexagonal':
+			layout = self.hexagonal()
+			layout = clean(np.flipud(layout)) if self.up_down else clean(layout)
+			for i in range(self.height): # crop
+				if i % 2 != 0:
+					layout[i].pop(-1)
+		elif self.kind == 'rectangular':
+			layout = self.rectangular().tolist()
+			layout = clean(np.flipud(layout)) if self.up_down else clean(layout)
+		if self.left_right:
+			for i, row in enumerate(layout):
+				layout[i] = np.flipud(row).tolist() # flipud because single column in np
+		return layout
 
 
 class Exquis(BaseLayout):
@@ -220,7 +229,7 @@ class Exquis(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width, up, right, top_right=self.top_right)
+		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 
 	def rectangular(self):
 		up, right = self.generalization()
@@ -242,7 +251,7 @@ class HarmonicTable(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width, up, right, top_right=self.top_right)
+		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 
 	def rectangular(self):
 		up, right = self.generalization()
@@ -276,7 +285,7 @@ class WickiHayden(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width, up, right, top_right=self.top_right)
+		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 
 	def rectangular(self):
 		up, right = self.generalization()
@@ -299,7 +308,7 @@ class Janko(BaseLayout):
 	
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width, up, right, top_right=self.top_right)
+		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 	
 	def rectangular(self):
 		up, right = self.generalization()
