@@ -19,7 +19,7 @@ client_name = 'New MTS-ESP master'
 
 # imports
 import mido
-from mtsesp_master.settings import init, layout_presets, tuning_presets
+from mtsesp_master.presets import presets
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
 from mtsesp_master.isomorphic import isomorphic
@@ -32,17 +32,17 @@ class Script:
 		
 		self.is_init = True
 		
-		self.equave = init.equave
-		self.is_left_right = init.is_left_right
-		self.is_up_down = init.is_up_down
-		self.transposition = init.transposition
-		self.transposition_range = init.transposition_range
-		self.n_tunings = init.n_tunings
-		self.tuning_pgm = init.tuning_pgm
-		self.dilation = init.dilation
-		self.dilation_range = init.dilation_range
-		self.n_layouts = init.n_layouts
-		self.layout_pgm = init.layout_pgm
+		self.equave = 0
+		self.is_left_right = presets.layout.is_left_right
+		self.is_up_down = presets.layout.is_up_down
+		self.transposition = presets.layout.top_right
+		self.transposition_range = range(0,128)
+		self.n_tunings = presets.n_tunings
+		self.tuning_pgm = presets.tuning_pgm
+		self.dilation = presets.layout.dilation
+		self.dilation_range = presets.layout.dilation_range()
+		self.n_layouts = presets.n_layouts
+		self.layout_pgm = presets.layout_pgm
 		
 	def run(self, msg):
 		
@@ -51,8 +51,8 @@ class Script:
 			# initial touch
 			if self.is_init:
 				encoders.reset()
-				layout = layout_presets[self.layout_pgm].layout()
-				coloring = tuning_presets[self.tuning_pgm].coloring()
+				layout = presets.layout.layout()
+				coloring = presets.tuning.coloring()
 				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 				self.is_init = False
 			
@@ -66,22 +66,25 @@ class Script:
 			happened, self.is_left_right = encoders.flip_left_right(msg)
 			if happened:
 				print('höger--vänster-speglad är', self.is_left_right)
-				layout = layout_presets[self.layout_pgm].layout(left_right=self.is_left_right)
+				layout = presets.layout.layout(is_left_right=self.is_left_right)
 				isomorphic.send(to_isomorphic, layout=layout)
 			happened, self.is_up_down = encoders.flip_up_down(msg)
 			if happened:
 				print('upp--ner-speglad är', self.is_up_down)
-				layout = layout_presets[self.layout_pgm].layout(up_down=self.is_up_down)
+				layout = presets.layout.layout(is_up_down=self.is_up_down)
 				isomorphic.send(to_isomorphic, layout=layout)
 			
 			# knobs
 			# transpose
-			happened, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
-			if happened:
+			transpose, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
+			if transpose:
 				print('transponering =', self.transposition)
-			happened, self.transposition = encoders.toggle_transposition(msg, self.transposition)
-			if happened:
+			toggle, self.transposition = encoders.toggle_transposition(msg, self.transposition)
+			if toggle:
 				print('transponering =', self.transposition)
+			if transpose or toggle:
+				layout = presets.layout.layout(top_right=self.transposition)
+				isomorphic.send(to_isomorphic, layout=layout)
 			
 			# tuning preset
 			happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
@@ -110,14 +113,14 @@ class Script:
 		
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
 encoders = Encoders(to_isomorphic,
-	equave=init.equave,
-	equave_range=init.equave_range,
-	transposition=init.transposition,
-	n_tunings=init.n_tunings,
-	tuning_pgm=init.tuning_pgm,
-	dilation=init.dilation,
-	n_layouts=init.n_layouts,
-	layout_pgm=init.layout_pgm,
+	equave=0,
+	equave_range=range(-2,3),
+	transposition=presets.layout.top_right,
+	n_tunings=presets.n_tunings,
+	tuning_pgm=presets.tuning_pgm,
+	dilation=presets.layout.dilation,
+	n_layouts=presets.n_layouts,
+	layout_pgm=presets.layout_pgm,
 )
 active_sensing = ActiveSensing(to_isomorphic)
 script = Script()

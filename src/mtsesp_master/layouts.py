@@ -177,8 +177,8 @@ class BaseLayout:
 		width,
 		kind,
 		dilation=3,
-		left_right=False,
-		up_down=False,
+		is_left_right=False,
+		is_up_down=False,
 		top_right=69,
 	):
 		self.height = height
@@ -186,32 +186,32 @@ class BaseLayout:
 		assert kind in ['rectangular', 'hexagonal']
 		self.kind = kind
 		self.dilation = dilation
-		self.left_right = left_right
-		self.up_down = up_down
+		self.is_left_right = is_left_right
+		self.is_up_down = is_up_down
 		self.top_right = top_right
 		
 	def layout(self,
 		dilation=None,
-		left_right=None,
-		up_down=None,
+		is_left_right=None,
+		is_up_down=None,
 		top_right=None,
 	):
 		self.dilation = self.dilation if dilation is None else dilation
-		self.left_right = self.left_right if left_right is None else left_right
-		self.up_down = self.up_down if up_down is None else up_down
+		self.is_left_right = self.is_left_right if is_left_right is None else is_left_right
+		self.is_up_down = self.is_up_down if is_up_down is None else is_up_down
 		self.top_right = self.top_right if top_right is None else top_right
 		if self.dilation not in self.dilation_range():
 			raise Warning('Dilation is not in range')
 		if self.kind == 'hexagonal':
 			layout = self.hexagonal()
-			layout = clean(np.flipud(layout)) if self.up_down else clean(layout)
+			layout = clean(np.flipud(layout)) if self.is_up_down else clean(layout)
 			for i in range(self.height): # crop
 				if i % 2 != 0:
 					layout[i].pop(-1)
 		elif self.kind == 'rectangular':
 			layout = self.rectangular().tolist()
-			layout = clean(np.flipud(layout)) if self.up_down else clean(layout)
-		if self.left_right:
+			layout = clean(np.flipud(layout)) if self.is_up_down else clean(layout)
+		if self.is_left_right:
 			for i, row in enumerate(layout):
 				layout[i] = np.flipud(row).tolist() # flipud because single column in np
 		return layout

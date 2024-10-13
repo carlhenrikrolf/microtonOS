@@ -1,4 +1,5 @@
 from midi_implementation.dualo import exquis as xq
+from colour import Color
 
 
 height = 11
@@ -39,7 +40,10 @@ class Isomorphic:
 			assert len(coloring) == 128
 			self.coloring = coloring
 		for key, note in enumerate(self.mapping):
-			xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(self.coloring[note])))
+			if note == self.null_note:
+				xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(Color('black'))))
+			else:
+				xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(self.coloring[note])))
 				
 
 isomorphic = Isomorphic()
