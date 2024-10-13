@@ -92,17 +92,23 @@ class Script:
 				print('stämning =', self.tuning_pgm)
 			
 			# dilate
-			happened, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
-			if happened:
+			dilate, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
+			if dilate:
 				print('utspädning =', self.dilation)
-			happened, self.dilation = encoders.toggle_dilation(msg, 3)
-			if happened:
+			toggle, self.dilation = encoders.toggle_dilation(msg, 3)
+			if toggle:
 				print('utspädning =', self.dilation)
+			if dilate or toggle:
+				layout = presets.layout.layout(dilation=self.dilation)
+				isomorphic.send(to_isomorphic, layout=layout)
 			
 			# layout preset
 			happened, self.layout_pgm = encoders.layout_preset(msg, self.layout_pgm)
 			if happened:
 				print('layout =', self.layout_pgm)
+				presets.change(layout_pgm=self.layout_pgm)
+				layout = presets.layout.layout()
+				isomorphic.send(to_isomorphic, layout=layout)
 			
 			# notes
 			# sanity check
