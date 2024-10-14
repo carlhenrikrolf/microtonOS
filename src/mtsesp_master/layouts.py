@@ -1,24 +1,25 @@
 import numpy as np
 
 
-def hexagonal(height, width, up, right, bottom_crop=False, top_right=69):
+def hexagonal(height, width, up, right, bottom_crop=False, top_right=69, bottom_right=None, bottom_left=None, top_left=None):
 	layout = np.zeros([height,width],int)
 	for row in range(height):
 		for col in range(width):
 			term = right*((height-row+int(bottom_crop))//2)
 			layout[row,col] = up*(height-row) + term + right*col
-	diff = top_right - layout[0,-1]
+	if top_left is not None:
+		diff = top_left - layout[0, 0]
+	elif bottom_left is not None:
+		diff = bottom_left - layout[-1, 0]
+	elif bottom_right is not None:
+		diff = bottom_right - layout[-1, -1]
+	else:
+		diff = top_right - layout[0,-1]
 	layout += diff
 	return layout
 
 
-def generate(height, width, up, right, top_right=69, bottom_right=None, bottom_left=None, top_left=None):
-	"""
-		Generate a layout with number of steps up and number of steps right.
-		The function produces a rectangular layout,
-		For a hexagonal layout, width and hight should be picked slightly larger,
-		so that the matrix can be cropped.
-	"""
+def rectangular(height, width, up, right, bottom_crop=None, top_right=69, bottom_right=None, bottom_left=None, top_left=None):
 	layout = np.zeros([height,width],int)
 	for row in range(height):
 		for col in range(width):
@@ -46,12 +47,7 @@ def dash(height, width):
 	return separator
 	
 	
-def slash(height, width):
-	"""
-		Used for splitting the layout lengthwise.
-		Produces a list of coordinates forming a diagonal line.
-		the diagonal lines goes from low left to high right.
-	"""
+def backslash(height, width):
 	separator = []
 	separator.append((round(height/2)-1, round(width/2)))
 	while True:
@@ -91,17 +87,12 @@ def slash(height, width):
 		if x not in range(width):
 			break
 		separator.insert(0,(y,x))
-	return separator
+	flipped_separator = [(y,width-1-x) for (y,x) in separator]
+	return flipped_separator
 	
 	
-def backslash(height, width):
-	"""
-		Used for splitting the layout lengthwise.
-		Produces a list of coordinates forming a diagonal line.
-		the diagonal lines goes from high left to low right.
-		That is, the reverse of the slash function.
-	"""
-	separator = slash(height, width)
+def slash(height, width):
+	separator = backslash(height, width)
 	mid = round(height/2)-1
 	n = len(separator)
 	inverted = []
@@ -135,26 +126,30 @@ def endpoints(separator): # potential add-on. add overlaps
 	return left, right
 	
 		
-def split(height, width, up, right, separator, kind, top_right=69): # potential addon. add overlap
+def split(height, width, up, right, grid, separation, kind, top_right=69, overlap=0): # potential addon. add overlap
 	"""
-		Used to create a split layout. The separator can be a dash, a slash, or a backslash.
+		Used to create a split layout.
+		grid is either rectangular or square from above
+		The separator can be a dash, a slash, or a backslash.
 		The kind is either 'parallel', meaning that
 		going past the left side on the lower takes you to right side of the higher.
 		Or, the kind is 'sequential', meaning that
 		going up the upper right corner on lower takes you to the lower left corner on higher.
 	"""
-	layout = generate(height, width, up, right, top_right=top_right)
+	layout = grid(height, width, up, right, top_right=top_right)
+	separator = separation(height, width)
 	left_end, right_end = endpoints(separator)
 	if kind == 'parallel':
 		bottom_height = height - right_end[0] - 1
-		bottom = generate(bottom_height, width, up, right, top_right=layout[0,0])
+		bottom = grid(bottom_height, width, up, right, top_right=layout[0,0+overlap])
 	elif kind == 'sequential':
 		bottom_height = height - right_end[0]
-		bottom = generate(bottom_height, width, up, right, top_right=layout[left_end])
+		bottom = grid(bottom_height, width, up, right, top_right=layout[left_end[0],left_end[1]+overlap])
 	else:
 		raise Warning("kind must be either 'parallel' or 'sequential'. (If both, 'parallel takes precedence.)")
 	mid_height = height - bottom_height + 1
-	mid = generate(mid_height, width, up, right, bottom_right=bottom[0,-1])
+	overlap_crop = False if bottom_height % 2 > 0 else True
+	mid = grid(mid_height, width, up, right, bottom_crop=overlap_crop, bottom_right=bottom[0,-1])
 	lower = np.concatenate([mid[:-1,:], bottom])
 	for (y,x) in separator:
 		for i in range(y+1, height):
@@ -168,6 +163,14 @@ def clean(layout):
 	layout[np.argwhere(layout < 0)] = -1
 	layout[np.argwhere(layout >= 128)] = -1
 	return layout.tolist()
+	
+	
+def crop(layout):
+	n = len(layout)
+	for i, row in enumerate(layout):
+		if (n-i) % 2 == 0:
+			row.pop(-1)
+	return layout
 	
 	
 class BaseLayout:
@@ -205,9 +208,7 @@ class BaseLayout:
 		if self.kind == 'hexagonal':
 			layout = self.hexagonal()
 			layout = clean(np.flipud(layout)) if self.is_up_down else clean(layout)
-			for i in range(self.height): # crop
-				if i % 2 != 0:
-					layout[i].pop(-1)
+			layout = crop(layout)
 		elif self.kind == 'rectangular':
 			layout = self.rectangular().tolist()
 			layout = clean(np.flipud(layout)) if self.is_up_down else clean(layout)
@@ -225,19 +226,19 @@ class Exquis(BaseLayout):
 		return up, right
 
 	def dilation_range(self):
-		return range(1, self.width*2 - 1)
+		return range(1, 17)
 
 	def hexagonal(self):
 		up, right = self.generalization()
 		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 
-	def rectangular(self):
-		up, right = self.generalization()
-		if self.dilation <= self.width - 1:
-			return generate(self.height, self.width, up, right, top_right=self.top_right)
-		else:
-			separator = dash(self.height, self.width)
-			return split(self.height, self.width, up, right, separator, kind='parallel', top_right=self.top_right)
+	# def rectangular(self):
+		# up, right = self.generalization()
+		# if self.dilation <= self.width - 1:
+			# return generate(self.height, self.width, up, right, top_right=self.top_right)
+		# else:
+			# separator = dash(self.height, self.width)
+			# return split(self.height, self.width, up, right, separator, kind='parallel', top_right=self.top_right)
 
 class HarmonicTable(BaseLayout):
 	
@@ -247,19 +248,19 @@ class HarmonicTable(BaseLayout):
 		return up, right
 
 	def dilation_range(self):
-		return range(0,42) # dummy value
+		return range(1,17)
 
 	def hexagonal(self):
 		up, right = self.generalization()
 		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 
-	def rectangular(self):
-		up, right = self.generalization()
-		if self.dilation < self.height/2 + (self.width-1)*5/2: # prel
-			return generate(self.height,self.width,up,right,top_right=self.top_right)
-		else:
-			separator = dash(self.height,self.width)
-			return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
+	# def rectangular(self):
+		# up, right = self.generalization()
+		# if self.dilation < self.height/2 + (self.width-1)*5/2: # prel
+			# return generate(self.height,self.width,up,right,top_right=self.top_right)
+		# else:
+			# separator = dash(self.height,self.width)
+			# return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
 
 
 def f3(d):
@@ -281,19 +282,19 @@ class WickiHayden(BaseLayout):
 		return up, right
 
 	def dilation_range(self):
-		return range(0,42) # dummy value
+		return range(1,17)
 
 	def hexagonal(self):
 		up, right = self.generalization()
 		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 
-	def rectangular(self):
-		up, right = self.generalization()
-		if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
-			return generate(self.height,self.width,up,right,top_right=self.top_right)
-		else:
-			separator = slash(self.height, self.width)
-			return split(self.height,self.width,up,right,separator,kind='parallel',top_right=self.top_right)
+	# def rectangular(self):
+		# up, right = self.generalization()
+		# if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
+			# return generate(self.height,self.width,up,right,top_right=self.top_right)
+		# else:
+			# separator = slash(self.height, self.width)
+			# return split(self.height,self.width,up,right,separator,kind='parallel',top_right=self.top_right)
 
 
 class Janko(BaseLayout):
@@ -304,18 +305,18 @@ class Janko(BaseLayout):
 		return up, right
 
 	def dilation_range(self):
-		return range(0,42)
+		return range(1,17)
 	
 	def hexagonal(self):
 		up, right = self.generalization()
 		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
 	
-	def rectangular(self):
-		up, right = self.generalization()
-		if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
-			return generate(self.height,self.width,up,right,top_right=self.top_right)
-		else:
-			separator = backslash(self.height, self.width)
-			return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
+	# def rectangular(self):
+		# up, right = self.generalization()
+		# if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
+			# return generate(self.height,self.width,up,right,top_right=self.top_right)
+		# else:
+			# separator = backslash(self.height, self.width)
+			# return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
 
 
