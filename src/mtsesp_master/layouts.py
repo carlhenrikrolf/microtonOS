@@ -126,7 +126,7 @@ def endpoints(separator): # potential add-on. add overlaps
 	return left, right
 	
 		
-def split(height, width, up, right, grid, separation, kind, top_right=69, overlap=0): # potential addon. add overlap
+def split(height, width, up, right, grid, separation, kind, top_right=69, overlap=1):
 	"""
 		Used to create a split layout.
 		grid is either rectangular or square from above
@@ -160,9 +160,12 @@ def split(height, width, up, right, grid, separation, kind, top_right=69, overla
 	
 	
 def clean(layout):
-	layout[np.argwhere(layout < 0)] = -1
-	layout[np.argwhere(layout >= 128)] = -1
-	return layout.tolist()
+	clean_layout = layout.tolist()
+	for i, row in enumerate(clean_layout):
+		for j, note in enumerate(row):
+			if note not in range(0,128):
+				clean_layout[i][j] = -1
+	return clean_layout
 	
 	
 def crop(layout):
@@ -230,15 +233,23 @@ class Exquis(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
-
-	# def rectangular(self):
-		# up, right = self.generalization()
-		# if self.dilation <= self.width - 1:
-			# return generate(self.height, self.width, up, right, top_right=self.top_right)
-		# else:
-			# separator = dash(self.height, self.width)
-			# return split(self.height, self.width, up, right, separator, kind='parallel', top_right=self.top_right)
+		if self.dilation <= 5:
+			layout = hexagonal(
+				self.height, self.width+1,
+				up, right,
+				top_right=self.top_right,
+			)
+		else:
+			layout = split(
+				self.height,
+				self.width+1,
+				up, right,
+				hexagonal,
+				dash,
+				kind='parallel',
+				top_right=self.top_right,
+			)
+		return layout
 
 class HarmonicTable(BaseLayout):
 	
@@ -252,15 +263,22 @@ class HarmonicTable(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
-
-	# def rectangular(self):
-		# up, right = self.generalization()
-		# if self.dilation < self.height/2 + (self.width-1)*5/2: # prel
-			# return generate(self.height,self.width,up,right,top_right=self.top_right)
-		# else:
-			# separator = dash(self.height,self.width)
-			# return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
+		if self.dilation <= 5:
+			layout = hexagonal(
+				self.height, self.width+1,
+				up, right,
+				top_right=self.top_right,
+			)
+		else:
+			layout = split(
+				self.height, self.width+1,
+				up, right,
+				hexagonal,
+				dash,
+				kind='sequential',
+				overlap=0,
+			)
+		return layout
 
 
 def f3(d):
@@ -286,15 +304,23 @@ class WickiHayden(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
-
-	# def rectangular(self):
-		# up, right = self.generalization()
-		# if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
-			# return generate(self.height,self.width,up,right,top_right=self.top_right)
-		# else:
-			# separator = slash(self.height, self.width)
-			# return split(self.height,self.width,up,right,separator,kind='parallel',top_right=self.top_right)
+		if self.dilation <= 5:
+			layout = hexagonal(
+				self.height, self.width+1,
+				up, right,
+				top_right=self.top_right,
+			)
+		else:
+			layout = split(
+				self.height, self.width+1,
+				up, right,
+				hexagonal,
+				backslash,
+				kind='parallel',
+				top_right=self.top_right,
+			)
+		return layout
+				
 
 
 class Janko(BaseLayout):
@@ -309,14 +335,21 @@ class Janko(BaseLayout):
 	
 	def hexagonal(self):
 		up, right = self.generalization()
-		return hexagonal(self.height, self.width+1, up, right, top_right=self.top_right)
-	
-	# def rectangular(self):
-		# up, right = self.generalization()
-		# if self.dilation < np.sqrt(self.height**2 + self.width**2): # guess
-			# return generate(self.height,self.width,up,right,top_right=self.top_right)
-		# else:
-			# separator = backslash(self.height, self.width)
-			# return split(self.height,self.width,up,right,separator,kind='sequential',top_right=self.top_right)
+		if self.dilation <= 5:
+			layout = hexagonal(
+				self.height, self.width+1,
+				up, right,
+				top_right=self.top_right
+			)
+		else:
+			layout = split(
+				self.height, self.width+1,
+				up, right,
+				hexagonal,
+				slash,
+				kind='sequential',
+				top_right=self.top_right,
+			)
+		return layout
 
 
