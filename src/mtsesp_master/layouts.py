@@ -267,7 +267,7 @@ def f3(d):
 		out = round(d/3)
 	else:
 		out = 0
-		for i in range(1,int(d/3)):
+		for i in range(1,int(d/3)+1):
 			if i > out and i % 2 > 0:
 				out = i
 	return out
