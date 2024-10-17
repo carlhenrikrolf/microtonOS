@@ -41,7 +41,7 @@ class Isomorphic:
 			self.coloring = coloring
 		for key, note in enumerate(self.mapping):
 			if note == self.null_note:
-				xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(Color('black'))))
+				xq.send(outport, xq.sysex(xq.color_key, key, [32, 32, 32]))
 			else:
 				xq.send(outport, xq.sysex(xq.color_key, key, xq.to_color(self.coloring[note])))
 				

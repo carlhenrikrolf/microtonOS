@@ -43,6 +43,7 @@ class Script:
 		self.dilation_range = presets.layout.dilation_range()
 		self.n_layouts = presets.n_layouts
 		self.layout_pgm = presets.layout_pgm
+		self.is_split = False
 		
 	def run(self, msg):
 		
@@ -79,12 +80,16 @@ class Script:
 			transpose, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
 			if transpose:
 				print('transponering =', self.transposition)
-			toggle, self.transposition = encoders.toggle_transposition(msg, self.transposition)
+			toggle, self.is_split = encoders.toggle_transposition(msg, self.is_split)
 			if toggle:
 				print('transponering =', self.transposition)
-			if transpose or toggle:
+			if transpose: # or toggle
 				layout = presets.layout.layout(top_right=self.transposition)
 				isomorphic.send(to_isomorphic, layout=layout)
+			if toggle:
+				layout = presets.layout.layout(is_split=self.is_split)
+				isomorphic.send(to_isomorphic, layout=layout)
+				
 			
 			# tuning preset
 			happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)

@@ -179,20 +179,32 @@ class Encoders:
 		return True, transposition
 		
 		
-	def toggle_transposition(self, msg, transposition):
+	# def toggle_transposition(self, msg, transposition):
+		# """
+			# Given the current transposition,
+			# the function checks whether it should be reverted to the initial transposition
+			# or whether to go from the last custom transposition to the initial
+		# """
+		# if xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]) and self.is_on():
+			# self.transposition_is_toggled = not self.transposition_is_toggled
+			# if self.transposition_is_toggled:
+				# self.transposition = transposition
+				# return True, self.init_transposition
+			# else:
+				# return True, self.transposition
+		# return False, transposition
+		
+	def toggle_transposition(self, msg, is_split):
 		"""
-			Given the current transposition,
-			the function checks whether it should be reverted to the initial transposition
-			or whether to go from the last custom transposition to the initial
+			Alternative where we toggle whether to split layout
 		"""
 		if xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]) and self.is_on():
 			self.transposition_is_toggled = not self.transposition_is_toggled
 			if self.transposition_is_toggled:
-				self.transposition = transposition
-				return True, self.init_transposition
+				return True, True
 			else:
-				return True, self.transposition
-		return False, transposition
+				return True, False
+		return False, self.transposition_is_toggled # read 'is_split'
 		
 		
 	def tuning_preset(self, msg, tuning_pgm):

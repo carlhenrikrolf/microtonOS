@@ -186,6 +186,7 @@ class BaseLayout:
 		is_left_right=False,
 		is_up_down=False,
 		top_right=69,
+		is_split=False,
 	):
 		self.height = height
 		self.width = width
@@ -195,17 +196,20 @@ class BaseLayout:
 		self.is_left_right = is_left_right
 		self.is_up_down = is_up_down
 		self.top_right = top_right
+		self.is_split = is_split
 		
 	def layout(self,
 		dilation=None,
 		is_left_right=None,
 		is_up_down=None,
 		top_right=None,
+		is_split=None,
 	):
 		self.dilation = self.dilation if dilation is None else dilation
 		self.is_left_right = self.is_left_right if is_left_right is None else is_left_right
 		self.is_up_down = self.is_up_down if is_up_down is None else is_up_down
 		self.top_right = self.top_right if top_right is None else top_right
+		self.is_split = self.is_split if is_split is None else is_split
 		if self.dilation not in self.dilation_range():
 			raise Warning('Dilation is not in range')
 		if self.kind == 'hexagonal':
@@ -233,7 +237,8 @@ class Exquis(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		if self.dilation <= 5:
+		#if self.dilation <= 5:
+		if not self.is_split:
 			layout = hexagonal(
 				self.height, self.width+1,
 				up, right,
@@ -263,7 +268,8 @@ class HarmonicTable(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		if self.dilation <= 5:
+		#if self.dilation <= 5:
+		if not self.is_split:
 			layout = hexagonal(
 				self.height, self.width+1,
 				up, right,
@@ -304,7 +310,8 @@ class WickiHayden(BaseLayout):
 
 	def hexagonal(self):
 		up, right = self.generalization()
-		if self.dilation <= 5:
+		#if self.dilation <= 5:
+		if not self.is_split:
 			layout = hexagonal(
 				self.height, self.width+1,
 				up, right,
@@ -315,7 +322,7 @@ class WickiHayden(BaseLayout):
 				self.height, self.width+1,
 				up, right,
 				hexagonal,
-				backslash,
+				slash,
 				kind='parallel',
 				top_right=self.top_right,
 			)
@@ -335,7 +342,8 @@ class Janko(BaseLayout):
 	
 	def hexagonal(self):
 		up, right = self.generalization()
-		if self.dilation <= 5:
+		#if self.dilation <= 5:
+		if not self.is_split:
 			layout = hexagonal(
 				self.height, self.width+1,
 				up, right,
@@ -346,7 +354,7 @@ class Janko(BaseLayout):
 				self.height, self.width+1,
 				up, right,
 				hexagonal,
-				slash,
+				backslash,
 				kind='sequential',
 				top_right=self.top_right,
 			)
