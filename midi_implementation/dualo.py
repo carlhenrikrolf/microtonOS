@@ -17,9 +17,11 @@ class Exquis:
 	settings = 0
 	sounds = 1
 	record = 2
-	loops = 3
-	snaps = 4
-	start_stop = 5
+	loops = 3 # app name
+	tracks = 3 # synonym, webpage name
+	snaps = 4 # app name
+	scenes = 4 # synonym, webpage name
+	play_stop = 5
 	octave_down = 6
 	octave_up = 7
 	page_left = 8

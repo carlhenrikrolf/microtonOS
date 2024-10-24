@@ -1,4 +1,5 @@
 import mido
+import os 
 import threading
 import time
 import signal
@@ -90,6 +91,25 @@ def handle_terminations(processes):
 			processes.terminate()
 		sys.exit(0)
 	signal.signal(signal.SIGTERM, signal_handler)
+	
+	
+def ls(paths):
+	for path in paths:
+		try:
+			ls = os.listdir(path)
+		except:
+			continue
+		break
+	filenames = []
+	for item in ls:
+		if item[0] != '_' and '.' in item:
+			filenames.append('')
+			for letter in item:
+				if letter == '.':
+					break
+				else:
+					filenames[-1] += letter
+	return filenames
 				
 				
 			
