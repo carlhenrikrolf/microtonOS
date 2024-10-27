@@ -199,6 +199,8 @@ class Exquis:
 	def to_color(self, color):
 		if type(color) is Color:
 			return [round(i*127) for i in color.rgb]
+		elif type(color) is str:
+			return self.to_color(Color(color))
 		else:
 			raise Warning('Color type not supported')
 		

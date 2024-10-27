@@ -1,34 +1,27 @@
 from colour import Color
 from midi_implementation.dualo import exquis as xq
-from menu import config
-from utils import layout, to_key
-
-
-layout = [
-    [0, 1, 2, 3, 4, 5],
-   	[6, 7, 8, 9, 10],
-	[11, 12, 13, 14, 15, 16],
-	[17, 18, 19, 20, 21],
-	[23, 24, 25, 26, 27, 28],
-	[29, 30, 31, 32, 33],
-	[34, 35, 36, 37, 38, 39],
-	[40, 41, 42, 43, 44],
-	[45, 46, 47, 48, 49, 50],
-	[51, 52, 53, 54, 55],
+from config import engine_banks_pgms
+from utils import Outport
+import mido
+				
+				
+layout = [ # just for reference
 	[56, 57, 58, 59, 60, 61],
+	[51, 52, 53, 54, 55],
+	[45, 46, 47, 48, 49, 50],
+	[40, 41, 42, 43, 44],
+	[34, 35, 36, 37, 38, 39],
+	[29, 30, 31, 32, 33],
+	[23, 24, 25, 26, 27, 28],
+	[17, 18, 19, 20, 21],
+	[11, 12, 13, 14, 15, 16],
+   	[6, 7, 8, 9, 10],
+    [0, 1, 2, 3, 4, 5],
 ]
 
-def to_key(n):
-	key = 0
-	for i, row in enumerate(layout):
-		for j, val in enumerate(row):
-			key += 1
-			if n == val:
-				return key
-
-engines = range(0,17) # rows 1,2,3
-banks = range(23,40) # rows 5,6,7
-pgms = range(45,62) # rows 9,10,11
+engines = [56, 57, 58, 59, 60, 61, 51, 52, 53, 54, 55, 45, 46, 47, 48, 49, 50]
+banks = [34, 35, 36, 37, 38, 39, 29, 30, 31, 32, 33, 23, 24, 25, 26, 27, 28]
+pgms = [11, 12, 13, 14, 15, 16, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
 
 
 class Sounds:
@@ -39,33 +32,73 @@ class Sounds:
 		click_color=Color('white'),
 	):
 		self.outport = outport
-		self.base_color = base_color
-		self.click_color = click_color
+		self.base_color = xq.to_color(base_color)
+		self.click_color = xq.to_color(click_color)
+		self.engine = 0
+		self.bank = 0
+		self.pgm = 0
+		
+		self.n_engines = len(engine_banks_pgms)
+		self.n_banks = 0
+		self.n_pgms = 0
 	
 	def select(self, msg):
 		
 		if xq.is_sysex(msg, [xq.click, xq.sounds, xq.pressed])
-		
+			
 			for key in xq.keys:
-				...
-				
-			self.is_bank = False
-			self.is_pgm = False
+				xq.send(self.outport, [xq.key_to_note, key, key])
+			for i, key in enumerate(engines):
+				if i < self.n_engines:
+					xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+				else:
+					break
+			for key in range(i,61):
+				xq.send(self.outport, [xq.color_key, key, xq.to_color('black')])
+			for button in [xq.octave_up, xq.octave_down, xq.page_left, xq.page_right]:
+				xq.send(self.outport, xq.sysex(xq.color_button, button, xq.to_color('black')
+			for knob in [xq.knob1, xq.knob2, xq.knob3, xq.knob4]:
+				xq.send(self.outport, xq.sysex(xq.color_knob, knob, xq.to_color('black')))
+			self.n_banks = 0
+			self.n_pgms = 0
 		
 		elif msg.type == 'note_on':
 			
 			if msg.note in engines:
-				
-				self.is_pgm = False
-				self.is_bank = True
+				i = engines.index(msg.note)
+				if i < self.n_engines:
+					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
+					self.engine = i
+					self.n_banks = len(engine_banks_pgms[self.engine][1])
+					self.n_pgms = 0
+					if self.n_banks <= 1:
+						return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=0), mido.Message('program_change', 0)
+					for j, key in enumerate(banks):
+						if j <= self.n_banks:
+							xq.send(self.outport, [xq.color_key, key, self.base_color])
+						else:
+							break
 			
-			elif msg.note in banks and self.is_bank:
-				
-				self.is_pgm = True
+			elif msg.note in banks and self.n_banks > 0:
+				i = banks.index(msg.note)
+				if i < self.n_banks:
+					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
+					self.bank = i
+					self.n_pgms = round(engine_banks_pgms[self.engine][1][self.bank])
+					if self.n_pgms <= 1:
+						return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=0), mido.Message('program_change', self.bank)
+					for j, key in enumerate(self.pgms):
+						if j < self.n_pgms:
+							xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+						else:
+							break 
 			
-			elif msg.note in pgms and self.is_pgm:
-				
-				return port (engine bank pgm)
+			elif msg.note in pgms and self.n_pgms > 0:
+				i = programs.index(msg.note)
+				if i <= engine_banks_pgms[self.engine][1][self.bank]:
+					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
+					self.pgm = i
+					return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=self.bank), mido.Message('program_change', self.pgm)
 				
 		return None
 			
