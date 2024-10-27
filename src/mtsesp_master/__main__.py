@@ -123,7 +123,7 @@ class Script:
 		
 		
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
-encoders = Encoders(to_isomorphic,
+encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.init?
 	equave=0,
 	equave_range=range(-2,3),
 	transposition=presets.layout.top_right,

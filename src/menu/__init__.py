@@ -1,1 +1,1 @@
-from .exquis import Menu
+from .exquis import *
