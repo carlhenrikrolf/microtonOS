@@ -28,10 +28,16 @@ class Sounds:
 	
 	def __init__(self,
 		outport,
+		two_is_connected=lambda: False,
+		three_is_connected=lambda: False,
+		four_is_connected=lambda: False,
 		base_color=Color('purple'),
 		click_color=Color('white'),
 	):
 		self.outport = outport
+		self.two_is_connected = two_is_connected
+		self.three_is_connected = three_is_connected
+		self.four_is_connected = four_is_connected
 		self.base_color = xq.to_color(base_color)
 		self.click_color = xq.to_color(click_color)
 		self.engine = 0
@@ -57,11 +63,15 @@ class Sounds:
 				xq.send(self.outport, [xq.color_key, key, xq.to_color('black')])
 			for button in [xq.octave_up, xq.octave_down, xq.page_left, xq.page_right]:
 				xq.send(self.outport, xq.sysex(xq.color_button, button, xq.to_color('black')
-			for knob in [xq.knob1, xq.knob2, xq.knob3, xq.knob4]:
-				xq.send(self.outport, xq.sysex(xq.color_knob, knob, xq.to_color('black')))
+			
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, self.click_color))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.two_is_connected() else xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.three_is_connected() else xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.four_is_connected() else xq.to_color('black')))
+			
 			self.n_banks = 0
 			self.n_pgms = 0
-		
+					
 		elif msg.type == 'note_on':
 			
 			if msg.note in engines:
@@ -101,6 +111,16 @@ class Sounds:
 					return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=self.bank), mido.Message('program_change', self.pgm)
 				
 		return None
+		
+		
+	def two(self, msg):
+		if self.two_is_connected():
+			if xq.is_sysex(msg, [xq.clockwise, xq.knob2, None]):
+				return True
+			elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]):
+				return False
+		else:
+			return None
 			
 		
 		

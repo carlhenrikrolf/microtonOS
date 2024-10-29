@@ -97,12 +97,26 @@ class Exquis:
 	widths = [5,6]
 	n_keys = 61
 	
+	
+	client_name = 'Exquis'
+	inports = ['Exquis MIDI 1', 'Exquis MIDI 2']
+	outports = ['Exquis MIDI 1', 'Exquis MIDI 2']
+	
 	def __init__(self):
 		self.last_sensing = time.perf_counter_ns()
 		self.current_map = [27, 28, 29, 30, 31, 32, 31, 32, 33, 34, 35, 34, 35, 36, 37, 38, 39, 38, 39, 40, 41, 42, 41, 42, 43, 44, 45, 46, 45, 46, 47, 48, 49, 48, 49, 50, 51, 52, 53, 52, 53, 54, 55, 56, 55, 56, 57, 58, 59, 60, 59, 60, 61, 62, 63, 62, 63, 64, 65, 66, 67] 
 		self.current_key_colors = [[0,0,0]]*61
 		self.current_knob_colors = [0,0,0,0]
 		self.current_menus = [self.released]*len(self.menu)
+		
+		
+	def is_connected(self):
+		out = 0
+		for outport in mido.get_output_names():
+			out += max([port in self.client_name+':'+outport for port in self.outports])
+		for inport in mido.get_input_names():
+			out += max([port in self.client_name+':'+inport for port in self.inports])
+		return bool(out)
 	
 	def active_sensing(self, port, sleep=0.3):
 		assert 0 < sleep < 1 
