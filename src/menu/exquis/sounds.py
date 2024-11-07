@@ -48,7 +48,8 @@ class Sounds:
 		self.n_banks = 0
 		self.n_pgms = 0
 		
-		self.is_on = False
+		self.is_on = None
+		self.submenu = 0
 	
 	def onoff(self, msg):
 		
@@ -75,10 +76,12 @@ class Sounds:
 			self.n_pgms = 0
 			
 			self.is_on = True
+			self.submenu = 0
 						
 		elif xq.is_sysex(msg, [xq.click, xq.sounds, xq.released]):
 			
-			self.is_on = False
+			self.is_on = None
+			return False
 				
 		return self.is_on
 			
@@ -89,10 +92,18 @@ class Sounds:
 			if msg.note in engines:
 				i = engines.index(msg.note)
 				if i < self.n_engines:
+					for j, key in enumerate(engines):
+						if j < self.n_engines:
+							xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+						else:
+							break
+					for key in range(j,61):
+						xq.send(self.outport, xq.sysex(xq.color_key, mapping[key], xq.to_color('black')))
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.engine = i
 					self.n_banks = len(engine_banks_pgms[self.engine][1])
 					self.n_pgms = 0
+					self.submenu = 1
 					if self.n_banks > 1:
 						for j, key in enumerate(banks):
 							if j <= self.n_banks:
@@ -100,22 +111,35 @@ class Sounds:
 							else:
 								break
 			
-			elif msg.note in banks and self.n_banks > 0:
+			elif msg.note in banks and self.n_banks > 1 and self.submenu > 0:
 				i = banks.index(msg.note)
 				if i < self.n_banks:
+					for j, key in enumerate(banks):
+						if j <= self.n_banks:
+							xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+						else:
+							xq.send(self.outport, xq.sysex(xq.color_key, key, xq.to_color('black')))
+					for key in pgms:
+						xq.send(self.outport, xq.sysex(xq.color_key, key, xq.to_color('black')))
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.bank = i
 					self.n_pgms = round(engine_banks_pgms[self.engine][1][self.bank])
+					self.submenu == 2
 					if self.n_pgms > 1:
-						for j, key in enumerate(self.pgms):
+						for j, key in enumerate(pgms):
 							if j < self.n_pgms:
 								xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
 							else:
 								break 
 			
-			elif msg.note in pgms and self.n_pgms > 0:
-				i = programs.index(msg.note)
+			elif msg.note in pgms and self.n_pgms > 1 and self.submenu > 1:
+				i = pgms.index(msg.note)
 				if i <= engine_banks_pgms[self.engine][1][self.bank]:
+					for j, key in enumerate(pgms):
+						if j < self.n_pgms:
+							xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+						else:
+							xq.send(self.outport, xq.sysex(xq.color_key, key, xq.to_color('black'))) 						
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.pgm = i
 				

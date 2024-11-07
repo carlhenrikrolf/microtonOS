@@ -21,9 +21,10 @@ class Script:
 				xq.send(to_exquis, xq.sysex(xq.color_button, menu_button, xq.to_color(Color('black'))))	
 			self.exquis_is_init = False
 			
-		if sounds.onoff(msg):
-			engine, bank, pgm = sounds.select(msg)
-			print('eng =', engine, 'bnk =', bank, 'pgm =', pgm)
+		if sounds.onoff(msg) is True:
+			self.engine, self.bank, self.pgm = sounds.select(msg)
+		elif sounds.onoff(msg) is False:
+			print('eng =', self.engine, 'bnk =', self.bank, 'pgm =', self.pgm)
 		else:
 			to_isomorphic.send(msg)
 			
