@@ -5,22 +5,22 @@ from utils import Outport
 import mido
 				
 				
-layout = [ # just for reference
-	[56, 57, 58, 59, 60, 61],
-	[51, 52, 53, 54, 55],
-	[45, 46, 47, 48, 49, 50],
-	[40, 41, 42, 43, 44],
-	[34, 35, 36, 37, 38, 39],
-	[29, 30, 31, 32, 33],
-	[23, 24, 25, 26, 27, 28],
-	[17, 18, 19, 20, 21],
-	[11, 12, 13, 14, 15, 16],
-   	[6, 7, 8, 9, 10],
-    [0, 1, 2, 3, 4, 5],
+mapping = [
+	55, 56, 57, 58, 59, 60,
+	50, 51, 52, 53, 54,
+	44, 45, 46, 47, 48, 49,
+	39, 40, 41, 42, 43,
+	33, 34, 35, 36, 37, 38,
+	28, 29, 30, 31, 32,
+	22, 23, 24, 25, 26, 27,
+	17, 18, 19, 20, 21,
+	11, 12, 13, 14, 15, 16,
+   	6, 7, 8, 9, 10,
+    0, 1, 2, 3, 4, 5,
 ]
 
-engines = [56, 57, 58, 59, 60, 61, 51, 52, 53, 54, 55, 45, 46, 47, 48, 49, 50]
-banks = [34, 35, 36, 37, 38, 39, 29, 30, 31, 32, 33, 23, 24, 25, 26, 27, 28]
+engines = [55, 56, 57, 58, 59, 60, 50, 51, 52, 53, 54, 44, 45, 46, 47, 48, 49]
+banks = [33, 34, 35, 36, 37, 38, 28, 29, 30, 31, 32, 22, 23, 24, 25, 26, 27]
 pgms = [11, 12, 13, 14, 15, 16, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
 
 
@@ -52,24 +52,24 @@ class Sounds:
 	
 	def onoff(self, msg):
 		
-		if xq.is_sysex(msg, [xq.click, xq.sounds, xq.pressed])
+		if xq.is_sysex(msg, [xq.click, xq.sounds, xq.pressed]):
 			
 			for key in xq.keys:
-				xq.send(self.outport, [xq.key_to_note, key, key])
+				xq.send(self.outport, xq.sysex(xq.map_key_to_note, key, key))
 			for i, key in enumerate(engines):
 				if i < self.n_engines:
 					xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
 				else:
 					break
 			for key in range(i,61):
-				xq.send(self.outport, [xq.color_key, key, xq.to_color('black')])
+				xq.send(self.outport, xq.sysex(xq.color_key, mapping[key], xq.to_color('black')))
 			for button in [xq.octave_up, xq.octave_down, xq.page_left, xq.page_right]:
-				xq.send(self.outport, xq.sysex(xq.color_button, button, xq.to_color('black')
+				xq.send(self.outport, xq.sysex(xq.color_button, button, xq.to_color('black')))
 			
 			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, self.click_color))
 			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.two_is_connected() else xq.to_color('black')))
-			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.three_is_connected() else xq.to_color('black')))
-			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.four_is_connected() else xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, self.click_color if self.three_is_connected() else xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, self.click_color if self.four_is_connected() else xq.to_color('black')))
 			
 			self.n_banks = 0
 			self.n_pgms = 0
@@ -96,7 +96,7 @@ class Sounds:
 					if self.n_banks > 1:
 						for j, key in enumerate(banks):
 							if j <= self.n_banks:
-								xq.send(self.outport, [xq.color_key, key, self.base_color])
+								xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
 							else:
 								break
 			
