@@ -47,8 +47,10 @@ class Sounds:
 		self.n_engines = len(engine_banks_pgms)
 		self.n_banks = 0
 		self.n_pgms = 0
+		
+		self.is_on = False
 	
-	def select(self, msg):
+	def onoff(self, msg):
 		
 		if xq.is_sysex(msg, [xq.click, xq.sounds, xq.pressed])
 			
@@ -71,8 +73,18 @@ class Sounds:
 			
 			self.n_banks = 0
 			self.n_pgms = 0
+			
+			self.is_on = True
+						
+		elif xq.is_sysex(msg, [xq.click, xq.sounds, xq.released]):
+			
+			self.is_on = False
+				
+		return self.is_on
+			
+	def select(self, msg):
 					
-		elif msg.type == 'note_on':
+		if msg.type == 'note_on':
 			
 			if msg.note in engines:
 				i = engines.index(msg.note)
@@ -81,13 +93,12 @@ class Sounds:
 					self.engine = i
 					self.n_banks = len(engine_banks_pgms[self.engine][1])
 					self.n_pgms = 0
-					if self.n_banks <= 1:
-						return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=0), mido.Message('program_change', 0)
-					for j, key in enumerate(banks):
-						if j <= self.n_banks:
-							xq.send(self.outport, [xq.color_key, key, self.base_color])
-						else:
-							break
+					if self.n_banks > 1:
+						for j, key in enumerate(banks):
+							if j <= self.n_banks:
+								xq.send(self.outport, [xq.color_key, key, self.base_color])
+							else:
+								break
 			
 			elif msg.note in banks and self.n_banks > 0:
 				i = banks.index(msg.note)
@@ -95,22 +106,20 @@ class Sounds:
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.bank = i
 					self.n_pgms = round(engine_banks_pgms[self.engine][1][self.bank])
-					if self.n_pgms <= 1:
-						return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=0), mido.Message('program_change', self.bank)
-					for j, key in enumerate(self.pgms):
-						if j < self.n_pgms:
-							xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
-						else:
-							break 
+					if self.n_pgms > 1:
+						for j, key in enumerate(self.pgms):
+							if j < self.n_pgms:
+								xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+							else:
+								break 
 			
 			elif msg.note in pgms and self.n_pgms > 0:
 				i = programs.index(msg.note)
 				if i <= engine_banks_pgms[self.engine][1][self.bank]:
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.pgm = i
-					return Outport(name=engine_banks_pgms[self.engine][0], client_name=self.client_name), mido.Message('control_change', control=0, value=self.bank), mido.Message('program_change', self.pgm)
 				
-		return None
+		return self.engine, self.bank, self.pgm
 		
 		
 	def two(self, msg):

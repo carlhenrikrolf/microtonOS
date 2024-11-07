@@ -1,9 +1,11 @@
 # if there is no broad menu, then menu could be divided across several instruments.
 
 import menu
+from utils import Input, Output, make_threads
 from midi_implementation.dualo import exquis as xq
 from midi_implementation.yamaha import reface_cp as cp
 
+client_name = 'microtonOS'
 
 class Script:
 
@@ -12,23 +14,32 @@ class Script:
 
 	def exquis(self, msg):
 		
-		if self.exquis_is_init:
-			self.sounds = menu.Sounds(to_exquis, two_is_connected=cp.is_connected)
-			self.misc = menu.Misc(to_exquis)
+		if self.exquis_is_init:	
+			misc.reset()		
 			self.exquis_is_init = False
 			
-		select_sound = self.sounds.select(msg)
-		if select_sound is not None:
-			print(self.sounds.engine)
-		reface_cp_onoff = self.sounds.two(msg)
-		if reface_cp_onoff is True:
-			print('cp on')
-		elif reface_cp_onoff is False:
-			print('cp off')
+		if sounds.onoff(msg):
+			engine, bank, pgm = sounds.select(msg)
+			print(engine, bank, pgm)
+		elif misc.onoff(msg):
+			pass
+		else:
+			to_isomorphic.send(msg)
 			
-	def reface_cp(self):
+		if sounds.two(msg) is True:
+			print('cp on')
+		elif sounds.two(msg) is False:
+			print('cp off')
+
+	def reface_cp(self, msg):
 		pass
 
-
-	
+to_exquis = Outport(client_name, name='Exquis')
+to_isomorphic = Outport(client_name, name='Isomorphic')
+sounds = menu.Sounds(to_exquis, two_is_connected=cp.is_connected)
+misc = menu.Misc(to_exquis)
+script = Script()
+from_exquis = Inport(script.exquis, client_name, name='Exquis')
+from_reface_cp = Inport(script.reface_cp, client_name, name='Reface CP')
+make_threads([from_exquis.open, from_reface_cp.open])
 
