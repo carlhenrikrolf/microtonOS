@@ -98,6 +98,13 @@ class Encoders:
 		self.transposition = self.init_transposition
 		self.dilation = self.init_dilation
 	
+	
+	
+	def is_reset(self, msg):
+		for menu_button in [xq.settings, xq.sounds, xq.record, xq.tracks, xq.scenes, xq.play_stop]:
+			if xq.is_sysex(msg, [xq.click, menu_button, xq.released]):
+				return True
+		return False
 			
 		
 	def is_on(self): # for compatibility of future work

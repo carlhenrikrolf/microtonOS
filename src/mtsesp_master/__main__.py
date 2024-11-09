@@ -47,7 +47,7 @@ class Script:
 		
 	def run(self, msg):
 		
-		if not isomorphic.ignore(msg):
+		if not isomorphic.ignore(msg): # ignore null note
 		
 			# initial touch
 			if self.is_init:
@@ -56,6 +56,11 @@ class Script:
 				coloring = presets.tuning.coloring()
 				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 				self.is_init = False
+				
+			if encoders.is_reset(msg):
+				layout = presets.layout.layout()
+				coloring = presets.tuning.coloring()
+				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 			
 			# bottom encoders
 			# change equave

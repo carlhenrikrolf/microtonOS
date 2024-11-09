@@ -25,6 +25,7 @@ class Script:
 			self.engine, self.bank, self.pgm = sounds.select(msg)
 		elif sounds.onoff(msg) is False:
 			print('eng =', self.engine, 'bnk =', self.bank, 'pgm =', self.pgm)
+			to_isomorphic.send(msg)
 		else:
 			to_isomorphic.send(msg)
 			
