@@ -106,7 +106,7 @@ class Sounds:
 					self.submenu = 1
 					if self.n_banks > 1:
 						for j, key in enumerate(banks):
-							if j <= self.n_banks:
+							if j < self.n_banks:
 								xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
 							else:
 								break
@@ -115,7 +115,7 @@ class Sounds:
 				i = banks.index(msg.note)
 				if i < self.n_banks:
 					for j, key in enumerate(banks):
-						if j <= self.n_banks:
+						if j < self.n_banks:
 							xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
 						else:
 							xq.send(self.outport, xq.sysex(xq.color_key, key, xq.to_color('black')))
@@ -124,7 +124,7 @@ class Sounds:
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.bank = i
 					self.n_pgms = round(engine_banks_pgms[self.engine][1][self.bank])
-					self.submenu == 2
+					self.submenu = 2
 					if self.n_pgms > 1:
 						for j, key in enumerate(pgms):
 							if j < self.n_pgms:

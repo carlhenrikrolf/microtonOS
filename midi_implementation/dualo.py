@@ -2,7 +2,7 @@ import mido
 import time
 from colour import Color
 
-class Exquis:
+class Exquis: # version 1.2.0
 	
 	prefix = [0x00, 0x21, 0x7E]
 	
@@ -184,25 +184,22 @@ class Exquis:
 		time.sleep(self.polling_time)
 				
 		
-	def is_menu(self, msg=None, state=None):
-		if msg is None:
-			return True if sum(self.current_menus) > 0 else False
-		if msg.type == 'sysex' and list(msg.data[0:4]) == [*self.prefix, self.click]:
-			button = msg.data[4]
-			if button in self.menu:
-				onoff = msg.data[5]
-				self.current_menus[button] = onoff
-				if state == self.pressed:
-					return True if sum(self.current_menus) > 0 else False
-				elif state == self.released:
-					return True if sum(self.current_menus) == 0 else False
-		if state is None:
-			return True if sum(self.current_menus) > 0 else False
-		else:
-			return False
-				
-	def test(self):
-		return mido.open_output('Exquis MIDI 1')
+	# def is_menu(self, msg=None, state=None):
+		# if msg is None:
+			# return True if sum(self.current_menus) > 0 else False
+		# if msg.type == 'sysex' and list(msg.data[0:4]) == [*self.prefix, self.click]:
+			# button = msg.data[4]
+			# if button in self.menu:
+				# onoff = msg.data[5]
+				# self.current_menus[button] = onoff
+				# if state == self.pressed:
+					# return True if sum(self.current_menus) > 0 else False
+				# elif state == self.released:
+					# return True if sum(self.current_menus) == 0 else False
+		# if state is None:
+			# return True if sum(self.current_menus) > 0 else False
+		# else:
+			# return False
 		
 	def to_knob(self, button):
 		return button - 10
