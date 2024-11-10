@@ -1,20 +1,16 @@
-
-
 import mido
 
-
-
+manufacturer_id = 0x43
 
 class RefaceCP:
 	
 	## sysex
-	yamaha_id = 0x43
 	device_number = 0x10 # could be any between 0x10 and 0x1F
 	group_number_high = 0x7F
 	group_number_low = 0x1C
 	model_id = 0x04
 	
-	prefix = [yamaha_id, device_number, group_number_high, group_number_low]
+	prefix = [manufacturer_id, device_number, group_number_high, group_number_low]
 	
 	on = 0x01
 	off = 0x00
@@ -43,8 +39,7 @@ class RefaceCP:
 	outports = ['reface CP MIDI 1']
 	
 	## init
-	def __init__(self, ignore=False):
-		self.ignore	= ignore
+	def __init__(self):
 		self.sustain_value = 0
 		self.type_value = 0
 		self.drive_value = 0
@@ -56,7 +51,7 @@ class RefaceCP:
 		self.chorus_phaser_speed_value = 0
 		self.digital_analog_value = 0
 		self.digital_analog_depth_value = 0
-		self.digital_analog:_time_value = 0
+		self.digital_analog_time_value = 0
 		self.reverb_depth_value = 0
 		
 	def is_connected(self):
@@ -77,22 +72,149 @@ class RefaceCP:
 	def local_control(self,state):
 		return self.parameter_change(address=[0x00, 0x00, 0x06], data=state)
 		
-		
-		
 	## cc
-	def sustain(self, port=None, msg=None, new=sustain_control):
-		if not self.ignore:
-			is_sustain = False
-			if msg is not None:
-				is_sustain = msg.is_cc(self.sustain_control)
-				if is_sustain:
-					self.sustain_value = msg.value
-			if port is not None:
-				port.send(msg.Message('control_change', control=control, value=self.sustain_value, channel=msg.channel))
-			return is_sustain
+	def instrument_type(self, msg):
+		if msg.is_cc(self.type_control):
+			self.type_value = msg.value
+			if self.type_value in range(0,22):
+				return 'Rd I'
+			elif self.type_value in range(22,43):
+				return 'Rd II'
+			elif self.type_value in range(43,65):
+				return 'Wr'
+			elif self.type_value in range(65,86):
+				return 'Clv'
+			elif self.type_value in range(86,107):
+				return 'Toy'
+			else:
+				return 'CP'
+		return None
+		
+	def drive(self, msg):
+		if msg.is_cc(self.drive_control):
+			self.drive_value = msg.value
+			return self.drive_value
+		return None
+			
+	def tremolo(self, msg):
+		if msg.is_cc(self.tremolo_wah_control):
+			if msg.value == self.up:
+				self.tremolo_wah_value = msg.value
+				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+			elif self.tremolo_wah_value == self.up and msg.value == self.middle:
+				self.tremolo_wah_value = msg.value
+				return False, None, None
+		elif msg.is_cc(self.tremolo_wah_depth_control):
+			self.tremolo_wah_depth_value = msg.value
+			if self.tremolo_wah_value == self.up:
+				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+		elif msg.is_cc(self.tremolo_wah_rate_control):
+			self.tremolo_wah_rate_value = msg.value
+			if self.tremolo_wah_value == self.up:
+				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+		return None, None, None
+		
+	def wah(self, msg):
+		if msg.is_cc(self.tremolo_wah_control):
+			if msg.value == self.down:
+				self.tremolo_wah_value = msg.value
+				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+			elif self.tremolo_wah_value == self.down and msg.value == self.middle:
+				self.tremolo_wah_value = msg.value
+				return False, None, None
+		elif msg.is_cc(self.tremolo_wah_depth_control):
+			self.tremolo_wah_depth_value = msg.value
+			if self.tremolo_wah_value == self.down:
+				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+		elif msg.is_cc(self.tremolo_wah_rate_control):
+			self.tremolo_wah_rate_value = msg.value
+			if self.tremolo_wah_value == self.down:
+				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+		return None, None, None
+		
+	def chorus(self, msg):
+		if msg.is_cc(self.chorus_phaser_control):
+			if msg.value == self.up:
+				self.chorus_phaser_value = msg.value
+				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+			elif self.chorus_phaser_value == self.up and msg.value == self.middle:
+				self.chorus_phaser_value = msg.value
+				return False, None, None
+		elif msg.is_cc(self.chorus_phaser_depth_control):
+			self.chorus_phaser_depth_value = msg.value
+			if self.chorus_phaser_value == self.up:
+				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+		elif msg.is_cc(self.chorus_phaser_speed_control):
+			self.chorus_phaser_speed_value = msg.value
+			if self.chorus_phaser_value == self.up:
+				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+		return None, None, None
+		
+	def phaser(self, msg):
+		if msg.is_cc(self.chorus_phaser_control):
+			if msg.value == self.down:
+				self.chorus_phaser_value = msg.value
+				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+			elif self.chorus_phaser_value == self.down and msg.value == self.middle:
+				self.chorus_phaser_value = msg.value
+				return False, None, None
+		elif msg.is_cc(self.chorus_phaser_depth_control):
+			self.chorus_phaser_depth_value = msg.value
+			if self.chorus_phaser_value == self.down:
+				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+		elif msg.is_cc(self.chorus_phaser_speed_control):
+			self.chorus_phaser_speed_value = msg.value
+			if self.chorus_phaser_value == self.down:
+				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+		return None, None, None
+		
+	def digital_delay(self, msg):
+		if msg.is_cc(self.digital_analog_control):
+			if msg.value == self.up:
+				self.digital_analog_value = msg.value
+				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+			elif self.digital_analog_value == self.up and msg.value == self.middle:
+				self.digital_analog_value = msg.value
+				return False, None, None
+		elif msg.is_cc(self.digital_analog_depth_control):
+			self.digital_analog_depth_value = msg.value
+			if self.digital_analog_value == self.up:
+				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+		elif msg.is_cc(self.digital_analog_time_control):
+			self.digital_analog_time_value = msg.value
+			if self.digital_analog_value == self.up:
+				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+		return None, None, None
+		
+	def analog_delay(self, msg):
+		if msg.is_cc(self.digital_analog_control):
+			if msg.value == self.down:
+				self.digital_analog_value = msg.value
+				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+			elif self.digital_analog_value == self.down and msg.value == self.middle:
+				self.digital_analog_value = msg.value
+				return False, None, None
+		elif msg.is_cc(self.digital_analog_depth_control):
+			self.digital_analog_depth_value = msg.value
+			if self.digital_analog_value == self.down:
+				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+		elif msg.is_cc(self.digital_analog_time_control):
+			self.digital_analog_time_value = msg.value
+			if self.digital_analog_value == self.down:
+				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+		return None, None, None
 				
+	def reverb(self, msg):
+		if msg.is_cc(self.reverb_depth_control):
+			self.reverb_depth_value = msg.value
+			return self.reverb_depth_value
+		return None
+		
+	def sustain(self, msg):
+		if msg.is_cc(self.sustain_control):
+			self.sustain_value = msg.value
+			return self.sustain_value
+		return None
 
 		
 reface_cp = RefaceCP()
-
-ignore_cp = RefaceCP(ignore=True)
