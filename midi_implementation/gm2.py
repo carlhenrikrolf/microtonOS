@@ -59,16 +59,16 @@ class ControlChange:
 	undefined_7bit = [85, 86, 87, 89, 90, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119]
 	undefined = [*undefined_msb, *undefined_7bit]
 	
-	channel_mode_messages = [None]*8
+	channel_mode_message = [None]*8
 	
-	channel_mode_messages[0] = all_sound_off = 120
-	channel_mode_messages[1] = reset_all_controllers = 121
-	channel_mode_messages[2] = local_onoff_switch = 122
-	channel_mode_messages[3] = all_notes_off = 123
-	channel_mode_messages[4] = omni_mode_off = 124
-	channel_mode_messages[5] = omni_mode_on = 125
-	channel_mode_messages[6] = mono_mode = 126
-	channel_mode_messages[7] = poly_mode = 127
+	channel_mode_message[0] = all_sound_off = 120
+	channel_mode_message[1] = reset_all_controllers = 121
+	channel_mode_message[2] = local_onoff_switch = 122
+	channel_mode_message[3] = all_notes_off = 123
+	channel_mode_message[4] = omni_mode_off = 124
+	channel_mode_message[5] = omni_mode_on = 125
+	channel_mode_message[6] = mono_mode = 126
+	channel_mode_message[7] = poly_mode = 127
 
 control_change = ControlChange()
 	
