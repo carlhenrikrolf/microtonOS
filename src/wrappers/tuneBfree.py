@@ -1,4 +1,5 @@
 from midi_implementation.gm2 import control_change as cc
+from utils import Inport, Outport
 
 client_name = 'tuneBfree Wrapper'
 
@@ -33,16 +34,163 @@ percussion_soft = mido.Message('control_change', control=66, value=63)
 percussion_normal = mido.Message('control_change', control=66, value=16)
 percussion_off = mido.Message('control_change', control=66, value=0)
 
-def pgm_change:
+class Leslie:
+	
+	def __init__(self, control=1):
+		self.control = control
+		self.horn_speed = 0
+		self.drum_speed = 0
+		
+	def translate(self, horn=horn_speed, drum=drum_speed):
+		self.horn_speed = horn
+		self.drum_speed = drum
+		if msg.drum_speed in range(0,42):
+			if self.drum_speed in range(0,42):
+				print('horn off, drum off')
+				return mido.Message('control_change', control=self.control, value=8)
+			elif self.drum_speed in range(42, 84):
+				print('horn off, drum slow')
+				return mido.Message('control_change', control=self.control, value=22)
+			else:
+				print('horn off, drum fast')
+				return mido.Message('control_change', control=self.control, value=36)
+		elif mself.drum_speed in range(42, 84):
+			if self.drum_speed in range(0,42):
+				print('horn slow, drum off')
+				return mido.Message('control_change', control=self.control, value=50)
+			elif self.drum_speed in range(42, 84):
+				print('horn slow, drum slow')
+				return mido.Message('control_change', control=self.control, value=64)
+			else:
+				print('horn slow, drum fast')
+				return mido.Message('control_change', control=self.control, value=78)
+		else:
+			if self.drum_speed in range(0,42):
+				print('horn fast, drum off')
+				return mido.Message('control_change', control=self.control, value=92)
+			elif self.drum_speed in range(42, 84):
+				print('horn fast, drum slow')
+				return mido.Message('control_change', control=self.control, value=106)
+			else:
+				print('horn fast, drum fast')
+				return mido.Message('control_change', control=self.control, value=120)
 
-def drive:
+class Vibrato:
+	
+	def __init__(self, control=92):
+		self.control = control
+		self.depth_value = 0
+		self.is_chorus_value = 0
+		
+	def translate(self, depth=depth_value, is_chorus=is_chorus_value):
+		self.depth_value = depth
+		self.is_chorus_value = is_chorus
+		if self.depth_value in range(0,42):
+			if self.is_chorus_value in range(0,64):
+				print('v1')
+				return mido.Message('control_change', control=self.control, value=11)
+			if else:
+				print('c1')
+				return mido.Message('control_change', control=self.control, value=32)
+		elif self.depth_value in range(42,84):
+			if self.is_chorus_value in range(0,64):
+				print('v2')
+				return mido.Message('control_change', control=self.control, value=53)
+			else:
+				print('c2')
+				return mido.Message('control_change', control=self.control, value=74)
+		else:
+			if self.is_chorus_value in range(0,64):
+				print('v3')
+				return mido.Message('control_change', control=self.control, value=95)
+			else:
+				print('c3')
+				return mido.Message('control_change', control=self.control, value=116)
 
-def tremolo_chorale:
+class Percussion:
 	
-def vibrato_chorus:
+	def __init__(self, control=66):
+		self.control = control
+		self.depth_value = 0
+		self.is_on_value = 0
+		
+	def translate(self, depth=depth_value, is_on=is_on_value):
+		self.depth_value = depth
+		self.is_on_value = is_on
+		if self.is_on in range(0,64):
+			print('percussion off')
+			return mido.Message('control_change', control=self.control, value=0)
+		else:
+			if self.depth_value in range(0,64):
+				print('soft percussion')
+				return mido.Message('control_change', control=self.control, value=63)
+			else:
+				print('normal_percussion')
+				return mido.Message('control_change', control=self.control, value=16)
+
+leslie = Leslie(control=1)
+vibrato = Vibrato(control=92)	
+percussion = Percussion(control=66)
+
+def drive(msg):
+	if msg.is_cc(94): # detune
+		if msg.value > 0:
+			to_tuneBfree.send(mido.Message('control_change', control=65, value=127))
+		else:
+			to_tuneBfree.send(mido.Message('control_change', control=65, value=0))
+		print('drive', msg.value)
 	
-def percussion:
+def horn(self, msg):
+	if msg.is_cc(cc.tremolo):
+		if msg.value in range(0,64):
+			to_tuneBfree.send(leslie.translate(horn=0))
+	elif msg.is_cc(cc.undefined[0]):
+		to_tuneBfree.send(mido.Message('control_change', control=2, value=msg.value))
+		print('horn acceleration', msg.value)
+	elif msg.is_cc(cc.undefined[1]):
+		to_tuneBfree.send(leslie.translate(horn=msg.value))
+			
+def filter(msg):
+	pass
 	
+def chorus(msg):
+	if msg.is_cc(cc.chorus):
+		if msg.value in range(0,64):
+			print('chorus off')
+			to_tuneBfree.send(mido.Message('control_change', control=95, value=0))
+		else:
+			print('chorus on')
+			to_tuneBfree.send(mido.Message('control_change', control=95, value=96))
+	elif msg.is_cc(cc.undefined[4]):
+		to_tuneBfree.send(vibrato.translate(depth=msg.value))
+	elif msg.is_cc(cc.undefined[5]):
+		to_tuneBree.send(vibrato.translate(is_chorus=msg.value))
+	
+def drum:
+	if msg.is_cc(cc.phaser):
+		if msg.value in range(0,64):
+			print('drum off')
+			to_tuneBfree.send(leslie.translate(drum=0)
+	elif msg.is_cc(cc.undefined[6]):
+		print('drum acceleration', msg.value)
+		to_tuneBfree.send(mido.Message('control_change', control=21, value=msg.value))
+	elif msg.is_cc(cc.undefined[7]):
+		to_tuneBfree(leslie.translate(drum=msg.value))
+	
+def harmonic2:
+	if msg.is_cc(cc.effect_controller[0][0]):
+		...
+	elif msg.is_cc(cc.undefined[8]):
+		...
+	elif msg.is_cc(cc.undefined[9]):
+		...
+	
+def harmonic3:
+	if msg.is_cc(cc.effect_controller[1][0]):
+		...
+	elif msg.is_cc(cc.undefined[8]):
+		...
+	elif msg.is_cc(cc.undefined[9]):
 
 
 
