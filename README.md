@@ -110,6 +110,8 @@ Extract into home directory.
 I got a directory called `Pianoteq 8 STAGE`
 (but anything starting with Pianoteq should be fine).
 
+Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
+
 - Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
 - Download the software above and install the software above.
 	- Python packages should be installed in a virtual environment at /home/pi/.venv/
