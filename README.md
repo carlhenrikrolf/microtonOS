@@ -69,21 +69,13 @@ cd microtonOS/
 ```
 ```bash
 python3 -m venv .venv
-```
-```bash
 source .venv/bin/activate
-```
-```bash
 pip3 install -r requirements.txt
-```
-```bash
 pip3 install .
 ```
 
 ```bash
 sudo cp config/config.txt /boot/firmware/config.txt
-```
-```bash
 sudo cp config/asound.conf /etc/
 ```
 Restart for the 2 above to take effect
@@ -102,15 +94,24 @@ Make sure that Claudia and Cadence have been installed.
 If Claudia is not installed, add it specifically.
 jackd2 should be installed, but make sure jackd2-dev is too.
 In Cadence, in configure, set buffer size 128 and make sure there are 2 inputs and 2 outputs.
+Make sure Hifiberry is input device and MIDI should be None.
 Also, auto-start JACK or LADISH at login
+
+Install tuneBfree.
+tuneBfree is found under third_party.
+Follow the instruction in the readme.
+The exception is that you should should not add libjack-dev.
+It should be libjack-jackd2-dev instead.
 
 Download Pianoteq.
 From user area if you have a license.
+To add .ptq files, go into .local/share/Modartt/Addons and add them there.
 Extract into home directory.
 I got a directory called `Pianoteq 8 STAGE`
 (but anything starting with Pianoteq should be fine).
 
 Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
+You may have to apply an apt fix command.
 
 - Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
 - Download the software above and install the software above.
