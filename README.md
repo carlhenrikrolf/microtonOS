@@ -57,14 +57,27 @@ The microtonOS code can be readily adapted to work with a minimum hardware requi
 
 
 ## Installation
-- `git clone --recurse-submodules'.
-If you forget the option,
-you can later add `submodule update --init --recursive'
-- `cd microtonOS'
-- `python3 -m venv .venv'
-- `source .venv/bin/activate'
-- `pip3 install -r requirements.txt'
-- `pip3 install .'
+```bash
+git clone --recurse-submodules
+```
+If you forget the option, you can later add
+```bash
+submodule update --init --recursive```
+```bash
+cd microtonOS/
+```
+```bash
+python3 -m venv .venv
+```
+```bash
+source .venv/bin/activate
+```
+```bash
+pip3 install -r requirements.txt
+```
+```bash
+pip3 install .
+```
 - Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
 - Download the software above and install the software above.
 	- Python packages should be installed in a virtual environment at /home/pi/.venv/
