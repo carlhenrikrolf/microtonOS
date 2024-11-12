@@ -2,3 +2,6 @@
 	path = third_party/mts-dylib-reference
 	url = https://github.com/baconpaul/mts-dylib-reference.git
 	ignore = dirty
+[submodule "tuneBfree"]
+	path = third_party/tuneBfree
+	url = git@github.com:carlhenrikrolf/tuneBfree.git
