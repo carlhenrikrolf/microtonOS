@@ -4,3 +4,4 @@
 [submodule "mts-dylib-reference"]
 	path = third_party/mts-dylib-reference
 	url = https://github.com/baconpaul/mts-dylib-reference.git
+	ignore = dirty

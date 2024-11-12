@@ -79,6 +79,37 @@ pip3 install -r requirements.txt
 ```bash
 pip3 install .
 ```
+
+```bash
+sudo cp config/config.txt /boot/firmware/config.txt
+```
+```bash
+sudo cp config/asound.conf /etc/
+```
+Restart for the 2 above to take effect
+
+```bash
+sudo apt install cmake
+cmake -S third_party/mts-dylib-reference/ -B third_party/mts-dylib-reference
+make --directory=third_party/mts-dylib-reference/
+sudo cp third_party/mts-dylib-reference/libMTS.so /usr/local/lib/
+```
+
+Follow the [instructions](https://kx.studio/Repositories) to install KS Studio.
+Then you should see more software in *Add / Remove Software*.
+Add Cadence.
+Make sure that Claudia and Cadence have been installed.
+If Claudia is not installed, add it specifically.
+jackd2 should be installed, but make sure jackd2-dev is too.
+In Cadence, in configure, set buffer size 128 and make sure there are 2 inputs and 2 outputs.
+Also, auto-start JACK or LADISH at login
+
+Download Pianoteq.
+From user area if you have a license.
+Extract into home directory.
+I got a directory called `Pianoteq 8 STAGE`
+(but anything starting with Pianoteq should be fine).
+
 - Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
 - Download the software above and install the software above.
 	- Python packages should be installed in a virtual environment at /home/pi/.venv/
