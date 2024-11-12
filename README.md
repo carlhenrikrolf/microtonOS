@@ -62,7 +62,8 @@ git clone --recurse-submodules
 ```
 If you forget the option, you can later add
 ```bash
-submodule update --init --recursive```
+submodule update --init --recursive
+```
 ```bash
 cd microtonOS/
 ```
