@@ -12,61 +12,64 @@ It is a knob-per-function synthesiser with carefully selected presets.
 Furthermore, it is screen-free, and, at its height, visual feedback is a somewhat culture-agnostic geometric representation of the tuning system.
 The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 midi controller + 1 Linux computer.
 
+## Components
+**Intuitive Instruments Exquis.**
+This is the main controller in my setup.
 
+**Piano and organ style midi keyboards.**
+I use a Yamaha Reface CP.
 
-## Hardware
-- Yamaha Reface CP
-	- Official power supply---12.0V, 0.7A, and 8.4W (included with Reface CP) 
-- Intuitive Instruments Exquis
-	- USB-c to USB-A cable (included with Exquis)
-- Raspberry Pi 5 8GB RAM
-- Raspberry Pi 5 official powersupply---5.1V, 5.0A/9.0V, 3.0A/12.0V, 2.25A, 15.0V 1.8A, and 27W
-- Inno-Maker Pi 5 Aluminum Case (with integrated fan/heatsink)
+**Raspberry Pi.**
+I use a Raspberry Pi 5 8GB RAM together with:
+- Official powersupply (5.1V, 5.0A/9.0V, 3.0A/12.0V, 2.25A, 15.0V 1.8A, and 27W)
+- Inno-Maker Raspberry Pi 5 Aluminum Case (with combined fan and heatsink)
 - Geeekpi GPIO pin header extension
-- HifiBerry ADC plus DAC
-- USB-B to USB-A cable
-- Stereo RCA to 3.5mm TRS female cable
-- 2 3.5 mm TRS male to 3.5 mm TRS male cables
-- Headphones
-- CME WiDi DIN-5
-- Sandisk 32GB SD card
+- HifiBerry ADC plus DAC soundcard
+- 64GB Sandisk Pro Extreme SD card
 
-## Software
-- Python 3
-	- mido
-	- mstsespy
-	- rtmidi
-	- signal
-	- subprocess
-	- sys
-	- time
+**Cables and adapters.**
+USB, TRS, and RCA adapters and cables are all necessary.
+DIN-5 for midi can be useful.
+
+**Software.**
+The OS I use is Raspberry Pi OS 64bit Bookworm.
+Python3 packages are included in `requirements.txt`.
+Virtual instruments include:
+- tuneBfree
 - Modartt Pianoteq 8 STAGE
-- tuneBfree (remove msse flags when installing)
 - Surge XT
-- SonoBus
+Necessary KX Studio software is:
 - Cadence
 - Claudia
-- jackd2
-- Qjackctl
-- MTS-ESP shared object (specific for Raspberry Pi, see mtsespy)
+For connectivity I use:
 - Blueman
+- Sonobus
 - librespot
-- cargo
-- Raspberry Pi OS (Bookworm) 64bit
-
-
+The MTS-ESP shared object is necessary for tuning.
 
 ## Installation
+Burn the SD card with the Raspberry Pi OS.
+Make sure the username is 'pi'.
+Assemble the Raspberry Pi together with the case and soundcard.
+Insert the SD card and pick appropriate settings for the OS.
+
+From the default directory (`/home/pi`), clone the repository with
 ```bash
-git clone --recurse-submodules
+git clone --recurse-submodules git@github.com:carlhenrikrolf/microtonOS.git
 ```
 If you forget the option, you can later add
 ```bash
-submodule update --init --recursive
+git submodule update --init --recursive
 ```
+In case you have your own fork, do not forget to set `git config --global user.name=<user name>`
+and `git config --global user.email=<user email>`.
+
+The following steps will be performed from withing the repository, so
 ```bash
 cd microtonOS/
 ```
+
+Install Python3 packages.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -74,12 +77,16 @@ pip3 install -r requirements.txt
 pip3 install .
 ```
 
+To set up the HifiBerry soundcard, copy these configuration files.
 ```bash
 sudo cp config/config.txt /boot/firmware/config.txt
 sudo cp config/asound.conf /etc/
 ```
-Restart for the 2 above to take effect
+Note that `config.txt` will be overwritten.
+Reboot for the changes to take effect.
+When using an audio application a red LED should be lit on the HifiBerry soundcard.
 
+Install MTS-ESP.
 ```bash
 sudo apt install cmake
 cmake -S third_party/mts-dylib-reference/ -B third_party/mts-dylib-reference
@@ -87,37 +94,28 @@ make --directory=third_party/mts-dylib-reference/
 sudo cp third_party/mts-dylib-reference/libMTS.so /usr/local/lib/
 ```
 
+Install tuneBfree.
+tuneBfree is found under `third_party/`.
+Follow the instruction in the README.
+The exception is that you should should not add libjack-dev.
+It should be libjack-jackd2-dev instead.
+
+Download Pianoteq (from user area if you have a license).
+Extract into `/home/pi/`; `/home/pi/Pianoteq <version>/` should be created.
+To add `.ptq` files, go into `.local/share/Modartt/Addons` and add them there.
+
+Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
+You may have to apply an apt fix install command.
+
 Follow the [instructions](https://kx.studio/Repositories) to install KS Studio.
 Then you should see more software in *Add / Remove Software*.
 Add Cadence.
 Make sure that Claudia and Cadence have been installed.
 If Claudia is not installed, add it specifically.
-jackd2 should be installed, but make sure jackd2-dev is too.
 In Cadence, in configure, set buffer size 128 and make sure there are 2 inputs and 2 outputs.
 Make sure Hifiberry is input device and MIDI should be None.
 Also, auto-start JACK or LADISH at login
 
-Install tuneBfree.
-tuneBfree is found under third_party.
-Follow the instruction in the readme.
-The exception is that you should should not add libjack-dev.
-It should be libjack-jackd2-dev instead.
-
-Download Pianoteq.
-From user area if you have a license.
-To add .ptq files, go into .local/share/Modartt/Addons and add them there.
-Extract into home directory.
-I got a directory called `Pianoteq 8 STAGE`
-(but anything starting with Pianoteq should be fine).
-
-Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
-You may have to apply an apt fix command.
-
-- Note that this installation has not been tested on multiple devices and is unlikely to work out of the box.
-- Download the software above and install the software above.
-	- Python packages should be installed in a virtual environment at /home/pi/.venv/
-- The username should be 'pi'.
-- Install config files and systemd files with 'update_*.sh' scripts.
 
 ### Customisation
 For usage with other software and hardware synthesisers, it is useful to know something about [tuning standards](learn/tuning_standards.md).
