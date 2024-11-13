@@ -1,12 +1,12 @@
 [Unit]
-Description=Start Pianoteq Wrapper
+Description=Start Reface CP Driver
 After=graphical.target
 
 [Service]
 User=pi
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/pianoteq.py
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/drivers/reface_cp.py
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group

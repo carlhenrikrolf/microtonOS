@@ -1,33 +1,30 @@
-#! /home/pi/.venv/bin/python3
+#! /home/pi/microtonOS/.venv/bin/python3
 
 # parameters
 client_name = 'Pianoteq Wrapper'
-verbose = True
-pianoteq_path = '/home/pi/Pianoteq 8 STAGE/arm-64bit/Pianoteq 8 STAGE'
 
 # modules
 import mido
 import subprocess
-from utils import Outport, Inport, handle_terminations
+from utils import Outport, Inport
+from midi_implementation.gm2 import control_change as cc
 
 # definitions
 class Script:
 	def __init__(self):
 		self.bank = 0
-		#self.pianoteq = subprocess.Popen(['sudo','-u', 'pi', pianoteq_path]) # option --headless yields noise
-		#handle_terminations(self.pianoteq)
-	def process(self, msg):
+	def run(self, msg):
 		if msg.type == 'reset':
 			subprocess.run(['systemctl', 'restart', 'pianoteq.service'])
-		elif msg.is_cc(0):
-			self.bank = msg.value if msg.value < 8 else 0
+		elif msg.is_cc(cc.bank_select):
+			self.bank = msg.value if msg.value < 17 else 0
 		else:
 			if msg.type == 'program_change':
-				msg.program = 16*self.bank + msg.program
+				msg.program = 6*self.bank + msg.program
 			outport.send(msg)
 
 # run script
-outport = Outport(client_name)
+outport = Outport(client_name, verbose=False)
 script = Script()
-inport = Inport(script.process, client_name)
+inport = Inport(script.run, client_name, verbose=False)
 inport.open()

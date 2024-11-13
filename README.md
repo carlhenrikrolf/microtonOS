@@ -97,6 +97,15 @@ make --directory=third_party/mts-dylib-reference/
 sudo cp third_party/mts-dylib-reference/libMTS.so /usr/local/lib/
 ```
 
+Install system daemon scripts.
+```bash
+sudo cp config/systemd/<service file> /lib/systemd/system/
+sudo systemctl enable <service file>
+sudo systemctl start <service file>
+```
+`systemctl status`, `sudo systemctl stop`, `sudo systemctl restart`, and `sudo systemctl daemon-reload` are also useful commands.
+
+
 Install tuneBfree.
 tuneBfree is found under `third_party/`.
 Follow the instruction in the README.
