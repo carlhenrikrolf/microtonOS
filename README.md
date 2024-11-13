@@ -128,6 +128,7 @@ In Cadence, in configure, set buffer size 128 and make sure there are 2 inputs a
 Make sure Hifiberry is input device and MIDI should be None.
 Also, auto-start JACK or LADISH at login
 
+Install Blueman and connect to any applicable Bluetooth midi devices or dongles.
 
 ### Customisation
 For usage with other software and hardware synthesisers, it is useful to know something about [tuning standards](learn/tuning_standards.md).

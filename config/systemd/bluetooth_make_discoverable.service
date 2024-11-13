@@ -1,12 +1,12 @@
 [Unit]
-Description=Start MTS-ESP Master
+Description=Make RPi discoverable over Bluetooth
 After=graphical.target
 
 [Service]
-User=pi
+User=root
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/mtsesp_master
+ExecStart=hciconfig hci0 piscan
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group
