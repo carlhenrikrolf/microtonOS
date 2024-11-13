@@ -38,13 +38,16 @@ Virtual instruments include:
 - tuneBfree
 - Modartt Pianoteq 8 STAGE
 - Surge XT
+
 Necessary KX Studio software is:
 - Cadence
 - Claudia
+
 For connectivity I use:
 - Blueman
 - Sonobus
 - librespot
+
 The MTS-ESP shared object is necessary for tuning.
 
 ## Installation
