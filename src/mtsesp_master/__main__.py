@@ -1,21 +1,5 @@
-#! /home/pi/.venv/bin/python3
-#! /home/pi/microtonOS/.venv/bin/python3
-
-"""
-	MTS-ESP Master.
-	Works with genereric midi controllers with the Halberstadt layout.
-	Assumes 5 octaves, and for some functionalities, pedals,
-	namely sustain, hold, sostenuto, soft, and expression,
-	as well as pitchbend and modulation.
-	Furthermore, it assumes the Exquis controller.
-	For changing the parameters of tuning with another controller,
-	modify encoders.py.
-	For changing what kind of isomorphic layouts are possible,
-	modify layouts.py
-"""
-
 # parameters
-client_name = 'New MTS-ESP master'
+client_name = 'MTS-ESP master'
 
 # imports
 import mido
@@ -45,7 +29,7 @@ class Script:
 		self.layout_pgm = presets.layout_pgm
 		self.is_split = False
 		
-	def run(self, msg):
+	def isomorphic(self, msg):
 		
 		if not isomorphic.ignore(msg): # ignore null note
 		
@@ -125,9 +109,27 @@ class Script:
 			if msg.type == 'note_on':
 				print('tonen är', msg.note, 'dvs', ['c','c#','d','d#','e','f','f#','g','g#','a','a#','b'][msg.note % 12])
 			
-		
-		
+			msg = mpe.dispatch(msg)
+			to_microtonOS.send(msg)
+			
+			
+		def halberstadt(self, msg):
+			
+			if hasattr(msg, 'channel'):
+				msg.channel = 16
+			to_microtonOS.send(msg)
+			
+			
+		def manual2(self,msg):
+			
+			if hasattr(msg, 'channel'):
+				msg.channel = 15
+			to_microtonOS.send(msg)
+			
+
+mpe = MPE(zone='lower', polyphony=14)
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
+to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
 encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.init?
 	equave=0,
 	equave_range=range(-2,3),
@@ -140,5 +142,7 @@ encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.
 )
 active_sensing = ActiveSensing(to_isomorphic)
 script = Script()
-from_isomorphic = Inport(script.run, client_name, name='isomorphic', verbose=False)
-make_threads([from_isomorphic.open, active_sensing.open])
+from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=False)
+from_halberstadt = Inport(script.halberstadt, client_name, name='Halberstadt', verbose=False)
+from_manual2 = Inport(script.manual2, client_name, name='manual 2', verbose=False)
+make_threads([from_isomorphic.open, from_halberstadt.open, from_manual2.open, active_sensing.open])

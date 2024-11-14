@@ -1,5 +1,3 @@
-# if there is no broad menu, then menu could be divided across several instruments.
-
 from colour import Color
 import mido
 from menu import Sounds
@@ -15,6 +13,7 @@ class Script:
 	def __init__(self):
 		
 		self.exquis_is_init = True
+		self.reopen = False
 		self.engine = init_engine
 		self.bank = 0
 		self.pgm = 0
@@ -23,9 +22,10 @@ class Script:
 	def open_outport(self, name):
 		try:
 			self.outport = mido.open_output('to '+name+' Wrapper')
+			self.reopen = False
 		except:
 			self.outport = mido.open_output()
-		
+			self.reopen = True
 
 	def exquis(self, msg):
 		
@@ -34,6 +34,9 @@ class Script:
 			for menu_button in [xq.settings, xq.record, xq.tracks, xq.scenes, xq.play_stop]:
 				xq.send(to_exquis, xq.sysex(xq.color_button, menu_button, xq.to_color(Color('black'))))	
 			self.exquis_is_init = False
+			self.open_outport(self.engine)
+			
+		if self.reopen:
 			self.open_outport(self.engine)
 		
 		if sounds.onoff(msg) is True:
@@ -50,6 +53,9 @@ class Script:
 			
 			
 	def reface_cp(self, msg):
+		
+		if self.reopen:
+			self.open_outport(self.engine)
 		
 		if msg.type == 'control_change':
 			msg.channel = 0
@@ -70,5 +76,5 @@ script = Script()
 from_exquis = Inport(script.exquis, client_name, name='Exquis')
 from_reface_cp = Inport(script.reface_cp, client_name, name='Reface CP')
 from_mtsesp_master = Inport(script.mtsesp_master, client_name, 'MTS-ESP master')
-make_threads([from_exquis.open, from_reface_cp.open])
+make_threads([from_exquis.open, from_reface_cp.open, from_mtsesp_master.open])
 
