@@ -46,7 +46,6 @@ Necessary KX Studio software is:
 For connectivity I use:
 - Blueman
 - Sonobus
-- librespot
 
 The MTS-ESP shared object is necessary for tuning.
 
@@ -128,7 +127,10 @@ In Cadence, in configure, set buffer size 128 and make sure there are 2 inputs a
 Make sure Hifiberry is input device and MIDI should be None.
 Also, auto-start JACK or LADISH at login
 
-Install Blueman and connect to any applicable Bluetooth midi devices or dongles.
+Install Blueman (available in *Add / Remove Software* in the main menu)
+and connect to any applicable Bluetooth midi devices or dongles.
+
+Install Sonobus [for Debian](https://sonobus.net/linux.html).
 
 ### Customisation
 For usage with other software and hardware synthesisers, it is useful to know something about [tuning standards](learn/tuning_standards.md).

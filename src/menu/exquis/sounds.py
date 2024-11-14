@@ -1,6 +1,6 @@
 from colour import Color
 from midi_implementation.dualo import exquis as xq
-from config import engine_banks_pgms
+from settings import engine_banks_pgms
 from utils import Outport
 import mido
 				
@@ -28,16 +28,10 @@ class Sounds:
 	
 	def __init__(self,
 		outport,
-		two_is_connected=lambda: False,
-		three_is_connected=lambda: False,
-		four_is_connected=lambda: False,
 		base_color=Color('purple'),
 		click_color=Color('white'),
 	):
 		self.outport = outport
-		self.two_is_connected = two_is_connected
-		self.three_is_connected = three_is_connected
-		self.four_is_connected = four_is_connected
 		self.base_color = xq.to_color(base_color)
 		self.click_color = xq.to_color(click_color)
 		self.engine = 0
@@ -67,10 +61,10 @@ class Sounds:
 			for button in [xq.octave_up, xq.octave_down, xq.page_left, xq.page_right]:
 				xq.send(self.outport, xq.sysex(xq.color_button, button, xq.to_color('black')))
 			
-			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, self.click_color))
-			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, self.click_color if self.two_is_connected() else xq.to_color('black')))
-			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, self.click_color if self.three_is_connected() else xq.to_color('black')))
-			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, self.click_color if self.four_is_connected() else xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, xq.to_color('black')))
+			xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, xq.to_color('black')))
 			
 			self.n_banks = 0
 			self.n_pgms = 0
@@ -143,17 +137,7 @@ class Sounds:
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.pgm = i
 				
-		return self.engine, self.bank, self.pgm
-		
-		
-	def two(self, msg):
-		if self.two_is_connected():
-			if xq.is_sysex(msg, [xq.clockwise, xq.knob2, None]):
-				return True
-			elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]):
-				return False
-		else:
-			return None
+		return engine_banks_pgms[self.engine][0], self.bank, self.pgm
 			
 		
 		
