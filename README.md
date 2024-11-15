@@ -76,7 +76,7 @@ Install Python3 packages.
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
-pip3 install .
+pip3 install . --use-pep517
 ```
 
 To set up the HifiBerry soundcard, copy these configuration files.

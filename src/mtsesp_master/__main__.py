@@ -3,6 +3,7 @@ client_name = 'MTS-ESP master'
 
 # imports
 import mido
+from midi_implementation.mpe import MPE, is_polyexpression
 from mtsesp_master.presets import presets
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
@@ -109,27 +110,27 @@ class Script:
 			if msg.type == 'note_on':
 				print('tonen är', msg.note, 'dvs', ['c','c#','d','d#','e','f','f#','g','g#','a','a#','b'][msg.note % 12])
 			
-			msg = mpe.dispatch(msg)
-			to_microtonOS.send(msg)
+			mpe.dispatch(msg)
 			
 			
-		def halberstadt(self, msg):
-			
-			if hasattr(msg, 'channel'):
-				msg.channel = 16
-			to_microtonOS.send(msg)
-			
-			
-		def manual2(self,msg):
-			
-			if hasattr(msg, 'channel'):
-				msg.channel = 15
-			to_microtonOS.send(msg)
+	def halberstadt(self, msg):
+		
+		if hasattr(msg, 'channel'):
+			msg.channel = 15 if is_polyexpression(msg) else 0
+		to_microtonOS.send(msg)
+		
+		
+	def manual2(self,msg):
+		
+		if hasattr(msg, 'channel'):
+			msg.channel = 14 if is_polyexpression(msg) else 0
+		to_microtonOS.send(msg)
 			
 
-mpe = MPE(zone='lower', polyphony=14)
+
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
-to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
+to_microtonOS = Outport(client_name, name='microtonOS', verbose=True)
+mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=14)
 encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.init?
 	equave=0,
 	equave_range=range(-2,3),
@@ -142,7 +143,7 @@ encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.
 )
 active_sensing = ActiveSensing(to_isomorphic)
 script = Script()
-from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=False)
+from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=True)
 from_halberstadt = Inport(script.halberstadt, client_name, name='Halberstadt', verbose=False)
 from_manual2 = Inport(script.manual2, client_name, name='manual 2', verbose=False)
 make_threads([from_isomorphic.open, from_halberstadt.open, from_manual2.open, active_sensing.open])
