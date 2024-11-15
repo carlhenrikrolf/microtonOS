@@ -3,6 +3,7 @@ import mido
 from menu import Sounds
 from utils import Inport, Outport, make_threads
 from settings import init_engine
+from midi_implementation.gm2 import control_change as cc
 from midi_implementation.dualo import exquis as xq
 from midi_implementation.yamaha import reface_cp as cp
 
@@ -24,7 +25,8 @@ class Script:
 			self.outport = mido.open_output('to '+name+' Wrapper')
 			self.reopen = False
 		except:
-			self.outport = mido.open_output()
+			if not self.reopen:
+				self.outport = mido.open_output()
 			self.reopen = True
 
 	def exquis(self, msg):
@@ -46,8 +48,8 @@ class Script:
 			to_isomorphic.send(msg)
 			self.outport.close()
 			self.open_outport(self.engine)
-			self.outport.send(mido.Message('control_change', control=cc.bank_select, value=self.bank))
-			self.outport.send(mido.Message('program_change', value=self.pgm))
+			self.outport.send(mido.Message('control_change', control=cc.bank_select[0], value=self.bank))
+			self.outport.send(mido.Message('program_change', program=self.pgm))
 		else:
 			to_isomorphic.send(msg)
 			
