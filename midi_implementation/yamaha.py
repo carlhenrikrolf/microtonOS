@@ -107,11 +107,11 @@ class RefaceCP:
 		elif msg.is_cc(self.tremolo_wah_depth_control):
 			self.tremolo_wah_depth_value = msg.value
 			if self.tremolo_wah_value == self.up:
-				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+				return None, self.tremolo_wah_depth_value, None
 		elif msg.is_cc(self.tremolo_wah_rate_control):
 			self.tremolo_wah_rate_value = msg.value
 			if self.tremolo_wah_value == self.up:
-				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+				return None, None, self.tremolo_wah_rate_value
 		return None, None, None
 		
 	def wah(self, msg):
@@ -125,11 +125,11 @@ class RefaceCP:
 		elif msg.is_cc(self.tremolo_wah_depth_control):
 			self.tremolo_wah_depth_value = msg.value
 			if self.tremolo_wah_value == self.down:
-				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+				return None, self.tremolo_wah_depth_value, None
 		elif msg.is_cc(self.tremolo_wah_rate_control):
 			self.tremolo_wah_rate_value = msg.value
 			if self.tremolo_wah_value == self.down:
-				return True, self.tremolo_wah_depth_value, self.tremolo_wah_rate_value
+				return None, None, self.tremolo_wah_rate_value
 		return None, None, None
 		
 	def chorus(self, msg):
@@ -143,11 +143,11 @@ class RefaceCP:
 		elif msg.is_cc(self.chorus_phaser_depth_control):
 			self.chorus_phaser_depth_value = msg.value
 			if self.chorus_phaser_value == self.up:
-				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+				return None, self.chorus_phaser_depth_value, None
 		elif msg.is_cc(self.chorus_phaser_speed_control):
 			self.chorus_phaser_speed_value = msg.value
 			if self.chorus_phaser_value == self.up:
-				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+				return None, None, self.chorus_phaser_speed_value
 		return None, None, None
 		
 	def phaser(self, msg):
@@ -161,11 +161,11 @@ class RefaceCP:
 		elif msg.is_cc(self.chorus_phaser_depth_control):
 			self.chorus_phaser_depth_value = msg.value
 			if self.chorus_phaser_value == self.down:
-				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+				return None, self.chorus_phaser_depth_value, None
 		elif msg.is_cc(self.chorus_phaser_speed_control):
 			self.chorus_phaser_speed_value = msg.value
 			if self.chorus_phaser_value == self.down:
-				return True, self.chorus_phaser_depth_value, self.chorus_phaser_speed_value
+				return None, None, self.chorus_phaser_speed_value
 		return None, None, None
 		
 	def digital_delay(self, msg):
@@ -179,11 +179,11 @@ class RefaceCP:
 		elif msg.is_cc(self.digital_analog_depth_control):
 			self.digital_analog_depth_value = msg.value
 			if self.digital_analog_value == self.up:
-				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+				return None, self.digital_analog_depth_value, None
 		elif msg.is_cc(self.digital_analog_time_control):
 			self.digital_analog_time_value = msg.value
 			if self.digital_analog_value == self.up:
-				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+				return None, None, self.digital_analog_time_value
 		return None, None, None
 		
 	def analog_delay(self, msg):
@@ -197,11 +197,11 @@ class RefaceCP:
 		elif msg.is_cc(self.digital_analog_depth_control):
 			self.digital_analog_depth_value = msg.value
 			if self.digital_analog_value == self.down:
-				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+				return None, self.digital_analog_depth_value, None
 		elif msg.is_cc(self.digital_analog_time_control):
 			self.digital_analog_time_value = msg.value
 			if self.digital_analog_value == self.down:
-				return True, self.digital_analog_depth_value, self.digital_analog_time_value
+				return None, None, self.digital_analog_time_value
 		return None, None, None
 				
 	def reverb(self, msg):
