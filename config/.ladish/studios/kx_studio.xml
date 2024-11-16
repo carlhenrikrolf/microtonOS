@@ -2,7 +2,7 @@
 <!--
 ladish Studio configuration.
 -->
-<!-- Sat Nov 16 19:16:03 2024 -->
+<!-- Sat Nov 16 20:18:25 2024 -->
 <studio>
   <jack>
     <conf>
@@ -79,6 +79,16 @@ ladish Studio configuration.
           <port name="midi_out" uuid="3a51c2f3-a81c-4ebf-8894-7912bd4eea28" />
         </ports>
       </client>
+      <client name="Pianoteq" uuid="fe395c9f-bf0a-462b-affd-167a6c85cf1e">
+        <ports>
+          <port name="midi_in" uuid="cda9c0b9-a9c8-4393-b7ba-cfe6e546755c" />
+          <port name="out_1" uuid="4291f756-6abb-4f39-b3d4-fec541e90911" />
+          <port name="out_2" uuid="ff37f2cf-650e-4b4b-b3c3-77d63c192ef1" />
+          <port name="out_3" uuid="85610b28-b4b4-4a6f-981f-a21b12d2b95b" />
+          <port name="out_4" uuid="0d85a8ba-ed67-43ca-8e34-24d4a043e6a0" />
+          <port name="out_5" uuid="65525519-e39a-427b-85de-2de9832e0566" />
+        </ports>
+      </client>
     </clients>
   </jack>
   <clients>
@@ -98,8 +108,8 @@ ladish Studio configuration.
         <port name="playback_2" uuid="c90683ff-ba7b-416e-a44c-0aba430a85ee" type="audio" direction="input" />
       </ports>
       <dict>
-        <key name="http://ladish.org/ns/canvas/x">1227.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1338.0</key>
+        <key name="http://ladish.org/ns/canvas/x">1354.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1293.0</key>
       </dict>
     </client>
     <client name="PipeWire" uuid="46b6b991-8dba-49d9-9234-755d5d584a88" naming="app">
@@ -221,6 +231,20 @@ ladish Studio configuration.
         <key name="http://ladish.org/ns/canvas/y">1316.0</key>
       </dict>
     </client>
+    <client name="Pianoteq" uuid="b47dee54-0d9b-4050-8350-86a616e4f10e" naming="app">
+      <ports>
+        <port name="midi_in" uuid="cda9c0b9-a9c8-4393-b7ba-cfe6e546755c" type="midi" direction="input" />
+        <port name="out_1" uuid="4291f756-6abb-4f39-b3d4-fec541e90911" type="audio" direction="output" />
+        <port name="out_2" uuid="ff37f2cf-650e-4b4b-b3c3-77d63c192ef1" type="audio" direction="output" />
+        <port name="out_3" uuid="85610b28-b4b4-4a6f-981f-a21b12d2b95b" type="audio" direction="output" />
+        <port name="out_4" uuid="0d85a8ba-ed67-43ca-8e34-24d4a043e6a0" type="audio" direction="output" />
+        <port name="out_5" uuid="65525519-e39a-427b-85de-2de9832e0566" type="audio" direction="output" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1105.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1257.0</key>
+      </dict>
+    </client>
   </clients>
   <connections>
     <connection port1="c720a57d-9a1a-4e67-8c27-d388492b7785" port2="2a035785-053f-49d1-9219-e6a6b13fd7b3" />
@@ -243,6 +267,11 @@ ladish Studio configuration.
     <connection port1="0790ad44-c704-4017-a705-1a9c39a014d3" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
     <connection port1="1f5aba5b-88a1-42ba-999c-2158a9791610" port2="4d28276a-5277-4b96-b6c8-5c37006c585b" />
     <connection port1="90da5fd5-d59a-4a4a-b551-c9045b150f38" port2="08243851-e5e9-410f-87a8-695f04e7d577" />
+    <connection port1="5ef8f6e9-ba3f-47bb-ba11-5b3b6d87eb94" port2="4c746404-f39b-451d-ac61-edeaba969611" />
+    <connection port1="116ce8d0-6fa8-4852-9fda-dd4bfd9a71fc" port2="59fe5281-16e4-4028-a3a5-ffbed3f8dc15" />
+    <connection port1="e9c3f645-52a5-476f-a745-bc4a14659654" port2="cda9c0b9-a9c8-4393-b7ba-cfe6e546755c" />
+    <connection port1="4291f756-6abb-4f39-b3d4-fec541e90911" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
+    <connection port1="ff37f2cf-650e-4b4b-b3c3-77d63c192ef1" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
   </connections>
   <applications>
   </applications>

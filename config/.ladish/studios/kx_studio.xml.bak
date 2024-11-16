@@ -2,7 +2,7 @@
 <!--
 ladish Studio configuration.
 -->
-<!-- Fri Nov 15 17:21:08 2024 -->
+<!-- Sat Nov 16 19:16:03 2024 -->
 <studio>
   <jack>
     <conf>
@@ -63,20 +63,20 @@ ladish Studio configuration.
           <port name="microtonOS (capture): Pianoteq from microtonOS" uuid="56f605dc-6aa0-497d-a71f-89d49487c6cd" />
           <port name="microtonOS (capture): tuneBfree from microtonOS" uuid="90da5fd5-d59a-4a4a-b551-c9045b150f38" />
           <port name="microtonOS (capture): Surge XT from microtonOS" uuid="ccfe60fa-56e8-46c1-8fec-36d021d40fc3" />
-        </ports>
-      </client>
-      <client name="Pianoteq" uuid="90846d37-8f83-4c62-bd27-9ee491e4d351">
-        <ports>
-          <port name="midi_in" uuid="f22c873b-138c-40f6-a77c-672b9032bb40" />
-          <port name="out_1" uuid="4a598994-d038-4e37-8d89-d31898258dc6" />
-          <port name="out_2" uuid="7203b272-8390-4f77-b154-6e60390df844" />
-          <port name="out_3" uuid="27516427-47ae-4158-990a-4a6e8671e2ef" />
-          <port name="out_4" uuid="f9d5a88f-7a86-4436-93de-81f2d7d88627" />
-          <port name="out_5" uuid="6bbb9cf2-cb37-4b62-8f75-f951ae72a86e" />
+          <port name="tuneBfree Wrapper (capture): from tuneBfree Wrapper" uuid="1f5aba5b-88a1-42ba-999c-2158a9791610" />
+          <port name="tuneBfree Wrapper (playback): to tuneBfree Wrapper" uuid="08243851-e5e9-410f-87a8-695f04e7d577" />
         </ports>
       </client>
       <client name="claudia" uuid="8a55046d-0275-4146-a4ad-5ae2da6715ab">
         <ports>
+        </ports>
+      </client>
+      <client name="setBfree" uuid="f4419b38-d19f-4c1a-967d-a0550d513fe9">
+        <ports>
+          <port name="midi_in" uuid="4d28276a-5277-4b96-b6c8-5c37006c585b" />
+          <port name="out_left" uuid="3a59a0fe-5e4e-4f31-bc0b-b761c1307717" />
+          <port name="out_right" uuid="0790ad44-c704-4017-a705-1a9c39a014d3" />
+          <port name="midi_out" uuid="3a51c2f3-a81c-4ebf-8894-7912bd4eea28" />
         </ports>
       </client>
     </clients>
@@ -136,20 +136,6 @@ ladish Studio configuration.
       <dict>
         <key name="http://ladish.org/ns/canvas/x">814.0</key>
         <key name="http://ladish.org/ns/canvas/y">1798.0</key>
-      </dict>
-    </client>
-    <client name="Pianoteq" uuid="01101379-8ded-4dbf-a363-7d674dcf2d58" naming="app">
-      <ports>
-        <port name="midi_in" uuid="f22c873b-138c-40f6-a77c-672b9032bb40" type="midi" direction="input" />
-        <port name="out_1" uuid="4a598994-d038-4e37-8d89-d31898258dc6" type="audio" direction="output" />
-        <port name="out_2" uuid="7203b272-8390-4f77-b154-6e60390df844" type="audio" direction="output" />
-        <port name="out_3" uuid="27516427-47ae-4158-990a-4a6e8671e2ef" type="audio" direction="output" />
-        <port name="out_4" uuid="f9d5a88f-7a86-4436-93de-81f2d7d88627" type="audio" direction="output" />
-        <port name="out_5" uuid="6bbb9cf2-cb37-4b62-8f75-f951ae72a86e" type="audio" direction="output" />
-      </ports>
-      <dict>
-        <key name="http://ladish.org/ns/canvas/x">1680.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1569.0</key>
       </dict>
     </client>
     <client name="Pianoteq Wrapper" uuid="501c2fe4-cb8a-4525-a1a9-bd469e1b49b0" naming="app">
@@ -213,14 +199,33 @@ ladish Studio configuration.
         <key name="http://ladish.org/ns/canvas/y">1443.0</key>
       </dict>
     </client>
+    <client name="tuneBfree Wrapper" uuid="10c1fba0-5490-4237-a053-ea46549ed995" naming="app">
+      <ports>
+        <port name="from tuneBfree Wrapper" uuid="1f5aba5b-88a1-42ba-999c-2158a9791610" type="midi" direction="output" />
+        <port name="to tuneBfree Wrapper" uuid="08243851-e5e9-410f-87a8-695f04e7d577" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1414.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1417.0</key>
+      </dict>
+    </client>
+    <client name="setBfree" uuid="17534ebf-1ae4-4939-ab51-93a06c792a93" naming="app">
+      <ports>
+        <port name="midi_in" uuid="4d28276a-5277-4b96-b6c8-5c37006c585b" type="midi" direction="input" />
+        <port name="out_left" uuid="3a59a0fe-5e4e-4f31-bc0b-b761c1307717" type="audio" direction="output" />
+        <port name="out_right" uuid="0790ad44-c704-4017-a705-1a9c39a014d3" type="audio" direction="output" />
+        <port name="midi_out" uuid="3a51c2f3-a81c-4ebf-8894-7912bd4eea28" type="midi" direction="output" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1650.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1316.0</key>
+      </dict>
+    </client>
   </clients>
   <connections>
     <connection port1="c720a57d-9a1a-4e67-8c27-d388492b7785" port2="2a035785-053f-49d1-9219-e6a6b13fd7b3" />
     <connection port1="ba6ee01c-e28b-4fc7-a485-779250b310d4" port2="125de18f-91ad-410c-98b5-886c3be73b5f" />
     <connection port1="1936bc1e-4491-4a31-8fec-840904786f0e" port2="3c42edeb-4a06-451c-adb4-66323f35007a" />
-    <connection port1="e9c3f645-52a5-476f-a745-bc4a14659654" port2="f22c873b-138c-40f6-a77c-672b9032bb40" />
-    <connection port1="4a598994-d038-4e37-8d89-d31898258dc6" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
-    <connection port1="7203b272-8390-4f77-b154-6e60390df844" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
     <connection port1="b3400952-709e-4d24-b83e-2be1d4c834d0" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
     <connection port1="d2d48132-fc9a-4c70-97a2-abe07fdcd6e8" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
     <connection port1="cc559764-fe67-4c47-917d-d4e262fe1aa7" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
@@ -234,6 +239,10 @@ ladish Studio configuration.
     <connection port1="b3400952-709e-4d24-b83e-2be1d4c834d0" port2="c6cd0572-c5f3-405b-8e75-99a519a31c63" />
     <connection port1="d2d48132-fc9a-4c70-97a2-abe07fdcd6e8" port2="3e85b16f-762a-4ae1-ac1d-c51dabf69ad6" />
     <connection port1="56f605dc-6aa0-497d-a71f-89d49487c6cd" port2="6fa291bf-997b-4c97-8983-848fee433ebc" />
+    <connection port1="3a59a0fe-5e4e-4f31-bc0b-b761c1307717" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
+    <connection port1="0790ad44-c704-4017-a705-1a9c39a014d3" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
+    <connection port1="1f5aba5b-88a1-42ba-999c-2158a9791610" port2="4d28276a-5277-4b96-b6c8-5c37006c585b" />
+    <connection port1="90da5fd5-d59a-4a4a-b551-c9045b150f38" port2="08243851-e5e9-410f-87a8-695f04e7d577" />
   </connections>
   <applications>
   </applications>
