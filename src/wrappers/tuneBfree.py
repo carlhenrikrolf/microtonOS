@@ -1,38 +1,19 @@
+import subprocess
+from time import sleep
 from midi_implementation.gm2 import control_change as cc
-from utils import Inport, Outport
+from utils import Inport, Outport, handle_terminations
 
 client_name = 'tuneBfree Wrapper'
-
-drive_on = mido.Message('control_change', control=65, value=127)
-drive_off = mido.Message('control_change', control=65, value=0)
-
-horn_off_drum_off = mido.Message('control_change', control=1, value=8)
-horn_off_drum_slow = mido.Message('control_change', control=1, value=22)
-horn_off_drum_fast = mido.Message('control_change', control=1, value=36)
-horn_slow_drum_off = mido.Message('control_change', control=1, value=50)
-horn_slow_drum_slow = mido.Message('control_change', control=1, value=64)
-horn_slow_drum_fast = mido.Message('control_change', control=1, value=78)
-horn_fast_drum_off = mido.Message('control_change', control=1, value=92)
-horn_fast_drum_slow = mido.Message('control_change', control=1, value=106)
-horn_fast_drum_fast = mido.Message('control_change', control=1, value=120)
-
-drum_acceleration = mido.Message('control_change', control=14)
-drum_deceleration = mido.Message('control_change', control=15)
-horn_acceleration = mido.Message('control_change', control=16)
-horn_deceleration = mido.Message('control_change', control=17)
-
-vibrato_on = mido.Message('control_change', control=95, value=96)
-vibrato_off = mido.Message('control_change', control=95, value=0)
-v1 = mido.Message('control_change', control=92, value=11) #0
-c1 = mido.Message('control_change', control=92, value=32) #22
-v2 = mido.Message('control_change', control=92, value=53) #44
-c2 = mido.Message('control_change', control=92, value=74) #66
-v3 = mido.Message('control_change', control=92, value=95) #88
-c3 = mido.Message('control_change', control=92, value=116) #110
-
-percussion_soft = mido.Message('control_change', control=66, value=63)
-percussion_normal = mido.Message('control_change', control=66, value=16)
-percussion_off = mido.Message('control_change', control=66, value=0)
+pause = 0.001
+startup = 0.3
+commandline = [
+	'sudo',
+	'--user',
+	'pi',
+	'/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree',
+	'--config',
+	'home/pi/microtonOS/config/tuneBfree.cfg',
+]
 
 class Leslie:
 	
@@ -133,11 +114,13 @@ vibrato = Vibrato(control=92)
 percussion = Percussion(control=66)
 
 def drive(msg):
-	if msg.is_cc(94): # detune
+	if msg.is_cc(cc.detune):
 		if msg.value > 0:
 			to_tuneBfree.send(mido.Message('control_change', control=65, value=127))
 		else:
 			to_tuneBfree.send(mido.Message('control_change', control=65, value=0))
+		sleep(pause)
+		to_tuneBfree.send(mido.Message('control_change', control=94, value=msg.value))
 		print('drive', msg.value)
 	
 def horn(self, msg):
@@ -150,8 +133,11 @@ def horn(self, msg):
 	elif msg.is_cc(cc.undefined[1]):
 		to_tuneBfree.send(leslie.translate(horn=msg.value))
 			
-def filter(msg):
-	pass
+def wah(msg):
+	if msg.is_cc(cc.undefined[2]):
+		to_tuneBfree.send(mido.Message('control_change', control=14, value=msg.value))
+	elif msg.is_cc(cc.undefined[3]):
+		to_tuneBfree.send(mido.Message('control_change', control=15, value=msg.value))
 	
 def chorus(msg):
 	if msg.is_cc(cc.chorus):
@@ -166,7 +152,7 @@ def chorus(msg):
 	elif msg.is_cc(cc.undefined[5]):
 		to_tuneBree.send(vibrato.translate(is_chorus=msg.value))
 	
-def drum:
+def drum(msg):
 	if msg.is_cc(cc.phaser):
 		if msg.value in range(0,64):
 			print('drum off')
@@ -177,113 +163,84 @@ def drum:
 	elif msg.is_cc(cc.undefined[7]):
 		to_tuneBfree(leslie.translate(drum=msg.value))
 	
-def harmonic2:
+def harmonic2(msg):
 	if msg.is_cc(cc.effect_controller[0][0]):
-		...
+		to_tuneBfree.send(percussion.translate(is_on=msg.value))
+		sleep(pause)
+		to_tuneBfree.send(mido.Message('control_change', control=83, value=127))
 	elif msg.is_cc(cc.undefined[8]):
-		...
+		to_tuneBfree.send(percussion.translate(depth=msg.value))
 	elif msg.is_cc(cc.undefined[9]):
-		...
+		to_tuneBfree.send(mido.Message('control_change', control=82, value=msg.value))
 	
-def harmonic3:
+def harmonic3(msg):
 	if msg.is_cc(cc.effect_controller[1][0]):
-		...
+		to_tuneBfree.send(percussion.translate(is_on=msg.value))
+		sleep(pause)
+		to_tuneBfree.send(mido.Message('control_change', control=83, value=0))
 	elif msg.is_cc(cc.undefined[8]):
-		...
+		to_tuneBfree.send(percussion.translate(depth=msg.value))
 	elif msg.is_cc(cc.undefined[9]):
+		to_tuneBfree.send(mido.Message('control_change', control=82, value=msg.value))
 
+def reverb(msg):
+	if msg.is_cc(cc.reverb):
+		to_tuneBfree.send(mido.Message('control_change', control=91, value=msg.value))
 
-
-
-
-
-
-
-
-class TuneBFree:
-	def __init__(self):
-		self.path = '/home/pi/tuneBfree/build/tuneBfree'
-		self.cfg = '/home/pi/microtonOS/tuneBfree-config/my.cfg'
-		self.user = 'pi'
-		self.options=['--dumpcc']
-	def restart(self):
-		self.stop()
-		self.process = subprocess.Popen(
-			['sudo', '-u', self.user, self.path, '--config', self.cfg, *self.options]
-		)
-	def stop(self):
-		try:
-			self.process.terminate()
-		except:
-			pass
+def expression(msg):
+	if msg.is_cc(cc.expression):
+		to_tuneBfree.send(mido.Message('control_change', control=11, value=msg.value))
+	elif msg.is_cc(cc.soft_pedal):
+		value = 127 - round(msg.value/2)
+		to_tuneBfree.send(mido.Message('control_change', control=11, value=value))
 		
-
+		
+		
+		
+		
 class Script:
 	
-	tuneBfree_path = '/home/pi/tuneBfree/build/tuneBfree'
-	cfg_path = '/home/pi/microtonOS/tuneBfree-config/my.cfg'
-	wait = 0.3
-	
 	def __init__(self):
-		self.commandline = ['sudo', '-u', 'pi', self.tuneBfree_path, '--config', self.cfg_path]
-		self.tuneBfree = subprocess.Popen(self.commandline)
-		signal.signal(signal.SIGTERM, self.signal_handler)
+		self.process = subprocess.Popen(commandline)
+		handle_terminations(self.process)
 		self.to_frequency = [0.0]*128
 		for note in range(0,128):
 			self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
-		#self.asleep = False
-		#self.last_input = time.perf_counter_ns()
-	def signal_handler(self, signum, frame):
-		self.tuneBfree.terminate()
-		sys.exit(0)
-	def process(self, msg):
-		#self.last_input = time.perf_counter_ns()
-		#if self.asleep:
-		#	self.asleep = False
-		#	self.tuneBfree = subprocess.Popen(self.commandline)
-		#	time.sleep(self.wait)
-		if hasattr(msg, 'channel'):
-			msg.channel = 0
-		if msg.type == 'note_on':
-			new_frequency = mts.note_to_frequency(mts_client, msg.note, 0)
-			if new_frequency != self.to_frequency[msg.note]:
-				for note in range(0,128):
-					self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
-				self.restart()
-		if msg.type in ['aftertouch', 'polytouch']:
-			msg = mido.Message('control_change', control=1, value=msg.value)
-		#elif msg.is_cc(64):
-		#	msg = mido.Message('control_change', control=7, value=int(127-msg.value/2))
-		if msg.type == 'reset':
-			self.restart()
+	
+	def run(self, msg):
+		if msg.is_cc(cc.bank_select):
+			pass
+		elif msg.type == 'control_change'):
+			drive(msg)
+			horn(msg)
+			wah(msg)
+			chorus(msg)
+			drum(msg)
+			harmonic2(msg)
+			harmonic3(msg)
+			reverb(msg)
+			expression(msg)
+		elif hasattr(msg, channel):
+			if msg.type == 'note_on':
+				new_frequency = mts.note_to_frequency(mts_client, msg.note, 0)
+				if new_frequency != self.to_frequency[msg.note]:
+					for note in range(0,128):
+						self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
+					self.restart()
+			to_tuneBfree.send(msg.copy(channel=0))
 		else:
-			outport.send(msg)
+			to_tuneBfree.send(msg)
+			
 	def restart(self):
 		try:
-			self.tuneBfree.terminate()
+			self.process.terminate()
 		finally:
-			self.tuneBfree = subprocess.Popen(self.commandline)
-			time.sleep(self.wait)
-	#def goto_sleep(self):
-	#	while True:
-	#		if time.perf_counter_ns() - self.last_input > 60e9 and not self.asleep:
-	#			self.asleep = True
-	#			self.tuneBfree.terminate()
-	#		time.sleep(60)
-		
-
+			self.process = subprocess.Popen(commandline)
+			sleep(startup)
 
 with mts.Client() as mts_client:
-	outport = Outport(client_name)
+	to_tuneBfree = Outport(client_name)
 	script = Script()
-	inport = Inport(script.process, client_name)
-	inport.open()
-	#threads = [
-	#	threading.Thread(target=inport.open, daemon=True),
-	#	threading.Thread(target=script.goto_sleep, daemon=True),
-	#]
-	#for thread in threads:
-	#	thread.start()
-	#for thread in threads:
-	#	thread.join()
+	from_microtonOS = Inport(script.run, client_name)
+	from_microtonOS.open()
 
