@@ -137,7 +137,7 @@ class Sounds:
 					xq.send(self.outport, xq.sysex(xq.color_key, msg.note, self.click_color))
 					self.pgm = i
 				
-		return engine_banks_pgms[self.engine][0], self.bank, self.pgm
+		return self.engine, self.bank, self.pgm
 			
 		
 		

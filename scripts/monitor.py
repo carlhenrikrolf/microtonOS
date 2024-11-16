@@ -1,5 +1,3 @@
-#! /home/pi/.venv/bin/python3
-
 import mido
 
 client_name='Monitor'

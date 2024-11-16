@@ -16,11 +16,11 @@ class Script:
 	def run(self, msg):
 		if msg.type == 'reset':
 			subprocess.run(['systemctl', 'restart', 'pianoteq.service'])
-		elif msg.is_cc(cc.bank_select):
+		elif msg.is_cc(cc.bank_select[0]):
 			self.bank = msg.value if msg.value < 17 else 0
 		else:
 			if msg.type == 'program_change':
-				msg.program = 6*self.bank + msg.program
+				msg.program = min([127, 17*self.bank + msg.program])
 			outport.send(msg)
 
 # run script

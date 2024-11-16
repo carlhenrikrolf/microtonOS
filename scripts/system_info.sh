@@ -6,9 +6,11 @@ echo ip-address: $(hostname --ip-address)
 echo all ip-adresses: $(hostname --all-ip-addresses)
 echo
 echo OS
-echo 
+echo
 cat /etc/os-release
 echo
 echo STORAGE
-echo 
+echo
 df -h
+echo
+
