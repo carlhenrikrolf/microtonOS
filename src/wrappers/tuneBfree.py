@@ -9,60 +9,54 @@ client_name = 'tuneBfree Wrapper'
 pause = 0.001
 startup = 0.3
 commandline = [
-	'sudo',
-	'--user',
-	'pi',
+	#'sudo',
+	#'--user',
+	#'pi',
 	'/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree',
 	'--config',
-	'home/pi/microtonOS/config/tuneBfree.cfg',
+	'/home/pi/microtonOS/config/tuneBfree.cfg',
+	'-l',
+	'/home/pi/microtonOS/config/tuneBfree.pgm',
+	#'--dumpcc',
 ]
 
 class Leslie:
 	
-	def __init__(self, control=1):
+	def __init__(self, control):
 		self.control = control
 		self.horn_val = 0
 		self.drum_val = 0
 		
 	def translate(self, horn_value=None, drum_value=None):
-		if horn is not None:
+		if horn_value is not None:
 			self.horn_val = horn_value
-		if drum is not None:
+		if drum_value is not None:
 			self.drum_val = drum_value
-		if self.horn_val in range(0,42):
-			if self.drum_val in range(0,42):
-				print('horn off, drum off')
+		if self.horn_val in range(0,42): # horn off
+			if self.drum_val in range(0,42): # drum off
 				return mido.Message('control_change', control=self.control, value=8)
-			elif self.drum_val in range(42, 84):
-				print('horn off, drum slow')
+			elif self.drum_val in range(42, 84): # drum slow
 				return mido.Message('control_change', control=self.control, value=22)
-			else:
-				print('horn off, drum fast')
+			else: # drum fast
 				return mido.Message('control_change', control=self.control, value=36)
-		elif self.horn_val in range(42, 84):
-			if self.drum_val in range(0,42):
-				print('horn slow, drum off')
+		elif self.horn_val in range(42, 84): # horn slow
+			if self.drum_val in range(0,42): # drum off
 				return mido.Message('control_change', control=self.control, value=50)
-			elif self.drum_val in range(42, 84):
-				print('horn slow, drum slow')
+			elif self.drum_val in range(42, 84): # drum slow
 				return mido.Message('control_change', control=self.control, value=64)
-			else:
-				print('horn slow, drum fast')
+			else: # drum fast
 				return mido.Message('control_change', control=self.control, value=78)
-		else:
-			if self.drum_val in range(0,42):
-				print('horn fast, drum off')
+		else: # horn fast
+			if self.drum_val in range(0,42): # drum off
 				return mido.Message('control_change', control=self.control, value=92)
-			elif self.drum_val in range(42, 84):
-				print('horn fast, drum slow')
+			elif self.drum_val in range(42, 84): # drum slow
 				return mido.Message('control_change', control=self.control, value=106)
-			else:
-				print('horn fast, drum fast')
+			else: # drum fast
 				return mido.Message('control_change', control=self.control, value=120)
 
 class Vibrato:
 	
-	def __init__(self, control=92):
+	def __init__(self, control):
 		self.control = control
 		self.depth_val = 0
 		self.is_chorus_val = 0
@@ -72,64 +66,33 @@ class Vibrato:
 			self.depth_val = depth
 		if is_chorus is not None:
 			self.is_chorus_val = is_chorus
-		if self.depth_val in range(0,42):
-			if self.is_chorus_val in range(0,64):
-				print('v1')
+		if self.depth_val in range(0,42): # 1
+			if self.is_chorus_val in range(0,64): # v
 				return mido.Message('control_change', control=self.control, value=11)
-			else:
-				print('c1')
+			else: # c
 				return mido.Message('control_change', control=self.control, value=32)
-		elif self.depth_val in range(42,84):
-			if self.is_chorus_val in range(0,64):
-				print('v2')
+		elif self.depth_val in range(42,84): # 2
+			if self.is_chorus_val in range(0,64): # v
 				return mido.Message('control_change', control=self.control, value=53)
-			else:
-				print('c2')
+			else: # c
 				return mido.Message('control_change', control=self.control, value=74)
-		else:
-			if self.is_chorus_val in range(0,64):
-				print('v3')
+		else: # 3
+			if self.is_chorus_val in range(0,64): # v
 				return mido.Message('control_change', control=self.control, value=95)
-			else:
-				print('c3')
+			else: # c
 				return mido.Message('control_change', control=self.control, value=116)
 
-class Percussion:
-	
-	def __init__(self, control=66):
-		self.control = control
-		self.depth_val = 0
-		self.is_on_val = 0
-		
-	def translate(self, depth=None, is_on=None):
-		if depth is not None:
-			self.depth_val = depth
-		if is_on is not None:
-			self.is_on_val = is_on
-		if self.is_on_val in range(0,64):
-			print('percussion off')
-			return mido.Message('control_change', control=self.control, value=0)
-		else:
-			if self.depth_val in range(0,64):
-				print('soft percussion')
-				return mido.Message('control_change', control=self.control, value=63)
-			else:
-				print('normal_percussion')
-				return mido.Message('control_change', control=self.control, value=16)
-
 leslie = Leslie(control=1)
-vibrato = Vibrato(control=92)	
-percussion = Percussion(control=66)
+vibrato = Vibrato(control=13)	
 
 def drive(msg):
 	if msg.is_cc(cc.detune):
 		if msg.value > 0:
-			to_tuneBfree.send(mido.Message('control_change', control=65, value=127))
+			to_tuneBfree.send(mido.Message('control_change', control=8, value=127))
 		else:
-			to_tuneBfree.send(mido.Message('control_change', control=65, value=0))
+			to_tuneBfree.send(mido.Message('control_change', control=8, value=0))
 		sleep(pause)
-		to_tuneBfree.send(mido.Message('control_change', control=94, value=msg.value))
-		print('drive', msg.value)
+		to_tuneBfree.send(mido.Message('control_change', control=9, value=msg.value))
 	
 def horn(msg):
 	if msg.is_cc(cc.tremolo):
@@ -137,24 +100,23 @@ def horn(msg):
 			to_tuneBfree.send(leslie.translate(horn_value=0))
 	elif msg.is_cc(cc.undefined[0]):
 		to_tuneBfree.send(mido.Message('control_change', control=2, value=msg.value))
-		print('horn acceleration', msg.value)
+		sleep(pause)
+		to_tuneBfree.send(mido.Message('control_change', control=3, value=msg.value))
 	elif msg.is_cc(cc.undefined[1]):
 		to_tuneBfree.send(leslie.translate(horn_value=msg.value))
 			
 def wah(msg):
 	if msg.is_cc(cc.undefined[2]):
-		to_tuneBfree.send(mido.Message('control_change', control=14, value=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=4, value=msg.value))
 	elif msg.is_cc(cc.undefined[3]):
-		to_tuneBfree.send(mido.Message('control_change', control=15, value=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=5, value=msg.value))
 	
 def chorus(msg):
 	if msg.is_cc(cc.chorus):
 		if msg.value in range(0,64):
-			print('chorus off')
-			to_tuneBfree.send(mido.Message('control_change', control=95, value=0))
+			to_tuneBfree.send(mido.Message('control_change', control=12, value=0)) # vibrato off
 		else:
-			print('chorus on')
-			to_tuneBfree.send(mido.Message('control_change', control=95, value=96))
+			to_tuneBfree.send(mido.Message('control_change', control=12, value=96)) # vibrato on
 	elif msg.is_cc(cc.undefined[4]):
 		to_tuneBfree.send(vibrato.translate(depth=msg.value))
 	elif msg.is_cc(cc.undefined[5]):
@@ -163,37 +125,37 @@ def chorus(msg):
 def drum(msg):
 	if msg.is_cc(cc.phaser):
 		if msg.value in range(0,64):
-			print('drum off')
 			to_tuneBfree.send(leslie.translate(drum_value=0))
 	elif msg.is_cc(cc.undefined[6]):
-		print('drum acceleration', msg.value)
-		to_tuneBfree.send(mido.Message('control_change', control=21, value=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=6, value=msg.value))
+		sleep(pause)
+		to_tuneBfree.send(mido.Message('control_change', control=7, value=msg.value))
 	elif msg.is_cc(cc.undefined[7]):
 		to_tuneBfree.send(leslie.translate(drum_value=msg.value))
 	
 def harmonic2(msg):
 	if msg.is_cc(cc.effect_controller[0][0]):
-		to_tuneBfree.send(percussion.translate(is_on=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=14, value=msg.value))
 		sleep(pause)
-		to_tuneBfree.send(mido.Message('control_change', control=83, value=127))
+		to_tuneBfree.send(mido.Message('control_change', control=15, value=127))
 	elif msg.is_cc(cc.undefined[8]):
-		to_tuneBfree.send(percussion.translate(depth=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=16, value=msg.value))
 	elif msg.is_cc(cc.undefined[9]):
-		to_tuneBfree.send(mido.Message('control_change', control=82, value=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=17, value=msg.value))
 	
 def harmonic3(msg):
 	if msg.is_cc(cc.effect_controller[1][0]):
-		to_tuneBfree.send(percussion.translate(is_on=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=14, value=msg.value))
 		sleep(pause)
-		to_tuneBfree.send(mido.Message('control_change', control=83, value=0))
-	elif msg.is_cc(cc.undefined[8]):
-		to_tuneBfree.send(percussion.translate(depth=msg.value))
-	elif msg.is_cc(cc.undefined[9]):
-		to_tuneBfree.send(mido.Message('control_change', control=82, value=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=15, value=0))
+	elif msg.is_cc(cc.undefined[10]):
+		to_tuneBfree.send(mido.Message('control_change', control=16, value=msg.value))
+	elif msg.is_cc(cc.undefined[11]):
+		to_tuneBfree.send(mido.Message('control_change', control=17, value=msg.value))
 
 def reverb(msg):
 	if msg.is_cc(cc.reverb):
-		to_tuneBfree.send(mido.Message('control_change', control=91, value=msg.value))
+		to_tuneBfree.send(mido.Message('control_change', control=10, value=msg.value))
 
 def expression(msg):
 	if msg.is_cc(cc.expression_controller[0]):
@@ -202,9 +164,7 @@ def expression(msg):
 		value = 127 - round(msg.value/2)
 		to_tuneBfree.send(mido.Message('control_change', control=11, value=value))
 		
-		
-		
-		
+
 		
 class Script:
 	
@@ -214,11 +174,13 @@ class Script:
 		self.to_frequency = [0.0]*128
 		for note in range(0,128):
 			self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
+		self.control_to_value = [0]*128
 	
 	def run(self, msg):
 		if msg.is_cc(cc.bank_select[0]):
 			pass
 		elif msg.type == 'control_change':
+			self.control_to_value[msg.control] = msg.value
 			drive(msg)
 			horn(msg)
 			wah(msg)
@@ -245,10 +207,13 @@ class Script:
 		finally:
 			self.process = subprocess.Popen(commandline)
 			sleep(startup)
+		for control, value in enumerate(self.control_to_value):
+			self.run(mido.Message('control_change', control=control, value=value))
+			sleep(pause)
 
 with mts.Client() as mts_client:
-	to_tuneBfree = Outport(client_name, verbose=True)
+	to_tuneBfree = Outport(client_name, verbose=False)
 	script = Script()
-	from_microtonOS = Inport(script.run, client_name, verbose=True)
+	from_microtonOS = Inport(script.run, client_name, verbose=False)
 	from_microtonOS.open()
 
