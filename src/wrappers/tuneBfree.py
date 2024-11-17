@@ -27,29 +27,35 @@ class Leslie:
 		self.horn_val = 0
 		self.drum_val = 0
 		
-	def translate(self, horn_value=None, drum_value=None):
+	def translate(self, horn_value=None, drum_value=None, boost=None):
 		if horn_value is not None:
 			self.horn_val = horn_value
 		if drum_value is not None:
 			self.drum_val = drum_value
-		if self.horn_val in range(0,42): # horn off
-			if self.drum_val in range(0,42): # drum off
+		if boost is not None:
+			horn_val = self.horn_val + round(boost * (127.0 - self.horn_val) / 127.0)
+			drum_val = self.drum_val + round(boost * (127.0 - self.drum_val) / 127.0)
+		else:
+			horn_val = self.horn_val
+			drum_val = self.drum_val
+		if horn_val in range(0,42): # horn off
+			if drum_val in range(0,42): # drum off
 				return mido.Message('control_change', control=self.control, value=8)
-			elif self.drum_val in range(42, 84): # drum slow
+			elif drum_val in range(42, 84): # drum slow
 				return mido.Message('control_change', control=self.control, value=22)
 			else: # drum fast
 				return mido.Message('control_change', control=self.control, value=36)
-		elif self.horn_val in range(42, 84): # horn slow
-			if self.drum_val in range(0,42): # drum off
+		elif horn_val in range(42, 84): # horn slow
+			if drum_val in range(0,42): # drum off
 				return mido.Message('control_change', control=self.control, value=50)
-			elif self.drum_val in range(42, 84): # drum slow
+			elif drum_val in range(42, 84): # drum slow
 				return mido.Message('control_change', control=self.control, value=64)
 			else: # drum fast
 				return mido.Message('control_change', control=self.control, value=78)
 		else: # horn fast
-			if self.drum_val in range(0,42): # drum off
+			if drum_val in range(0,42): # drum off
 				return mido.Message('control_change', control=self.control, value=92)
-			elif self.drum_val in range(42, 84): # drum slow
+			elif drum_val in range(42, 84): # drum slow
 				return mido.Message('control_change', control=self.control, value=106)
 			else: # drum fast
 				return mido.Message('control_change', control=self.control, value=120)
@@ -164,8 +170,20 @@ def expression(msg):
 		value = 127 - round(msg.value/2)
 		to_tuneBfree.send(mido.Message('control_change', control=11, value=value))
 		
+def dispatch(msg, bank=0):
+	if bank == 1:
+		if msg.channel == 15:
+			to_tuneBfree.send(msg.copy(channel=0))
+		elif msg.channel == 14:
+			to_tuneBfree.send(msg.copy(channel=1))
+		elif msg.channel in range(1,14):
+			to_tuneBfree.send(msg.copy(channel=2))
+		else:
+			to_tuneBfree.send(msg.copy(channel=0))
+	else:
+		to_tuneBfree.send(msg.copy(channel=0))
 
-		
+
 class Script:
 	
 	def __init__(self):
@@ -175,10 +193,11 @@ class Script:
 		for note in range(0,128):
 			self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
 		self.control_to_value = [0]*128
+		self.bank = 0
 	
 	def run(self, msg):
 		if msg.is_cc(cc.bank_select[0]):
-			pass
+			self.bank = msg.value
 		elif msg.type == 'control_change':
 			self.control_to_value[msg.control] = msg.value
 			drive(msg)
@@ -190,26 +209,29 @@ class Script:
 			harmonic3(msg)
 			reverb(msg)
 			expression(msg)
+		elif msg.type in ['aftertouch', 'polytouch']:
+			to_tuneBfree.send(leslie.translate(boost=msg.value))
 		elif hasattr(msg, 'channel'):
-			if msg.type == 'note_on':
-				new_frequency = mts.note_to_frequency(mts_client, msg.note, 0)
-				if new_frequency != self.to_frequency[msg.note]:
-					for note in range(0,128):
-						self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
-					self.restart()
-			to_tuneBfree.send(msg.copy(channel=0))
+			self.update_tuning(msg)
+			dispatch(msg, bank=self.bank)
 		else:
 			to_tuneBfree.send(msg)
 			
-	def restart(self):
-		try:
-			self.process.terminate()
-		finally:
-			self.process = subprocess.Popen(commandline)
-			sleep(startup)
-		for control, value in enumerate(self.control_to_value):
-			self.run(mido.Message('control_change', control=control, value=value))
-			sleep(pause)
+	def update_tuning(self, msg):
+		if msg.type == 'note_on':
+			new_frequency = mts.note_to_frequency(mts_client, msg.note, 0)
+			if new_frequency != self.to_frequency[msg.note]:
+				for note in range(0,128):
+					self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
+				try:
+					self.process.terminate()
+				finally:
+					self.process = subprocess.Popen(commandline)
+					sleep(startup)
+				for control, value in enumerate(self.control_to_value):
+					self.run(mido.Message('control_change', control=control, value=value))
+					sleep(pause)
+		
 
 with mts.Client() as mts_client:
 	to_tuneBfree = Outport(client_name, verbose=False)
