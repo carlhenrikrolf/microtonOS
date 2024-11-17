@@ -2,3 +2,6 @@
 Pianoteq/Archive/**
 Pianoteq/Addons/**
 Pianoteq/MidiMappings/auto-save/**
+Surge\ XT/Patches/**
+!Surge\ XT/Patches/MIDI\ Programs/
+Surge\ XT/Skins/**

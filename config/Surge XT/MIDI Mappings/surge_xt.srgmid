@@ -1,0 +1,17 @@
+<surge-midi revision="24" name="surge_xt">
+    <midictrl>
+        <map p="261" cc="94" chan="-1" />
+        <map p="308" cc="14" chan="-1" />
+        <map p="309" cc="15" chan="-1" />
+    </midictrl>
+    <customctrl>
+        <ctrl i="0" cc="41" chan="-1" />
+        <ctrl i="1" cc="42" chan="-1" />
+        <ctrl i="2" cc="43" chan="-1" />
+        <ctrl i="3" cc="44" chan="-1" />
+        <ctrl i="4" cc="45" chan="-1" />
+        <ctrl i="5" cc="46" chan="-1" />
+        <ctrl i="6" cc="47" chan="-1" />
+        <ctrl i="7" cc="48" chan="-1" />
+    </customctrl>
+</surge-midi>
