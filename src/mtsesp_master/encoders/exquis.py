@@ -97,12 +97,13 @@ class Encoders:
 		self.dilation_is_toggled = False
 		self.transposition = self.init_transposition
 		self.dilation = self.init_dilation
-	
-	
-	
-	def is_reset(self, msg):
+		
+		
+	def refresh(self, msg):
 		for menu_button in [xq.settings, xq.sounds, xq.record, xq.tracks, xq.scenes, xq.play_stop]:
 			if xq.is_sysex(msg, [xq.click, menu_button, xq.released]):
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.white if self.is_left_right else xq.lime))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.white if self.is_up_down else xq.lime))
 				return True
 		return False
 			

@@ -42,7 +42,7 @@ class Script:
 				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 				self.is_init = False
 				
-			if encoders.is_reset(msg):
+			if encoders.refresh(msg):
 				layout = presets.layout.layout()
 				coloring = presets.tuning.coloring()
 				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)

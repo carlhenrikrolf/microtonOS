@@ -38,10 +38,10 @@ class Script:
 		instrument_type = cp.instrument_type(msg)
 		if instrument_type is not None:
 			print(instrument_type)
-			to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=0))
+			#to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=0))
 			self.pedal = get_pedal(instrument_type)
-			sleep(pause)
-			to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=0))
+			#sleep(pause)
+			#to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=0))
 			
 		drive = cp.drive(msg)
 		if drive is not None:

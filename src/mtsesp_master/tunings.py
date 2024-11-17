@@ -13,7 +13,7 @@ class Default(BaseTuning):
 		assignment = [Color('black')]*128
 		for i in range(128):
 			if self.is_white[i%12]:
-				assignment[i] = Color('white')
+				assignment[i] = Color('red')
 		return assignment
 
 

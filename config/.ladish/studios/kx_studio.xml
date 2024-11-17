@@ -2,7 +2,7 @@
 <!--
 ladish Studio configuration.
 -->
-<!-- Sat Nov 16 20:18:25 2024 -->
+<!-- Sun Nov 17 11:42:25 2024 -->
 <studio>
   <jack>
     <conf>
@@ -65,6 +65,13 @@ ladish Studio configuration.
           <port name="microtonOS (capture): Surge XT from microtonOS" uuid="ccfe60fa-56e8-46c1-8fec-36d021d40fc3" />
           <port name="tuneBfree Wrapper (capture): from tuneBfree Wrapper" uuid="1f5aba5b-88a1-42ba-999c-2158a9791610" />
           <port name="tuneBfree Wrapper (playback): to tuneBfree Wrapper" uuid="08243851-e5e9-410f-87a8-695f04e7d577" />
+          <port name="microtonOS (capture): WiDi from microtonOS" uuid="208c8460-8a4e-4e6a-ae55-5ed72312550a" />
+          <port name="Surge XT Wrapper (capture): from Surge XT Wrapper" uuid="80a42c0f-01c7-46d3-a584-eda3c52f402b" />
+          <port name="Surge XT Wrapper (playback): to Surge XT Wrapper" uuid="25a83d61-3823-4f65-9b8d-8870ceec4194" />
+          <port name="WiDi Wrapper (capture): from WiDi Wrapper" uuid="a7eab2ea-e997-4277-92d7-b0153ecdcb88" />
+          <port name="WiDi Wrapper (playback): to WiDi Wrapper" uuid="6da5220f-c5be-4bc5-bad8-e12504a03744" />
+          <port name="WIDI Master (capture): WIDI Master Bluetooth" uuid="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" />
+          <port name="WIDI Master (playback): WIDI Master Bluetooth" uuid="6be73d10-fe8b-4f1b-b085-e3e8b3d536b6" />
         </ports>
       </client>
       <client name="claudia" uuid="8a55046d-0275-4146-a4ad-5ae2da6715ab">
@@ -87,6 +94,12 @@ ladish Studio configuration.
           <port name="out_3" uuid="85610b28-b4b4-4a6f-981f-a21b12d2b95b" />
           <port name="out_4" uuid="0d85a8ba-ed67-43ca-8e34-24d4a043e6a0" />
           <port name="out_5" uuid="65525519-e39a-427b-85de-2de9832e0566" />
+        </ports>
+      </client>
+      <client name="Surge XT" uuid="09a2ff7e-fbbc-4a31-bdb6-f5d4c759e666">
+        <ports>
+          <port name="out_1" uuid="41ef5bc1-17ec-4cdf-98e7-9be780b51bad" />
+          <port name="out_2" uuid="b81094ea-728b-4533-8531-f6cc69c33514" />
         </ports>
       </client>
     </clients>
@@ -203,6 +216,7 @@ ladish Studio configuration.
         <port name="Pianoteq from microtonOS" uuid="56f605dc-6aa0-497d-a71f-89d49487c6cd" type="midi" direction="output" />
         <port name="tuneBfree from microtonOS" uuid="90da5fd5-d59a-4a4a-b551-c9045b150f38" type="midi" direction="output" />
         <port name="Surge XT from microtonOS" uuid="ccfe60fa-56e8-46c1-8fec-36d021d40fc3" type="midi" direction="output" />
+        <port name="WiDi from microtonOS" uuid="208c8460-8a4e-4e6a-ae55-5ed72312550a" type="midi" direction="output" />
       </ports>
       <dict>
         <key name="http://ladish.org/ns/canvas/x">355.0</key>
@@ -245,6 +259,42 @@ ladish Studio configuration.
         <key name="http://ladish.org/ns/canvas/y">1257.0</key>
       </dict>
     </client>
+    <client name="Surge XT Wrapper" uuid="93898cc5-1c59-4ee2-b65c-a670d0778bee" naming="app">
+      <ports>
+        <port name="from Surge XT Wrapper" uuid="80a42c0f-01c7-46d3-a584-eda3c52f402b" type="midi" direction="output" />
+        <port name="to Surge XT Wrapper" uuid="25a83d61-3823-4f65-9b8d-8870ceec4194" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">878.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1435.0</key>
+      </dict>
+    </client>
+    <client name="Surge XT" uuid="7a8479f4-2914-419b-8150-f2b40883d4af" naming="app">
+      <ports>
+        <port name="out_1" uuid="41ef5bc1-17ec-4cdf-98e7-9be780b51bad" type="audio" direction="output" />
+        <port name="out_2" uuid="b81094ea-728b-4533-8531-f6cc69c33514" type="audio" direction="output" />
+      </ports>
+    </client>
+    <client name="WiDi Wrapper" uuid="22f6f4ea-775b-4ade-be9c-631c760a3c98" naming="app">
+      <ports>
+        <port name="from WiDi Wrapper" uuid="a7eab2ea-e997-4277-92d7-b0153ecdcb88" type="midi" direction="output" />
+        <port name="to WiDi Wrapper" uuid="6da5220f-c5be-4bc5-bad8-e12504a03744" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">946.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1393.0</key>
+      </dict>
+    </client>
+    <client name="WIDI Master" uuid="a7c1db49-10d4-43b2-82a2-a9af0a1169d5" naming="app">
+      <ports>
+        <port name="WIDI Master Bluetooth" uuid="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" type="midi" direction="output" />
+        <port name="WIDI Master Bluetooth" uuid="6be73d10-fe8b-4f1b-b085-e3e8b3d536b6" type="midi" direction="input" />
+      </ports>
+      <dict>
+        <key name="http://ladish.org/ns/canvas/x">1250.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1360.0</key>
+      </dict>
+    </client>
   </clients>
   <connections>
     <connection port1="c720a57d-9a1a-4e67-8c27-d388492b7785" port2="2a035785-053f-49d1-9219-e6a6b13fd7b3" />
@@ -272,6 +322,12 @@ ladish Studio configuration.
     <connection port1="e9c3f645-52a5-476f-a745-bc4a14659654" port2="cda9c0b9-a9c8-4393-b7ba-cfe6e546755c" />
     <connection port1="4291f756-6abb-4f39-b3d4-fec541e90911" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
     <connection port1="ff37f2cf-650e-4b4b-b3c3-77d63c192ef1" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
+    <connection port1="41ef5bc1-17ec-4cdf-98e7-9be780b51bad" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
+    <connection port1="b81094ea-728b-4533-8531-f6cc69c33514" port2="c90683ff-ba7b-416e-a44c-0aba430a85ee" />
+    <connection port1="ccfe60fa-56e8-46c1-8fec-36d021d40fc3" port2="25a83d61-3823-4f65-9b8d-8870ceec4194" />
+    <connection port1="a7eab2ea-e997-4277-92d7-b0153ecdcb88" port2="6be73d10-fe8b-4f1b-b085-e3e8b3d536b6" />
+    <connection port1="208c8460-8a4e-4e6a-ae55-5ed72312550a" port2="6da5220f-c5be-4bc5-bad8-e12504a03744" />
+    <connection port1="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" port2="b4f1fb22-5ffa-4e92-9c9a-e94af2f953ac" />
   </connections>
   <applications>
   </applications>
