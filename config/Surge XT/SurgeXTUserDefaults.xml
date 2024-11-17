@@ -3,5 +3,7 @@
 <defaults version="1">
   <default key="defaultSkin" value="dark-mode.surge-skin/" type="1"/>
   <default key="defaultSkinRootType" value="1" type="2"/>
+  <default key="modWindowShowsValues" value="1" type="2"/>
+  <default key="patchJogWraparound" value="0" type="2"/>
   <default key="useCh2Ch3ToPlayScenesIndividually" value="0" type="2"/>
 </defaults>
