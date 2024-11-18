@@ -2,7 +2,7 @@ import mido
 from time import sleep
 from midi_implementation.yamaha import reface_cp as cp
 from midi_implementation.gm2 import control_change as cc
-from utils import Inport, Outport
+from utils import Inport, Outport, make_threads
 
 client_name = 'Reface CP Driver'
 pause = 0.001
@@ -27,8 +27,9 @@ class Script:
 	
 	def __init__(self):
 		self.pedal = cc.damper_pedal
+		self.assigned_to_pedal = None
 
-	def run(self, msg):
+	def reface_cp(self, msg):
 		
 		if msg.type == 'control_change':
 			to_reface_cp.send(msg)
@@ -37,11 +38,17 @@ class Script:
 			
 		instrument_type = cp.instrument_type(msg)
 		if instrument_type is not None:
-			print(instrument_type)
-			#to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=0))
-			self.pedal = get_pedal(instrument_type)
-			#sleep(pause)
-			#to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=0))
+			#print(instrument_type)
+			if self.pedal is not None:
+				to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=127 if self.pedal == cc.expression_controller[0] else 0))
+			if instrument_type == 'Toy':
+				self.assigned_to_pedal = None
+				self.pedal = None
+			else:
+				self.pedal = get_pedal(instrument_type)
+				self.assigned_to_pedal = None
+				sleep(pause)
+				to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=127 if self.pedal == cc.expression_controller[0] else 0))
 			
 		drive = cp.drive(msg)
 		if drive is not None:
@@ -163,16 +170,26 @@ class Script:
 
 		sustain = cp.sustain(msg)
 		if sustain is not None:
-			#if verbose:
-			#	print('sustain', sustain)
-			to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=sustain))
+			#print('sustain', sustain)
+			if self.assigned_to_pedal is not None:
+				to_microtonOS.send(mido.Message('control_change', control=self.assigned_to_pedal, value=sustain))
+			elif self.pedal is not None:
+				to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=sustain))
+			
+	def assigned(self, msg):
+		if self.assigned_to_pedal is None and msg.type == 'control_change':
+			if msg.control in cc.assignable:
+				if msg.control not in [cc.damper_pedal, cc.soft_pedal, cc.sostenuto, cc.expression_controller[0], cc.expression_controller[1], cc.hold2]:
+					self.assigned_to_pedal = msg.control
+					if self.pedal is None:
+						print(msg.control, 'assigned')
 
 
 to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
 to_reface_cp = Outport(client_name, name='Reface CP', verbose=False)
 script = Script()
-from_reface_cp = Inport(script.run, client_name, verbose=False)
-from_reface_cp.open()
-
+from_reface_cp = Inport(script.reface_cp, client_name, name='Reface CP', verbose=False)
+from_assigned = Inport(script.assigned, client_name, name='Assigned', verbose=True)
+make_threads([from_reface_cp.open, from_assigned.open])
 
 

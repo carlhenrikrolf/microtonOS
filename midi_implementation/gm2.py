@@ -59,6 +59,12 @@ class ControlChange:
 	undefined_7bit = [85, 86, 87, 89, 90, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119]
 	undefined = [*undefined_msb, *undefined_7bit]
 	
+	assignable = [
+		*[i for i in range(1, 32)],
+		*[i for i in range(64, 88)],
+		*[i for i in range(89, 96)],
+	]
+	
 	channel_mode_message = [None]*8
 	
 	channel_mode_message[0] = all_sound_off = 120

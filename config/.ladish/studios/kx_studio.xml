@@ -2,7 +2,7 @@
 <!--
 ladish Studio configuration.
 -->
-<!-- Sun Nov 17 11:42:25 2024 -->
+<!-- Mon Nov 18 18:30:02 2024 -->
 <studio>
   <jack>
     <conf>
@@ -46,7 +46,6 @@ ladish Studio configuration.
           <port name="Pianoteq Wrapper (playback): to Pianoteq Wrapper" uuid="6fa291bf-997b-4c97-8983-848fee433ebc" />
           <port name="Reface CP Driver (capture): microtonOS from Reface CP Driver" uuid="90826aae-9adc-4231-bf78-ce7c265ef489" />
           <port name="Reface CP Driver (capture): Reface CP from Reface CP Driver" uuid="ba6ee01c-e28b-4fc7-a485-779250b310d4" />
-          <port name="Reface CP Driver (playback): to Reface CP Driver" uuid="2a035785-053f-49d1-9219-e6a6b13fd7b3" />
           <port name="reface CP (capture): reface CP MIDI 1" uuid="c720a57d-9a1a-4e67-8c27-d388492b7785" />
           <port name="reface CP (playback): reface CP MIDI 1" uuid="125de18f-91ad-410c-98b5-886c3be73b5f" />
           <port name="MTS-ESP master (capture): isomorphic from MTS-ESP master" uuid="1936bc1e-4491-4a31-8fec-840904786f0e" />
@@ -72,6 +71,8 @@ ladish Studio configuration.
           <port name="WiDi Wrapper (playback): to WiDi Wrapper" uuid="6da5220f-c5be-4bc5-bad8-e12504a03744" />
           <port name="WIDI Master (capture): WIDI Master Bluetooth" uuid="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" />
           <port name="WIDI Master (playback): WIDI Master Bluetooth" uuid="6be73d10-fe8b-4f1b-b085-e3e8b3d536b6" />
+          <port name="Reface CP Driver (playback): Reface CP to Reface CP Driver" uuid="503355db-192a-449e-9b6c-ecfa540fc2a4" />
+          <port name="Reface CP Driver (playback): Assigned to Reface CP Driver" uuid="e55ffdcc-1664-4b46-8196-f545a90970a1" />
         </ports>
       </client>
       <client name="claudia" uuid="8a55046d-0275-4146-a4ad-5ae2da6715ab">
@@ -175,11 +176,12 @@ ladish Studio configuration.
       <ports>
         <port name="microtonOS from Reface CP Driver" uuid="90826aae-9adc-4231-bf78-ce7c265ef489" type="midi" direction="output" />
         <port name="Reface CP from Reface CP Driver" uuid="ba6ee01c-e28b-4fc7-a485-779250b310d4" type="midi" direction="output" />
-        <port name="to Reface CP Driver" uuid="2a035785-053f-49d1-9219-e6a6b13fd7b3" type="midi" direction="input" />
+        <port name="Reface CP to Reface CP Driver" uuid="503355db-192a-449e-9b6c-ecfa540fc2a4" type="midi" direction="input" />
+        <port name="Assigned to Reface CP Driver" uuid="e55ffdcc-1664-4b46-8196-f545a90970a1" type="midi" direction="input" />
       </ports>
       <dict>
-        <key name="http://ladish.org/ns/canvas/x">1248.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1834.0</key>
+        <key name="http://ladish.org/ns/canvas/x">1247.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1780.0</key>
       </dict>
     </client>
     <client name="reface CP" uuid="1f4dd159-fe1f-42f4-ba5c-e78fcac1883a" naming="app">
@@ -188,8 +190,8 @@ ladish Studio configuration.
         <port name="reface CP MIDI 1" uuid="125de18f-91ad-410c-98b5-886c3be73b5f" type="midi" direction="input" />
       </ports>
       <dict>
-        <key name="http://ladish.org/ns/canvas/x">1617.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1993.0</key>
+        <key name="http://ladish.org/ns/canvas/x">1266.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1992.0</key>
       </dict>
     </client>
     <client name="MTS-ESP master" uuid="397243ce-b887-45f9-9293-e466645754af" naming="app">
@@ -291,13 +293,12 @@ ladish Studio configuration.
         <port name="WIDI Master Bluetooth" uuid="6be73d10-fe8b-4f1b-b085-e3e8b3d536b6" type="midi" direction="input" />
       </ports>
       <dict>
-        <key name="http://ladish.org/ns/canvas/x">1250.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1360.0</key>
+        <key name="http://ladish.org/ns/canvas/x">951.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1699.0</key>
       </dict>
     </client>
   </clients>
   <connections>
-    <connection port1="c720a57d-9a1a-4e67-8c27-d388492b7785" port2="2a035785-053f-49d1-9219-e6a6b13fd7b3" />
     <connection port1="ba6ee01c-e28b-4fc7-a485-779250b310d4" port2="125de18f-91ad-410c-98b5-886c3be73b5f" />
     <connection port1="1936bc1e-4491-4a31-8fec-840904786f0e" port2="3c42edeb-4a06-451c-adb4-66323f35007a" />
     <connection port1="b3400952-709e-4d24-b83e-2be1d4c834d0" port2="bb0d5f81-b407-48c8-a8ae-4c0fd908687d" />
@@ -328,6 +329,9 @@ ladish Studio configuration.
     <connection port1="a7eab2ea-e997-4277-92d7-b0153ecdcb88" port2="6be73d10-fe8b-4f1b-b085-e3e8b3d536b6" />
     <connection port1="208c8460-8a4e-4e6a-ae55-5ed72312550a" port2="6da5220f-c5be-4bc5-bad8-e12504a03744" />
     <connection port1="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" port2="b4f1fb22-5ffa-4e92-9c9a-e94af2f953ac" />
+    <connection port1="c720a57d-9a1a-4e67-8c27-d388492b7785" port2="503355db-192a-449e-9b6c-ecfa540fc2a4" />
+    <connection port1="90826aae-9adc-4231-bf78-ce7c265ef489" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
+    <connection port1="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
   </connections>
   <applications>
   </applications>
