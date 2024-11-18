@@ -1,6 +1,3 @@
-# The default programme (this file) contains instrument controls and some
-# standard presets.
-#
 # Programmes are used while playing and are invoked by sending a MIDI program
 # change message. Programme files are read when setBfree starts and this file
 # is always loaded first (when present). To supply your own programmes you may:
@@ -20,176 +17,58 @@
 # MIDI patch-change to activate program "0". This can be changed by setting
 # pgm.controller.offset=0 in the configuration.
 
-# ------------------------------------------------------------------------
-# This first entry is mostly an example to show that it is possible to have
-# multiple parameters in the same programme.
-#
-1 {name="Jazz 1 all",
-   drawbars="888 0000 000",
-   perc=on,
-   percvol=soft,
-   percspeed=fast,
-   percharm=3rd,
-   vibrato=c3,
-   vibratoupper=on,
-   overdrive=on,
-   rotaryspeed=chorale}
+1 {name="Jimmy Smith",
+   drawbars="88 8000 008",
+   drawbarslower="84 8000 000",
+   drawbarspedals="80 0000 000"}
+2 {name="Charles Earland",
+   drawbars="88 8800 008",
+   drawbarslower="88 8000 000",
+   drawbarspedals="80 0000 000"}
+3 {name="Squabbling",
+   drawbars="80 0008 888",
+   drawbarslower="80 8000 000",
+   drawbarspedals="80 0000 000"}
+4 {name="Full Upper",
+   drawbars="88 8888 888",
+   drawbarslower="88 8000 000",
+   drawbarspedals="80 8000 000"}
+5 {name="Full Organ",
+   drawbars="88 8888 888",
+   drawbarslower="88 8888 888",
+   drawbarspedals="80 8000 000"}
+6 {name="Bossa/Reggae",
+   drawbars="80 0000 008",
+   drawbarslower="80 0000 000",
+   drawbarspedals="80 0000 000"}
+   
+7 {name="Unison",
+   drawbars="80 0000 000",
+   drawbarslower="80 0000 000",
+   drawbarspedals="80 0000 000"}
+8 {name="Octaves",
+   drawbars="80 8000 000",
+   drawbarslower="80 8000 000",
+   drawbarspedals="80 8000 000"}
+9 {name="Fifths",
+   drawbars="88 0000 000",
+   drawbarslower="88 0000 000",
+   drawbarspedals="80 0000 000"}
+10 {name="Fourths",
+   drawbars="08 0800 000",
+   drawbarslower="08 0800 000",
+   drawbarspedals="08 0000 000"}
+11 {name="Thirds",
+   drawbars="00 0000 088",
+   drawbarslower="00 0000 880",
+   drawbarspedals="80 0000 000"}
 
-#
-# some popular registrations
-#
-2   { name="Fredriks tfn 1",         drawbars="75 8757 200" }
-3   { name="Fredriks tfn 2",         drawbars="75 8016 200" }
-4   { name="Fredriks tfn 3",         drawbars="70 3713 153" }
-5   { name="Standard B",             drawbars="88 8000 000" }
-6   { name="Standard B mid whistle", drawbars="88 8000 004" }
-7   { name="Gospel",                 drawbars="88 8000 008" }
-8   { name="Blues 1",                drawbars="88 8800 000" }
-9   { name="Blues 2",                drawbars="88 5324 588" }
-10  { name="Rod Argent",             drawbars="88 0000 000" }
-11  { name="Brian Auger 3rd",        drawbars="88 8110 000", vibrato=c3, perc=on, percharm=3rd }
-12  { name="Jesse Crawford",         drawbars="80 0800 000" }
-13  { name="Joey DeFranco 1",        drawbars="88 8400 080" }
-14  { name="Joey DeFranco 2",        drawbars="83 8000 000", vibrato=c3 }
-15  { name="Booker T Jones",         drawbars="88 8630 000", perc=on, percharm=2nd }
-16  { name="Green Onions 2",         drawbars="80 8800 008" }
-17  { name="Procul Harum",           drawbars="80 0808 000" }
-18  { name="AWSOP",                  drawbars="68 0808 000", perc=on, percvol=soft, percspeed=fast }
-19  { name="Steve Winwood 1",        drawbars="84 8848 448" }
-20  { name="Lenny Dee 1",            drawbars="80 8080 808" }
-21  { name="Lenny Dee 2",            drawbars="66 7076 606" }
-22  { name="Silence",                drawbars="00 0000 000" }
-23  { name="8' solo",                drawbars="00 8000 000" }
-24  { name="Errol G. 1",             drawbars="80 0008 888" }
-25  { name="Errol G. 2",             drawbars="80 0006 666" }
-26  { name="Errol G. 3",             drawbars="80 0004 444" }
+12 {name="Random",
+   drawbars=random,
+   drawbarslower=random,
+   drawbarspedals=random}
 
-100 { name="Steve Winwood 2",        drawbars="88 8888 888" }
-101 { name="Brian Auger 2nd",        drawbars="88 8110 000", vibrato=c3, perc=on, percharm=2nd }
-102 { name="Green Onions 1",         drawbars="88 8800 000" }
-103 { name="Tom Coster (Santana)",   drawbars="88 8800 000" }
-104 { name="Jimmy Smith",            drawbars="88 8000 000", vibrato=c3, perc=on, percharm=3rd }
-105 { name="Jimmy Smith Plus",       drawbars="88 8800 000", vibrato=c3, perc=on, percharm=3rd, percvol=soft, percspeed=fast, rotaryspeed=chorale }
-106 { name="John Lord",              drawbars="88 8000 000", perc=on, percharm=2nd }
-107 { name="ELP (Keith Emerson)",    drawbars="88 8000 000" }
-109 { name="Greg Rolie",             drawbars="88 8886 666", vibrato=c3, perc=on, percharm=3rd, percvol=soft, percspeed=fast }
-108 { name="Paul Shaffer",           drawbars="88 8788 678", vibrato=c3, rotaryspeed=tremolo }
-109 { name="Reggae",                 drawbars="80 8000 008" }
-110 { name="Waa-waa (2nd bar)",      drawbars="88 8800 000", percharm=3rd, percvol=soft, percspeed=fast }
 
-#
-# Control programs - Each of these programmes control a single parameter.
-#
-27 {name="Reverb  0",        reverbmix=0.0}
-28 {name="Reverb 16",        reverbmix=0.16}
-29 {name="Reverb 25",        reverbmix=0.25}
-30 {name="Reverb 33",        reverbmix=0.33}
-31 {name="Reverb 50",        reverbmix=0.50}
-32 {name="Percussion OFF",   perc=off}
-33 {name="Percussion ON",    perc=on}
-34 {name="Percussion SOFT",  percvol=soft}
-35 {name="Percussion NORMAL",percvol=normal}
-36 {name="Percussion FAST",  percspeed=fast}
-37 {name="Percussion SLOW",  percspeed=slow}
-38 {name="P.Harmonic 2nd",   percharm=2nd}
-39 {name="P.Harmonic 3rd",   percharm=3rd}
-40 {name="Overdrive OFF",    overdrive=off}
-41 {name="Overdrive ON",     overdrive=on}
-42 {name="Vibrato V1",       vibrato=v1}
-43 {name="Vibrato V2",       vibrato=v2}
-44 {name="Vibrato V3",       vibrato=v3}
-45 {name="Vibrato C1",       vibrato=c1}
-46 {name="Vibrato C2",       vibrato=c2}
-47 {name="Vibrato C3",       vibrato=c3}
-48 {name="Vib lower on",     vibratolower=on}
-49 {name="Vib lower off",    vibratolower=off}
-50 {name="Vib upper on",     vibratoupper=on}
-51 {name="Vib upper off",    vibratoupper=off}
-
-52 {name="Rotary STOP",      rotaryspeed=stop}
-53 {name="Rotary SLOW",      rotaryspeed=chorale}
-54 {name="Rotary FAST",      rotaryspeed=tremolo}
-
-#
-# Having two random programs on adjacent program numbers makes sense
-# if you have a MIDI controller that allows you to step incrementally
-# through the program numbers. That way you can re-randomize by simply
-# alternating between the up/increment and down/decrement buttons.
-#
-
-55 {name="Random",           drawbars=random}
-56 {name="Random",           drawbars=random}
-
-#
-# These programs demonstrate split and an associated transpose.
-#
-57 {name="Lowr/Upr Split",   keysplitlower=58}
-58 {name="Pd/Lw/Up Split",   
-      keysplitpedals=48,
-      trssplitpedals=-12,
-      keysplitlower=66}
-59 {name="Pdal/Upr Split",   keysplitpedals=54, trssplitpedals=-12}
-60 {name="No split",         keysplitpedals=0,  keysplitlower=0}
-
-61 {name="Brassy pedals",   drawbarspedals="88 8444 221"}
-62 {name="Hollow pedals",   drawbarspedals="80 6300 000"}
-63 {name="Cute pedals",     drawbarspedals="64 8260 002"}
-
-#
-# The entries below represent 'presets', pre-configured registrations
-# in the original instruments that were wired into an internal patch-panel
-# and selected from two octaves of reverse-colored manual keys.
-#
-
-#
-# Standard Voices 'Lower Manual' (Hammond A-102)
-#
-64 {name="L:Cello",               drawbarslower="00 4545 440"}
-65 {name="L:Flute & String",      drawbarslower="00 4432 220"}
-66 {name="L:Clarinet",            drawbarslower="00 7373 430"}
-67 {name="L:Salicional",          drawbarslower="00 4544 222"}
-68 {name="L:Great no reeds",      drawbarslower="00 6644 322"}
-69 {name="L:Open Diaposon",       drawbarslower="00 5642 200"}
-70 {name="L:Full Great",          drawbarslower="00 6845 433"}
-71 {name="L:Tibia Clausa",        drawbarslower="00 8030 000"}
-72 {name="L:Full Great with 16'", drawbarslower="42 7866 244"}
-#
-# Theatrical Voices 'Lower Manual' (Hammond A-102)
-#
-73 {name="L:Cello 8'",          drawbarslower="00 4545 440"}
-74 {name="L:Dulciana 8'",       drawbarslower="00 5432 000"}
-75 {name="L:Vibraharp 8'",      drawbarslower="00 4800 000"}
-76 {name="L:Vox 8' & Tibia 4'", drawbarslower="00 3800 460"}
-77 {name="L:String Accomp. 8'", drawbarslower="00 6554 322"}
-78 {name="L:Open Diapason 8'",  drawbarslower="00 5642 200"}
-79 {name="L:Full Accomp. 16'",  drawbarslower="43 5434 334"}
-80 {name="L:Tibia 8'",          drawbarslower="00 8030 000"}
-81 {name="L:Bombarde 16'",      drawbarslower="84 7767 666"}
-#
-# Standard Voices 'Upper Manual' (Hammond A-102)
-#
-82 {name="U:Stopped Flute",  drawbars="00 5320 000"}
-83 {name="U:Dulciana",       drawbars="00 4432 000"}
-84 {name="U:French Horn",    drawbars="00 8740 000"}
-85 {name="U:Salicional",     drawbars="00 4544 222"}
-86 {name="U:Flutes 8'&4'",   drawbars="00 5403 000"}
-87 {name="U:Oboe Horn",      drawbars="00 4675 300"}
-88 {name="U:Swell Diapason", drawbars="00 5644 320"}
-89 {name="U:Trumpet",        drawbars="00 6876 540"}
-90 {name="U:Full Swell",     drawbars="32 7645 222"}
-#
-# Theatrical Voices 'Upper Manual' (Hammond A-102)
-#
-91 {name="U:French Horn 8'",         drawbars="00 8740 000"}
-92 {name="U:Tibias 8'&4'",           drawbars="00 8408 004"}
-93 {name="U:Clarinet 8'",            drawbars="00 8080 840"}
-94 {name="U:Novel Solo 8'",          drawbars="08 8800 880"}
-95 {name="U:Theatre Solo 16'",       drawbars="60 8088 000"}
-96 {name="U:Oboe Horn 8'",           drawbars="00 4685 300"}
-97 {name="U:Full Tibias 16'",        drawbars="60 8807 006"}
-98 {name="U:Trumpet 8'",             drawbars="00 6888 654"}
-99 {name="U:Full Theatre Brass 16'", drawbars="76 8878 667"}
-#
 # You can have up to program number 127.
 # Currently, MIDI program change is only recognized on the MIDI channel
 # assigned to the upper manual. That is set in default.cfg.

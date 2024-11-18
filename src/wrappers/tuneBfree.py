@@ -13,9 +13,11 @@ commandline = [
 	#'--user',
 	#'pi',
 	'/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree',
+	'--noconfig',
 	'--config',
 	'/home/pi/microtonOS/config/tuneBfree.cfg',
-	'-l',
+	'--noprogram',
+	'--program',
 	'/home/pi/microtonOS/config/tuneBfree.pgm',
 	#'--dumpcc',
 ]
