@@ -28,7 +28,7 @@ class Sounds:
 	
 	def __init__(self,
 		outport,
-		base_color=Color('purple'),
+		base_color=Color('red'),
 		click_color=Color('white'),
 	):
 		self.outport = outport

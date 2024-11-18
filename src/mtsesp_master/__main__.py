@@ -129,7 +129,7 @@ class Script:
 
 
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
-to_microtonOS = Outport(client_name, name='microtonOS', verbose=True)
+to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
 mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=14)
 encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.init?
 	equave=0,
@@ -143,7 +143,7 @@ encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.
 )
 active_sensing = ActiveSensing(to_isomorphic)
 script = Script()
-from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=True)
+from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=False)
 from_halberstadt = Inport(script.halberstadt, client_name, name='Halberstadt', verbose=False)
 from_manual2 = Inport(script.manual2, client_name, name='manual 2', verbose=False)
 make_threads([from_isomorphic.open, from_halberstadt.open, from_manual2.open, active_sensing.open])
