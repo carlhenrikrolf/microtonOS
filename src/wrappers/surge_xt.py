@@ -23,6 +23,7 @@ audio_name = 'JACK.system' # same problems as alsa jack audio connection kit
 import mido
 import re
 import subprocess
+from midi_implementation.mpe import define_channels
 from utils import Inport, Outport, handle_terminations
 
 list_devices_command = [
@@ -55,6 +56,7 @@ def get_output_id(name):
 
 class Script:
 	def __init__(self):
+		self.is_init = True
 		self.commandline = [
 			#'sudo',
 			#'-u',
@@ -68,6 +70,9 @@ class Script:
 		self.process = subprocess.Popen(self.commandline)
 		handle_terminations(self.process)
 	def run(self, msg):
+		if self.is_init:
+			define_channels(to_surge_xt, polyphony=15, zone='lower')
+			self.is_init = False
 		to_surge_xt.send(msg)
 		
 to_surge_xt = Outport(client_name)
