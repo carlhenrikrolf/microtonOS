@@ -22,6 +22,7 @@ def get_pedal(string):
 	else:
 		return cc.hold2
 		
+pedals = [cc.damper_pedal, cc.soft_pedal, cc.sostenuto, cc.expression_controller[0], cc.expression_controller[1], cc.hold2, cc.timbre]
 
 class Script:
 	
@@ -39,7 +40,7 @@ class Script:
 		instrument_type = cp.instrument_type(msg)
 		if instrument_type is not None:
 			#print(instrument_type)
-			if self.pedal is not None:
+			if self.pedal in pedals:
 				to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=127 if self.pedal == cc.expression_controller[0] else 0))
 			if instrument_type == 'Toy':
 				self.assigned_to_pedal = None
@@ -177,12 +178,9 @@ class Script:
 				to_microtonOS.send(mido.Message('control_change', control=self.pedal, value=sustain))
 			
 	def assigned(self, msg):
-		if self.assigned_to_pedal is None and msg.type == 'control_change':
-			if msg.control in cc.assignable:
-				if msg.control not in [cc.damper_pedal, cc.soft_pedal, cc.sostenuto, cc.expression_controller[0], cc.expression_controller[1], cc.hold2]:
-					self.assigned_to_pedal = msg.control
-					if self.pedal is None:
-						print(msg.control, 'assigned')
+		if (self.assigned_to_pedal is None) and (self.pedal is None) and (msg.type == 'control_change'):
+			if (msg.control in cc.assignable) and (msg.control not in pedals):
+				self.assigned_to_pedal = msg.control
 
 
 to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)

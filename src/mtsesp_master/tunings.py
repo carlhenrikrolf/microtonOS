@@ -10,10 +10,10 @@ class Default(BaseTuning):
 	is_white = [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1]
 	
 	def coloring(self):
-		assignment = [Color('black')]*128
+		assignment = [Color('orange')]*128
 		for i in range(128):
 			if self.is_white[i%12]:
-				assignment[i] = Color('gold')
+				assignment[i] = Color('black')
 		return assignment
 
 

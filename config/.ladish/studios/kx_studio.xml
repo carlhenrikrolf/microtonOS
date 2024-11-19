@@ -2,7 +2,7 @@
 <!--
 ladish Studio configuration.
 -->
-<!-- Mon Nov 18 18:30:02 2024 -->
+<!-- Tue Nov 19 09:05:30 2024 -->
 <studio>
   <jack>
     <conf>
@@ -180,8 +180,8 @@ ladish Studio configuration.
         <port name="Assigned to Reface CP Driver" uuid="e55ffdcc-1664-4b46-8196-f545a90970a1" type="midi" direction="input" />
       </ports>
       <dict>
-        <key name="http://ladish.org/ns/canvas/x">1247.0</key>
-        <key name="http://ladish.org/ns/canvas/y">1780.0</key>
+        <key name="http://ladish.org/ns/canvas/x">1099.0</key>
+        <key name="http://ladish.org/ns/canvas/y">1799.0</key>
       </dict>
     </client>
     <client name="reface CP" uuid="1f4dd159-fe1f-42f4-ba5c-e78fcac1883a" naming="app">
@@ -330,8 +330,10 @@ ladish Studio configuration.
     <connection port1="208c8460-8a4e-4e6a-ae55-5ed72312550a" port2="6da5220f-c5be-4bc5-bad8-e12504a03744" />
     <connection port1="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" port2="b4f1fb22-5ffa-4e92-9c9a-e94af2f953ac" />
     <connection port1="c720a57d-9a1a-4e67-8c27-d388492b7785" port2="503355db-192a-449e-9b6c-ecfa540fc2a4" />
-    <connection port1="90826aae-9adc-4231-bf78-ce7c265ef489" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
-    <connection port1="8dfd7660-63ae-4b33-b737-b71a5e5f47ce" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
+    <connection port1="56f605dc-6aa0-497d-a71f-89d49487c6cd" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
+    <connection port1="90da5fd5-d59a-4a4a-b551-c9045b150f38" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
+    <connection port1="ccfe60fa-56e8-46c1-8fec-36d021d40fc3" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
+    <connection port1="208c8460-8a4e-4e6a-ae55-5ed72312550a" port2="e55ffdcc-1664-4b46-8196-f545a90970a1" />
   </connections>
   <applications>
   </applications>
