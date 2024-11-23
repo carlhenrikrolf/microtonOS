@@ -215,6 +215,9 @@ class Exquis: # version 1.2.0
 		else:
 			raise Warning('Color type not supported')
 		
+	def led(self, color):
+		self.to_color(self, color)
+
 exquis = Exquis()
 
 

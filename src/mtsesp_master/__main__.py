@@ -3,6 +3,7 @@ client_name = 'MTS-ESP master'
 
 # imports
 import mido
+import mtsespy as mts
 from midi_implementation.mpe import MPE, is_polyexpression
 from mtsesp_master.presets import presets
 from mtsesp_master.encoders import Encoders
@@ -38,19 +39,21 @@ class Script:
 			if self.is_init:
 				encoders.reset()
 				layout = presets.layout.layout()
-				coloring = presets.tuning.coloring()
+				coloring = presets.tuning.tuning(mts)
 				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 				self.is_init = False
 				
 			if encoders.refresh(msg):
 				layout = presets.layout.layout()
-				coloring = presets.tuning.coloring()
+				coloring = presets.tuning.tuning(mts)
 				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 			
 			# bottom encoders
 			# change equave
 			happened, self.equave = encoders.change_equave(msg, self.equave)
 			if happened:
+				coloring = presets.tuning.tuning(mts, equave=self.equave)
+				isomorphic.send(to_isomorphic, coloring=coloring)
 				print('ekvav =', self.equave)
 			
 			# flip (mirror)
@@ -117,17 +120,19 @@ class Script:
 		
 		if hasattr(msg, 'channel'):
 			msg.channel = 15 if is_polyexpression(msg) else 0
-		to_microtonOS.send(msg)
+		presets.tuning.halberstadtify(to_microtonOS, msg)
 		
 		
 	def manual2(self,msg):
 		
 		if hasattr(msg, 'channel'):
 			msg.channel = 14 if is_polyexpression(msg) else 0
-		to_microtonOS.send(msg)
+		presets.tuning.halberstadtify(to_microtonOS, msg, manual=2)
 			
 
 
+if mts.has_ipc():
+	mts.reinitialize()
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
 to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
 mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=14)
@@ -146,4 +151,5 @@ script = Script()
 from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=False)
 from_halberstadt = Inport(script.halberstadt, client_name, name='Halberstadt', verbose=False)
 from_manual2 = Inport(script.manual2, client_name, name='manual 2', verbose=False)
-make_threads([from_isomorphic.open, from_halberstadt.open, from_manual2.open, active_sensing.open])
+with mts.Master():
+	make_threads([from_isomorphic.open, from_halberstadt.open, from_manual2.open, active_sensing.open])

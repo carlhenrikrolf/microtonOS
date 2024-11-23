@@ -2,21 +2,75 @@ from colour import Color
 
 class BaseTuning:
 	
-	def __init__(self):
-		pass
-		
+	def __init__(self,
+		name: str,
+		white_key_color: str,
+		black_key_color: str,
+		split_key_color='black',
+		concert_a=69,
+		diapason=440.0,
+		equave = 0,
+		equal_steps=None,
+		numerator=None,
+		divisor=None,
+	):
+		self.name = name
+		self.white_key = Color(white_key_color)
+		self.black_key = Color(black_key_color)
+		self.split_key = Color(split_key_color)
+		self.concert_a = concert_a
+		self.middle_c = concert_a - 9
+		self.diapason = diapason
+		self.equave = equave
+		if all([i is not None for i in [equal_steps, numerator, divisor]]):
+			if not hasattr(self, 'equal_steps'):
+				self.equal_steps = equal_steps
+			if not hasattr(self, 'period'):
+				self.period = 1.0 * numerator / divisor
+
+	def tuning(self,
+		mts,
+		equave=None,
+	):
+		if equave is not None:
+			self.equave = equave
+		frequencies = self.frequencies()
+		mts.set_note_tunings(frequencies)
+		mts.set_scale_name(self.name)
+		coloring = self.coloring()
+		return coloring
+
+
+	def halberstadtify(self, outport,  msg, manual=1):
+		if hasattr(msg, 'note'):
+			note = self.remap(msg.note)
+			if note is not None:
+				outport.send(msg.copy(note=note))
+		else:
+			outport.send(msg)
+
 class Default(BaseTuning):
 	
 	is_white = [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1]
-	
+	equal_steps = 12
+	period = 2.0
+
 	def coloring(self):
-		assignment = [Color('orange')]*128
+		assignment = [self.black_key]*128
 		for i in range(128):
 			if self.is_white[i%12]:
-				assignment[i] = Color('black')
+				assignment[i] = self.split_key
 		return assignment
 
+	def frequencies(self):
+		base_freq = self.diapason * self.period ** self.equave
+		out = [self.diapason]*128
+		for note in range(0, 128):
+			out[note] = base_freq * self.period ** ((note-self.concert_a)/self.equal_steps)
+		return out
 
+	def remap(self, note):
+		return note
 
 
 
