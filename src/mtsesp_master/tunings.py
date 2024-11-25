@@ -1,5 +1,17 @@
 from colour import Color
 
+
+def equal_step_tuning(equal_steps, period, diapason, concert_a):
+	out = [diapason]*128
+	for note in range(128):
+		out[note] *= 2 ** ((note - concert_a)/period)
+	return out
+
+def middle_c(halberstadt_map, concert_a):
+	i = 9 + ((concert_a - 69) % len(halberstadt_map))
+	d = halberstadt_map[i] - halberstadt_map[0]
+	return concert_a - d
+
 class BaseTuning:
 	
 	def __init__(self,
@@ -13,20 +25,22 @@ class BaseTuning:
 		equal_steps=None,
 		numerator=None,
 		divisor=None,
+		halberstadt_map=None,
 	):
 		self.name = name
 		self.white_key = Color(white_key_color)
 		self.black_key = Color(black_key_color)
 		self.split_key = Color(split_key_color)
 		self.concert_a = concert_a
-		self.middle_c = concert_a - 9
 		self.diapason = diapason
 		self.equave = equave
-		if all([i is not None for i in [equal_steps, numerator, divisor]]):
-			if not hasattr(self, 'equal_steps'):
-				self.equal_steps = equal_steps
+		if equal_steps is not None and not hasattr(self, 'equal_steps'):
+			self.equal_steps = equal_steps
+		if numerator is not None and divisor is not None:
 			if not hasattr(self, 'period'):
 				self.period = 1.0 * numerator / divisor
+		if not hasattr(self, 'halberstadt_map'):
+			self.halberstadt_map = halberstadt_map
 
 	def tuning(self,
 		mts,
@@ -54,6 +68,7 @@ class Default(BaseTuning):
 	is_white = [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1]
 	equal_steps = 12
 	period = 2.0
+	halberstadt_map = [i for i in range(12)]
 
 	def coloring(self):
 		assignment = [self.black_key]*128
@@ -64,15 +79,36 @@ class Default(BaseTuning):
 
 	def frequencies(self):
 		base_freq = self.diapason * self.period ** self.equave
-		out = [self.diapason]*128
-		for note in range(0, 128):
-			out[note] = base_freq * self.period ** ((note-self.concert_a)/self.equal_steps)
-		return out
+		return equal_step_tuning(self.equal_steps, self.period, base_freq, self.concert_a)
 
 	def remap(self, note):
 		return note
 
 
+class Macro:
+
+	self.period = 2.0
+	example_map = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6]
+
+	def frequencies(self):
+		base_freq = self.diapason * self.period ** self.equave
+		return equal_step_tuning(self.equal_steps, self.period, base_freq, self.concert_a)
+
+	def remap(self, note):
+		i = note % len(self.halberstadt_map)
+		c = middle_c(self.halberstadt_map, self.concert_a)
+		p = sum([i is not None for i in self.halberstadt])
+		if self.halberstadt_map[i] is None:
+			return None
+		elif note >= c:
+			n = (note - c) // self.equal_steps
+			return c+n*p+i
+		elif note < c:
+			n = (c - note) // self.equal_steps
+			return c-n*p+i
+		else:
+			raise Warning('Not yet implemented')
+			
 
 
 # # modules

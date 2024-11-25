@@ -22,3 +22,9 @@ Mwànjo means octave in Baganda rather than being a name of a scale or tuning.
 |nyamaropa, dongonda | 4 | Zimbabwe |
 
 The Shona word katsanzaira has the rather poetic meaning 'the gentle rain before the storm comes'.
+
+## References
+
+Wikipedia. *Mbira*. Section *[Tuning](https://en.wikipedia.org/w/index.php?title=Mbira&oldid=1230547573#Tuning)*.
+
+Wikipedia. *Baganda Music*. Section *[Musical Scale](https://en.wikipedia.org/w/index.php?title=Baganda_music&oldid=1224599545#Musical_scale)*.

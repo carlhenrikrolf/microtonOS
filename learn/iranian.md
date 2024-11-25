@@ -29,6 +29,4 @@ The koron &#x1D1EA; denotes a quarter tone flat note.
 As they are (still!) not always rendered correctly, they could be replaced by the similar symbols > and p respectively.
 
 ## References
-- Encyclopedia Iranica
-- Wikipedia
-- Oud for Guitaristss
+Wikipedia. *[Dastgah](https://en.wikipedia.org/w/index.php?title=Dastg%C4%81h&oldid=1200011284)*.

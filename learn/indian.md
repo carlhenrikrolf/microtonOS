@@ -35,3 +35,16 @@ Note that thaats bhairav and bharavi are different.
 The equivalent to thaat in Carnatic music is known as melakarta. 
 However, every possible way to pick 7 different notes from a set of 12 notes is named as a melakarta.
 If you want to reproduce an Indian sound, that is not very helpful, so I leave the melakarta system out.
+
+## References
+
+Wikipedia. *[Melakarta](https://en.wikipedia.org/w/index.php?title=Melakarta&oldid=1237175236)*.
+
+Wikipedia. *Marva*. Section *[Aroha and Avaroha](https://en.wikipedia.org/w/index.php?title=Marva_(raga)&oldid=1225358085#Aroha_and_Avaroha)*.
+
+Wikipedia. *[Shruti](https://en.wikipedia.org/w/index.php?title=Shruti_(music)&oldid=1243512839)*.
+
+Wikipedia. *[Thaat](https://en.wikipedia.org/w/index.php?title=Thaat&oldid=1241451406)*.
+
+Xenharmonic Wiki. *[A Shruti List](https://en.xen.wiki/index.php?title=A_shruti_list&oldid=123028)*.
+

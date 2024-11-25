@@ -1,0 +1,12 @@
+- [ ] Tuning
+	- [x] Octaves
+	- [ ] 5edo
+	- [ ] 17edo
+	- [ ] 53edo
+	- [ ] 9ed5/2
+	- [ ] Custom
+- [ ] Misc
+	- [ ] Wicki
+	- [ ] Red over green
+	- [ ] Panic
+

@@ -31,7 +31,16 @@ Detuning the second instrument lower than the first results in stretched octaves
 Detuning the second instrument higher than the first results in compressed octaves for the second instrument.
 Approximating the resulting total tuning as an equal step tuning is not possible.
 
-# References
-- Wikipedia.
-- Surjodingrat. 1972.
-- William A Setheres, Wayne Vitale. 2019. *Ombak and octave stretching in Balinese gamelan*. Journal of Mathematics and Music.
+## References
+
+Surjodingrat, Sudarjana, Susanto. 1972. *Tone measurements of outstanding Javanese gamelans in Jogjakarta and Surakarta*.
+
+Wikipedia. *[Pelog](https://en.wikipedia.org/w/index.php?title=Pelog&oldid=1140275944)*.
+
+Wikipedia. *[Slendro](https://en.wikipedia.org/w/index.php?title=Slendro&oldid=1153122768)*.
+
+William A Setheres, Wayne Vitale. 2019. *Ombak and octave stretching in Balinese gamelan*. Journal of Mathematics and Music.
+
+Xenharmonic Wiki. *[Pelog](https://en.xen.wiki/index.php?title=Pelog&oldid=146916)*.
+
+Xenharmonic Wiki. *[Slendro](https://en.xen.wiki/index.php?title=Slendro&oldid=146696)*.

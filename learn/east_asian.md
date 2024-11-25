@@ -35,5 +35,19 @@ The latter two may be better approximated with 60edo, but that is beyond scope.
 |iwato|3|
 
 ## References
-- Wikipedia
-- [Sequential Take 5 User Manual](https://www.sequential.com/wp-content/uploads/2022/06/Take-5-Users-Guide-1.1.pdf)
+
+*[Sequential Take 5 User Manual](https://www.sequential.com/wp-content/uploads/2022/06/Take-5-Users-Guide-1.1.pdf)*.
+
+Wikipedia. *12 Equal Temperament*. Section *[History](https://en.wikipedia.org/w/index.php?title=12_equal_temperament&oldid=1227218014#History)*.
+
+Wikipedia. *[Hirajoshi Scale](https://en.wikipedia.org/w/index.php?title=Hiraj%C5%8Dshi_scale&oldid=1220205549)*.
+
+Wikipedia. *[In Scale](https://en.wikipedia.org/w/index.php?title=In_scale&oldid=1222250665)*.
+
+Wikipedia. *[Iwato Scale](https://en.wikipedia.org/w/index.php?title=Iwato_scale&oldid=1059379646)*.
+
+Wikipedia. *[Japanese Mode](https://en.wikipedia.org/w/index.php?title=Japanese_mode&oldid=1238061586)*.
+
+Wikipedia. *[Shi-er Lu](https://en.wikipedia.org/w/index.php?title=Shi%27er_l%C3%BC&oldid=1243503481)*.
+
+Wikipedia. *[Yo Scale](https://en.wikipedia.org/w/index.php?title=Yo_scale&oldid=1221382314)*.
