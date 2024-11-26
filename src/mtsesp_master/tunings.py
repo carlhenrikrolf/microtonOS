@@ -4,7 +4,7 @@ from colour import Color
 def equal_step_tuning(equal_steps, period, diapason, concert_a):
 	out = [diapason]*128
 	for note in range(128):
-		out[note] *= 2 ** ((note - concert_a)/period)
+		out[note] *= period ** ((note - concert_a)/equal_steps)
 	return out
 
 def middle_c(halberstadt_map, concert_a):
