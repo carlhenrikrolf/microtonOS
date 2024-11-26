@@ -1,6 +1,6 @@
-# microtonOS
-
 ![Rig](images/rig.jpeg)
+
+# microtonOS
 
 Making a xenharmonic synth out of a Raspberry Pi.
 Most microtonal/xenharmonic products are geared towards music production---microtonOS is not.
