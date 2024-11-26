@@ -1,13 +1,13 @@
 import subprocess
 import mido
 import mtsespy as mts
-from time import sleep
+from time import sleep, perf_counter_ns
 from midi_implementation.gm2 import control_change as cc
 from utils import Inport, Outport, handle_terminations
 
 client_name = 'tuneBfree Wrapper'
 pause = 0.001
-startup = 0.3
+#startup = 0.3
 commandline = [
 	#'sudo',
 	#'--user',
@@ -21,6 +21,8 @@ commandline = [
 	'/home/pi/microtonOS/config/tuneBfree.pgm',
 	#'--dumpcc',
 ]
+done = 'All systems go. press CTRL-C, or send SIGINT or SIGHUP to terminate'
+backup_cc = range(1,120)
 
 class Leslie:
 	
@@ -197,38 +199,63 @@ class Script:
 		if msg.is_cc(cc.bank_select[0]):
 			self.bank = msg.value
 		elif msg.type == 'control_change':
-			self.control_to_value[msg.control] = msg.value
-			drive(msg)
-			horn(msg)
-			wah(msg)
-			chorus(msg)
-			drum(msg)
-			harmonic2(msg)
-			harmonic3(msg)
-			reverb(msg)
-			expression(msg)
+			if msg.control in backup_cc:
+				self.control_to_value[msg.control] = msg.value
+				drive(msg)
+				horn(msg)
+				wah(msg)
+				chorus(msg)
+				drum(msg)
+				harmonic2(msg)
+				harmonic3(msg)
+				reverb(msg)
+				expression(msg)
+			else:
+				self.restart(msg)
 		elif msg.type in ['aftertouch', 'polytouch']:
 			to_tuneBfree.send(leslie.translate(boost=msg.value))
 		elif hasattr(msg, 'channel'):
-			self.update_tuning(msg)
 			dispatch(msg, bank=self.bank)
+			self.restart(msg)
 		else:
 			to_tuneBfree.send(msg)
 			
-	def update_tuning(self, msg):
+	def restart(self, msg):
 		if msg.type == 'note_on':
 			new_frequency = mts.note_to_frequency(mts_client, msg.note, 0)
 			if new_frequency != self.to_frequency[msg.note]:
 				for note in range(0,128):
 					self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
-				try:
-					self.process.terminate()
-				finally:
-					self.process = subprocess.Popen(commandline)
-					sleep(startup)
+				self.load()
 				for control, value in enumerate(self.control_to_value):
-					self.run(mido.Message('control_change', control=control, value=value))
-					sleep(pause)
+					if control in backup_cc:
+						self.run(mido.Message('control_change', control=control, value=value))
+						sleep(pause)
+		elif msg.is_cc(cc.all_notes_off):
+			if msg.channel == 0:
+				self.load()
+				
+				
+	def load(self):
+		try:
+			self.process.terminate()
+		finally:
+			self.process = subprocess.Popen(
+				commandline,
+				stdout=subprocess.PIPE,
+				stderr=subprocess.STDOUT,
+			)
+			start = perf_counter_ns()
+			for line in iter(self.process.stdout.readline, b''):
+				if done in line.decode():
+					print('tuneBfree took', (perf_counter_ns() - start)/1e9, 'seconds to load')
+					break
+				elif perf_counter_ns() - start > 5e9:
+					print('tuneBfree has not loaded after 5 seconds, moving on ...')
+					break
+			self.process.stdout = None
+			self.process.stderr = None
+		
 		
 
 with mts.Client() as mts_client:
