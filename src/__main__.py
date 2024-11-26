@@ -1,3 +1,7 @@
+"""
+	microtonOS.
+"""
+
 from colour import Color
 import mido
 from menu import Sounds
@@ -8,6 +12,11 @@ from midi_implementation.dualo import exquis as xq
 from midi_implementation.yamaha import reface_cp as cp
 
 client_name = 'microtonOS'
+
+def panic(outports):
+	for outport in outports:
+		for channel in range(0,16):
+			outport.send(mido.Message('control_change', control=cc.all_notes_off, channel=channel))
 
 class Script:
 
@@ -30,6 +39,7 @@ class Script:
 		
 		if sounds.onoff(msg) is True:
 			self.engine, self.bank, self.pgm = sounds.select(msg)
+			panic(to_engine)
 		elif sounds.onoff(msg) is False:
 			print('eng =', self.engine, 'bnk =', self.bank, 'pgm =', self.pgm)
 			to_isomorphic.send(msg)

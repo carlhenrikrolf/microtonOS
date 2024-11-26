@@ -7,7 +7,7 @@ audio_name = 'JACK.system'
 import mido
 import re
 import subprocess
-from midi_implementation.mpe import define_channels
+from midi_implementation.mpe import set_mpe_mode
 from utils import Inport, Outport, handle_terminations
 
 list_devices_command = [
@@ -55,7 +55,8 @@ class Script:
 		handle_terminations(self.process)
 	def run(self, msg):
 		if self.is_init:
-			define_channels(to_surge_xt, polyphony=15, zone='lower')
+			set_mpe_mode(to_surge_xt, polyphony=13, zone='lower')
+			set_mpe_mode(to_surge_xt, polyphony=1, zone='upper')
 			self.is_init = False
 		to_surge_xt.send(msg)
 		

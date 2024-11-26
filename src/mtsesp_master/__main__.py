@@ -1,3 +1,7 @@
+"""
+	MTS-ESP Master.
+"""
+
 # parameters
 client_name = 'MTS-ESP master'
 
@@ -119,14 +123,14 @@ class Script:
 	def halberstadt(self, msg):
 		
 		if hasattr(msg, 'channel'):
-			msg.channel = 15 if is_polyexpression(msg) else 0
+			msg.channel = 13 if is_polyexpression(msg) else 0
 		presets.tuning.halberstadtify(to_microtonOS, msg)
 		
 		
 	def manual2(self,msg):
 		
 		if hasattr(msg, 'channel'):
-			msg.channel = 14 if is_polyexpression(msg) else 0
+			msg.channel = 14 if is_polyexpression(msg) else 15
 		presets.tuning.halberstadtify(to_microtonOS, msg, manual=2)
 			
 
@@ -135,7 +139,7 @@ if mts.has_ipc():
 	mts.reinitialize()
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
 to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
-mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=14)
+mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=12)
 encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.init?
 	equave=0,
 	equave_range=range(-2,3),

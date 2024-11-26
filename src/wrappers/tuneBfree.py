@@ -174,21 +174,10 @@ def expression(msg):
 		
 def dispatch(msg, bank=0):
 	if bank == 1:
-		if msg.channel == 15:
+		if msg.channel in [0, 15, 13, 14]:
 			to_tuneBfree.send(msg.copy(channel=0))
-		elif msg.channel in range(1,15):
-			to_tuneBfree.send(msg.copy(channel=1))
 		else:
-			to_tuneBfree.send(msg.copy(channel=0))
-	elif bank == 3:
-		if msg.channel == 15:
-			to_tuneBfree.send(msg.copy(channel=0))
-		elif msg.channel == 14:
 			to_tuneBfree.send(msg.copy(channel=1))
-		elif msg.channel in range(1,14):
-			to_tuneBfree.send(msg.copy(channel=2))
-		else:
-			to_tuneBfree.send(msg.copy(channel=0))
 	else:
 		to_tuneBfree.send(msg.copy(channel=0))
 

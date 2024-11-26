@@ -3,7 +3,7 @@ import time
 
 pause = 0.001
 
-def define_channels(outport, polyphony=15, zone='lower'):
+def set_mpe_mode(outport, polyphony=15, zone='lower'):
 	manager = 15 if zone == 'upper' else 0
 	assert polyphony in range(0,16)
 	outport.send(mido.Message('control_change', control=101, value=0, channel=manager))
