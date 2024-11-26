@@ -216,7 +216,12 @@ class Exquis: # version 1.2.0
 			raise Warning('Color type not supported')
 		
 	def led(self, color):
-		self.to_color(self, color)
+		if type(color) is Color:
+			return [round(i*127) for i in color.rgb]
+		elif type(color) is str:
+			return self.led(Color(color))
+		else:
+			raise Warning('Color type not supported')
 
 exquis = Exquis()
 

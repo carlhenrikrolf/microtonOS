@@ -1,12 +1,15 @@
 """
-	These are the encoders (buttons, knobs, sliders) used to control tuning and layout settings.
-	Can be altered to fit different kinds of hardware.
+	Encoders on Exquis.
 """
 
 from midi_implementation.dualo import exquis as xq
 
+default_color = xq.led('red')
+click_color = xq.led('white')
+unavailable_color = xq.led('black')
+
 def color_coding(number):
-	digits = [xq.dark, xq.lime, xq.yellow, xq.red, xq.magenta, xq.blue, xq.cyan, xq.white]
+	digits = [xq.led('black'), xq.led('magenta'), xq.led('blue'), xq.led('cyan'), xq.led('lime'), xq.led('yellow'), xq.led('red'), xq.led('white')]
 	return [digits[number // 8], digits[number % 8]]
 
 
@@ -78,12 +81,12 @@ class Encoders:
 			Resets some saved values in this class.
 		"""
 		if self.init_equave in self.equave_range:
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.lime))
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.lime))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
 		else:
 			raise Warning('Initial end-point octaves not yet implemented.')
-		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.lime))
-		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.lime))
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, default_color))
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, default_color))
 		tuning_code = color_coding(self.init_tuning_pgm)
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, tuning_code[0]))
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, tuning_code[1]))
@@ -98,24 +101,31 @@ class Encoders:
 		self.transposition = self.init_transposition
 		self.dilation = self.init_dilation
 		
+	
+	def equave_color(self):
+		if self.equave == self.init_equave:
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+		elif self.equave == max(self.equave_range):
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, unavailable_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+		elif self.equave == min(self.equave_range):
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, unavailable_color))
+		elif self.equave > self.init_equave:
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, click_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+		else:
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, click_color))
+		
 		
 	def refresh(self, msg):
 		for menu_button in [xq.settings, xq.sounds, xq.record, xq.tracks, xq.scenes, xq.play_stop]:
 			if xq.is_sysex(msg, [xq.click, menu_button, xq.released]):
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.white if self.is_left_right else xq.lime))
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.white if self.is_up_down else xq.lime))
-				if self.equave == self.init_equave:
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.green))
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.green))
-				elif self.equave == max(self.equave_range):
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.dark))
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
-				elif self.equave == min(self.equave_range):
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.dark))
-				else:
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
-					xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, click_color if self.is_left_right else default_color))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, click_color if self.is_up_down else default_color))
+				self.equave_color()
 				code = color_coding(self.tuning_pgm)
 				xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, code[0]))
 				xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, code[1]))
@@ -137,25 +147,27 @@ class Encoders:
 		"""
 		if xq.is_sysex(msg, [xq.click, xq.octave_up, xq.pressed]) and self.is_on():
 			self.equave = equave+1 if equave+1 in self.equave_range else equave
-			if self.equave == self.init_equave:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.green))
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.green))
-			elif self.equave == max(self.equave_range):
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.dark))
-			else:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
+			self.equave_color()
+			# if self.equave == self.init_equave:
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+			# elif self.equave == max(self.equave_range):
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.dark))
+			# else:
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
 			return True, self.equave
 		elif xq.is_sysex(msg, [xq.click, xq.octave_down, xq.pressed]) and self.is_on():
 			self.equave = equave-1 if equave-1 in self.equave_range else equave
-			if self.equave == self.init_equave:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.green))
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.green))
-			elif self.equave == min(self.equave_range):
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.dark))
-			else:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
+			self.equave_color()
+			# if self.equave == self.init_equave:
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.green))
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.green))
+			# elif self.equave == min(self.equave_range):
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.dark))
+			# else:
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, xq.white))
+				# xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, xq.white))
 			return True, self.equave
 		return False, self.equave
 		
@@ -168,9 +180,9 @@ class Encoders:
 		if xq.is_sysex(msg, [xq.click, xq.page_right, xq.pressed]) and self.is_on():
 			self.is_left_right = not self.is_left_right
 			if self.is_left_right:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.white))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, click_color))
 			else:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, xq.green))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, default_color))
 			return True, self.is_left_right
 		return False, self.is_left_right
 		
@@ -183,9 +195,9 @@ class Encoders:
 		if xq.is_sysex(msg, [xq.click, xq.page_left, xq.pressed]) and self.is_on():
 			self.is_up_down = not self.is_up_down
 			if self.is_up_down:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.white))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, click_color))
 			else:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, xq.green))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, default_color))
 			return True, self.is_up_down
 		return False, self.is_up_down
 		
@@ -274,11 +286,12 @@ class Encoders:
 			or whether the last used dilation should be in use instead.
 		"""
 		if xq.is_sysex(msg, [xq.click, xq.button3, xq.pressed]) and self.is_on():
-			self.dilation_is_toggled = not self.dilation_is_toggled
-			if self.dilation_is_toggled:
-				return True, min3rd
-			else:
-				return True, self.dilation
+			return True, min3rd
+			# self.dilation_is_toggled = not self.dilation_is_toggled
+			# if self.dilation_is_toggled:
+				# return True, min3rd
+			# else:
+				# return True, self.dilation
 		return False, self.dilation
 		
 		

@@ -85,29 +85,29 @@ class Default(BaseTuning):
 		return note
 
 
-class Macro:
+# class Macro:
 
-	self.period = 2.0
-	example_map = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6]
+	# period = 2.0
+	# example_map = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6]
 
-	def frequencies(self):
-		base_freq = self.diapason * self.period ** self.equave
-		return equal_step_tuning(self.equal_steps, self.period, base_freq, self.concert_a)
+	# def frequencies(self):
+		# base_freq = self.diapason * self.period ** self.equave
+		# return equal_step_tuning(self.equal_steps, self.period, base_freq, self.concert_a)
 
-	def remap(self, note):
-		i = note % len(self.halberstadt_map)
-		c = middle_c(self.halberstadt_map, self.concert_a)
-		p = sum([i is not None for i in self.halberstadt])
-		if self.halberstadt_map[i] is None:
-			return None
-		elif note >= c:
-			n = (note - c) // self.equal_steps
-			return c+n*p+i
-		elif note < c:
-			n = (c - note) // self.equal_steps
-			return c-n*p+i
-		else:
-			raise Warning('Not yet implemented')
+	# def remap(self, note):
+		# i = note % len(self.halberstadt_map)
+		# c = middle_c(self.halberstadt_map, self.concert_a)
+		# p = sum([i is not None for i in self.halberstadt])
+		# if self.halberstadt_map[i] is None:
+			# return None
+		# elif note >= c:
+			# n = (note - c) // self.equal_steps
+			# return c+n*p+i
+		# elif note < c:
+			# n = (c - note) // self.equal_steps
+			# return c-n*p+i
+		# else:
+			# raise Warning('Not yet implemented')
 			
 
 
