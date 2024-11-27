@@ -3,6 +3,56 @@ from colour import Color
 note_to_num = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
 is_white_key = [True, False, True, False, True, True, False, True, False, True, False, True]
 
+# add something about a subset
+# - equal step tuning
+# - translation for writing them in in absolute terms rather than relative
+
+edo53 = [0, (4,5), (9,8), (13,14), (17,18), 22, (26,27), (31,30), (35,36), (40,39), (44,45), (48,49), 53]
+edo53subset = {0, 4, 5, 8, 9, 13, 14, 17, 18, 22, 26, 27, 30, 31, 35, 36, 39, 40, 44, 45, 48, 49}
+
+# other things maybe for more implementation
+# - how to handle the switches
+#	- increment along tuple if tuple
+#	- add to Halberstadtify
+# - add dilation
+# - maybe add the octave option?
+#   and the entire length option?
+
+def pythagorean(steps=12):
+	"""
+		# Produces a Pythagorean tuning.
+		# Default is 12 steps per octave.
+		# Output is one octave in intervals.
+	# """
+	octave = [0.0]*steps
+	ratio = 1
+	for tone in range(steps):
+		octave[tone] = ratio
+		if tone % 2 == 0:
+			ratio *= 3/2
+		else:
+			ratio /= 4/3
+	return octave
+
+just7 = [1, None, 9/8, None, 5/4, 11/8, None, 3/2, None, 13/8, None 7/4, None] # how to deal with ratios or cents?
+
+############################
+
+def equal_step_tuning(equal_steps, period, diapason=440.0, concert_a=69, midi_notes=range(0,128)):
+	out = [diapason]*len(midi_notes)
+	for i, midi_note in enumerate(midi_notes):
+		out[i] *= period ** ((midi_note - concert_a)/equal_steps)
+	return out
+
+def ombak(equal_steps, period, even, odd, diapason=440.0, concert_a=69):
+	half = equal_step_tuning(equal_steps, period, diapason=diapason, concert_a=concert_a, midi_notes=range(64-32, 64+32))
+	full = [diapason]*128
+	for i, pair in enumerate(zip(range(0,127,2), range(1,128,2))):
+		full[pair[0]] = half[i] + even
+		full[pair[1]] = half[i] + odd
+	return full
+
+
 def remap(halberstadt, midi_note, repeated_note='c', concert_a=69):
 	"""
 		Remaps according to a Halberstadt layout.
@@ -131,7 +181,3 @@ class Tuning:
 				for split_note in new_note:
 					colors[split_note] = self.split_keys
 		return colors
-
-
-
-# relate to tuning
