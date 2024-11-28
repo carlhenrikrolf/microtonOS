@@ -1,20 +1,13 @@
 from colour import Color
+import numpy as np
 
 note_to_num = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
 is_white_key = [True, False, True, False, True, True, False, True, False, True, False, True]
-
-# add something about a subset
-# - equal step tuning
-# - translation for writing them in in absolute terms rather than relative
-
-edo53 = [0, (4,5), (9,8), (13,14), (17,18), 22, (26,27), (31,30), (35,36), (40,39), (44,45), (48,49), 53]
-edo53subset = {0, 4, 5, 8, 9, 13, 14, 17, 18, 22, 26, 27, 30, 31, 35, 36, 39, 40, 44, 45, 48, 49}
 
 # other things maybe for more implementation
 # - how to handle the switches
 #	- increment along tuple if tuple
 #	- add to Halberstadtify
-# - add dilation
 # - maybe add the octave option?
 #   and the entire length option?
 
@@ -34,7 +27,62 @@ def pythagorean(steps=12):
 			ratio /= 4/3
 	return octave
 
-just7 = [1, None, 9/8, None, 5/4, 11/8, None, 3/2, None, 13/8, None 7/4, None] # how to deal with ratios or cents?
+just7 = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7]
+just7ratios = [1, 9/8, 5/4, 11/8, 3/2, 13/8, 7/4, 2]
+
+edo53 = [0, (1,2), (3,4), (5,6), (7,8), 9, (10,11), (13,12), (14,15), (17,16), (18,19), (20,21), 22]
+edo53steps = [0, 4, 5, 8, 9, 13, 14, 17, 18, 22, 26, 27, 30, 31, 35, 36, 39, 40, 44, 45, 48, 49, 53]
+# doesnt say what it is we have divided
+
+xxx0 = 'ed4thirds8'
+xxx0cents = ...
+
+cents = [0, 300, 500, 1000, 1300]
+
+
+def ratios_to_cents(ratios):
+	if hasattr(ratios, '__len__'):
+		return [1200 * np.log2(i) for i in ratios]
+	else:
+        	return 1200 * np.log2(ratios)
+
+
+def equal_divisions_to_cents(equal_divisions, period):
+	n_steps = equal_divisions[-1] - equal_divisions[0]
+	step_size = ratio_to_cents(period) / n_steps
+	l = len(equal_divisions)
+	out = [0]*l
+	for i in range(l):
+		out[i] = step_size * equal_divisions[i]
+
+
+
+def cents_to_hertz(cents, halberstadt, repeated_note='c', concert_a=69, diapason=440.0, midi_notes=range(0,128)):
+	assert concert_a in midi_notes
+	diff = 60 - note_to_num(repeated_note)
+	ndx = halberstadt[concert_a - diff]
+	cnt = cents[ndx]
+	n_steps = len(cents) - 1
+	cents = [c - cnt for c in cents]
+	cents = [*[cents[i] for i in range(ndx, len(cents)), *[cents[i] + max(cents) for i in range(0,ndx)]]
+	up = down = []
+	for midi_note in range(concert_a, max(midi_notes))
+		if midi_note in midi_notes:
+			up.append(midi_note)
+	for midi_note in range(concert_a-1, min(midi_notes)-1, -1):
+		if midi_note in midi_notes:
+			down.append(midi_note)
+	out = [None]*len(midi_notes)
+	for i, midi_note in enumerate(up):
+		octave = i // n_steps
+		out[midi_note] = cents[i % n_steps] + octave
+	for i, midi_note in enumerate(down, start=1):
+		octave = i // n_steps
+		out[midi_note] = cents[(n_steps - i) % n_steps] - octave
+	for i, cent in enumerate(out):
+		if cent is not None:
+			out[i] = concert_a * 2 ** (cent / 1200)
+	return out
 
 ############################
 
@@ -44,16 +92,16 @@ def equal_step_tuning(equal_steps, period, diapason=440.0, concert_a=69, midi_no
 		out[i] *= period ** ((midi_note - concert_a)/equal_steps)
 	return out
 
-def ombak(equal_steps, period, even, odd, diapason=440.0, concert_a=69):
+def ombak(equal_steps, period, pengumbang, pengisep, diapason=440.0, concert_a=69):
 	half = equal_step_tuning(equal_steps, period, diapason=diapason, concert_a=concert_a, midi_notes=range(64-32, 64+32))
 	full = [diapason]*128
 	for i, pair in enumerate(zip(range(0,127,2), range(1,128,2))):
-		full[pair[0]] = half[i] + even
-		full[pair[1]] = half[i] + odd
+		full[pair[0]] = half[i] - pengumbang
+		full[pair[1]] = half[i] + pengisep
 	return full
 
 
-def remap(halberstadt, midi_note, repeated_note='c', concert_a=69):
+def remap(halberstadt, midi_note, repeated_note='c', concert_a=69): #midi note first no?
 	"""
 		Remaps according to a Halberstadt layout.
 		- midi_note = concert_a = output
@@ -94,15 +142,15 @@ def remap2(halberstadt, midi_note, switches=None, repeated_note='c', concert_a=6
 		if midi_note in range(0,128):
 			return True, midi_note
 	# check if split key
-	elif type(halberstadt[note]) is tuple:
-		midi_notes = []
-		for n_degrees in halberstadt[note]:
-			midi_note = octave*n_steps + n_degrees
-			midi_note += concert_a - init_halberstadt[concert_a-diff] # right?
-			if midi_note in range(0,128):
-				midi_notes.append(midi_note)
-		if len(midi_notes) > 0:
-			return False, midi_notes
+	#elif type(halberstadt[note]) is tuple:
+	#	midi_notes = []
+	#	for n_degrees in halberstadt[note]:
+	#		midi_note = octave*n_steps + n_degrees
+	#		midi_note += concert_a - init_halberstadt[concert_a-diff] # right?
+	#		if midi_note in range(0,128):
+	#			midi_notes.append(midi_note)
+	#	if len(midi_notes) > 0:
+	#		return False, midi_notes
 	# all else
 	return None, None
 
@@ -122,13 +170,22 @@ edo41 = [0, 6, (7,8), (12,11), (13,14), 17, 21, 24, (29,30), (31,32), 35, (37,38
 class Tuning:
 
 	def __init__(self,
+		name='12edo',
 		halberstadt=edo12,
 		repeated_note='c',
 		concert_a = 69,
 		diapason=440.0,
 		white_keys=Color('black'),
 		black_keys=Color('orange'),
-		split_keys=Color('red')):
+		split_keys=Color('red'),
+		dilation=3,
+		equal_divisions=range(12),
+		numerator=2,
+		divisor=1,
+		ratios=None,
+		cents=None,
+		pengumbang=None,
+		pengisep=None):
 
 		self.halberstadt = halberstadt
 		self.repeated_note = repeated_note
@@ -167,7 +224,7 @@ class Tuning:
 		return self.coloring()
 
 	def coloring(self):
-		colors = [self.black_keys]*128
+		colors = [self.split_keys]*128
 		for midi_note in range(0,128):
 			switched_on, new_note = remap2(self.halberstadt,
 				midi_note,
@@ -177,7 +234,9 @@ class Tuning:
 			if switched_on is True:
 				if is_white_key[midi_note % 12]:
 					colors[new_note] = self.white_keys
-			elif switched_on is False:
-				for split_note in new_note:
-					colors[split_note] = self.split_keys
+				else:
+					colors[new_note] = self.black_keys
+			#elif switched_on is False:
+			#	for split_note in new_note:
+			#		colors[split_note] = self.split_keys
 		return colors

@@ -231,9 +231,9 @@ class Script:
 					if control in backup_cc:
 						self.run(mido.Message('control_change', control=control, value=value))
 						sleep(pause)
-		elif msg.is_cc(cc.all_notes_off):
-			if msg.channel == 0:
-				self.load()
+		#elif msg.is_cc(cc.all_notes_off):
+		#	if msg.channel == 0:
+		#		self.load()
 				
 				
 	def load(self):
