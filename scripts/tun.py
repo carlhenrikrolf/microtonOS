@@ -189,7 +189,8 @@ class BaseTuning:
 	def __init__(self,
 	name='12edo',
 	pitches = range(0, 13),
-	unit = 'equal_steps',
+	unit = 'equal_divisions',
+	cumulative = True,
 	numerator = 2,
 	divisor = 1,
 	repeated_tone = 'c',
@@ -230,7 +231,10 @@ class Default(BaseTuning):
 
 class Macro(BaseTuning):
 
-	pass
+	even_white_keys = ...
+	even_black_keys = ...
+	odd_white_keys = ...
+	odd_black_keys = ...
 
 class Micro(BaseTuning):
 
@@ -286,3 +290,17 @@ edo24 = {'name': '24edo',
 'pitches': range(0, 25),
 'halberstadt': [(-1,0), (2,1), (4,3), (6,5), (7,8), (10,9), (12,11), (14,13), (16,15), (18,17), (20,19), (22,21), (23,24)],
 'dilation': 6}
+
+arithmetic43hz = {'name': '17Hz arithmetic',
+'pitches': range(0,8),
+'unit': 'hertz',
+'cumulative': False,
+'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
+'dilation': 2}
+
+ed9eighths27 = {'name': '18ed9/8',
+'pitches': range(0, 19),
+'numerator': 9,
+'divisor': 8
+'halberstadt': [0, 1, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, None, 25, None, 26, 27],
+'dilation': 4}
