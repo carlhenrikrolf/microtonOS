@@ -55,80 +55,19 @@ def remap2(halberstadt, midi_note, switches=None, repeated_note='c', concert_a=6
 	# all else
 	return None, None
 
-class Tuning:
+class Testport:
 
-	def __init__(self,
-		name='12edo',
-		halberstadt=edo12,
-		repeated_note='c',
-		concert_a = 69,
-		diapason=440.0,
-		white_keys=Color('black'),
-		black_keys=Color('orange'),
-		split_keys=Color('red'),
-		dilation=3,
-		equal_divisions=range(12),
-		numerator=2,
-		divisor=1,
-		ratios=None,
-		cents=None,
-		pengumbang=None,
-		pengisep=None):
+	def send(self, msg):
+		print(msg)
 
-		self.halberstadt = halberstadt
-		self.repeated_note = repeated_note
-		self.concert_a = concert_a
-		self.diapason = diapason
-		self.white_keys = white_keys
-		self.black_keys = black_keys
-		self.split_keys = split_keys
+testport = Testport()
 
-		self.checks()
+class MtsTest:
 
-		self.switches = [0 for i in range(len(self.halberstadt))]
-
-	def checks(self):
-                if type(self.halberstadt[0]) is int:
-                        assert type(self.halberstadt[-1]) is int
-                elif type(self.halberstadt[0]) is tuple:
-                        assert len(self.halberstadt[0]) == len(self.halberstadt[-1])
-                else:
-                        raise Warning('Halberstadt needs to begin and end with an int or tuple')
-		# check concert_a is not None
-
-	def halberstadtify(self, midi_note, manual=1):
-		midi_note = remap(self.halberstadt,
-			midi_note,
-			repeated_note=self.repeated_note,
-			concert_a=self.concert_a)
-		if manual == 1:
-			return midi_note
-		elif manual == 2:
-			return midi_note + 1
-		else:
-			return 'two midi notes should go here for ombak' #################
-
-	def tuning(self):
-		return self.coloring()
-
-	def coloring(self):
-		colors = [self.split_keys]*128
-		for midi_note in range(0,128):
-			switched_on, new_note = remap2(self.halberstadt,
-				midi_note,
-				switches=self.switches,
-				repeated_note=self.repeated_note.
-				concert_a=self.concert_a)
-			if switched_on is True:
-				if is_white_key[midi_note % 12]:
-					colors[new_note] = self.white_keys
-				else:
-					colors[new_note] = self.black_keys
-			#elif switched_on is False:
-			#	for split_note in new_note:
-			#		colors[split_note] = self.split_keys
-		return colors
-
+	def set_scale_name(self, name):
+		print('scale name')
+	def set_note_frequencies(self, f):
+		print('set frequencies', f[0], f[1], f[2], '...', f[127])
 
 # Lib
 #####
@@ -172,13 +111,23 @@ def cents_to_hertz(cents, init_halberstadt, repeated_tone='c', root_note=69, roo
 	return hertz
 
 def ombakify(cents, pengumbang, pengisep, init_halberstadt, repeated_tone='c', root_note=69, root_frequency=440.0):
-        half = cents_to_hertz(cents, init_halberstadt, repeated_tone, root_note, root_frequency, note_floor=128*1/4, note_ceil=128*3/4)
+        pengumbang = 0.0 if pengumbang is None else float(pengumbang)
+	pengisep = 0.0 if pengisep is None else float(pengisep)
+	half = cents_to_hertz(cents, init_halberstadt, repeated_tone, root_note, root_frequency, note_floor=128*1/4, note_ceil=128*3/4)
         full = np.empty(128)
         for i, pair in enumerate(zip(range(0,127,2), range(1,128,2))):
                 full[pair[0]] = half[i] - pengumbang
                 full[pair[1]] = half[i] + pengisep
         return full
 
+def expand:
+	...
+def ratios_to_cents:
+	...
+def cents_to_hertz:
+	...
+def ombakify:
+	...
 
 
 # Banks
@@ -187,120 +136,262 @@ def ombakify(cents, pengumbang, pengisep, init_halberstadt, repeated_tone='c', r
 class BaseTuning:
 
 	def __init__(self,
-	name='12edo',
-	pitches = range(0, 13),
-	unit = 'equal_divisions',
-	cumulative = True,
-	numerator = 2,
-	divisor = 1,
-	repeated_tone = 'c',
+	name = '12edo',
+	steps = 2 ** (1/12),
+	unit = 'ratios',
 	root_note = 69,
 	root_frequency = 440.0,
-	pengumbang = 0,
-	pengisep = 0,
+	pengumbang = None,
+	pengisep = None,
 	halberstadt = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+	boundary_tone = 'c',
 	dilation = 3,
+	comment = '',
 	**kwargs):
 
-		self.name = name
-		self.pitches = np.array(pitches)
-		self.period = float(numerator)  / float(divisor)
+		self.name = name if type(name) is str else 'Unnamed'
+		self.steps = steps
+		self.unit = unit
+		self.root_note = root_note
+		self.root_frequency = root_frequency
+		self.pengumbang = pengumbang
+		self.pengisep = pengisep
+		self.halberstadt = halberstadt
+		self.boundary_tone = boundary_tone
+		self.dilation = dilation
+		self.comment = comment
 
-		self.checks()
+		self.period = len(self.halberstadt) - 1
+		self.switches = np.zeros(self.period)
+		self.is_switch = [True if has_attr(i, '__len__') else False for i in self.halberstadt]
+		self.init_halberstadt = np.array([i[0] if hasattr(i, '__len__') else i for i in self.halberstadt])
+		self.concert_a = 60 + tone_to_int.index(self.boundary_tone)
+		self.root_degree = self.init_halberstadt[self.root_tone - self.concert_a]
+		self.middle_c = selt.root_tone - self.root_degree
+		self.bottom_c = self.middle_c - 60
 
-	def checks(self):
+		self.frequences = self.get_frequencies()
 
-		pass
+	def get_frequencies(self)
+		frequencies = self.steps
+		if self.unit == 'ratios':
+			frequencies = ratios_to_cents(frequencies, ...)
+		frequencies = expand(frequencies, ...)
+		if self.unit != 'Hertz':
+			frequencies = cents_to_hertz(frequencies, ...)
+		frequencies = center(frequencies, ...)
+		return frequencies
 
-	def tuning(self):
+	def get_colors(self):
+		colors = [Color(self.split_keys)]
+		for note in range(128):
+			halberstadt_note = self.remap(note)
+ 			if halberstadt_note is not None:
+				degree = halberstadt_note % self.period
+				colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
+		return colors
 
-		pass
 
-	def halberstadtify(self, msg):
+	def remap(self, note):
+		...
+		return halberstadt_note
 
-		pass
+	def tuning(self, mts, msg):
+		mts.set_note_tunings(self.frequencies)
+		mts.set_scale_name(self.name)
+		colors = self.get_colors()
+		return colors
 
-	def switch_flick(self, msg):
+	def halberstadtify(self, outport, msg, manual=None):
+		if hasattr(msg, 'note'):
+			halberstadt_note = self.remap(msg.note)
+			outport.send(msg.copy(note=halberstadt_note))
+		else:
+			outport.send(msg)
 
+	def switch_flick(self, outport, msg):
+		self.halberstadtify(outport, msg)
+
+	def pedal_press(self, msg):
 		pass
 
 class Default(BaseTuning):
 
 	white_keys = 'black'
 	black_keys = 'orange'
+	split_keys = 'black'
 
 class Macro(BaseTuning):
 
-	even_white_keys = ...
-	even_black_keys = ...
-	odd_white_keys = ...
-	odd_black_keys = ...
+	even_white_keys = 'green'
+	even_black_keys = 'orange'
+	odd_keys = 'black'
+
+	def get_colors(self):
+		colors = [Color(self.odd_keys_keys)]
+		for note in range(128):
+			halberstadt_note = self.remap(note)
+			if halberstadt_note is not None:
+				octave = halberstadt_note // self.period
+				if octave % 2 == 0:
+					degree = halberstadt_note % self.period
+					colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
 
 class Micro(BaseTuning):
 
-	pass
+	white_keys = 'red'
+	black_keys = 'orange'
+	split_keys = 'black'
 
-class Ombak(BaseTuning):
+	def halberstadtify(self, outport, msg, manual=1):
+		if hasattr(msg, 'note'):
+			halberstadt_note = self.remap(msg.note)
+			if manual <= 1:
+				outport.send(msg.copy(note=halberstadt_note))
+			else:
+				outport.send(msg.copy(note=halberstadt_note+1))
+		else:
+			outport.send(msg)
 
-	pass
+	def switch_flick(self, outport, msg):
+		if msg.type == 'note_on':
+			degree =  msg.note % self.period
+			if self.is_switch[degree] and msg.velocity > 0:
+				self.switches[degree] += 1
+				self.switches[degree] %= len(self.halberstadt[degree])
 
-class Uneven(BaseTuning):
+	def pedal_press(self, msg):
+		if msg.type == 'control_change':
+			for degree, is_switch in enumerate(self.is_switch):
+				if is_switch:
+					if msg.value >= 64:
+						self.switches[degree] -= 1
+					else:
+						self.switches[degree] += 1
+					self.switches %= len(self.halberstadt[degree])
 
-	pass
 
-# ¿How to deal with non-octave tunings?
+class Ombak(Macro):
+
+	pengumbang_white_keys = 'cyan'
+	pengumbang_black_keys = 'blue'
+	pengisep_keys = 'black'
+	duophonic = False
+
+	def get_colors(self):
+		colors = [Color(self.pengisep_keys)]*128
+		for pengumbang_note in range(0,127,2):
+			halberstadt_note = self.remap(pengumbang_note)
+			if halberstadt_note is not None:
+				degree = halberstadt_note % self.period
+				colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree] else self.even_black_keys)
+		return colors
+
+	def get_frequencies(self):
+		pengumbang = 0 if None else float(self.pengumbang)
+		pengisep = 0 if None else float(self.pengisep)
+		frequencies = self.step_sizes
+		if self.unit == 'ratios':
+			frequencies = ratios_to_cents(frequencies, ...)
+		frequencies = expand(frequencies, note_range=[32,96], ...)
+		if self.unit != 'Hertz':
+			frequencies = cents_to_hertz(frequencies, ...)
+		frequencies = ombakify(frequencies, ...)
+		return frequencies
+
+	def halberstadtify(self, outport, msg, manual=1):
+		if hasattr(msg, 'note'):
+			halberstadt_note = self.remap(msg.note)
+			if manual <= 1:
+				pengumbang_note = min([2*halberstadt_note, 127])
+				outport.send(msg.copy(note=pengumbang_note))
+				if self.duophonic:
+					outport.send(msg.copy(note=pengumbang_note+1))
+			else:
+				pengisep_note = min([2*halberstadt_note+1, 127])
+				outport.send(msg.copy(note=pengisep_note))
+				if self.duophonic:
+					outport.send(msg.copy(note=pengisep_note-1))
+		else:
+			outport.send(msg)
+
+	def pedal_press(self, msg):
+		if msg.type == 'control_change':
+			self.duophonic = True if msg.value => 64 else False
+
+class Uneven(Macro):
+
+	even_white_keys = 'magenta'
+	even_black_keys = 'blue'
+	odd_keys = 'black'
+
+class Subset(Micro):
+
+	white_keys = 'magenta'
+	black_keys = 'blue'
+	split_keys = 'black'
+
 
 # Examples
 ##########
 
-edo12 = {}
+edo12 = {'comment': 'Standard tuning.'}
 
 edo5 = {'name': '5edo',
-'pitches': range(0, 6),
-'repeated_tone': 'c#',
+'steps': 2 ** (1/5),
 'root_note': 70,
 'halberstadt': [0, None, 1, None, None, 2, None, 3, None, 4, None, None, 5],
+'boundary_tone', 'c#',
 'dilation': 1}
 
 edt13 = {'name': '13ed3',
-'pitches': range(0, 14),
+'steps': 3 ** (1/13),
 'numerator': 3,
-'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7, None, 8, None, 9, None, 10, None, 11, None, 12, None, 13],
+'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
 'dilation': 2}
 
 edo41 = {'name': '41edo',
-'pitches': range(0, 42),
+'steps': 2 ** (1/41),
 'halberstadt': [0, 6, (7,8), (12,11), (13,14), 17, 21, 24, (29,30), (31,32), 35, (37,38), 41],
 'dilation': 8}
 
 just7 = {'name': 'just7',
-'pitches': just7ratios = [1, 9/8, 5/4, 11/8, 3/2, 13/8, 7/4, 2],
-'unit': 'ratios',
+'steps': [9/8, 5/4, 11/8, 3/2, 13/8, 7/4, 2],
 'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
 'dilation': 2}
 
 edo9ombak = {'name': '9edo+ombak',
-'pitches': range(0, 10),
+'steps': 2 ** (1/9),
 'root_note': 70,
 'pengisep': 7.0,
 'halberstadt': [0, 1, None, 2, 3, 4, 5, None, 6, None, 7, 8, 9],
 'dilation': 2}
 
 edo24 = {'name': '24edo',
-'pitches': range(0, 25),
+'steps': 2 ** (1/24),
 'halberstadt': [(-1,0), (2,1), (4,3), (6,5), (7,8), (10,9), (12,11), (14,13), (16,15), (18,17), (20,19), (22,21), (23,24)],
 'dilation': 6}
 
-arithmetic43hz = {'name': '17Hz arithmetic',
-'pitches': range(0,8),
-'unit': 'hertz',
-'cumulative': False,
+ed43hz = {'name': 'ed43Hz',
+'steps': 43.0,
+'unit': 'Hertz',
 'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
 'dilation': 2}
 
-ed9eighths27 = {'name': '18ed9/8',
-'pitches': range(0, 19),
-'numerator': 9,
-'divisor': 8
-'halberstadt': [0, 1, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, None, 25, None, 26, 27],
+ed3halves9 = {'name': '9ed3/2',
+'steps': (3/2) ** (1/9),
+'halberstadt': [0, 1, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14,
+16, 17, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 31], # 23, 24, None, 25, None, 26, 27],
 'dilation': 4}
+
+edt11 = {'name': '11ed3',
+'steps': 3 ** (1/11),
+'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
+'dilation': 2,
+'comment': 'Thai tuning.'}
+
+edo53 = {'name': '53edo',
+'steps': [2 ** (step/53) for step in [4, 5, 8, 9, 13, 14, 17, 18, 22, 26, 27, 30, 31, 35, 36, 39, 40, 44, 45, 48, 49, 53]],
+'halberstadt': [0, (1,2), (3,4), (5,6), (7,8), 9, (10,11), (13,12), (14,15), (17,16), (18,19), (20,21), 22],
+'dilation': 5,
+'comment': '22 shrutis.'}
