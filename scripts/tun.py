@@ -1,59 +1,8 @@
 from colour import Color
 import numpy as np
 
-
-def remap(halberstadt, midi_note, repeated_note='c', concert_a=69): #midi note first no?
-	"""
-		Remaps according to a Halberstadt layout.
-		- midi_note = concert_a = output
-		- repeated_note is the first and last note of halberstadt
-	"""
-	diff = 60 + note_to_num.index(repeated_note)
-	n_keys = len(halberstadt) - 1
-	n_steps = halberstadt[-1] - halberstadt[0]
-	midi_note -= diff
-	note = midi_note % n_keys
-	octave = midi_note // n_keys
-	n_degrees = halberstadt[note]
-	if n_degrees is not None:
-		midi_note = octave*n_steps + n_degrees
-		midi_note += concert_a - halberstadt[concert_a-diff]
-		if midi_note in range(0,128):
-			return midi_note # note exists and is either a black or white key
-		else:
-			pass # note exists but is outside of span
-	return None # note does not exist---it's not even a split key
-
-
-def remap2(halberstadt, midi_note, switches=None, repeated_note='c', concert_a=69):
-	# constants
-	diff = 60 + note_to_num.index(repeated_note)
-	init_halberstadt = [deg[0] if type(deg) is tuple else deg for deg in halberstadt]
-	current_halberstadt = [deg[switches[i]] if type(deg) is tuple else deg for i, deg in enumerate(halberstadt)]
-	n_keys = len(halberstadt) - 1
-	n_steps = init_halberstadt[-1] - init_halberstadt[0] # could be current as well
-	# main
-	midi_note -= diff
-	note = midi_note % n_keys
-	octave = midi_note // n_keys
-	n_degrees = current_halberstadt[note]
-	if n_degrees is not None:
-		midi_note = octave*n_steps + n_degrees
-		midi_note += concert_a - init_halberstadt[concert_a-diff] # right?
-		if midi_note in range(0,128):
-			return True, midi_note
-	# check if split key
-	#elif type(halberstadt[note]) is tuple:
-	#	midi_notes = []
-	#	for n_degrees in halberstadt[note]:
-	#		midi_note = octave*n_steps + n_degrees
-	#		midi_note += concert_a - init_halberstadt[concert_a-diff] # right?
-	#		if midi_note in range(0,128):
-	#			midi_notes.append(midi_note)
-	#	if len(midi_notes) > 0:
-	#		return False, midi_notes
-	# all else
-	return None, None
+# Testing
+#########
 
 class Testport:
 
@@ -66,8 +15,11 @@ class MtsTest:
 
 	def set_scale_name(self, name):
 		print('scale name')
-	def set_note_frequencies(self, f):
-		print('set frequencies', f[0], f[1], f[2], '...', f[127])
+	def set_note_frequencies(self, frequencies):
+		print('set frequencies')
+		print(frequencies)
+		
+mts_test = MtsTest()
 
 # Lib
 #####
@@ -77,70 +29,44 @@ class MtsTest:
 tone_to_int = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
 is_white_key = [True, False, True, False, True, True, False, True, False, True, False, True]
 
-def ratios_to_cents(ratios):
-        if hasattr(ratios, '__len__'):
-		ratios = np.array(ratios)
-                return 1200 * np.log2(ratios)
-        else:
-                return 1200 * np.log2(ratios)
-
-def equal_divisions_to_cents(equal_divisions, period):
-        equave_size = equal_divisions[-1] - equal_divisions[0]
-        step_size = ratio_to_cents(period) / equave_size
-        n = len(equal_divisions)
-	cents = [0]*n
-        for i in range(n):
-                cents[i] = step_size * equal_divisions[i]
-	return cent
-
-def cents_to_hertz(cents, init_halberstadt, repeated_tone='c', root_note=69, root_frequency, note_floor=0, note_ceil=128):
-        assert concert_a in range(note_floor, note_ceil)
-	cycle = len(cents) - 1
-        diff = 60 - note_to_num(repeated_tone)
-	root_degree = init_halberstadt[root_tone - diff]
-	cents -= cents[root_degree]
-	cents = np.concat([cents[root_degree:], cents[:root_degree]])
-	hertz = np.array([])
-	for i, note in enumerate(range(root_note, note_ceil)):
-		octave = i // cycle
-		np.append(herz, cents[i % cycle] + octave)
-	for i, note in enumerate(range(root_note-1, note_floor-1, -1), start=1):
-		octave = i // cycle
-		np.insert(hertz, 0, cents[(cycle-i) % cycle] - octave)
-	hertz = root_frequency * 2 ** (hertz/1200)
-	return hertz
-
-def ombakify(cents, pengumbang, pengisep, init_halberstadt, repeated_tone='c', root_note=69, root_frequency=440.0):
-        pengumbang = 0.0 if pengumbang is None else float(pengumbang)
+def concat(terms, middle_note, note_range):
+	terms = np.array(terms)
+	span = max(note_range) - min(note_range)
+	middle = middle_note - min(note_range)
+	arr = np.zeros(span)
+	if hasattr(additive, '__len__'):
+		for i, note in enumerate(range(middle_note+1, span)):
+			term = terms[i % len(terms)]
+			arr[note] += frequencies[note-1] + term
+		for i, note in enumerate(range(middle_note-1, -1, -1), start=1):
+			term = terms[-i % len(terms)]
+			arr[note] -= frequencies[note+1] + term
+	else:
+		for note in range(1, span):
+			arr[note] += frequencies[note-1] + terms
+	return arr
+	   
+def ombakify(pengumbang, pengisep, half):
+	pengumbang = 0.0 if pengumbang is None else float(pengumbang)
 	pengisep = 0.0 if pengisep is None else float(pengisep)
-	half = cents_to_hertz(cents, init_halberstadt, repeated_tone, root_note, root_frequency, note_floor=128*1/4, note_ceil=128*3/4)
-        full = np.empty(128)
-        for i, pair in enumerate(zip(range(0,127,2), range(1,128,2))):
-                full[pair[0]] = half[i] - pengumbang
-                full[pair[1]] = half[i] + pengisep
-        return full
-
-def expand:
-	...
-def ratios_to_cents:
-	...
-def cents_to_hertz:
-	...
-def ombakify:
-	...
-
+	full = np.empty(128)
+	for i, pair in enumerate(zip(range(9,127,2), range(1,128,2))):
+		full[pair[0]] = half[i] - pengumbang
+		full[pair[1]] = half[i] + pengisep
+	return full
 
 # Banks
 #######
 
 class BaseTuning:
 
-	def __init__(self,
+	def __init__(self, # add equaves
 	name = '12edo',
 	steps = 2 ** (1/12),
 	unit = 'ratios',
 	root_note = 69,
 	root_frequency = 440.0,
+	equave = 0,
 	pengumbang = None,
 	pengisep = None,
 	halberstadt = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -154,6 +80,7 @@ class BaseTuning:
 		self.unit = unit
 		self.root_note = root_note
 		self.root_frequency = root_frequency
+		self.equave = equave
 		self.pengumbang = pengumbang
 		self.pengisep = pengisep
 		self.halberstadt = halberstadt
@@ -161,43 +88,53 @@ class BaseTuning:
 		self.dilation = dilation
 		self.comment = comment
 
-		self.period = len(self.halberstadt) - 1
 		self.switches = np.zeros(self.period)
 		self.is_switch = [True if has_attr(i, '__len__') else False for i in self.halberstadt]
-		self.init_halberstadt = np.array([i[0] if hasattr(i, '__len__') else i for i in self.halberstadt])
-		self.concert_a = 60 + tone_to_int.index(self.boundary_tone)
-		self.root_degree = self.init_halberstadt[self.root_tone - self.concert_a]
-		self.middle_c = selt.root_tone - self.root_degree
-		self.bottom_c = self.middle_c - 60
+		self.init_halberstadt = np.array([i[0] if self.is_switch[i] else i for i in self.halberstadt])
+		self.keys_per_period = len(self.halberstadt) - 1
+		self.degrees_per_period = self.init_halberstadt[-1] - self.init_halberstadt[0]
+		self.middle_key = 60 + tone_to_int.index(self.boundary_tone)
+		self.root_degree = self.init_halberstadt[self.root_none - self.middle_key]
+		self.middle_note = self.root_note - self.root_degree	
 
-		self.frequences = self.get_frequencies()
-
-	def get_frequencies(self)
-		frequencies = self.steps
+	def get_frequencies(self):
+		terms = np.array(self.steps)
 		if self.unit == 'ratios':
-			frequencies = ratios_to_cents(frequencies, ...)
-		frequencies = expand(frequencies, ...)
+			terms = 1200 * np.log2(frequencies)
+		frequencies = concat(terms, self.middle_note, note_range=[0,127])
 		if self.unit != 'Hertz':
-			frequencies = cents_to_hertz(frequencies, ...)
-		frequencies = center(frequencies, ...)
-		return frequencies
+			frequences = 2 ** (frequences/1200)
+		root_note = self.root_note + self.equave * self.degrees_per_period
+		frequencies -= frequencies[root_note]
+		frequencies += self.root_frequency
+		return frequencies.tolist()
 
 	def get_colors(self):
 		colors = [Color(self.split_keys)]
 		for note in range(128):
 			halberstadt_note = self.remap(note)
- 			if halberstadt_note is not None:
-				degree = halberstadt_note % self.period
+			if halberstadt_note is not None:
+				degree = halberstadt_note % self.keys_per_period
 				colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
 		return colors
 
-
 	def remap(self, note):
-		...
-		return halberstadt_note
+		note -= self.middle_key
+		tone = note % self.keys_per_period
+		octave = note // self.keys_per_period
+		degree = self.halberstadt[tone][self.switches[tone]] if self.is_switch[tone] else self.halberstadt[tone]
+		if degree is not None:
+			halberstadt_note = octave * self.degrees_per_period + degree
+			halberstadt_note += self.middle_note
+			if halberstadt_note in range(0,128):
+				return halberstadt_note
+		return None
 
-	def tuning(self, mts, msg):
-		mts.set_note_tunings(self.frequencies)
+	def tuning(self, mts, equave=None):
+		if equave is not None:
+			self.equave = equave
+		frequencies = self.get_frequencies()
+		mts.set_note_tunings(frequencies)
 		mts.set_scale_name(self.name)
 		colors = self.get_colors()
 		return colors
@@ -205,21 +142,25 @@ class BaseTuning:
 	def halberstadtify(self, outport, msg, manual=None):
 		if hasattr(msg, 'note'):
 			halberstadt_note = self.remap(msg.note)
-			outport.send(msg.copy(note=halberstadt_note))
+			if halberstadt_note is not None:
+				outport.send(msg.copy(note=halberstadt_note))
 		else:
 			outport.send(msg)
 
-	def switch_flick(self, outport, msg):
-		self.halberstadtify(outport, msg)
+	def keyswitches(self, outport, msg):
+		colors = self.halberstadtify(outport)
+		return None
 
-	def pedal_press(self, msg):
-		pass
+	def footswitch(self, msg):
+		return None
+
 
 class Default(BaseTuning):
 
 	white_keys = 'black'
 	black_keys = 'orange'
 	split_keys = 'black'
+
 
 class Macro(BaseTuning):
 
@@ -228,14 +169,15 @@ class Macro(BaseTuning):
 	odd_keys = 'black'
 
 	def get_colors(self):
-		colors = [Color(self.odd_keys_keys)]
+		colors = [Color(self.odd_keys)]*128
 		for note in range(128):
 			halberstadt_note = self.remap(note)
 			if halberstadt_note is not None:
-				octave = halberstadt_note // self.period
+				octave = halberstadt_note // self.keys_per_period
 				if octave % 2 == 0:
-					degree = halberstadt_note % self.period
+					degree = halberstadt_note % self.keys_per_period
 					colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
+
 
 class Micro(BaseTuning):
 
@@ -246,29 +188,35 @@ class Micro(BaseTuning):
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
 			halberstadt_note = self.remap(msg.note)
-			if manual <= 1:
-				outport.send(msg.copy(note=halberstadt_note))
-			else:
-				outport.send(msg.copy(note=halberstadt_note+1))
+			if halberstadt_note is not None:
+				if manual <= 1:
+					outport.send(msg.copy(note=halberstadt_note))
+				else:
+					outport.send(msg.copy(note=halberstadt_note+1))
 		else:
 			outport.send(msg)
 
-	def switch_flick(self, outport, msg):
+	def keyswitches(self, outport, msg):
 		if msg.type == 'note_on':
-			degree =  msg.note % self.period
-			if self.is_switch[degree] and msg.velocity > 0:
-				self.switches[degree] += 1
-				self.switches[degree] %= len(self.halberstadt[degree])
+			key = msg.note % self.keys_per_period
+			if self.is_switch[key] and msg.velocity > 0:
+				self.switches[key] += 1
+				self.switches[key] %= len(self.halberstadt[key])
+				colors = self.get_colors()
+		return None
 
-	def pedal_press(self, msg):
+	def footswitch(self, msg):
 		if msg.type == 'control_change':
-			for degree, is_switch in enumerate(self.is_switch):
+			for key, is_switch in enumerate(self.is_switch):
 				if is_switch:
 					if msg.value >= 64:
-						self.switches[degree] -= 1
+						self.switches[key] -= 1
 					else:
-						self.switches[degree] += 1
-					self.switches %= len(self.halberstadt[degree])
+						self.switches[key] += 1
+					self.switches %= len(self.halberstadt[key])
+					colors = self.get_colors()
+					return colors
+		return None
 
 
 class Ombak(Macro):
@@ -283,47 +231,56 @@ class Ombak(Macro):
 		for pengumbang_note in range(0,127,2):
 			halberstadt_note = self.remap(pengumbang_note)
 			if halberstadt_note is not None:
-				degree = halberstadt_note % self.period
+				degree = halberstadt_note % self.keys_per_period
 				colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree] else self.even_black_keys)
 		return colors
 
 	def get_frequencies(self):
-		pengumbang = 0 if None else float(self.pengumbang)
-		pengisep = 0 if None else float(self.pengisep)
-		frequencies = self.step_sizes
+		terms = np.array(self.steps)
 		if self.unit == 'ratios':
-			frequencies = ratios_to_cents(frequencies, ...)
-		frequencies = expand(frequencies, note_range=[32,96], ...)
+			terms = 1200 * np.log2(frequencies)
+		frequencies = concat(terms, self.middle_note, note_range=[32,96])
 		if self.unit != 'Hertz':
-			frequencies = cents_to_hertz(frequencies, ...)
-		frequencies = ombakify(frequencies, ...)
-		return frequencies
+			frequences = 2 ** (frequences/1200)
+		frequencies = ombakify(self.pengumbang, self.pengisep, frequencies)
+		root_note = self.root_note + self.equave * self.degrees_per_period
+		frequencies -= frequencies[root_note]
+		frequencies += self.root_frequency
+		return frequencies.tolist()
 
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
-			halberstadt_note = self.remap(msg.note)
-			if manual <= 1:
-				pengumbang_note = min([2*halberstadt_note, 127])
-				outport.send(msg.copy(note=pengumbang_note))
-				if self.duophonic:
-					outport.send(msg.copy(note=pengumbang_note+1))
-			else:
-				pengisep_note = min([2*halberstadt_note+1, 127])
-				outport.send(msg.copy(note=pengisep_note))
-				if self.duophonic:
-					outport.send(msg.copy(note=pengisep_note-1))
+			if msg.note in range(32, 96):
+				halberstadt_note = self.remap(msg.note) - 32
+				if manual <= 1:
+					pengumbang_note = min([2*halberstadt_note, 127])
+					outport.send(msg.copy(note=pengumbang_note))
+					if self.duophonic:
+						outport.send(msg.copy(note=pengumbang_note+1))
+				else:
+					pengisep_note = min([2*halberstadt_note+1, 127])
+					outport.send(msg.copy(note=pengisep_note))
+					if self.duophonic:
+						outport.send(msg.copy(note=pengisep_note-1))	
 		else:
 			outport.send(msg)
 
-	def pedal_press(self, msg):
+	def footswitch(self, msg):
 		if msg.type == 'control_change':
-			self.duophonic = True if msg.value => 64 else False
-
+			duophonic = True if msg.value >= 64 else False
+			if duophonic != self.duophonic:
+				self.duophonic = duophonic
+				colors = self.get_colors()
+				return colors
+		return None
+		
+		
 class Uneven(Macro):
 
 	even_white_keys = 'magenta'
 	even_black_keys = 'blue'
 	odd_keys = 'black'
+
 
 class Subset(Micro):
 
@@ -341,7 +298,7 @@ edo5 = {'name': '5edo',
 'steps': 2 ** (1/5),
 'root_note': 70,
 'halberstadt': [0, None, 1, None, None, 2, None, 3, None, 4, None, None, 5],
-'boundary_tone', 'c#',
+'boundary_tone': 'c#',
 'dilation': 1}
 
 edt13 = {'name': '13ed3',
