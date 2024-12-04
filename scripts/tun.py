@@ -7,14 +7,12 @@ import numpy as np
 class Testport:
 	def send(self, msg):
 		print('meddelande', msg, 'klar')
-		return msg
 testport = Testport()
 
 class MtsTest:
 	def set_scale_name(self, name):
 		print('skalnamn', name, 'klar')
-		return name
-	def set_note_frequencies(self, frequencies):
+	def set_note_tunings(self, frequencies):
 		print('Hertz')
 		out = np.array(frequencies)
 		print(out)
@@ -22,7 +20,6 @@ class MtsTest:
 		print('cent')
 		print(out)
 		print('klar')
-		return out
 mts_test = MtsTest()
 
 # Lib
@@ -91,8 +88,8 @@ class BaseTuning:
 
 		self.keys_per_equave = len(self.halberstadt) - 1
 		self.switches = [0]*self.keys_per_equave
-		self.is_switch = [True if hasattr(i, '__len__') else False for i in self.halberstadt]
-		self.init_halberstadt = [i[0] if self.is_switch[i] else i for i in self.halberstadt]
+		self.is_switch = [True if hasattr(degree, '__len__') else False for degree in self.halberstadt]
+		self.init_halberstadt = [degree[0] if self.is_switch[i] else degree for i, degree in enumerate(self.halberstadt)]
 		self.degrees_per_equave = self.init_halberstadt[-1] - self.init_halberstadt[0]
 		self.middle_key = 60 + tone_to_int.index(self.boundary_tone)
 		self.root_degree = self.init_halberstadt[self.root_note - self.middle_key]
@@ -104,15 +101,15 @@ class BaseTuning:
 		octave = note // self.keys_per_equave
 		degree = self.halberstadt[tone][self.switches[tone]] if self.is_switch[tone] else self.halberstadt[tone]
 		if degree is not None:
-			halberstadt_note = octave * self.degrees_per_equave + degree
-			halberstadt_note += self.middle_note
-			if halberstadt_note in range(0,128):
-				return halberstadt_note
+			new_note = octave * self.degrees_per_equave + degree
+			new_note += self.middle_note
+			if new_note in range(0,128):
+				return new_note
 		return None
 		
 	def get_frequencies(self):
 		result = np.array(self.steps)
-		root_note = self.root_note + self.equave * self.degrees_per_equave
+		root_note = self.root_note - self.equave * self.degrees_per_equave
 		if self.unit == 'ratios':
 			result = 1200 * np.log2(result)
 		result = concat(result, self.middle_note, range(0,128))
@@ -127,11 +124,14 @@ class BaseTuning:
 
 	def get_colors(self):
 		colors = [Color(self.split_keys)]*128
-		for note in range(128):
-			halberstadt_note = self.remap(note)
-			if halberstadt_note is not None:
-				degree = halberstadt_note % self.keys_per_equave
-				colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
+		diff = 128/self.degrees_per_equave*self.keys_per_equave
+		diff = int(diff) + 1
+		for halberstadt_key in range(64-diff,64+diff):
+			isomorphic_note = self.remap(halberstadt_key)
+			if isomorphic_note is not None:
+				halberstadt_equave = halberstadt_key // self.keys_per_equave
+				degree = halberstadt_key % self.keys_per_equave
+				colors[isomorphic_note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
 		return colors
 
 	def tuning(self, mts, equave=None):
@@ -151,8 +151,8 @@ class BaseTuning:
 		else:
 			outport.send(msg)
 
-	def keyswitches(self, outport, msg):
-		colors = self.halberstadtify(outport)
+	def keyswitches(self, outport, msg, manual=None):
+		_ = self.halberstadtify(outport, msg, manual=manual)
 		return None
 
 	def footswitch(self, msg):
@@ -162,25 +162,28 @@ class BaseTuning:
 class Default(BaseTuning):
 
 	white_keys = 'black'
-	black_keys = 'orange'
+	black_keys = 'gold'
 	split_keys = 'black'
 
 
 class Macro(BaseTuning):
 
 	even_white_keys = 'green'
-	even_black_keys = 'orange'
+	even_black_keys = 'chartreuse'
 	odd_keys = 'black'
 
 	def get_colors(self):
 		colors = [Color(self.odd_keys)]*128
-		for note in range(128):
-			halberstadt_note = self.remap(note)
-			if halberstadt_note is not None:
-				octave = halberstadt_note // self.keys_per_equave
-				if octave % 2 == 0:
-					degree = halberstadt_note % self.keys_per_equave
-					colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
+		diff = 128/self.degrees_per_equave*self.keys_per_equave
+		diff = int(diff) + 1
+		for halberstadt_key in range(64-diff,64+diff):
+			isomorphic_note = self.remap(halberstadt_key)
+			if isomorphic_note is not None:
+				halberstadt_equave = halberstadt_key // self.keys_per_equave
+				if halberstadt_equave % 2 == 0:
+					degree = halberstadt_key % self.keys_per_equave
+					colors[isomorphic_note] = Color(self.even_white_keys if is_white_key[degree] else self.even_black_keys)
+		return colors
 
 
 class Micro(BaseTuning):
@@ -241,7 +244,7 @@ class Ombak(Macro):
 		
 	def get_frequencies(self):
 		result = np.array(self.steps)
-		root_note = self.root_note + self.equave * self.degrees_per_equave
+		root_note = self.root_note - self.equave * self.degrees_per_equave
 		root_note -= 32
 		if self.unit == 'ratios':
 			result = 1200 * np.log2(result)
@@ -300,30 +303,29 @@ class Subset(Micro):
 # Examples
 ##########
 
-edo12 = {'comment': 'Standard tuning.'}
+edo12 = Default()
 
-edo5 = {'name': '5edo',
-'steps': 2 ** (1/5),
-'root_note': 70,
-'halberstadt': [0, None, 1, None, None, 2, None, 3, None, 4, None, None, 5],
-'boundary_tone': 'c#',
-'dilation': 1}
+edo5 = Macro(name='5edo',
+steps = 2 ** (1/5),
+root_note = 70,
+halberstadt = [0, None, 1, None, None, 2, None, 3, None, 4, None, None, 5],
+boundary_tone = 'c#',
+dilation = 1)
 
-edt13 = {'name': '13ed3',
-'steps': 3 ** (1/13),
-'numerator': 3,
-'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
-'dilation': 2}
+edt13 = Macro(name = '13ed3',
+steps = 3 ** (1/13),
+halberstadt = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
+dilation = 2)
+
+just7 = Uneven(name = 'just7', # doesnt look right
+steps = [9/8, 5/4, 11/8, 3/2, 13/8, 7/4, 2],
+halberstadt = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
+dilation = 2)
 
 edo41 = {'name': '41edo',
 'steps': 2 ** (1/41),
 'halberstadt': [0, 6, (7,8), (12,11), (13,14), 17, 21, 24, (29,30), (31,32), 35, (37,38), 41],
 'dilation': 8}
-
-just7 = {'name': 'just7',
-'steps': [9/8, 5/4, 11/8, 3/2, 13/8, 7/4, 2],
-'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
-'dilation': 2}
 
 edo9ombak = {'name': '9edo+ombak',
 'steps': 2 ** (1/9),
@@ -348,12 +350,6 @@ ed3halves9 = {'name': '9ed3/2',
 'halberstadt': [0, 1, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14,
 16, 17, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 31], # 23, 24, None, 25, None, 26, 27],
 'dilation': 4}
-
-edt11 = {'name': '11ed3',
-'steps': 3 ** (1/11),
-'halberstadt': [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
-'dilation': 2,
-'comment': 'Thai tuning.'}
 
 edo53 = {'name': '53edo',
 'steps': [2 ** (step/53) for step in [4, 5, 8, 9, 13, 14, 17, 18, 22, 26, 27, 30, 31, 35, 36, 39, 40, 44, 45, 48, 49, 53]],
