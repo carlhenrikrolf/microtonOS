@@ -34,20 +34,16 @@ tone_to_int = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
 is_white_key = [True, False, True, False, True, True, False, True, False, True, False, True]
 
 def concat(terms, middle_note, note_range):
-	terms = np.array(terms)
+	terms = np.array(terms) if len(terms.shape) == 1 else np.array([terms])
 	span = max(note_range) - min(note_range) + 1
 	middle = middle_note - min(note_range)
 	arr = np.zeros(span)
-	if len(terms.shape) == 1:
-		for i, note in enumerate(range(middle+1, span)):
-			term = terms[i % len(terms)]
-			arr[note] += arr[note-1] + term
-		for i, note in enumerate(range(middle-1, -1, -1), start=1):
-			term = terms[-i % len(terms)]
-			arr[note] += arr[note+1] - term
-	else:
-		for note in range(1, span):
-			arr[note] += arr[note-1] + terms
+	for i, note in enumerate(range(middle+1, span)):
+		term = terms[i % len(terms)]
+		arr[note] += arr[note-1] + term
+	for i, note in enumerate(range(middle-1, -1, -1), start=1):
+		term = terms[-i % len(terms)]
+		arr[note] += arr[note+1] - term
 	return arr
 
 def ombakify(pengumbang, pengisep, half):
@@ -59,12 +55,12 @@ def ombakify(pengumbang, pengisep, half):
 		full[pair[1]] = half[i] + pengisep
 	return full
 
-# Banks
-#######
+# Templates
+###########
 
 class BaseTuning:
 
-	def __init__(self, # add equaves
+	def __init__(self,
 	name = '12edo',
 	steps = 2 ** (1/12),
 	unit = 'ratios',
@@ -94,36 +90,14 @@ class BaseTuning:
 		self.comment = comment
 
 		self.keys_per_equave = len(self.halberstadt) - 1
-		self.switches = np.zeros(self.keys_per_equave)
+		self.switches = [0]*self.keys_per_equave
 		self.is_switch = [True if hasattr(i, '__len__') else False for i in self.halberstadt]
-		self.init_halberstadt = np.array([i[0] if self.is_switch[i] else i for i in self.halberstadt])
-		self.keys_per_period = len(self.halberstadt) - 1
+		self.init_halberstadt = [i[0] if self.is_switch[i] else i for i in self.halberstadt]
 		self.degrees_per_equave = self.init_halberstadt[-1] - self.init_halberstadt[0]
 		self.middle_key = 60 + tone_to_int.index(self.boundary_tone)
-		self.root_degree = self.init_halberstadt[self.root_none - self.middle_key]
+		self.root_degree = self.init_halberstadt[self.root_note - self.middle_key]
 		self.middle_note = self.root_note - self.root_degree
-
-	def get_frequencies(self):
-		terms = np.array(self.steps)
-		if self.unit == 'ratios':
-			terms = 1200 * np.log2(frequencies)
-		frequencies = concat(terms, self.middle_note, note_range=[0,127])
-		if self.unit != 'Hertz':
-			frequences = 2 ** (frequences/1200)
-		root_note = self.root_note + self.equave * self.degrees_per_equave
-		frequencies -= frequencies[root_note]
-		frequencies += self.root_frequency
-		return frequencies.tolist()
-
-	def get_colors(self):
-		colors = [Color(self.split_keys)]
-		for note in range(128):
-			halberstadt_note = self.remap(note)
-			if halberstadt_note is not None:
-				degree = halberstadt_note % self.keys_per_equave
-				colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
-		return colors
-
+		
 	def remap(self, note):
 		note -= self.middle_key
 		tone = note % self.keys_per_equave
@@ -135,6 +109,30 @@ class BaseTuning:
 			if halberstadt_note in range(0,128):
 				return halberstadt_note
 		return None
+		
+	def get_frequencies(self):
+		result = np.array(self.steps)
+		root_note = self.root_note + self.equave * self.degrees_per_equave
+		if self.unit == 'ratios':
+			result = 1200 * np.log2(result)
+		result = concat(result, self.middle_note, range(0,128))
+		if self.unit == 'Hertz':
+			result -= result[root_note]
+			result += self.root_frequency
+		else:
+			result = 2 ** (result/1200)
+			result /= result[root_note]
+			result *= self.root_frequency
+		return result.tolist()
+
+	def get_colors(self):
+		colors = [Color(self.split_keys)]*128
+		for note in range(128):
+			halberstadt_note = self.remap(note)
+			if halberstadt_note is not None:
+				degree = halberstadt_note % self.keys_per_equave
+				colors[note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
+		return colors
 
 	def tuning(self, mts, equave=None):
 		if equave is not None:
@@ -240,19 +238,23 @@ class Ombak(Macro):
 				degree = halberstadt_note % self.keys_per_equave
 				colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree] else self.even_black_keys)
 		return colors
-
+		
 	def get_frequencies(self):
-		terms = np.array(self.steps)
-		if self.unit == 'ratios':
-			terms = 1200 * np.log2(frequencies)
-		frequencies = concat(terms, self.middle_note, note_range=[32,96])
-		if self.unit != 'Hertz':
-			frequences = 2 ** (frequences/1200)
-		frequencies = ombakify(self.pengumbang, self.pengisep, frequencies)
+		result = np.array(self.steps)
 		root_note = self.root_note + self.equave * self.degrees_per_equave
-		frequencies -= frequencies[root_note]
-		frequencies += self.root_frequency
-		return frequencies.tolist()
+		root_note -= 32
+		if self.unit == 'ratios':
+			result = 1200 * np.log2(result)
+		result = concat(result, self.middle_note, range(32,96))
+		if self.unit == 'Hertz':
+			result -= result[root_note]
+			result += self.root_frequency
+		else:
+			result = 2 ** (result/1200)
+			result /= result[root_note]
+			result *= self.root_frequency
+		result = ombakify(self.pengumbang, self.pengisep, frequencies)
+		return result.tolist()
 
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
