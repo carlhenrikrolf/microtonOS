@@ -25,8 +25,6 @@ mts_test = MtsTest()
 # Lib
 #####
 
-# more use of numpy encouraged
-
 tone_to_int = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b']
 is_white_key = [True, False, True, False, True, True, False, True, False, True, False, True]
 
