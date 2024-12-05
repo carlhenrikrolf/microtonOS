@@ -155,7 +155,7 @@ class BaseTuning:
 				if self.ignore[isomorphic_note]:
 					colors[isomorphic_note] = Color(self.non_keys)
 				else:
-					halberstadt_equave = halberstadt_key // self.keys_per_equave
+					#halberstadt_equave = halberstadt_key // self.keys_per_equave
 					degree = halberstadt_key % self.keys_per_equave
 					colors[isomorphic_note] = Color(self.white_keys if is_white_key[degree % 12] else self.black_keys)
 		return colors
@@ -238,12 +238,12 @@ class Micro(BaseTuning):
 
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
-			halberstadt_note = self.remap(msg.note)
-			if halberstadt_note is not None:
-				if manual <= 1:
-					self.thru(outport, msg.copy(note=halberstadt_note))
+			isomorphic_note = self.remap(msg.note)
+			if isomorphic_note is not None:
+				if manual == 1:
+					self.thru(outport, msg.copy(note=isomorphic_note))
 				else:
-					self.thru(outport, msg.copy(note=halberstadt_note+1))
+					self.thru(outport, msg.copy(note=isomorphic_note+1))
 		else:
 			outport.send(msg)
 
@@ -279,42 +279,11 @@ class Micro(BaseTuning):
 		return None
 
 
-class Ombak(Macro):
+class Ombak(BaseTuning):
 
-	pengumbang_white_keys = 'cyan'
-	pengumbang_black_keys = 'blue'
-	pengisep_keys = 'black'
-	
-	# def get_colors(self):
-		# colors = [Color(self.odd_keys)]*128
-		# diff = 128/self.degrees_per_equave*self.keys_per_equave
-		# diff = int(diff) + 1
-		# for halberstadt_key in range(self.middle_key-diff,self.middle_key+diff):
-			# isomorphic_note = self.remap(halberstadt_key)
-			# if isomorphic_note is not None:
-				# if self.ignore[isomorphic_note]:
-					# colors[isomorphic_note] = Color(self.non_keys)
-				# else:
-					# halberstadt_equave = halberstadt_key // self.keys_per_equave
-					# if halberstadt_equave % 2 == 0:
-						# degree = halberstadt_key % self.keys_per_equave
-						# colors[isomorphic_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
-		# return colors
-		
-	def get_colors(self):
-		colors = [Color(self.pengisep_keys)]*128
-		diff = 128/self.degrees_per_equave*self.keys_per_equave
-		diff = int(diff) + 1 # should be divided by 2 but doesnt really matter
-		## probably all wrong and should be thought up from scratch
-
-	# def get_colors(self):
-		# colors = [Color(self.pengisep_keys)]*128
-		# for pengumbang_note in range(0,127,2):
-			# halberstadt_note = self.remap(pengumbang_note)
-			# if halberstadt_note is not None:
-				# degree = halberstadt_note % self.keys_per_equave
-				# colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
-		# return colors
+	white_keys = 'cyan'
+	black_keys = 'blue'
+	split_keys = 'black'
 		
 	def get_frequencies(self):
 		result = np.array(self.steps)
@@ -339,37 +308,21 @@ class Ombak(Macro):
 			else:
 				self.ignore[i] = False
 		return result.tolist()
-
+		
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
-			if msg.note in range(32, 96):
-				halberstadt_note = self.remap(msg.note) - 32
-				if manual <= 1:
-					pengumbang_note = min([2*halberstadt_note, 127])
-					outport.send(msg.copy(note=pengumbang_note))
+			isomorphic_note = self.remap(msg.note)
+			if isomorphic_note is not None:
+				if manual == 1:
+					self.thru(outport, msg.copy(note=isomorphic_note))
 					if self.pedal is True:
-						outport.send(msg.copy(note=pengumbang_note+1))
+						self.thru(outport, msg.copy(note=isomorphic_note+1))
 				else:
-					pengisep_note = min([2*halberstadt_note+1, 127])
-					outport.send(msg.copy(note=pengisep_note))
+					self.thru(outport, msg.copy(note=isomorphic_note+1))
 					if self.pedal is True:
-						outport.send(msg.copy(note=pengisep_note-1))
+						self.thru(outport, msg.copy(note=isomorphic_note))
 		else:
 			outport.send(msg)
-
-	def footswitch(self, msg):
-		if msg.type == 'control_change':
-			new_pedal = True if msg.value >= 64 else False
-			if new_pedal != self.pedal:
-				if new_pedal is True:
-					self.pedal = new_pedal
-				elif self.pedal is not None:
-					self.pedal = new_pedal
-				else:
-					return None
-				colors = self.get_colors()
-				return colors
-		return None
 
 
 class Uneven(Macro):
@@ -440,6 +393,6 @@ edo9ombak = Ombak(name = '9edo+ombak',
 steps = 2 ** (1/9),
 root_note = 70,
 pengisep = 7.0,
-halberstadt = [0, 1, None, 2, 3, 4, 5, None, 6, None, 7, 8, 9],
-dilation = 2)
+halberstadt = [0, 2, None, 4, 6, 8, 10, None, 12, None, 14, 16, 18],
+dilation = 4)
 
