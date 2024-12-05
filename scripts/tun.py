@@ -54,11 +54,14 @@ def concat(terms, middle_note, note_range, cumulative):
 def ombakify(pengumbang, pengisep, half):
 	pengumbang = 0.0 if pengumbang is None else float(pengumbang)
 	pengisep = 0.0 if pengisep is None else float(pengisep)
-	full = np.empty(128)
-	for i, pair in enumerate(zip(range(0,127,2), range(1,128,2))):
-		full[pair[0]] = half[i] - pengumbang
-		full[pair[1]] = half[i] + pengisep
+	full = []
+	for frequency in half:
+		full.append(frequency - pengumbang)
+		full.append(frequency + pengisep)
+	full = np.array(full)
 	return full
+	
+
 
 # Templates
 ###########
@@ -281,23 +284,46 @@ class Ombak(Macro):
 	pengumbang_white_keys = 'cyan'
 	pengumbang_black_keys = 'blue'
 	pengisep_keys = 'black'
-
+	
+	# def get_colors(self):
+		# colors = [Color(self.odd_keys)]*128
+		# diff = 128/self.degrees_per_equave*self.keys_per_equave
+		# diff = int(diff) + 1
+		# for halberstadt_key in range(self.middle_key-diff,self.middle_key+diff):
+			# isomorphic_note = self.remap(halberstadt_key)
+			# if isomorphic_note is not None:
+				# if self.ignore[isomorphic_note]:
+					# colors[isomorphic_note] = Color(self.non_keys)
+				# else:
+					# halberstadt_equave = halberstadt_key // self.keys_per_equave
+					# if halberstadt_equave % 2 == 0:
+						# degree = halberstadt_key % self.keys_per_equave
+						# colors[isomorphic_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
+		# return colors
+		
 	def get_colors(self):
 		colors = [Color(self.pengisep_keys)]*128
-		for pengumbang_note in range(0,127,2):
-			halberstadt_note = self.remap(pengumbang_note)
-			if halberstadt_note is not None:
-				degree = halberstadt_note % self.keys_per_equave
-				colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
-		return colors
+		diff = 128/self.degrees_per_equave*self.keys_per_equave
+		diff = int(diff) + 1 # should be divided by 2 but doesnt really matter
+		## probably all wrong and should be thought up from scratch
+
+	# def get_colors(self):
+		# colors = [Color(self.pengisep_keys)]*128
+		# for pengumbang_note in range(0,127,2):
+			# halberstadt_note = self.remap(pengumbang_note)
+			# if halberstadt_note is not None:
+				# degree = halberstadt_note % self.keys_per_equave
+				# colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
+		# return colors
 		
 	def get_frequencies(self):
 		result = np.array(self.steps)
+		floor = int(self.root_note/2)
 		root_note = self.root_note - self.equave * self.degrees_per_equave
-		root_note -= 32
+		root_note -= floor
 		if self.unit == 'ratios':
 			result = 1200 * np.log2(result)
-		result = concat(result, self.middle_note, range(32,96), self.cumulative)
+		result = concat(result, 2*floor, range(floor,floor+64), self.cumulative)
 		if self.unit == 'Hertz':
 			result -= result[root_note]
 			result += self.root_frequency
@@ -305,7 +331,13 @@ class Ombak(Macro):
 			result = 2 ** (result/1200)
 			result /= result[root_note]
 			result *= self.root_frequency
-		result = ombakify(self.pengumbang, self.pengisep, frequencies)
+		result = ombakify(self.pengumbang, self.pengisep, result)
+		for i, frequency in enumerate(result):
+			if frequency <= 0:
+				result[i] = 440.0
+				self.ignore[i] = True
+			else:
+				self.ignore[i] = False
 		return result.tolist()
 
 	def halberstadtify(self, outport, msg, manual=1):
@@ -392,7 +424,7 @@ steps = 2 ** (1/24),
 halberstadt = [(0,-1), (2,1), (4,3), (6,5), (7,8), (10,9), (12,11), (14,13), (16,15), (18,17), (20,19), (21,22), (24,23)],
 dilation = 6)
 
-ed43hz = Macro(name = 'ed43Hz', # this causes error, maybe ignore freqs <=0?
+ed43hz = Macro(name = 'ed43Hz',
 steps = 43.0,
 unit = 'Hertz',
 halberstadt = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
