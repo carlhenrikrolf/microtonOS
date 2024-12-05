@@ -64,6 +64,8 @@ def ombakify(pengumbang, pengisep, half):
 ###########
 
 class BaseTuning:
+	
+	non_keys = 'white'
 
 	def __init__(self,
 	name = '12edo',
@@ -104,7 +106,8 @@ class BaseTuning:
 		self.middle_key = 60 + tone_to_int.index(self.boundary_tone)
 		self.root_degree = self.init_halberstadt[self.root_note - self.middle_key]
 		self.middle_note = self.root_note - self.root_degree
-		self.active_footswitch = False
+		self.pedal = None
+		self.ignore = [False]*128
 		
 	def remap(self, note):
 		note -= self.middle_key
@@ -131,6 +134,12 @@ class BaseTuning:
 			result = 2 ** (result/1200)
 			result /= result[root_note]
 			result *= self.root_frequency
+		for i, frequency in enumerate(result):
+			if frequency <= 0:
+				result[i] = 440.0
+				self.ignore[i] = True
+			else:
+				self.ignore[i] = False
 		return result.tolist()
 
 	def get_colors(self):
@@ -140,9 +149,12 @@ class BaseTuning:
 		for halberstadt_key in range(self.middle_key-diff,self.middle_key+diff):
 			isomorphic_note = self.remap(halberstadt_key)
 			if isomorphic_note is not None:
-				halberstadt_equave = halberstadt_key // self.keys_per_equave
-				degree = halberstadt_key % self.keys_per_equave
-				colors[isomorphic_note] = Color(self.white_keys if is_white_key[degree] else self.black_keys)
+				if self.ignore[isomorphic_note]:
+					colors[isomorphic_note] = Color(self.non_keys)
+				else:
+					halberstadt_equave = halberstadt_key // self.keys_per_equave
+					degree = halberstadt_key % self.keys_per_equave
+					colors[isomorphic_note] = Color(self.white_keys if is_white_key[degree % 12] else self.black_keys)
 		return colors
 
 	def tuning(self, mts, equave=None):
@@ -151,15 +163,22 @@ class BaseTuning:
 		frequencies = self.get_frequencies()
 		mts.set_note_tunings(frequencies)
 		mts.set_scale_name(self.name)
-		self.active_footswitch = False
+		self.pedal = None
 		colors = self.get_colors()
 		return colors
+		
+	def thru(self, outport, msg):
+		if hasattr(msg, 'note'):
+			if not self.ignore[msg.note]:
+				outport.send(msg)
+		else:
+			outport.send(msg)
 
 	def halberstadtify(self, outport, msg, manual=None):
 		if hasattr(msg, 'note'):
 			halberstadt_note = self.remap(msg.note)
 			if halberstadt_note is not None:
-				outport.send(msg.copy(note=halberstadt_note))
+				self.thru(outport, msg.copy(note=halberstadt_note))
 		else:
 			outport.send(msg)
 
@@ -168,6 +187,13 @@ class BaseTuning:
 		return None
 
 	def footswitch(self, msg):
+		if msg.type == 'control_change':
+			new_pedal = True if msg.value >= 64 else False
+			if new_pedal != self.pedal:
+				if new_pedal is True:
+					self.pedal = new_pedal
+				elif self.pedal is not None:
+					self.pedal = new_pedal
 		return None
 
 
@@ -191,10 +217,13 @@ class Macro(BaseTuning):
 		for halberstadt_key in range(self.middle_key-diff,self.middle_key+diff):
 			isomorphic_note = self.remap(halberstadt_key)
 			if isomorphic_note is not None:
-				halberstadt_equave = halberstadt_key // self.keys_per_equave
-				if halberstadt_equave % 2 == 0:
-					degree = halberstadt_key % self.keys_per_equave
-					colors[isomorphic_note] = Color(self.even_white_keys if is_white_key[degree] else self.even_black_keys)
+				if self.ignore[isomorphic_note]:
+					colors[isomorphic_note] = Color(self.non_keys)
+				else:
+					halberstadt_equave = halberstadt_key // self.keys_per_equave
+					if halberstadt_equave % 2 == 0:
+						degree = halberstadt_key % self.keys_per_equave
+						colors[isomorphic_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
 		return colors
 
 
@@ -209,9 +238,9 @@ class Micro(BaseTuning):
 			halberstadt_note = self.remap(msg.note)
 			if halberstadt_note is not None:
 				if manual <= 1:
-					outport.send(msg.copy(note=halberstadt_note))
+					self.thru(outport, msg.copy(note=halberstadt_note))
 				else:
-					outport.send(msg.copy(note=halberstadt_note+1))
+					self.thru(outport, msg.copy(note=halberstadt_note+1))
 		else:
 			outport.send(msg)
 
@@ -223,23 +252,27 @@ class Micro(BaseTuning):
 				self.switches[key] %= len(self.halberstadt[key])
 				colors = self.get_colors()
 		return None
-
-	def footswitch(self, msg): ############## ok not correct, need to look at the ombak thing and add a duophonic here as well
+		
+	def footswitch(self, msg):
 		if msg.type == 'control_change':
-			switches = self.switches
-			if msg.value >= 64:
-				self.active_footswitch = True
-				for key, is_switch in enumerate(self.is_switch):
-					if is_switch:
-						switches[key] -= 1
-						switches[key] %= len(self.halberstadt[key])
-			elif self.active_footswitch:
-				for key, is_switch in enumerate(self.is_switch):
-					if is_switch:
-						switches[key] += 1
-						switches[key] %= len(self.halberstadt[key])
-			colors = self.get_colors()
-			return colors
+			new_pedal = True if msg.value >= 64 else False
+			if new_pedal != self.pedal:
+				if new_pedal is True:
+					for key in range(self.keys_per_equave):
+						if self.is_switch[key]:
+							self.switches[key] -= 1
+							self.switches[key] %= len(self.halberstadt[key])
+					self.pedal = new_pedal
+				elif self.pedal is not None:
+					for key in range(self.keys_per_equave):
+						if self.is_switch[key]:
+							self.switches[key] += 1
+							self.switches[key] %= len(self.halberstadt[key])
+					self.pedal = new_pedal
+				else:
+					return None
+				colors = self.get_colors()
+				return colors
 		return None
 
 
@@ -248,7 +281,6 @@ class Ombak(Macro):
 	pengumbang_white_keys = 'cyan'
 	pengumbang_black_keys = 'blue'
 	pengisep_keys = 'black'
-	duophonic = False
 
 	def get_colors(self):
 		colors = [Color(self.pengisep_keys)]*128
@@ -256,7 +288,7 @@ class Ombak(Macro):
 			halberstadt_note = self.remap(pengumbang_note)
 			if halberstadt_note is not None:
 				degree = halberstadt_note % self.keys_per_equave
-				colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree] else self.even_black_keys)
+				colors[pengumbang_note] = Color(self.even_white_keys if is_white_key[degree % 12] else self.even_black_keys)
 		return colors
 		
 	def get_frequencies(self):
@@ -283,21 +315,26 @@ class Ombak(Macro):
 				if manual <= 1:
 					pengumbang_note = min([2*halberstadt_note, 127])
 					outport.send(msg.copy(note=pengumbang_note))
-					if self.duophonic:
+					if self.pedal is True:
 						outport.send(msg.copy(note=pengumbang_note+1))
 				else:
 					pengisep_note = min([2*halberstadt_note+1, 127])
 					outport.send(msg.copy(note=pengisep_note))
-					if self.duophonic:
+					if self.pedal is True:
 						outport.send(msg.copy(note=pengisep_note-1))
 		else:
 			outport.send(msg)
 
 	def footswitch(self, msg):
 		if msg.type == 'control_change':
-			duophonic = True if msg.value >= 64 else False
-			if duophonic != self.duophonic:
-				self.duophonic = duophonic
+			new_pedal = True if msg.value >= 64 else False
+			if new_pedal != self.pedal:
+				if new_pedal is True:
+					self.pedal = new_pedal
+				elif self.pedal is not None:
+					self.pedal = new_pedal
+				else:
+					return None
 				colors = self.get_colors()
 				return colors
 		return None
@@ -350,19 +387,12 @@ halberstadt = [0, (1,2), (3,4), (5,6), (7,8), 9, (10,11), (13,12), (14,15), (17,
 dilation = 5,
 comment = '22 shrutis.')
 
-edo9ombak = Ombak(name = '9edo+ombak',
-steps = 2 ** (1/9),
-root_note = 70,
-pengisep = 7.0,
-halberstadt = [0, 1, None, 2, 3, 4, 5, None, 6, None, 7, 8, 9],
-dilation = 2)
-
 edo24 = Micro(name = '24edo',
 steps = 2 ** (1/24),
 halberstadt = [(0,-1), (2,1), (4,3), (6,5), (7,8), (10,9), (12,11), (14,13), (16,15), (18,17), (20,19), (21,22), (24,23)],
 dilation = 6)
 
-ed43hz = Macro(name = 'ed43Hz',
+ed43hz = Macro(name = 'ed43Hz', # this causes error, maybe ignore freqs <=0?
 steps = 43.0,
 unit = 'Hertz',
 halberstadt = [0, None, 1, None, 2, 3, None, 4, None, 5, None, 6, 7],
@@ -374,4 +404,10 @@ halberstadt = [0, 1, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14,
 16, 17, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 31], # 23, 24, None, 25, None, 26, 27],
 dilation = 4)
 
+edo9ombak = Ombak(name = '9edo+ombak',
+steps = 2 ** (1/9),
+root_note = 70,
+pengisep = 7.0,
+halberstadt = [0, 1, None, 2, 3, 4, 5, None, 6, None, 7, 8, 9],
+dilation = 2)
 
