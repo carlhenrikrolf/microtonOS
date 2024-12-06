@@ -9,7 +9,7 @@ client_name = 'MTS-ESP master'
 import mido
 import mtsespy as mts
 from midi_implementation.mpe import MPE, is_polyexpression
-from mtsesp_master.presets import presets
+from mtsesp_master.presets import tuning_presets, init_tuning, layout_presets, init_layout
 from mtsesp_master.encoders import Encoders
 from mtsesp_master.active_sensing import ActiveSensing
 from mtsesp_master.isomorphic import isomorphic
@@ -20,136 +20,141 @@ class Script:
 	
 	def __init__(self):
 		
+		self.equave = 0
+		self.is_left_right = False
+		self.is_up_down = False
+		self.transposition = 69
+		self.n_tunings = len(tuning_presets)
+		self.tuning_pgm = init_tuning
+		self.dilation = 3
+		self.n_layouts = len(layout_presets)
+		self.layout_pgm = init_layout
+		self.is_split = False
+		self.encoders = Encoders(to_isomorphic,
+			equave=self.equave,
+			transposition=self.transposition,
+			n_tunings=self.n_tunings,
+			tuning_pgm=self.tuning_pgm,
+			dilation=self.dilation,
+			n_layouts=self.n_tunings,
+			layout_pgm=self.layout_pgm)
 		self.is_init = True
 		
-		self.equave = 0
-		self.is_left_right = presets.layout.is_left_right
-		self.is_up_down = presets.layout.is_up_down
-		self.transposition = presets.layout.top_right
-		self.transposition_range = range(0,128)
-		self.n_tunings = presets.n_tunings
-		self.tuning_pgm = presets.tuning_pgm
-		self.dilation = presets.layout.dilation
-		self.dilation_range = presets.layout.dilation_range()
-		self.n_layouts = presets.n_layouts
-		self.layout_pgm = presets.layout_pgm
-		self.is_split = False
+	def init_touch(self):
+		self.encoders.reset()
+		self.layout_preset = layout_presets[self.layout_pgm]
+		layout = self.layout_preset.layout(dilation=self.dilation,
+			is_left_right=self.is_left_right,
+			is_up_down=self.is_up_down,
+			top_right=self.transposition,
+			is_split=self.is_split)
+		self.tuning_preset = tuning_presets[self.tuning_pgm]
+		coloring = self.tuning_preset.tuning(mts, equave=self.equave)
+		isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 		
 	def isomorphic(self, msg):
-		
-		if not isomorphic.ignore(msg): # ignore null note
-		
-			# initial touch
-			if self.is_init:
-				encoders.reset()
-				layout = presets.layout.layout()
-				coloring = presets.tuning.tuning(mts)
-				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
-				self.is_init = False
 				
-			if encoders.refresh(msg):
-				layout = presets.layout.layout()
-				coloring = presets.tuning.tuning(mts)
-				isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
-			
-			# bottom encoders
-			# change equave
-			happened, self.equave = encoders.change_equave(msg, self.equave)
-			if happened:
-				coloring = presets.tuning.tuning(mts, equave=self.equave)
-				isomorphic.send(to_isomorphic, coloring=coloring)
-				print('ekvav =', self.equave)
-			
-			# flip (mirror)
-			happened, self.is_left_right = encoders.flip_left_right(msg)
-			if happened:
-				print('höger--vänster-speglad är', self.is_left_right)
-				layout = presets.layout.layout(is_left_right=self.is_left_right)
-				isomorphic.send(to_isomorphic, layout=layout)
-			happened, self.is_up_down = encoders.flip_up_down(msg)
-			if happened:
-				print('upp--ner-speglad är', self.is_up_down)
-				layout = presets.layout.layout(is_up_down=self.is_up_down)
-				isomorphic.send(to_isomorphic, layout=layout)
-			
-			# knobs
-			# transpose
-			transpose, self.transposition = encoders.transpose(msg, self.transposition, self.transposition_range)
-			if transpose:
-				print('transponering =', self.transposition)
-			toggle, self.is_split = encoders.toggle_transposition(msg, self.is_split)
-			if toggle:
-				print('transponering =', self.transposition)
-			if transpose: # or toggle
-				layout = presets.layout.layout(top_right=self.transposition)
-				isomorphic.send(to_isomorphic, layout=layout)
-			if toggle:
-				layout = presets.layout.layout(is_split=self.is_split)
-				isomorphic.send(to_isomorphic, layout=layout)
-				
-			
-			# tuning preset
-			happened, self.tuning_pgm = encoders.tuning_preset(msg, self.tuning_pgm)
-			if happened:
-				print('stämning =', self.tuning_pgm)
-			
-			# dilate
-			dilate, self.dilation = encoders.dilate(msg, self.dilation, self.dilation_range)
-			if dilate:
-				print('utspädning =', self.dilation)
-			toggle, self.dilation = encoders.toggle_dilation(msg, 3)
-			if toggle:
-				print('utspädning =', self.dilation)
-			if dilate or toggle:
-				layout = presets.layout.layout(dilation=self.dilation)
-				isomorphic.send(to_isomorphic, layout=layout)
-			
-			# layout preset
-			happened, self.layout_pgm = encoders.layout_preset(msg, self.layout_pgm)
-			if happened:
-				print('layout =', self.layout_pgm)
-				presets.change(layout_pgm=self.layout_pgm)
-				layout = presets.layout.layout()
-				isomorphic.send(to_isomorphic, layout=layout)
-			
-			# notes
-			# sanity check
-			if msg.type == 'note_on':
-				print('tonen är', msg.note, 'dvs', ['c','c#','d','d#','e','f','f#','g','g#','a','a#','b'][msg.note % 12])
-			
-			mpe.dispatch(msg)
+		# initial touch
+		if self.is_init:
+			self.init_touch()
+			self.is_init = False
+		
+		# encoders
+		if self.encoders.refresh(msg):
+			layout = self.layout_preset.layout()
+			coloring = self.tuning_preset.tuning(mts)
+			isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
+		
+		# bottom encoders
+		change_equave, self.equave = self.encoders.change_equave(msg, self.equave)
+		if change_equave:
+			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
+			isomorphic.send(to_isomorphic, coloring=coloring)
+		
+		mirror, self.is_left_right = self.encoders.flip_left_right(msg)
+		if mirror:
+			layout = self.layout_preset.layout(is_left_right=self.is_left_right)
+			isomorphic.send(to_isomorphic, layout=layout)
+		mirror, self.is_up_down = self.encoders.flip_up_down(msg)
+		if mirror:
+			layout = self.layout_preset.layout(is_up_down=self.is_up_down)
+			isomorphic.send(to_isomorphic, layout=layout)
+		
+		# knobs
+		transpose, self.transposition = self.encoders.transpose(msg, self.transposition, range(0,128))
+		if transpose:
+			layout = self.layout_preset.layout(top_right=self.transposition)
+			isomorphic.send(to_isomorphic, layout=layout)
+		split, self.is_split = self.encoders.toggle_transposition(msg, self.is_split)
+		if split:
+			layout = self.layout_preset.layout(is_split=self.is_split)
+			isomorphic.send(to_isomorphic, layout=layout)
+		
+		change_tuning, self.tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)
+		if change_tuning:
+			self.tuning_preset = tuning_presets[self.tuning_pgm]
+			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
+			isomorphic.send(to_isomorphic, coloring=coloring)
+		
+		dilate, self.dilation = self.encoders.dilate(msg, self.dilation, range(1,13))
+		reset, self.dilation = self.encoders.toggle_dilation(msg, self.tuning_preset.dilation)
+		if dilate or reset:
+			layout = self.layout_preset.layout(dilation=self.dilation)
+			isomorphic.send(to_isomorphic, layout=layout)
+		
+		change_layout, self.layout_pgm = self.encoders.layout_preset(msg, self.layout_pgm)
+		if change_layout:
+			self.layout_preset = layout_presets[self.layout_pgm]
+			layout = self.layout_preset.layout(dilation=self.dilation,
+				is_left_right=self.is_left_right,
+				is_up_down=self.is_up_down,
+				top_right=self.transposition,
+				is_split=self.is_split)
+			isomorphic.send(to_isomorphic, layout=layout)
+		
+		# notes
+		if not isomorphic.ignore(msg): # filter null note (e.g. splitting line)
+			if not self.tuning_preset.ignore(msg): # filter nonpositive frequencies
+				mpe.dispatch(msg)
 			
 			
 	def halberstadt(self, msg):
 		
+		if self.is_init:
+			self.init_touch()
+		
+		coloring = None
 		if hasattr(msg, 'channel'):
 			msg.channel = 13 if is_polyexpression(msg) else 0
-		presets.tuning.halberstadtify(to_microtonOS, msg)
+		if msg.is_cc(69):
+			coloring = self.tuning_preset.footswitch(msg)
+		elif hasattr(msg, 'note'):
+			if msg.note < 12*3:
+				coloring = self.tuning_preset.keyswitches(to_microtonOS, msg, manual=1 if True else 2)
+			else:
+				self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=1 if True else 2)
+		else:
+			to_microtonOS.send(msg)
+		if coloring is not None:
+			isomorphic.send(to_isomorphic, coloring=coloring)
 		
 		
 	def manual2(self,msg):
 		
+		if self.is_init:
+			self.init_touch()
+		
 		if hasattr(msg, 'channel'):
 			msg.channel = 14 if is_polyexpression(msg) else 15
-		presets.tuning.halberstadtify(to_microtonOS, msg, manual=2)
+		self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=2)
 			
 
 
-if mts.has_ipc():
-	mts.reinitialize()
+# if mts.has_ipc():
+# 	mts.reinitialize()
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
 to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
 mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=12)
-encoders = Encoders(to_isomorphic, # maybe I could move to __init__? or if self.init?
-	equave=0,
-	equave_range=range(-2,3),
-	transposition=presets.layout.top_right,
-	n_tunings=presets.n_tunings,
-	tuning_pgm=presets.tuning_pgm,
-	dilation=presets.layout.dilation,
-	n_layouts=presets.n_layouts,
-	layout_pgm=presets.layout_pgm,
-)
 active_sensing = ActiveSensing(to_isomorphic)
 script = Script()
 from_isomorphic = Inport(script.isomorphic, client_name, name='isomorphic', verbose=False)

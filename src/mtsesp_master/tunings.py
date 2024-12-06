@@ -92,7 +92,7 @@ class BaseTuning:
 		self.root_degree = self.init_halberstadt[self.root_note - self.middle_key]
 		self.middle_note = self.root_note - self.root_degree
 		self.pedal = None
-		self.ignore = [False]*128
+		self.is_ignored = [False]*128
 		
 	def remap(self, note):
 		note -= self.middle_key
@@ -122,9 +122,9 @@ class BaseTuning:
 		for i, frequency in enumerate(result):
 			if frequency <= 0:
 				result[i] = 440.0
-				self.ignore[i] = True
+				self.is_ignored[i] = True
 			else:
-				self.ignore[i] = False
+				self.is_ignored[i] = False
 		return result.tolist()
 
 	def get_colors(self):
@@ -134,7 +134,7 @@ class BaseTuning:
 		for halberstadt_key in range(self.middle_key-diff,self.middle_key+diff):
 			isomorphic_note = self.remap(halberstadt_key)
 			if isomorphic_note is not None:
-				if self.ignore[isomorphic_note]:
+				if self.is_ignored[isomorphic_note]:
 					colors[isomorphic_note] = Color(self.non_keys)
 				else:
 					#halberstadt_equave = halberstadt_key // self.keys_per_equave
@@ -151,23 +151,25 @@ class BaseTuning:
 		self.pedal = None
 		colors = self.get_colors()
 		return colors
-		
-	def thru(self, outport, msg):
-		if hasattr(msg, 'note'):
-			if not self.ignore[msg.note]:
-				outport.send(msg)
-		else:
-			outport.send(msg)
+			
+	def ignore(self, note_msg):
+		if hasattr(note_msg, 'note'):
+			return self.is_ignored[note_msg.note]
+		elif type(note_msg) is int:
+			return self.is_ignored[note_msg] if note_msg in range(0,128) else True
+		elif note_msg is None:
+			return True
+		return False	
 
 	def halberstadtify(self, outport, msg, manual=None):
 		if hasattr(msg, 'note'):
-			halberstadt_note = self.remap(msg.note)
-			if halberstadt_note is not None:
-				self.thru(outport, msg.copy(note=halberstadt_note))
+			isomorphic_note = self.remap(msg.note)
+			if not self.ignore(isomorphic_note):
+				outport.send(msg.copy(note=isomorphic_note))
 		else:
 			outport.send(msg)
 
-	def keyswitches(self, outport, msg, manual=None):
+	def keyswitches(self, outport, msg, manual=1):
 		_ = self.halberstadtify(outport, msg, manual=manual)
 		return None
 
@@ -202,7 +204,7 @@ class Macro(BaseTuning):
 		for halberstadt_key in range(self.middle_key-diff,self.middle_key+diff):
 			isomorphic_note = self.remap(halberstadt_key)
 			if isomorphic_note is not None:
-				if self.ignore[isomorphic_note]:
+				if self.is_ignored[isomorphic_note]:
 					colors[isomorphic_note] = Color(self.non_keys)
 				else:
 					halberstadt_equave = halberstadt_key // self.keys_per_equave
@@ -221,21 +223,22 @@ class Micro(BaseTuning):
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
 			isomorphic_note = self.remap(msg.note)
-			if isomorphic_note is not None:
+			if not self.ignore(isomorphic_note):
 				if manual == 1:
-					self.thru(outport, msg.copy(note=isomorphic_note))
+					outport.send(msg.copy(note=isomorphic_note))
 				else:
-					self.thru(outport, msg.copy(note=isomorphic_note+1))
+					outport.send(msg.copy(note=isomorphic_note+1))
 		else:
 			outport.send(msg)
 
-	def keyswitches(self, outport, msg):
+	def keyswitches(self, outport, msg, manual=1):
 		if msg.type == 'note_on':
 			key = msg.note % self.keys_per_equave # maybe adjust this to get 1-to-1?
 			if self.is_switch[key] and msg.velocity > 0:
 				self.switches[key] += 1
 				self.switches[key] %= len(self.halberstadt[key])
 				colors = self.get_colors()
+				return colors
 		return None
 		
 	def footswitch(self, msg):
@@ -286,23 +289,23 @@ class Ombak(BaseTuning):
 		for i, frequency in enumerate(result):
 			if frequency <= 0:
 				result[i] = 440.0
-				self.ignore[i] = True
+				self.is_ignored[i] = True
 			else:
-				self.ignore[i] = False
+				self.is_ignored[i] = False
 		return result.tolist()
 		
 	def halberstadtify(self, outport, msg, manual=1):
 		if hasattr(msg, 'note'):
 			isomorphic_note = self.remap(msg.note)
-			if isomorphic_note is not None:
+			if not self.ignore(isomorphic_note) and not self.ignore(isomorphic_note+1):
 				if manual == 1:
-					self.thru(outport, msg.copy(note=isomorphic_note))
+					outport.send(msg.copy(note=isomorphic_note))
 					if self.pedal is True:
-						self.thru(outport, msg.copy(note=isomorphic_note+1))
+						outport.send(msg.copy(note=ismorphic_note+1))
 				else:
-					self.thru(outport, msg.copy(note=isomorphic_note+1))
+					outport.send(msg.copy(note=isomorphic_note+1))
 					if self.pedal is True:
-						self.thru(outport, msg.copy(note=isomorphic_note))
+						outport.send(msg.copy(note=isomorphic_note))
 		else:
 			outport.send(msg)
 
