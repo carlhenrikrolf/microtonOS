@@ -187,14 +187,14 @@ class BaseTuning:
 class Default(BaseTuning):
 
 	white_keys = 'black'
-	black_keys = 'gold'
+	black_keys = 'orange'
 	split_keys = 'black'
 
 
 class Macro(BaseTuning):
 
 	even_white_keys = 'green'
-	even_black_keys = 'chartreuse'
+	even_black_keys = 'orange'
 	odd_keys = 'black'
 
 	def get_colors(self):
@@ -216,8 +216,8 @@ class Macro(BaseTuning):
 
 class Micro(BaseTuning):
 
-	white_keys = 'red'
-	black_keys = 'darkorange'
+	white_keys = 'orange'
+	black_keys = 'red'
 	split_keys = 'black'
 
 	def halberstadtify(self, outport, msg, manual=1):
@@ -266,8 +266,8 @@ class Micro(BaseTuning):
 
 class Ombak(BaseTuning):
 
-	white_keys = 'cyan'
-	black_keys = 'blue'
+	white_keys = 'green'
+	black_keys = 'cyan'
 	split_keys = 'black'
 		
 	def get_frequencies(self):
@@ -312,14 +312,14 @@ class Ombak(BaseTuning):
 
 class Uneven(Macro):
 
-	even_white_keys = 'magenta'
-	even_black_keys = 'indigo'
+	even_white_keys = 'purple'
+	even_black_keys = 'navy'
 	odd_keys = 'black'
 
 
 class Subset(Micro):
 
-	white_keys = 'magenta'
-	black_keys = 'indigo'
+	white_keys = 'purple'
+	black_keys = 'navy'
 	split_keys = 'black'
 
