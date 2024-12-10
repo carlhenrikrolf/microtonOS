@@ -7,7 +7,7 @@ client_name = 'Pianoteq Wrapper'
 import mido
 import subprocess
 from utils import Outport, Inport
-from midi_implementation.gm2 import control_change as cc
+from midi_implementation.midi1 import control_change as cc
 
 # definitions
 class Script:

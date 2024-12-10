@@ -77,4 +77,11 @@ class ControlChange:
 	channel_mode_message[7] = poly_mode = 127
 
 control_change = ControlChange()
+
+class SystemExclusive:
+	
+	non_commercial = 0x7D
+
+system_exclusive = SystemExclusive()
+
 	

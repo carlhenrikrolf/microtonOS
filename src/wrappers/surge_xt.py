@@ -7,7 +7,7 @@ audio_name = 'JACK.system'
 import mido
 import re
 import subprocess
-from midi_implementation.mpe import set_mpe_mode
+from midi_implementation.mpe import set_mpe_mode, set_pitchbend_sensitivity
 from utils import Inport, Outport, handle_terminations
 
 list_devices_command = [
@@ -57,7 +57,12 @@ class Script:
 		if self.is_init:
 			set_mpe_mode(to_surge_xt, polyphony=13, zone='lower')
 			set_mpe_mode(to_surge_xt, polyphony=1, zone='upper')
+			#set_pitchbend_sensitivity(to_surge_xt, 2, 2, polyphony=13, zone='lower')
+			#set_pitchbend_sensitivity(to_surge_xt, 2, 2, polyphony=1, zone='upper')
 			self.is_init = False
+		if msg.type == 'pitchwheel':
+			if msg.channel in range(1,15):
+				msg.pitch = round(msg.pitch/48)
 		to_surge_xt.send(msg)
 		
 to_surge_xt = Outport(client_name, verbose=False)

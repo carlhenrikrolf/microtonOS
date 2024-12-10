@@ -19,8 +19,6 @@ def set_mpe_mode(outport, polyphony=15, zone="lower"):
 def set_pitchbend_sensitivity(
     outport, manager_sensitivity, member_sensitivity, polyphony=15, zone="lower"
 ):
-    manager_pitchwheel = [manager_sensitivity // 128, manager_sensitivity % 128]
-    member_pitchwheel = [member_sensitivity // 128, member_sensitivity % 128]
     manager = 15 if zone == "upper" else 0
     members = range(14 - polyphony, 14) if zone == "upper" else range(1, polyphony + 1)
     msgs = []
@@ -28,12 +26,12 @@ def set_pitchbend_sensitivity(
     msgs.append(mido.Message("control_change", control=100, value=0, channel=manager))
     msgs.append(
         mido.Message(
-            "control_change", control=0, value=manager_pitchwheel[0], channel=manager
+            "control_change", control=0, value=manager_sensitivity, channel=manager
         )
     )
     msgs.append(
         mido.Message(
-            "control_change", control=0, value=manager_pitchwheel[1], channel=manager
+            "control_change", control=0, value=0, channel=manager
         )
     )
     for member in members:
@@ -45,12 +43,12 @@ def set_pitchbend_sensitivity(
         )
         msgs.append(
             mido.Message(
-                "control_change", control=0, value=member_pitchwheel[0], channel=member
+                "control_change", control=0, value=member_sensitivity, channel=member
             )
         )
         msgs.append(
             mido.Message(
-                "control_change", control=0, value=member_pitchwheel[1], channel=member
+                "control_change", control=0, value=0, channel=member
             )
         )
     for msg in msgs:

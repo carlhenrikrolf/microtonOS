@@ -7,7 +7,7 @@ import mido
 from menu import Sounds
 from utils import Inport, Outport, make_threads
 from settings import engine_banks_pgms
-from midi_implementation.gm2 import control_change as cc
+from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
 from midi_implementation.yamaha import reface_cp as cp
 
@@ -50,12 +50,7 @@ class Script:
 			
 			
 	def reface_cp(self, msg):
-		
-		if msg.type == 'control_change':
-			msg.channel = 0
-			to_engine[self.engine].send(msg)
-		else:
-			to_halberstadt.send(msg)
+		to_halberstadt.send(msg)
 			
 		
 	def mtsesp_master(self, msg):

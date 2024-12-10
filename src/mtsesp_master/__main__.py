@@ -36,7 +36,7 @@ class Script:
 			n_tunings=self.n_tunings,
 			tuning_pgm=self.tuning_pgm,
 			dilation=self.dilation,
-			n_layouts=self.n_tunings,
+			n_layouts=self.n_layouts,
 			layout_pgm=self.layout_pgm)
 		self.is_init = True
 		

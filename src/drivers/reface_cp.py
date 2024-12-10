@@ -1,7 +1,7 @@
 import mido
 from time import sleep
 from midi_implementation.yamaha import reface_cp as cp
-from midi_implementation.gm2 import control_change as cc
+from midi_implementation.midi1 import control_change as cc
 from utils import Inport, Outport, make_threads
 
 client_name = 'Reface CP Driver'

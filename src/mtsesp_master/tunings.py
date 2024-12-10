@@ -169,6 +169,11 @@ class BaseTuning:
 		else:
 			outport.send(msg)
 
+	def reset(self):
+		for i in range(self.keys_per_equave):
+			self.switches[i] = 0
+		self.pedal = None
+
 	def keyswitches(self, outport, msg, manual=1):
 		_ = self.halberstadtify(outport, msg, manual=manual)
 		return None
@@ -233,7 +238,7 @@ class Micro(BaseTuning):
 
 	def keyswitches(self, outport, msg, manual=1):
 		if msg.type == 'note_on':
-			key = msg.note % self.keys_per_equave # maybe adjust this to get 1-to-1?
+			key = (msg.note - tone_to_int.index(self.boundary_tone)) % self.keys_per_equave # maybe adjust this to get 1-to-1?
 			if self.is_switch[key] and msg.velocity > 0:
 				self.switches[key] += 1
 				self.switches[key] %= len(self.halberstadt[key])
@@ -301,7 +306,7 @@ class Ombak(BaseTuning):
 				if manual == 1:
 					outport.send(msg.copy(note=isomorphic_note))
 					if self.pedal is True:
-						outport.send(msg.copy(note=ismorphic_note+1))
+						outport.send(msg.copy(note=isomorphic_note+1))
 				else:
 					outport.send(msg.copy(note=isomorphic_note+1))
 					if self.pedal is True:

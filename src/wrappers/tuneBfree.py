@@ -2,7 +2,7 @@ import subprocess
 import mido
 import mtsespy as mts
 from time import sleep, perf_counter_ns
-from midi_implementation.gm2 import control_change as cc
+from midi_implementation.midi1 import control_change as cc
 from utils import Inport, Outport, handle_terminations
 
 client_name = 'tuneBfree Wrapper'
