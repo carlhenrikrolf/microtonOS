@@ -9,7 +9,6 @@ from utils import Inport, Outport, make_threads
 from settings import engine_banks_pgms
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
-from midi_implementation.yamaha import reface_cp as cp
 
 client_name = 'microtonOS'
 
@@ -29,7 +28,7 @@ class Script:
 		if self.exquis_is_init:
 			xq.send(to_exquis, xq.sysex(xq.color_button, xq.sounds, sounds.base_color))	
 			for menu_button in [xq.settings, xq.record, xq.tracks, xq.scenes, xq.play_stop]:
-				xq.send(to_exquis, xq.sysex(xq.color_button, menu_button, xq.to_color(Color('black'))))	
+				xq.send(to_exquis, xq.sysex(xq.color_button, menu_button, xq.led('black')))	
 			self.exquis_is_init = False
 		
 		if sounds.onoff(msg) is True:

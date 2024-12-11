@@ -52,6 +52,7 @@ class Script:
 		self.tuning_preset = tuning_presets[self.tuning_pgm]
 		coloring = self.tuning_preset.tuning(mts, equave=self.equave)
 		isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
+		print('is init')
 		
 	def isomorphic(self, msg):
 				
@@ -61,10 +62,11 @@ class Script:
 			self.is_init = False
 		
 		# encoders
-		if self.encoders.refresh(msg):
+		if self.encoders.refresh(msg) is not None:
 			layout = self.layout_preset.layout()
 			coloring = self.tuning_preset.tuning(mts)
 			isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
+			print('refresh')
 		
 		# bottom encoders
 		equave = self.encoders.change_equave(msg, self.equave)
@@ -72,17 +74,20 @@ class Script:
 			self.equave = equave
 			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
 			isomorphic.send(to_isomorphic, coloring=coloring)
+			print('equave')
 		
 		left_right = self.encoders.flip_left_right(msg)
 		if left_right is not None:
 			self.is_left_right = left_right
 			layout = self.layout_preset.layout(is_left_right=self.is_left_right)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('left_right')
 		up_down = self.encoders.flip_up_down(msg)
 		if up_down is not None:
 			self.is_up_down = up_down
 			layout = self.layout_preset.layout(is_up_down=self.is_up_down)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('up_down')
 		
 		# knobs
 		transposition = self.encoders.transpose(msg, self.transposition)
@@ -90,9 +95,11 @@ class Script:
 			self.transposition = transposition
 			layout = self.layout_preset.layout(top_right=self.transposition)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('transpose')
 		reset_keyswitches = self.encoders.reset_keyswitches(msg)
 		if reset_keyswitches is not None:
 			self.tuning_preset.reset()
+			print('reset keyswitches')
 		
 		tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)
 		if tuning_pgm is not None:
@@ -100,20 +107,24 @@ class Script:
 			self.tuning_preset = tuning_presets[self.tuning_pgm]
 			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
 			isomorphic.send(to_isomorphic, coloring=coloring)
+			print('tuning pgm')
 		different_manuals = self.encoders.differentiate_manuals(msg, self.different_manuals)
 		if different_manuals is not None:
 			self.different_manuals = different_manuals
+			print('manuals')
 		
 		dilation = self.encoders.dilate(msg, self.dilation)
 		if dilation is not None:
 			self.dilation = dilation
 			layout = self.layout_preset.layout(dilation=self.dilation)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('dilation')
 		dilation = self.encoders.reset_dilation(msg, self.tuning_preset.dilation)
 		if dilation is not None:
 			self.dilation = dilation
 			layout = self.layout_preset.layout(dilation=self.dilation)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('reset dilation')
 		
 		layout_pgm = self.encoders.layout_preset(msg, self.layout_pgm)
 		if layout_pgm is not None:
@@ -125,16 +136,19 @@ class Script:
 				top_right=self.transposition,
 				is_split=self.is_split)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('layout pgm')
 		split = self.encoders.split(msg, self.is_split)
 		if split is not None:
 			self.is_split = split
 			layout = self.layout_preset.layout(is_split=self.is_split)
 			isomorphic.send(to_isomorphic, layout=layout)
+			print('split')
 		
 		# notes
 		if not isomorphic.ignore(msg): # filter null note (e.g. splitting line)
 			if not self.tuning_preset.ignore(msg): # filter nonpositive frequencies
 				mpe.dispatch(msg)
+				print('note from xq')
 			
 			
 	def halberstadt(self, msg):

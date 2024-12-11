@@ -106,14 +106,14 @@ class Encoders:
 			if xq.is_sysex(msg, [xq.click, menu_button, xq.released]):
 				self.recolor()
 				return True
-		return False
+		return None
 		
 	
 	def change_equave(self, msg, equave):
 		if xq.is_sysex(msg, [xq.click, xq.octave_up, xq.pressed]):
 			self.equave = equave+1 if equave+1 in self.equave_range else equave
 			self.equave_color()
-			return True, self.equave
+			return self.equave
 		elif xq.is_sysex(msg, [xq.click, xq.octave_down, xq.pressed]):
 			self.equave = equave-1 if equave-1 in self.equave_range else equave
 			self.equave_color()
@@ -144,13 +144,13 @@ class Encoders:
 		
 		
 	def transpose(self, msg, transposition, transposition_range=range(0,128)):
-		if xq.is_sysex(msg, [xq.clockwise, xq.knob1, None]) and self.is_on():
+		if xq.is_sysex(msg, [xq.clockwise, xq.knob1, None]):
 			transposition = transposition+1 if transposition+1 in transposition_range else transposition
-		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, None]) and self.is_on():
+		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, None]):
 			transposition = transposition-1 if transposition-1 in transposition_range else transposition
 		else:
-			return transposition
-		return None
+			return None
+		return transposition
 		
 		
 	def reset_keyswitches(self, msg):
@@ -212,7 +212,7 @@ class Encoders:
 		
 
 	def split(self, msg, is_split):
-			if xq.is_sysex(msg, [xq.click, xq.button4, xq.pressed]):
-				is_split = not is_split
-				return is_split
-			return None
+		if xq.is_sysex(msg, [xq.click, xq.button4, xq.pressed]):
+			is_split = not is_split
+			return is_split
+		return None
