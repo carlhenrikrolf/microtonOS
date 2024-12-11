@@ -46,11 +46,11 @@ class Script:
 
 			
 	def widi(self, msg):
-		to_halberstadt.send(msg)
+		to_manual2.send(msg)
 
 			
 	def reface_cp(self, msg): # this is here in case I want to move the assign pedal here
-		to_manual2.send(msg)
+		to_halberstadt.send(msg)
 			
 		
 	def mtsesp_master(self, msg):

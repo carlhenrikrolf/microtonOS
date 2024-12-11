@@ -5,6 +5,7 @@
 from midi_implementation.dualo import exquis as xq
 
 default_color = xq.led('red')
+alternative_color = xq.led('green')
 click_color = xq.led('white')
 unavailable_color = xq.led('black')
 
@@ -41,6 +42,7 @@ class Encoders:
 		self.is_up_down = False
 		self.transposition_is_toggled = False
 		self.dilation_is_toggled = False
+		self.default_color = default_color
 		
 		
 	def reset(self):
@@ -49,12 +51,12 @@ class Encoders:
 			Resets some saved values in this class.
 		"""
 		if self.init_equave in self.equave_range:
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
 		else:
 			raise Warning('Initial end-point octaves not yet implemented.')
-		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, default_color))
-		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, default_color))
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, self.default_color))
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, self.default_color))
 		tuning_code = color_coding(self.init_tuning_pgm)
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, tuning_code[0]))
 		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, tuning_code[1]))
@@ -72,34 +74,37 @@ class Encoders:
 	
 	def equave_color(self):
 		if self.equave == self.init_equave:
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
 		elif self.equave == max(self.equave_range):
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, unavailable_color))
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
 		elif self.equave == min(self.equave_range):
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, unavailable_color))
 		elif self.equave > self.init_equave:
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, click_color))
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
 		else:
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, click_color))
 		
+
+	def recolor(self):
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, click_color if self.is_left_right else self.default_color))
+		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, click_color if self.is_up_down else self.default_color))
+		self.equave_color()
+		code = color_coding(self.tuning_pgm)
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, code[0]))
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, code[1]))
+		code = color_coding(self.layout_pgm)
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, code[0]))
+		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, code[1]))
 		
 	def refresh(self, msg):
 		for menu_button in [xq.settings, xq.sounds, xq.record, xq.tracks, xq.scenes, xq.play_stop]:
 			if xq.is_sysex(msg, [xq.click, menu_button, xq.released]):
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, click_color if self.is_left_right else default_color))
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, click_color if self.is_up_down else default_color))
-				self.equave_color()
-				code = color_coding(self.tuning_pgm)
-				xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, code[0]))
-				xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, code[1]))
-				code = color_coding(self.layout_pgm)
-				xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, code[0]))
-				xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, code[1]))
+				self.recolor()
 				return True
 		return False
 		
@@ -122,7 +127,7 @@ class Encoders:
 			if self.is_left_right:
 				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, click_color))
 			else:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, default_color))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, self.default_color))
 			return self.is_left_right
 		return None
 		
@@ -133,7 +138,7 @@ class Encoders:
 			if self.is_up_down:
 				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, click_color))
 			else:
-				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, default_color))
+				xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, self.default_color))
 			return self.is_up_down
 		return None
 		
@@ -167,9 +172,12 @@ class Encoders:
 		return self.tuning_pgm
 	
 
-	def separate_manuals(self, msg, are_separate):
+	def differentiate_manuals(self, msg, different_manuals):
 		if xq.is_sysex(msg, [xq.click, xq.button2, xq.pressed]):
-			return not are_separate
+			different_manuals = not different_manuals
+			self.default_color = alternative_color if different_manuals else default_color
+			self.recolor()
+			return different_manuals
 		return None
 		
 		

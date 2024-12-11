@@ -30,6 +30,7 @@ class Script:
 		self.n_layouts = len(layout_presets)
 		self.layout_pgm = init_layout
 		self.is_split = False
+		self.different_manuals = False
 		self.encoders = Encoders(to_isomorphic,
 			equave=self.equave,
 			transposition=self.transposition,
@@ -89,11 +90,9 @@ class Script:
 			self.transposition = transposition
 			layout = self.layout_preset.layout(top_right=self.transposition)
 			isomorphic.send(to_isomorphic, layout=layout)
-		split = self.encoders.split(msg, self.is_split)
-		if split is not None:
-			self.is_split = split
-			layout = self.layout_preset.layout(is_split=self.is_split)
-			isomorphic.send(to_isomorphic, layout=layout)
+		reset_keyswitches = self.encoders.reset_keyswitches(msg)
+		if reset_keyswitches is not None:
+			self.tuning_preset.reset()
 		
 		tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)
 		if tuning_pgm is not None:
@@ -101,6 +100,9 @@ class Script:
 			self.tuning_preset = tuning_presets[self.tuning_pgm]
 			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
 			isomorphic.send(to_isomorphic, coloring=coloring)
+		different_manuals = self.encoders.differentiate_manuals(msg, self.different_manuals)
+		if different_manuals is not None:
+			self.different_manuals = different_manuals
 		
 		dilation = self.encoders.dilate(msg, self.dilation)
 		if dilation is not None:
@@ -123,6 +125,11 @@ class Script:
 				top_right=self.transposition,
 				is_split=self.is_split)
 			isomorphic.send(to_isomorphic, layout=layout)
+		split = self.encoders.split(msg, self.is_split)
+		if split is not None:
+			self.is_split = split
+			layout = self.layout_preset.layout(is_split=self.is_split)
+			isomorphic.send(to_isomorphic, layout=layout)
 		
 		# notes
 		if not isomorphic.ignore(msg): # filter null note (e.g. splitting line)
@@ -142,9 +149,9 @@ class Script:
 			coloring = self.tuning_preset.footswitch(msg)
 		elif hasattr(msg, 'note'):
 			if msg.note < 12*3:
-				coloring = self.tuning_preset.keyswitches(to_microtonOS, msg, manual=1 if True else 2)
+				coloring = self.tuning_preset.keyswitches(to_microtonOS, msg, manual=1 if self.different_manuals else 2)
 			else:
-				self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=1 if True else 2)
+				self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=1 if self.different_manuals else 2)
 		else:
 			to_microtonOS.send(msg)
 		if coloring is not None:

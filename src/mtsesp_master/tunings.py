@@ -244,7 +244,7 @@ class Micro(BaseTuning):
 					new_msg = msg.copy(note=isomorphic_note)
 					self.thru(msg, outport, new_msg)
 				else:
-					new_msg = msg.copy(note=isomorphic_note+1)
+					new_msg = msg.copy(note=isomorphic_note-1)
 					self.thru(msg, outport, new_msg)
 		else:
 			outport.send(msg)
@@ -317,16 +317,16 @@ class Ombak(BaseTuning):
 			isomorphic_note = self.remap(msg.note)
 			if not self.ignore(isomorphic_note) and not self.ignore(isomorphic_note+1):
 				if manual == 1:
-					new_msg = msg.copy(note=isomorphic_note)
-					self.thru(msg, outport, new_msg)
-					if self.pedal is True:
-						msg2 = msg.copy(note=isomorphic_note+1)
-						self.thru(msg, outport, msg2)
-				else:
 					new_msg = msg.copy(note=isomorphic_note+1)
 					self.thru(msg, outport, new_msg)
 					if self.pedal is True:
 						msg2 = msg.copy(note=isomorphic_note)
+						self.thru(msg, outport, msg2)
+				else:
+					new_msg = msg.copy(note=isomorphic_note)
+					self.thru(msg, outport, new_msg)
+					if self.pedal is True:
+						msg2 = msg.copy(note=isomorphic_note+1)
 						self.thru(msg, outport, msg2)
 		else:
 			outport.send(msg)
