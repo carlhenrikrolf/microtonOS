@@ -66,44 +66,56 @@ class Script:
 			isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
 		
 		# bottom encoders
-		change_equave, self.equave = self.encoders.change_equave(msg, self.equave)
-		if change_equave:
+		equave = self.encoders.change_equave(msg, self.equave)
+		if equave is not None:
+			self.equave = equave
 			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
 			isomorphic.send(to_isomorphic, coloring=coloring)
 		
-		mirror, self.is_left_right = self.encoders.flip_left_right(msg)
-		if mirror:
+		left_right = self.encoders.flip_left_right(msg)
+		if left_right is not None:
+			self.is_left_right = left_right
 			layout = self.layout_preset.layout(is_left_right=self.is_left_right)
 			isomorphic.send(to_isomorphic, layout=layout)
-		mirror, self.is_up_down = self.encoders.flip_up_down(msg)
-		if mirror:
+		up_down = self.encoders.flip_up_down(msg)
+		if up_down is not None:
+			self.is_up_down = up_down
 			layout = self.layout_preset.layout(is_up_down=self.is_up_down)
 			isomorphic.send(to_isomorphic, layout=layout)
 		
 		# knobs
-		transpose, self.transposition = self.encoders.transpose(msg, self.transposition, range(0,128))
-		if transpose:
+		transposition = self.encoders.transpose(msg, self.transposition)
+		if transposition is not None:
+			self.transposition = transposition
 			layout = self.layout_preset.layout(top_right=self.transposition)
 			isomorphic.send(to_isomorphic, layout=layout)
-		split, self.is_split = self.encoders.toggle_transposition(msg, self.is_split)
-		if split:
+		split = self.encoders.split(msg, self.is_split)
+		if split is not None:
+			self.is_split = split
 			layout = self.layout_preset.layout(is_split=self.is_split)
 			isomorphic.send(to_isomorphic, layout=layout)
 		
-		change_tuning, self.tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)
-		if change_tuning:
+		tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)
+		if tuning_pgm is not None:
+			self.tuning_pgm = tuning_pgm
 			self.tuning_preset = tuning_presets[self.tuning_pgm]
 			coloring = self.tuning_preset.tuning(mts, equave=self.equave)
 			isomorphic.send(to_isomorphic, coloring=coloring)
 		
-		dilate, self.dilation = self.encoders.dilate(msg, self.dilation, range(1,13))
-		reset, self.dilation = self.encoders.toggle_dilation(msg, self.tuning_preset.dilation)
-		if dilate or reset:
+		dilation = self.encoders.dilate(msg, self.dilation)
+		if dilation is not None:
+			self.dilation = dilation
+			layout = self.layout_preset.layout(dilation=self.dilation)
+			isomorphic.send(to_isomorphic, layout=layout)
+		dilation = self.encoders.reset_dilation(msg, self.tuning_preset.dilation)
+		if dilation is not None:
+			self.dilation = dilation
 			layout = self.layout_preset.layout(dilation=self.dilation)
 			isomorphic.send(to_isomorphic, layout=layout)
 		
-		change_layout, self.layout_pgm = self.encoders.layout_preset(msg, self.layout_pgm)
-		if change_layout:
+		layout_pgm = self.encoders.layout_preset(msg, self.layout_pgm)
+		if layout_pgm is not None:
+			self.layout_pgm = layout_pgm
 			self.layout_preset = layout_presets[self.layout_pgm]
 			layout = self.layout_preset.layout(dilation=self.dilation,
 				is_left_right=self.is_left_right,
@@ -150,8 +162,6 @@ class Script:
 			
 
 
-# if mts.has_ipc():
-# 	mts.reinitialize()
 to_isomorphic = Outport(client_name, name='isomorphic', verbose=False)
 to_microtonOS = Outport(client_name, name='microtonOS', verbose=False)
 mpe = MPE(outport=to_microtonOS, zone='lower', polyphony=12)
