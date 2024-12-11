@@ -68,5 +68,5 @@ from_exquis = Inport(script.exquis, client_name, name='Exquis')
 from_widi = Inport(script.widi, client_name, name='WiDi')
 from_reface_cp = Inport(script.reface_cp, client_name, name='Reface CP')
 from_mtsesp_master = Inport(script.mtsesp_master, client_name, 'MTS-ESP master')
-make_threads([from_exquis.open, from_reface_cp.open, from_mtsesp_master.open])
+make_threads([from_exquis.open, from_widi.open, from_reface_cp.open, from_mtsesp_master.open])
 

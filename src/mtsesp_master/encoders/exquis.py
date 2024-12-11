@@ -75,7 +75,7 @@ class Encoders:
 	def equave_color(self):
 		if self.equave == self.init_equave:
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, default_color))
+			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
 		elif self.equave == max(self.equave_range):
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, unavailable_color))
 			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
