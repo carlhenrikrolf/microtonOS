@@ -93,6 +93,7 @@ class BaseTuning:
 		self.middle_note = self.root_note - self.root_degree
 		self.pedal = None
 		self.is_ignored = [False]*128
+		self.backup = [[set() for _ in range(16)] for _ in range(128)]
 		
 	def remap(self, note):
 		note -= self.middle_key
@@ -159,13 +160,23 @@ class BaseTuning:
 			return self.is_ignored[note_msg] if note_msg in range(0,128) else True
 		elif note_msg is None:
 			return True
-		return False	
+		return False
+	
+	def thru(self, old_msg, outport, msg):
+		if old_msg.type == msg.type == 'note_on':
+			self.backup[old_msg.note][old_msg.channel].add((msg.note, msg.channel))
+			outport.send(msg)
+		elif old_msg.type == msg.type == 'note_off':
+			for note, channel in self.backup[old_msg.note][old_msg.channel]:
+				outport.send(msg.copy(note=note, channel=channel))
+			self.backup[old_msg.note][old_msg.channel] = set()
 
 	def halberstadtify(self, outport, msg, manual=None):
 		if hasattr(msg, 'note'):
 			isomorphic_note = self.remap(msg.note)
 			if not self.ignore(isomorphic_note):
-				outport.send(msg.copy(note=isomorphic_note))
+				new_msg = msg.copy(note=isomorphic_note)
+				self.thru(msg, outport, new_msg)
 		else:
 			outport.send(msg)
 
@@ -183,9 +194,9 @@ class BaseTuning:
 			new_pedal = True if msg.value >= 64 else False
 			if new_pedal != self.pedal:
 				if new_pedal is True:
-					self.pedal = new_pedal
+					self.pedal = True
 				elif self.pedal is not None:
-					self.pedal = new_pedal
+					self.pedal = False
 		return None
 
 
@@ -230,9 +241,11 @@ class Micro(BaseTuning):
 			isomorphic_note = self.remap(msg.note)
 			if not self.ignore(isomorphic_note):
 				if manual == 1:
-					outport.send(msg.copy(note=isomorphic_note))
+					new_msg = msg.copy(note=isomorphic_note)
+					self.thru(msg, outport, new_msg)
 				else:
-					outport.send(msg.copy(note=isomorphic_note+1))
+					new_msg = msg.copy(note=isomorphic_note+1)
+					self.thru(msg, outport, new_msg)
 		else:
 			outport.send(msg)
 
@@ -304,13 +317,17 @@ class Ombak(BaseTuning):
 			isomorphic_note = self.remap(msg.note)
 			if not self.ignore(isomorphic_note) and not self.ignore(isomorphic_note+1):
 				if manual == 1:
-					outport.send(msg.copy(note=isomorphic_note))
+					new_msg = msg.copy(note=isomorphic_note)
+					self.thru(msg, outport, new_msg)
 					if self.pedal is True:
-						outport.send(msg.copy(note=isomorphic_note+1))
+						msg2 = msg.copy(note=isomorphic_note+1)
+						self.thru(msg, outport, msg2)
 				else:
-					outport.send(msg.copy(note=isomorphic_note+1))
+					new_msg = msg.copy(note=isomorphic_note+1)
+					self.thru(msg, outport, new_msg)
 					if self.pedal is True:
-						outport.send(msg.copy(note=isomorphic_note))
+						msg2 = msg.copy(note=isomorphic_note)
+						self.thru(msg, outport, msg2)
 		else:
 			outport.send(msg)
 
