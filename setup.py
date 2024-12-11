@@ -6,8 +6,10 @@ setup(
         description='making a xenharmonic synth from a Raspberry Pi',
         packages=[*find_packages(where='src'),
 		'midi_implementation',
-		'modulation'],
+		'modulation',
+        'utils'],
         package_dir={"" : "src",
 		"midi_implementation" : "lib/midi_implementation",
-		"modulation" : "lib/modulation"},
+		"modulation" : "lib/modulation",
+        "utils": "lib/utils"},
     )

@@ -179,6 +179,14 @@ def dispatch(msg, bank=0):
 		to_tuneBfree.send(msg.copy(channel=0))
 
 
+def all_notes_off(msg):
+	if msg.is_cc(cc.all_notes_off):
+		for channel in range(0,3):
+			for note in range(0,128):
+				to_tuneBfree.send(mido.Message('note_off', note=note, channel=channel))
+				sleep(pause)
+
+
 class Script:
 	
 	def __init__(self):
@@ -207,7 +215,7 @@ class Script:
 				reverb(msg)
 				expression(msg)
 			else:
-				self.restart(msg)
+				all_notes_off(msg)
 		elif msg.type in ['aftertouch', 'polytouch']:
 			to_tuneBfree.send(leslie.translate(boost=msg.value))
 		elif hasattr(msg, 'channel'):
