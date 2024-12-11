@@ -7,19 +7,14 @@ from utils import Inport, Outport, handle_terminations
 
 client_name = 'tuneBfree Wrapper'
 pause = 0.001
-#startup = 0.3
 commandline = [
-	#'sudo',
-	#'--user',
-	#'pi',
-	'/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree',
+	'~/microtonOS/third_party/tuneBfree/build/tuneBfree',
 	'--noconfig',
 	'--config',
-	'/home/pi/microtonOS/config/tuneBfree.cfg',
+	'~/microtonOS/config/tuneBfree.cfg',
 	'--noprogram',
 	'--program',
-	'/home/pi/microtonOS/config/tuneBfree.pgm',
-	#'--dumpcc',
+	'~/microtonOS/config/tuneBfree.pgm',
 ]
 done = 'All systems go. press CTRL-C, or send SIGINT or SIGHUP to terminate'
 backup_cc = range(1,120)
@@ -194,6 +189,7 @@ class Script:
 			self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
 		self.control_to_value = [0]*128
 		self.bank = 0
+		self.program = 0
 	
 	def run(self, msg):
 		if msg.is_cc(cc.bank_select[0]):
@@ -219,6 +215,8 @@ class Script:
 			self.restart(msg)
 		else:
 			to_tuneBfree.send(msg)
+			if msg.type == 'program_change':
+				self.program = msg.program
 			
 	def restart(self, msg):
 		if msg.type == 'note_on':
@@ -227,13 +225,13 @@ class Script:
 				for note in range(0,128):
 					self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
 				self.load()
+				to_tuneBfree.send(mido.Message('program_change', program=self.program))
+				sleep(pause)
 				for control, value in enumerate(self.control_to_value):
 					if control in backup_cc:
 						self.run(mido.Message('control_change', control=control, value=value))
 						sleep(pause)
-		#elif msg.is_cc(cc.all_notes_off):
-		#	if msg.channel == 0:
-		#		self.load()
+				self.run(msg)
 				
 				
 	def load(self):

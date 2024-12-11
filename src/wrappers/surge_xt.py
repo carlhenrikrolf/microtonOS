@@ -62,7 +62,7 @@ class Script:
 			self.is_init = False
 		if msg.type == 'pitchwheel':
 			if msg.channel in range(1,15):
-				msg.pitch = round(msg.pitch/48)
+				msg.pitch = round(msg.pitch/24)
 		to_surge_xt.send(msg)
 		
 to_surge_xt = Outport(client_name, verbose=False)
