@@ -26,7 +26,13 @@ class Assign:
         self.channel = channel
         self.assigned = None
         self.control = None
-        self.d = 64
+        self.knob = 64
+        self.pedal = 0
+
+    def out(self):
+        a = (self.knob - 64) / 64
+        y = (1 - a) * 64 + a * self.pedal
+        return round(y)
 
     def onoff(self, msg, control):
         if msg.is_cc(control):
@@ -40,25 +46,36 @@ class Assign:
         if msg.type == "control_change":
             if msg.control not in self.ignored:
                 if self.assigned is False:
-                    self.control = msg.control
-                    self.d = msg.value
                     self.assigned = True
+                    self.control = msg.control
+                    self.knob = msg.value
+                    self.outport.send(
+                        mido.Message(
+                            control=self.control, value=self.out(), channel=self.channel
+                        )
+                    )
                     return True
                 elif self.assigned is True:
                     if msg.is_cc(self.control):
-                        self.d = msg.value
+                        self.knob = msg.value
+                        self.outport.send(
+                            mido.Message(
+                                control=self.control,
+                                value=self.out(),
+                                channel=self.channel,
+                            )
+                        )
                         return True
         return None
 
     def source(self, msg, control):
         if msg.is_cc(control) and self.control_change is not None:
-            coeff = (self.d - 64) / 64
-            value = round((1 - coeff) * 64 + coeff * msg.value)
+            self.pedal = msg.value
             self.outport.send(
                 mido.Message(
                     "control_change",
                     control=self.control,
-                    value=value,
+                    value=self.out(),
                     channel=self.channel,
                 )
             )

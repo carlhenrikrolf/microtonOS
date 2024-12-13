@@ -4,7 +4,7 @@ import time
 
 
 class Sine:
-    def __init__(self, outport, control, off=64, channel=0, sample_rate=16):
+    def __init__(self, outport, control, off=64, channel=0, sample_rate=32):
         self.outport = outport
         self.control = control
         self.off = off

@@ -8,13 +8,16 @@ from utils import Inport, Outport, handle_terminations
 client_name = 'tuneBfree Wrapper'
 pause = 0.001
 commandline = [
-	'~/microtonOS/third_party/tuneBfree/build/tuneBfree',
+	'/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree',
 	'--noconfig',
 	'--config',
-	'~/microtonOS/config/tuneBfree.cfg',
+	'home/pi/microtonOS/config/tuneBfree.cfg',
 	'--noprogram',
 	'--program',
-	'~/microtonOS/config/tuneBfree.pgm',
+	'/home/pi/microtonOS/config/tuneBfree.pgm',
+	'midi.driver='+'jack',
+	'midi.port='+client_name,
+	'jack.connect='+'system',
 ]
 done = 'All systems go. press CTRL-C, or send SIGINT or SIGHUP to terminate'
 backup_cc = range(1,120)
