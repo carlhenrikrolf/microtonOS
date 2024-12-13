@@ -10,7 +10,7 @@ with esp.Client() as esp_client:
 	print('MTS-ESP master', 'has' if has_ipc else 'dooes not have', 'IPC')
 	print('has' if esp.has_master(esp_client) else 'does not have', 'MTS-ESP master')
 	print(esp.get_num_clients(), 'MTS-ESP clients connected')
-	print('tuning is', scale_name)
+	print('tuning is', 'not yet set' if scale_name == "microtonOS is warming up ..." else scale_name)
 	with mido.open_input('to '+client_name, client_name=client_name) as inport:
 		for msg in inport:
 			print(msg)
