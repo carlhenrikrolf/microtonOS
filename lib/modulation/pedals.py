@@ -31,7 +31,7 @@ class Assign:
 
     def out(self):
         a = (self.knob - 64) / 64
-        y = (1 - a) * 64 + a * self.pedal
+        y = (1 - a) * 64 + a * self.pedal - 1
         return round(y)
 
     def onoff(self, msg, control):
@@ -51,6 +51,7 @@ class Assign:
                     self.knob = msg.value
                     self.outport.send(
                         mido.Message(
+                            "control_change",
                             control=self.control, value=self.out(), channel=self.channel
                         )
                     )
@@ -60,6 +61,7 @@ class Assign:
                         self.knob = msg.value
                         self.outport.send(
                             mido.Message(
+                                "control_change",
                                 control=self.control,
                                 value=self.out(),
                                 channel=self.channel,
@@ -69,7 +71,7 @@ class Assign:
         return None
 
     def source(self, msg, control):
-        if msg.is_cc(control) and self.control_change is not None:
+        if msg.is_cc(control) and self.control is not None:
             self.pedal = msg.value
             self.outport.send(
                 mido.Message(
