@@ -4,9 +4,10 @@ import time
 
 
 class Sine:
-    def __init__(self, outport, control, off=64, channel=0, sample_rate=32):
+    def __init__(self, outport, control, scaling=1.0, off=64, channel=0, sample_rate=32):
         self.outport = outport
         self.control = control
+        self.scaling = scaling
         self.off = off
         self.channel = channel
         self.sample_rate = sample_rate
@@ -15,7 +16,8 @@ class Sine:
         while True:
             if self.is_on:
                 t = time.perf_counter_ns() / 1e9
-                y = round(self.a / 2 * np.sin(self.b * t) + 64)
+                x = self.b * t / self.scaling
+                y = round(self.a / 2 * np.sin(x) + 63)
             else:
                 y = self.off
             self.outport.send(
