@@ -35,12 +35,10 @@ class Script:
         self.is_split = False
         self.different_manuals = False
         self.encoders = Encoders(
-            to_isomorphic,
+            to_microtonOS,
             equave=self.equave,
-            #transposition=self.transposition,
             n_tunings=self.n_tunings,
             tuning_pgm=self.tuning_pgm,
-            #dilation=self.dilation,
             n_layouts=self.n_layouts,
             layout_pgm=self.layout_pgm,
         )
@@ -58,7 +56,7 @@ class Script:
         )
         self.tuning_preset = tuning_presets[self.tuning_pgm]
         coloring = self.tuning_preset.tuning(esp, equave=self.equave)
-        isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
+        isomorphic.send(to_microtonOS, layout=layout, coloring=coloring)
         print("is init")
 
     def isomorphic(self, msg):
@@ -71,7 +69,7 @@ class Script:
         if self.encoders.refresh(msg) is not None:
             layout = self.layout_preset.layout()
             coloring = self.tuning_preset.tuning(esp)
-            isomorphic.send(to_isomorphic, layout=layout, coloring=coloring)
+            isomorphic.send(to_microtonOS, layout=layout, coloring=coloring)
             print("refresh")
 
         # bottom encoders
@@ -79,20 +77,20 @@ class Script:
         if equave is not None:
             self.equave = equave
             coloring = self.tuning_preset.tuning(esp, equave=self.equave)
-            isomorphic.send(to_isomorphic, coloring=coloring)
+            isomorphic.send(to_microtonOS, coloring=coloring)
             print("equave")
 
         left_right = self.encoders.flip_left_right(msg)
         if left_right is not None:
             self.is_left_right = left_right
             layout = self.layout_preset.layout(is_left_right=self.is_left_right)
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("left_right")
         up_down = self.encoders.flip_up_down(msg)
         if up_down is not None:
             self.is_up_down = up_down
             layout = self.layout_preset.layout(is_up_down=self.is_up_down)
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("up_down")
 
         # knobs
@@ -100,12 +98,12 @@ class Script:
         if transposition is not None:
             self.transposition = transposition
             layout = self.layout_preset.layout(top_right=self.transposition)
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("transpose")
         reset_keyswitches = self.encoders.reset_keyswitches(msg)
         if reset_keyswitches is not None:
             coloring = self.tuning_preset.reset()
-            isomorphic.send(to_isomorphic, coloring=coloring)
+            isomorphic.send(to_microtonOS, coloring=coloring)
             print("reset keyswitches")
 
         tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)
@@ -113,7 +111,7 @@ class Script:
             self.tuning_pgm = tuning_pgm
             self.tuning_preset = tuning_presets[self.tuning_pgm]
             coloring = self.tuning_preset.tuning(esp, equave=self.equave)
-            isomorphic.send(to_isomorphic, coloring=coloring)
+            isomorphic.send(to_microtonOS, coloring=coloring)
             print("tuning pgm")
         different_manuals = self.encoders.differentiate_manuals(
             msg, self.different_manuals
@@ -126,13 +124,13 @@ class Script:
         if dilation is not None:
             self.dilation = dilation
             layout = self.layout_preset.layout(dilation=self.dilation)
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("dilation")
         dilation = self.encoders.reset_dilation(msg, self.tuning_preset.dilation)
         if dilation is not None:
             self.dilation = dilation
             layout = self.layout_preset.layout(dilation=self.dilation)
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("reset dilation")
 
         layout_pgm = self.encoders.layout_preset(msg, self.layout_pgm)
@@ -146,13 +144,13 @@ class Script:
                 top_right=self.transposition,
                 is_split=self.is_split,
             )
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("layout pgm")
         split = self.encoders.split(msg, self.is_split)
         if split is not None:
             self.is_split = split
             layout = self.layout_preset.layout(is_split=self.is_split)
-            isomorphic.send(to_isomorphic, layout=layout)
+            isomorphic.send(to_microtonOS, layout=layout)
             print("split")
 
         # notes
@@ -182,7 +180,7 @@ class Script:
         else:
             to_microtonOS.send(msg)
         if coloring is not None:
-            isomorphic.send(to_isomorphic, coloring=coloring)
+            isomorphic.send(to_microtonOS, coloring=coloring)
 
     def manual2(self, msg):
         if self.is_init:
@@ -193,10 +191,9 @@ class Script:
         self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=2)
 
 
-to_isomorphic = Outport(client_name, name="isomorphic", verbose=False)
-to_microtonOS = Outport(client_name, name="microtonOS", verbose=False)
+to_microtonOS = Outport(client_name, verbose=False)
 mpe = MPE(outport=to_microtonOS, zone="lower", polyphony=12)
-active_sensing = ActiveSensing(to_isomorphic)
+active_sensing = ActiveSensing(to_microtonOS)
 script = Script()
 from_isomorphic = Inport(
     script.isomorphic, client_name, name="isomorphic", verbose=False

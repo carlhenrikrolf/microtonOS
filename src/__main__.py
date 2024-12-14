@@ -79,7 +79,7 @@ class Script:
 
 to_exquis = Outport(client_name, name="Exquis")
 to_reface_cp = Outport(client_name, name="Reface CP")
-to_widi = Outport(client_name, "WiDi")
+to_widi = Outport(client_name, "widi")
 to_isomorphic = Outport(client_name, name="Isomorphic")
 to_halberstadt = Outport(client_name, name="Halberstadt")
 to_manual2 = Outport(client_name, name="Manual 2")
@@ -91,7 +91,7 @@ assign = Assign(to_halberstadt)
 sounds = Sounds(to_exquis)
 script = Script()
 from_exquis = Inport(script.exquis, client_name, name="Exquis")
-from_widi = Inport(script.widi, client_name, name="WiDi")
+from_widi = Inport(script.widi, client_name, name="widi")
 from_reface_cp = Inport(script.reface_cp, client_name, name="Reface CP")
 from_mtsesp_master = Inport(script.mtsesp_master, client_name, "MTS-ESP master")
 make_threads(

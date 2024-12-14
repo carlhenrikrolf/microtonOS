@@ -1,12 +1,12 @@
 [Unit]
-Description=Start WiDi wrapper
+Description=Start widi driver
 After=graphical.target
 
 [Service]
 User=root
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/widi.py
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/drivers/widi.py
 Restart=on-failure
 RestartSec=2s
 KillMode=control-group
