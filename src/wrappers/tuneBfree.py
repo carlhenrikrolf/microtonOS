@@ -15,9 +15,9 @@ commandline = [
     "--noprogram",
     "--program",
     "/home/pi/microtonOS/config/tuneBfree.pgm",
-    "midi.driver=" + "jack",
-    "midi.port=" + client_name,
-    "jack.connect=" + "system",
+    #"midi.driver=" + "jack",
+    #"midi.port=" + "''", #+ client_name,
+    #"jack.connect=" + "''", # "system",
 ]
 done = "All systems go. press CTRL-C, or send SIGINT or SIGHUP to terminate"
 backup_cc = range(1, 120)

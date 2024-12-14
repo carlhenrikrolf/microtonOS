@@ -2,7 +2,6 @@
 	microtonOS.
 """
 
-from colour import Color
 import mido
 from menu import Sounds
 from utils import Inport, Outport, make_threads

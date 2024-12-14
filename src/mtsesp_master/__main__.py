@@ -37,10 +37,10 @@ class Script:
         self.encoders = Encoders(
             to_isomorphic,
             equave=self.equave,
-            transposition=self.transposition,
+            #transposition=self.transposition,
             n_tunings=self.n_tunings,
             tuning_pgm=self.tuning_pgm,
-            dilation=self.dilation,
+            #dilation=self.dilation,
             n_layouts=self.n_layouts,
             layout_pgm=self.layout_pgm,
         )
@@ -104,7 +104,8 @@ class Script:
             print("transpose")
         reset_keyswitches = self.encoders.reset_keyswitches(msg)
         if reset_keyswitches is not None:
-            self.tuning_preset.reset()
+            coloring = self.tuning_preset.reset()
+            isomorphic.send(to_isomorphic, coloring=coloring)
             print("reset keyswitches")
 
         tuning_pgm = self.encoders.tuning_preset(msg, self.tuning_pgm)

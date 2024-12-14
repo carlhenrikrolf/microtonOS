@@ -20,56 +20,56 @@ class Encoders:
 		outport,
 		equave=0,
 		equave_range=range(-2,3),
-		transposition=69,
+		#transposition=69,
 		n_tunings=24,
 		tuning_pgm=0,
-		dilation=3,
+		#dilation=3,
 		n_layouts=4,
 		layout_pgm=0,
 	):
 			
 		self.outport = outport
 		self.equave_range = equave_range
-		self.init_equave = self.equave = equave
+		self.init_equave = equave
+		self.equave = equave
 		self.n_tunings = n_tunings
-		self.init_tuning_pgm = self.tuning_pgm = tuning_pgm
+		self.init_tuning_pgm = tuning_pgm
+		self.tuning_pgm = tuning_pgm
 		self.n_layouts = n_layouts
-		self.init_layout_pgm = self.layout_pgm = layout_pgm
-		self.init_transposition = self.transposition = transposition
-		self.init_dilation = self.dilation = dilation
+		self.init_layout_pgm = layout_pgm
+		self.layout_pgm = layout_pgm
+		#self.init_transposition = self.transposition = transposition
+		#self.init_dilation = self.dilation = dilation
 		
 		self.is_left_right = False
 		self.is_up_down = False
-		self.transposition_is_toggled = False
-		self.dilation_is_toggled = False
-		self.default_color = default_color
-		
+		#self.transposition_is_toggled = False
+		#self.dilation_is_toggled = False
+		self.default_color = default_color		
 		
 	def reset(self):
-		"""
-			Resets the LEDs on buttons on Exquis.
-			Resets some saved values in this class.
-		"""
-		if self.init_equave in self.equave_range:
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
-			xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
-		else:
-			raise Warning('Initial end-point octaves not yet implemented.')
-		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, self.default_color))
-		xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, self.default_color))
-		tuning_code = color_coding(self.init_tuning_pgm)
-		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, tuning_code[0]))
-		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, tuning_code[1]))
-		layout_code = color_coding(self.init_layout_pgm)
-		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, layout_code[0]))
-		xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, layout_code[1]))
+		# if self.init_equave in self.equave_range:
+		# 	xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_up, self.default_color))
+		# 	xq.send(self.outport, xq.sysex(xq.color_button, xq.octave_down, self.default_color))
+		# else:
+		# 	raise Warning('Initial end-point octaves not yet implemented.')
+		# xq.send(self.outport, xq.sysex(xq.color_button, xq.page_right, self.default_color))
+		# xq.send(self.outport, xq.sysex(xq.color_button, xq.page_left, self.default_color))
+		# tuning_code = color_coding(self.init_tuning_pgm)
+		# xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob1, tuning_code[0]))
+		# xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, tuning_code[1]))
+		# layout_code = color_coding(self.init_layout_pgm)
+		# xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob3, layout_code[0]))
+		# xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob4, layout_code[1]))
 		
 		self.is_left_right = False
 		self.is_up_down = False
-		self.transposition_is_toggled = False
-		self.dilation_is_toggled = False
-		self.transposition = self.init_transposition
-		self.dilation = self.init_dilation
+		self.equave = self.init_equave#self.transposition_is_toggled = False
+		#self.dilation_is_toggled = False
+		#self.transposition = self.init_transposition
+		#self.dilation = self.init_dilation
+
+		self.recolor()
 		
 	
 	def equave_color(self):
@@ -184,12 +184,12 @@ class Encoders:
 		
 	def dilate(self, msg, dilation, dilation_range=range(1,13)):
 		if xq.is_sysex(msg, [xq.clockwise, xq.knob3, None]):
-			self.dilation = dilation+1 if dilation+1 in dilation_range else dilation
+			dilation = dilation+1 if dilation+1 in dilation_range else dilation
 		elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob3, None]):
-			self.dilation = dilation-1 if dilation-1 in dilation_range else dilation
+			dilation = dilation-1 if dilation-1 in dilation_range else dilation
 		else:
 			return None
-		return self.dilation
+		return dilation
 		
 		
 	def reset_dilation(self, msg, min3rd):

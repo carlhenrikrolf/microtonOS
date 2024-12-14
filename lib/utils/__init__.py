@@ -14,13 +14,11 @@ class Warmup:
             esp.reinitialize()
 
     def client(self):
-        pass # for _ in range(300):
-            # with esp.Client() as c:
-                # n = esp.get_scale_name(c)
-            # if n == self.message:
-                # break
-            # else:
-                # time.sleep(1)
+        for _ in range(60):
+            if esp.can_register_master():
+                time.sleep(1)
+            else:
+                break
                 
 warmup = Warmup()
 
