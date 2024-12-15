@@ -232,13 +232,13 @@ class BaseTuning:
 
 class Default(BaseTuning):
     white_keys = "black"
-    black_keys = "orange"
+    black_keys = "darkorange"
     split_keys = "black"
 
 
 class Macro(BaseTuning):
-    even_white_keys = "green"
-    even_black_keys = "orange"
+    even_white_keys = "red"
+    even_black_keys = "darkorange"
     odd_keys = "black"
 
     def get_colors(self):
@@ -263,8 +263,8 @@ class Macro(BaseTuning):
 
 
 class Micro(BaseTuning):
-    white_keys = "orange"
-    black_keys = "red"
+    white_keys = "red"
+    black_keys = "darkorange"
     split_keys = "black"
 
     def halberstadtify(self, outport, msg, manual=1):
@@ -317,7 +317,7 @@ class Micro(BaseTuning):
 
 class Ombak(BaseTuning):
     white_keys = "green"
-    black_keys = "cyan"
+    black_keys = "yellow"
     split_keys = "black"
 
     def get_frequencies(self):
@@ -367,24 +367,24 @@ class Ombak(BaseTuning):
 
 
 class Streched(Macro):
-    even_white_keys = "magenta"
-    even_black_keys = "red"
+    even_white_keys = "indigo"
+    even_black_keys = "magenta"
     odd_keys = "black"
 
 
 class Compressed(Micro):
-    white_keys = "magenta"
-    black_keys = "red"
+    white_keys = "indigo"
+    black_keys = "magenta"
     split_keys = "black"
 
 
 class Uneven(Macro):
-    even_white_keys = "purple"
-    even_black_keys = "navy"
+    even_white_keys = "midnightblue"
+    even_black_keys = "cyan"
     odd_keys = "black"
 
 
 class Subset(Micro):
-    white_keys = "purple"
-    black_keys = "navy"
+    white_keys = "midnightblue"
+    black_keys = "cyan"
     split_keys = "black"
