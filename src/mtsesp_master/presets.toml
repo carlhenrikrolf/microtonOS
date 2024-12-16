@@ -1,0 +1,11 @@
+[[layouts]]
+template = "exquis"
+init = true
+
+[[layouts]]
+template = "harmonic table"
+
+
+[[tunings]]
+template = "default"
+init = true

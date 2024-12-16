@@ -1,0 +1,13 @@
+[Unit]
+Description=Start the Reface CP driver
+After=graphical.target
+
+[Service]
+User=pi
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/drivers/reface_cp.py
+Restart=on-failure
+RestartSec=2s
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target

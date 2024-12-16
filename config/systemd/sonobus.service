@@ -1,15 +1,13 @@
 [Unit]
-Description=Start Pianoteq STAGE
+Description=Start Sonobus
 After=graphical.target
+Requires=qjackctl.service
 
 [Service]
 User=pi
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/pi/.Xauthority
 ExecStart=/usr/bin/sonobus --group=microtonOS --username=pi --load-setup=/home/pi/microtonOS/config/setup.sonobus --headless
-Restart=on-failure
+Restart=always
 RestartSec=2s
-KillMode=control-group
 TimeoutSec=infinity
 
 [Install]

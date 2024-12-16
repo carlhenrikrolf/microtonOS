@@ -4,12 +4,9 @@ After=graphical.target
 
 [Service]
 User=pi
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/pi/.Xauthority
 ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/mtsesp_master
 Restart=on-failure
 RestartSec=2s
-KillMode=control-group
 TimeoutSec=infinity
 
 [Install]

@@ -15,8 +15,8 @@ commandline = [
     "--noprogram",
     "--program",
     "/home/pi/microtonOS/config/tuneBfree.pgm",
-    #"midi.driver=" + "jack",
-    #"midi.port=" + "''", #+ client_name,
+    "midi.driver=" + "alsa",
+    #"midi.port=" + client_name,
     #"jack.connect=" + "''", # "system",
 ]
 done = "All systems go. press CTRL-C, or send SIGINT or SIGHUP to terminate"

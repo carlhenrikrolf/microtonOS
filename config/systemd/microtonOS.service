@@ -1,15 +1,12 @@
 [Unit]
-Description=Start microtonOS
+Description=Start the microtonOS hub
 After=graphical.target
 
 [Service]
 User=pi
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src
 Restart=on-failure
 RestartSec=2s
-KillMode=control-group
 TimeoutSec=infinity
 
 [Install]

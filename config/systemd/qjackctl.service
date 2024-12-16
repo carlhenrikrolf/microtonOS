@@ -1,0 +1,15 @@
+[Unit]
+Description=Start Qjackctl
+After=graphical.target
+
+[Service]
+User=pi
+ExecStartPre=chmod 0700 /run/user/1000/
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/qjackctl --start --active-patchbay /home/pi/microtonOS/config/qjackctl.xml
+Restart=always
+RestartSec=2s
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target
