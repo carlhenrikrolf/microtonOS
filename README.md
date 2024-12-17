@@ -29,6 +29,7 @@ I use a Raspberry Pi 5 8GB RAM together with:
 
 **Cables and adapters.**
 USB, TRS, and RCA adapters and cables are all necessary.
+I'm using a CME WIDI Master adapter for MIDI over bluetooth.
 DIN-5 for midi can be useful.
 
 **Software.**
@@ -39,15 +40,11 @@ Virtual instruments include:
 - Modartt Pianoteq 8 STAGE
 - Surge XT
 
-Necessary KX Studio software is:
-- Cadence
-- Claudia
+Background programs include:
+- Qjackctl and a2jmidid (for routing MIDI and audio)
+- Blueman (for MIDI bluetooth connectivity)
+- MTS-ESP (for tuning)
 
-For connectivity I use:
-- Blueman
-- Sonobus
-
-The MTS-ESP shared object is necessary for tuning.
 
 ## Installation
 Burn the SD card with the Raspberry Pi OS.
@@ -81,12 +78,20 @@ pip3 install . --use-pep517
 
 To set up the HifiBerry soundcard, copy these configuration files.
 ```bash
-sudo cp config/config.txt /boot/firmware/config.txt
-sudo cp config/asound.conf /etc/
+sudo cp config/firmware/config.txt /boot/firmware/config.txt
+sudo cp config/etc/asound.conf /etc/
 ```
 Note that `config.txt` will be overwritten.
 Reboot for the changes to take effect.
 When using an audio application a red LED should be lit on the HifiBerry soundcard.
+
+Install tools for connecting audio.
+```bash
+sudo apt install qjackctl a2jmidid blueman
+```
+Run `qjackctl` to set it up for the soundcard.
+For the HifiBerry soundcard, the configuration file can be found in `config/rncbc.org/QjackCtl.conf`.
+To use MIDI over bluetooth, start blueman and search for devices.
 
 Install MTS-ESP.
 ```bash
@@ -109,28 +114,25 @@ Install tuneBfree.
 tuneBfree is found under `third_party/`.
 Follow the instruction in the README.
 The exception is that you should should not add libjack-dev.
-It should be libjack-jackd2-dev instead.
+It should be libjack-jackd2-dev instead, i.e.,
+```bash
+sudo apt install libjack-jackd2-dev libopengl-dev libglu1-mesa-dev libftgl-dev libwebp-dev xxd
+make --directory=third_party/tuneBfree/
+```
+
+Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
+You may have to apply an apt fix install command.
+At the time of writing, the you could install it with
+```bash
+echo 'deb http://download.opensuse.org/repositories/home:/surge-synth-team/Raspbian_12/ /' | sudo tee /etc/apt/sources.list.d/home:surge-synth-team.list
+curl -fsSL https://download.opensuse.org/repositories/home:surge-synth-team/Raspbian_12/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_surge-synth-team.gpg > /dev/null
+sudo apt update
+sudo apt install surge-xt-release
+```
 
 Download Pianoteq (from user area if you have a license).
 Extract into `/home/pi/`; `/home/pi/Pianoteq <version>/` should be created.
 To add `.ptq` files, go into `.local/share/Modartt/Addons` and add them there.
-
-Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
-You may have to apply an apt fix install command.
-
-Follow the [instructions](https://kx.studio/Repositories) to install KS Studio.
-Then you should see more software in *Add / Remove Software*.
-Add Cadence.
-Make sure that Claudia and Cadence have been installed.
-If Claudia is not installed, add it specifically.
-In Cadence, in configure, set buffer size 128 and make sure there are 2 inputs and 2 outputs.
-Make sure Hifiberry is input device and MIDI should be None.
-Also, auto-start JACK or LADISH at login
-
-Install Blueman (available in *Add / Remove Software* in the main menu)
-and connect to any applicable Bluetooth midi devices or dongles.
-
-Install Sonobus [for Debian](https://sonobus.net/linux.html).
 
 
 ## Isomorphic Layouts
