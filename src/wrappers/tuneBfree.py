@@ -15,7 +15,7 @@ commandline = [
     "--noprogram",
     "--program",
     "/home/pi/microtonOS/config/tuneBfree.pgm",
-    "midi.driver=" + "alsa",
+    #"midi.driver=" + "alsa",
     #"midi.port=" + client_name,
     #"jack.connect=" + "''", # "system",
 ]

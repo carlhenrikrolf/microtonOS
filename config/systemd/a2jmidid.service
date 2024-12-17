@@ -1,0 +1,14 @@
+[Unit]
+Description=Start ALSA to JACK MIDI daemon (a2jmidid)
+After=graphical.target
+Requires=qjackctl.service
+
+[Service]
+User=pi
+ExecStart=/usr/bin/a2jmidid
+Restart=always
+RestartSec=2s
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target
