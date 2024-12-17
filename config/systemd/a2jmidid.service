@@ -5,7 +5,7 @@ Requires=qjackctl.service
 
 [Service]
 User=pi
-ExecStart=/usr/bin/a2jmidid
+ExecStart=/usr/bin/a2jmidid -u
 Restart=always
 RestartSec=2s
 TimeoutSec=infinity
