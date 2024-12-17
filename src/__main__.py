@@ -56,7 +56,7 @@ class Script:
 
     def widi(self, msg):
         assigned_to_pedal = assign.target(msg)
-        if assigned_to_pedal is not None:
+        if assigned_to_pedal is None:
             to_manual2.send(msg)
 
     def reface_cp(self, msg):

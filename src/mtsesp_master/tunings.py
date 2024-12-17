@@ -191,13 +191,14 @@ class BaseTuning:
         return False
 
     def thru(self, old_msg, outport, msg):
-        if old_msg.type == msg.type == "note_on":
-            self.backup[old_msg.note][old_msg.channel].add((msg.note, msg.channel))
-            outport.send(msg)
-        elif old_msg.type == msg.type == "note_off":
-            for note, channel in self.backup[old_msg.note][old_msg.channel]:
-                outport.send(msg.copy(note=note, channel=channel))
-            self.backup[old_msg.note][old_msg.channel] = set()
+        if old_msg.type == msg.type in ["note_on", "note_off"]:
+            if msg.type == "note_on" and msg.velocity > 0:
+                self.backup[old_msg.note][old_msg.channel].add((msg.note, msg.channel))
+                outport.send(msg)
+            else:
+                for note, channel in self.backup[old_msg.note][old_msg.channel]:
+                    outport.send(msg.copy(note=note, channel=channel))
+                self.backup[old_msg.note][old_msg.channel] = set()
 
     def halberstadtify(self, outport, msg, manual=None):
         if hasattr(msg, "note"):
