@@ -190,22 +190,26 @@ class BaseTuning:
             return True
         return False
 
-    def thru(self, old_msg, outport, msg):
+    def thru(self, old_msg, outport, msg, highlight=None):
         if old_msg.type == msg.type in ["note_on", "note_off"]:
             if msg.type == "note_on" and msg.velocity > 0:
                 self.backup[old_msg.note][old_msg.channel].add((msg.note, msg.channel))
                 outport.send(msg)
+                if highlight is not None:
+                    highlight(outport, msg)
             else:
                 for note, channel in self.backup[old_msg.note][old_msg.channel]:
                     outport.send(msg.copy(note=note, channel=channel))
+                    if highlight is not None:
+                        highlight(outport, msg)
                 self.backup[old_msg.note][old_msg.channel] = set()
 
-    def halberstadtify(self, outport, msg, manual=None):
+    def halberstadtify(self, outport, msg, manual=None, highlight=None):
         if hasattr(msg, "note"):
             isomorphic_note = self.remap(msg.note)
             if not self.ignore(isomorphic_note):
                 new_msg = msg.copy(note=isomorphic_note)
-                self.thru(msg, outport, new_msg)
+                self.thru(msg, outport, new_msg, highlight=highlight)
         else:
             outport.send(msg)
 
@@ -216,8 +220,8 @@ class BaseTuning:
         colors = self.get_colors()
         return colors
 
-    def keyswitches(self, outport, msg, manual=1):
-        _ = self.halberstadtify(outport, msg, manual=manual)
+    def keyswitches(self, outport, msg, manual=1, highlight=None):
+        _ = self.halberstadtify(outport, msg, manual=manual, highlight=highlight)
         return None
 
     def footswitch(self, msg):
@@ -268,20 +272,20 @@ class Micro(BaseTuning):
     black_keys = "darkorange"
     split_keys = "black"
 
-    def halberstadtify(self, outport, msg, manual=1):
+    def halberstadtify(self, outport, msg, manual=1, highlight=None):
         if hasattr(msg, "note"):
             isomorphic_note = self.remap(msg.note)
             if not self.ignore(isomorphic_note):
                 if manual == 1:
                     new_msg = msg.copy(note=isomorphic_note)
-                    self.thru(msg, outport, new_msg)
+                    self.thru(msg, outport, new_msg, highlight=highlight)
                 else:
                     new_msg = msg.copy(note=isomorphic_note - 1)
-                    self.thru(msg, outport, new_msg)
+                    self.thru(msg, outport, new_msg, highlight=highlight)
         else:
             outport.send(msg)
 
-    def keyswitches(self, outport, msg, manual=1):
+    def keyswitches(self, outport, msg, manual=1, highlight=None):
         if msg.type == "note_on":
             key = (
                 msg.note - tone_to_int.index(self.boundary_tone)
@@ -345,7 +349,7 @@ class Ombak(BaseTuning):
                 self.is_ignored[i] = False
         return result.tolist()
 
-    def halberstadtify(self, outport, msg, manual=1):
+    def halberstadtify(self, outport, msg, manual=1, highlight=None):
         if hasattr(msg, "note"):
             isomorphic_note = self.remap(msg.note)
             if not self.ignore(isomorphic_note) and not self.ignore(
@@ -353,16 +357,16 @@ class Ombak(BaseTuning):
             ):
                 if manual == 1:
                     new_msg = msg.copy(note=isomorphic_note + 1)
-                    self.thru(msg, outport, new_msg)
+                    self.thru(msg, outport, new_msg, highlight=highlight)
                     if self.pedal is True:
                         msg2 = msg.copy(note=isomorphic_note)
-                        self.thru(msg, outport, msg2)
+                        self.thru(msg, outport, msg2, highlight=highlight)
                 else:
                     new_msg = msg.copy(note=isomorphic_note)
-                    self.thru(msg, outport, new_msg)
+                    self.thru(msg, outport, new_msg, highlight=highlight)
                     if self.pedal is True:
                         msg2 = msg.copy(note=isomorphic_note + 1)
-                        self.thru(msg, outport, msg2)
+                        self.thru(msg, outport, msg2, highlight=highlight)
         else:
             outport.send(msg)
 

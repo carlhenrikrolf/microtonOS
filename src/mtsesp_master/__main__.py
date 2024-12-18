@@ -157,6 +157,7 @@ class Script:
         if not isomorphic.ignore(msg):  # filter null note (e.g. splitting line)
             if not self.tuning_preset.ignore(msg):  # filter nonpositive frequencies
                 mpe.dispatch(msg)
+                isomorphic.highlight(to_microtonOS, msg)
                 print("note from xq")
 
     def halberstadt(self, msg):
@@ -171,11 +172,11 @@ class Script:
         elif hasattr(msg, "note"):
             if msg.note < 12 * 3:
                 coloring = self.tuning_preset.keyswitches(
-                    to_microtonOS, msg, manual=1 if self.different_manuals else 2
+                    to_microtonOS, msg, manual=1 if self.different_manuals else 2, highlight=isomorphic.highlight
                 )
             else:
                 self.tuning_preset.halberstadtify(
-                    to_microtonOS, msg, manual=1 if self.different_manuals else 2
+                    to_microtonOS, msg, manual=1 if self.different_manuals else 2, highlight=isomorphic.highlight
                 )
         else:
             to_microtonOS.send(msg)
@@ -188,7 +189,7 @@ class Script:
 
         if hasattr(msg, "channel"):
             msg.channel = 14 if is_polyexpression(msg) else 15
-        self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=2)
+        self.tuning_preset.halberstadtify(to_microtonOS, msg, manual=2, highlight=isomorphic.highlight)
 
 
 to_microtonOS = Outport(client_name, verbose=False)

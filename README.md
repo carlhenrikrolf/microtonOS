@@ -172,13 +172,13 @@ The bandoneón typically uses a non-isomorphic layout that is different between 
 ![Wicki--Hayden](resources/wicki-hayden_tilted.svg)
 
 Calculations.
-*$f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
+$f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
 else $f_3(d)= \max(i)$ such that $i\in\mathbf{N}$, $i\mod 2 > 0$, and $1 \leq i < \frac{d}{3})$.
 $\mathrm{round}(x)$ rounds $x$ to the nearest integer and $x \mod y > 0$ if and only if $x$ is not divisible by $y$.
 It is easiest to break this down into two cases.
 If $d$ is not divisible by $3$, $f_3(d)$ is the integer nearest the fraction $d/3$.
 Otherwise, it is the largest odd integer less than $d/3$.
-For example, if you want to use $d=6$ for 24edo and you use $\mathrm{round}(d/3)$ instead (as in the first case), the layout will only use half of the tones and be equivalent to 12edo.*
+For example, if you want to use $d=6$ for 24edo and you use $\mathrm{round}(d/3)$ instead (as in the first case), the layout will only use half of the tones and be equivalent to 12edo.
 
 ⚫🟡 **Jankó.**
 Bosanquet--Wilson layouts.
