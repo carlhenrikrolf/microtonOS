@@ -171,7 +171,7 @@ The bandoneón typically uses a non-isomorphic layout that is different between 
 
 ![Wicki--Hayden](resources/wicki-hayden_tilted.svg)
 
-Calculations.
+*Calculations.*
 $f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
 else $f_3(d)= \max(i)$ such that $i\in\mathbf{N}$, $i\mod 2 > 0$, and $1 \leq i < \frac{d}{3})$.
 $\mathrm{round}(x)$ rounds $x$ to the nearest integer and $x \mod y > 0$ if and only if $x$ is not divisible by $y$.
@@ -208,70 +208,41 @@ so are their splitting lines.
 
 
 ## Tunings
-By default, the top note is concert A (440 Hz), but this can be changed according to step size.
-Equally divided octave (also known as equal temperament) is abbreviated as edo.
-Other intervals can alse be equally divided.
-The tuning presets are assigned to four different classes:
-(1) Default contains 12edo and white keys on the piano correspond to white lights on the Exquis.
-(2) Microtonal contains equal-step tunings with a step size smaller than one semitone (100 cents).
-White keys on the piano have red light, black keys have yellow light.
-(3) Macrotonal contains equal-step tunings with a step size larger than one semitone.
-White keys on the piano have green light, black keys have cyan light.
-Only every other octave (or other period) is lit.
-(4) Unequal contains tunings with non-equal step sizes.
-White keys on the piano have magenta light, black keys have blue light.
-If the step size is larger than one semitone, only every other period is lit.
 
-
-<b>5edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Used in [Bantu traditional music](learn/bantu.md) (e.g. in Ugandan music) and [Indonesian classical music](learn/indonesian.md).
-
-<b>7edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Used in [Bantu traditional music](learn/bantu.md) (e.g. in Zimbabwean music).
-
-<b>13ed3 (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Bohlen--Pierce scale.
-Used in experimental music.
-
-<b>9edo (<font color="green">macro</font><font color="cyan">tonal</font>).</b>
-Approximates [Indonesian classical music](learn/indonesian.md).
-
-<b>Pythagorean (<font color="magenta">un</font><font color="blue">equal</font>).</b>
-Ancient tuning that seems to have been discovered independently by different cultures.
-Some intervals sound really consonant, but the problem is that others sound very dissonant.
-That is the problem that equal step tunings solve.
-See [just intonation](learn/just_intonation.md).
-
-**12edo (default).** Used in contemporary music.
+🔴⚫ **12edo (default).** Used in contemporary music.
 Was independently discovered in [Europe](learn/european.md) and [China](learn/east_asian.md).
 Used in [American urban music](learn/american.md).
 Used in [Romani traditional music](learn/romani.md).
 Approximates [Ethiopian classical music](learn/ethiopian.md).
 
+### Microtonal
 
-<b>9ed3/2 (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🔴🔴 **15edo.**
+
+🔴🟠 **9ed3/2 (octaveless).**
 Wendy Carlos's Alpha Scale. Can also be used to approximate maqam saba in [Arabic music](learn/arabic.md).
 
-<b>17edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🔴🟡 **17edo.**
 Approximates [Iranian classical music](learn/iranian.md).
 
-<b>9edo-ombak (<font color="magenta">un</font><font color="blue">equal</font>).</b>
-An 18-note superset of 9edo.
-When ascending every other note is 10 Hz lower than the next resulting in stretched octave.
-Used in [Indonesian classical music](learn/indonesian.md) as an alternative to 9edo.
+🔴🟢 **41edo (18-note subset).**
 
-<b>19edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🔴🔵 **64cent steps (octaveless).**
+
+🔴🟣 **19edo.**
 Approximates 1/3 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
 The minor and major third closely approximates their justly tuned counterparts, but the cost is that the fifth is not close to its justly tuned counterpart.
 
-<b>Partial 48edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
+🔴⚪ **48edo (19-note subset).**
 A 19-note subset of 48edo.
 Used in contemporary [Turkish music](learn/turkish.md).
 
-<b>22edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🟠⚫ **21edo.**
+
+🟠🔴 **22edo.**
 Used in experimental music.
 
-<b>Partial 53edo (<font color="magenta">un</font><font color="blue">equal</font>).</b>
+🟠🟠 **53edo (22-note subset).**
 A 22-note subset of 53edo.
 Approximates [Indian classical music](learn/indian.md) well---in particular, its 22 shrutis.
 Used in [Turkish classical music](learn/turkish.md).
@@ -279,12 +250,45 @@ After to 12edo, it is the tuning that can approximate the largest number of trad
 [West-Sahelian classical music](learn/west_sahelian.md) and
 [East-Asian classical music](learn/east_asian.md).
 
-<b>24edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🟠🟡 **24edo.**
 Used in contemporary [Arabic music](learn/arabic.md).
 
-<b>29edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🟠🟢 **29edo.**
 Approximates [Arabic classical music](learn/arabic.md).
 
-<b>31edo (<font color="red">micro</font><font color="yellow">tonal</font>).</b>
+🟠🔵 **31edo.**
 Approximates 1/4 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
 Closely approximates the harmonic seventh (the seventh harmonic in just intonation).
+
+🟠🟣 **34edo.**
+
+🟠⚪ **36edo.**
+
+### Macrotonal or Unequally Divided
+
+⚫⚪ **Pythagorean (uneven).**
+Ancient tuning that seems to have been discovered independently by different cultures.
+Some intervals sound really consonant, but the problem is that others sound very dissonant.
+That is the problem that equal step tunings solve.
+See [just intonation](learn/just_intonation.md).
+
+⚫🟣 **12edo (ombak).**
+
+⚫🔵 **9edo (ombak).**
+An 18-note superset of 9edo.
+When ascending every other note is 10 Hz lower than the next resulting in stretched octave.
+Used in [Indonesian classical music](learn/indonesian.md) as an alternative to 9edo.
+
+⚫🟢 **13ed3 (octaveless).**
+Bohlen--Pierce scale.
+Used in experimental music.
+
+⚫🟡 **43Hz steps (uneven).**
+
+⚫🟠 **7edo.**
+Used in [Bantu traditional music](learn/bantu.md) (e.g. in Zimbabwean music).
+
+⚫🔴 **Just 7-tone scale (uneven).**
+
+⚫⚫ **5edo (ombak).**
+Used in [Bantu traditional music](learn/bantu.md) (e.g. in Ugandan music) and [Indonesian classical music](learn/indonesian.md).

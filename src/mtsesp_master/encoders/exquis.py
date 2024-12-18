@@ -10,15 +10,15 @@ click_color = xq.led("white")
 unavailable_color = xq.led("black")
 
 
-def color_coding(number):
+def color_coding(number): # ⚫🔴🟠🟡🟢🔵🟣⚪
     digits = [
         xq.led("black"),
-        xq.led("magenta"),
-        xq.led("blue"),
-        xq.led("cyan"),
-        xq.led("lime"),
-        xq.led("yellow"),
         xq.led("red"),
+        xq.led("darkorange"),
+        xq.led("yellow"),
+        xq.led("green"),
+        xq.led("blue"),
+        xq.led("magenta"),
         xq.led("white"),
     ]
     return [digits[number // 8], digits[number % 8]]
