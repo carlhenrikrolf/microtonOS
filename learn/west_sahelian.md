@@ -31,3 +31,5 @@ Harald Loquenz. 1997. *The Art of the Kora*. *[Strings and Modes](https://web.ar
 John Hughes. *[The Kora](https://web.archive.org/web/20241125153630/https://www.johnhughesarts.com/johnhughesmusic/The_Kora.html)*.
 
 Ramon Daniel Perez Martinez, Roderic Knight, Verna Gillis. *Kora Music from the Gambia Played by Foday Musa Suso*. Folkways Records.
+
+Xavier Barois. *[Le Balafon](https://web.archive.org/web/20241218200921/http://inouiwebdoc.fr/pages/data/pdf/Le%20balafon%20-%20Xavier%20Barois.pdf)*.

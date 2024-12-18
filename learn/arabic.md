@@ -28,5 +28,4 @@
 |maqam saba | 2, 4, 5, 9, 10, 13, 14, 18, 19 |
 
 ## References
-- Johnny Farraj, Sami Abu Shumeys, *Inside Arabic Music*.
-- Maya Youssef (on YouTube)
+Johnny Farraj and Sami Abu Shumeys. *Inside Arabic Music*.

@@ -284,6 +284,7 @@ Bohlen--Pierce scale.
 Used in experimental music.
 
 ⚫🟡 **43Hz steps (uneven).**
+Used in [Ancient Andean music](learn/andean.md).
 
 ⚫🟠 **7edo.**
 Used in [Bantu traditional music](learn/bantu.md) (e.g. in Zimbabwean music).

@@ -36,7 +36,7 @@ The latter two may be better approximated with 60edo, but that is beyond scope.
 
 ## References
 
-*[Sequential Take 5 User Manual](https://www.sequential.com/wp-content/uploads/2022/06/Take-5-Users-Guide-1.1.pdf)*.
+*[Sequential Take 5 User Manual](https://web.archive.org/web/20240204174744/https://sequential.com/wp-content/uploads/2022/06/Take-5-Users-Guide-1.1.pdf)*.
 
 Wikipedia. *12 Equal Temperament*. Section *[History](https://en.wikipedia.org/w/index.php?title=12_equal_temperament&oldid=1227218014#History)*.
 
