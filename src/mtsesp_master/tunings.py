@@ -199,9 +199,10 @@ class BaseTuning:
                     highlight(outport, msg)
             else:
                 for note, channel in self.backup[old_msg.note][old_msg.channel]:
-                    outport.send(msg.copy(note=note, channel=channel))
+                    new_msg = msg.copy(note=note, channel=channel)
+                    outport.send(new_msg)
                     if highlight is not None:
-                        highlight(outport, msg)
+                        highlight(outport, new_msg)
                 self.backup[old_msg.note][old_msg.channel] = set()
 
     def halberstadtify(self, outport, msg, manual=None, highlight=None):
