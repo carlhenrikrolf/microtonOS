@@ -146,7 +146,7 @@ A suitable value is the size of the minor or neutral third.
 For a more jazzy sound (or the Studio Ghibli sound), try the major third or perfect fourth.
 Below, the layouts are named according to $d=3$.
 
-**Exquis.**
+⚫⚫ **Exquis.**
 $d=3$ is the Exquis default layout.
 How the number of steps depend on d is shown by arrows.
 Number of steps for $d=3$ is also given as an example in the centres of the hexagons.
@@ -158,28 +158,29 @@ To the right, you can see a suggestion on how to map the hexagonal layout to a r
 $d=5$.
 This is the layout used on a bass guitar in standard tuning. 
 
-**Harmonic table.**
+⚫🔴 **Harmonic table.**
 $d=3$ is the harmonic table.
 The harmonic table has been used in C-thru's AXiS controllers as well as in the Lumatone controller.
 $d=2$ is the Park layout used in Shiverware's Musix Pro.
 
 ![Harmonic table](resources/harmonic_table.svg)
 
-**Wicki--Hayden.**
+⚫🟠 **Wicki--Hayden.**
 $d=3$ is the Wicki--Hayden layout. For calculations, see below. The Wicki--Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
 The bandoneón typically uses a non-isomorphic layout that is different between the left and right hands as well as whether the instrument is squeezed or dragged. Life is short so we will ignore such complex layouts.
 
 ![Wicki--Hayden](resources/wicki-hayden_tilted.svg)
 
-Calculations. $f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
+Calculations.
+*$f_3$ is defined by $f_3(d)=\mathrm{round}\frac{d}{3}$ if $d\mod 3 > 0$
 else $f_3(d)= \max(i)$ such that $i\in\mathbf{N}$, $i\mod 2 > 0$, and $1 \leq i < \frac{d}{3})$.
 $\mathrm{round}(x)$ rounds $x$ to the nearest integer and $x \mod y > 0$ if and only if $x$ is not divisible by $y$.
 It is easiest to break this down into two cases.
 If $d$ is not divisible by $3$, $f_3(d)$ is the integer nearest the fraction $d/3$.
 Otherwise, it is the largest odd integer less than $d/3$.
-For example, if you want to use $d=6$ for 24edo and you use $\mathrm{round}(d/3)$ instead (as in the first case), the layout will only use half of the tones and be equivalent to 12edo.
+For example, if you want to use $d=6$ for 24edo and you use $\mathrm{round}(d/3)$ instead (as in the first case), the layout will only use half of the tones and be equivalent to 12edo.*
 
-**Jankó.**
+⚫🟡 **Jankó.**
 Bosanquet--Wilson layouts.
 $d=3$ is the Jankó layout.
 $d=4$ is the type C accordion layout.
