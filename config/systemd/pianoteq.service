@@ -6,6 +6,7 @@ Requires=mtsesp_master.service
 
 [Service]
 User=pi
+Environment=XDG_RUNTIME_DIR="/run/user/1000"
 Environment=DISPLAY=:0
 ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/pianoteq.py
 Restart=always

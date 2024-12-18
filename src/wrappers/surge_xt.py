@@ -6,14 +6,14 @@ from utils import Inport, Outport, handle_terminations, warmup
 
 # parameters
 client_name = "Surge XT Wrapper"
-surge_path = "/usr/bin/surge-xt-cli"
-audio_name = "JACK.system"
+surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
+audio_name = "JACK.Built-in Audio Stereo" #"JACK.system"
 
 list_devices_command = [
     #'sudo',
     #'-u',
     #'pi',
-    surge_path,
+    *surge_path,
     "--list-devices",
 ]
 
@@ -46,7 +46,7 @@ class Script:
             #'sudo',
             #'-u',
             #'pi',
-            surge_path,
+            *surge_path,
             "--audio-interface=" + get_output_id(audio_name),
             "--audio-ports=0,1",
             "--midi-input=" + get_input_id("from " + client_name),

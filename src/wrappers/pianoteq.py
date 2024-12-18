@@ -6,6 +6,7 @@ from midi_implementation.midi1 import control_change as cc
 # parameters
 client_name = "Pianoteq Wrapper"
 commandline = [
+    "/usr/bin/pw-jack",
     "/home/pi/Pianoteq 8 STAGE/arm-64bit/Pianoteq 8 STAGE",
     "--preset",
     "NY Steinway D Classical",

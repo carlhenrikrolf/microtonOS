@@ -41,7 +41,7 @@ Virtual instruments include:
 - Surge XT
 
 Background programs include:
-- Qjackctl and a2jmidid (for routing MIDI and audio)
+- Pipewire, Qjackctl, and a2jmidid (for routing MIDI and audio)
 - Blueman (for MIDI bluetooth connectivity)
 - MTS-ESP (for tuning)
 
@@ -87,9 +87,9 @@ When using an audio application a red LED should be lit on the HifiBerry soundca
 
 Install tools for connecting audio.
 ```bash
-sudo apt install qjackctl a2jmidid blueman
+sudo apt install pw-jack pw-alsa qjackctl a2jmidid blueman
 ```
-Run `qjackctl` to set it up for the soundcard.
+Run `pw-jack qjackctl` to set it up for the soundcard.
 For the HifiBerry soundcard, the configuration file can be found in `config/rncbc.org/QjackCtl.conf`.
 To use MIDI over bluetooth, start blueman and search for devices.
 

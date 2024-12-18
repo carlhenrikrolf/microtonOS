@@ -5,7 +5,7 @@ After=graphical.target
 [Service]
 User=pi
 ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/drivers/widi.py
-Restart=on-failure
+Restart=always
 RestartSec=2s
 TimeoutSec=infinity
 

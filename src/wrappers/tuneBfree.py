@@ -8,6 +8,7 @@ from utils import Inport, Outport, handle_terminations, warmup
 client_name = "tuneBfree Wrapper"
 pause = 0.001
 commandline = [
+    "/usr/bin/pw-jack",
     "/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree",
     "--noconfig",
     "--config",
