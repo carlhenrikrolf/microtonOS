@@ -100,6 +100,7 @@ For the HifiBerry DAC+ADC soundcard, the parameters should be
 
 The advanced settings should be
 - Channels I/O: 2, 2
+
 To use MIDI over bluetooth, start blueman and search for devices.
 To send audio over the network, install [Sonobus](https://sonobus.net/linux.html).
 At the time of writing, the following commands were sufficient:

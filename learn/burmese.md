@@ -3,13 +3,15 @@
 > [!warning]
 > My knowledge of Burmese music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
-- hyin lon
-- apo
-- myin zaing
-- auk pyan
-- pyi daw pyan
-- hna pauk
-- pale
+|              |
+|--------------|
+| hyin lon     |
+| apo          |
+| myin zaing   |
+| auk pyan     |
+| pyi daw pyan |
+| hna pauk     |
+| pale         |
 
 ## References
 
