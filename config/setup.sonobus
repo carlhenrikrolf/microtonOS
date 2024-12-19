@@ -2,9 +2,9 @@
 
 <PROPERTIES>
   <VALUE name="audioSetup">
-    <DEVICESETUP deviceType="ALSA" audioOutputDeviceName="JACK Audio Connection Kit"
-                 audioInputDeviceName="JACK Audio Connection Kit" audioDeviceRate="48000.0"
-                 audioDeviceBufferSize="512"/>
+    <DEVICESETUP deviceType="JACK" audioOutputDeviceName="Built-in Audio Stereo"
+                 audioInputDeviceName="Built-in Audio Stereo" audioDeviceRate="48000.0"
+                 audioDeviceBufferSize="1024"/>
   </VALUE>
   <VALUE name="filterStateXML">
     <SonoBusAoO>
@@ -53,8 +53,8 @@
                   DisableKeyShortcuts="0" PeerDisplayMode="0" lastChatWidth="250"
                   lastChatShown="0" chatFontSizeOffset="0" chatFixedWidthFont="0"
                   lastSoundboardWidth="250" lastSoundboardShown="0" linkMonDelayTimes="1"
-                  lastUsername="pi" langOverrideCode="" lastWindowWidth="800" lastWindowHeight="600"
-                  autoDropRateThreshNew="0.5" reconnServLoss="1">
+                  lastUsername="pi 5" langOverrideCode="" lastWindowWidth="800"
+                  lastWindowHeight="600" autoDropRateThreshNew="0.5" reconnServLoss="1">
         <VideoLinkInfo roomMode="1" showNames="1" screenShare="0" extraParams="" beDir="0"
                        largeShare="0" pushViewMode="0"/>
       </ExtraState>

@@ -34,7 +34,7 @@ DIN-5 for midi can be useful.
 
 **Software.**
 The OS I use is Raspberry Pi OS 64bit Bookworm.
-Python3 packages are included in `requirements.txt`.
+Python3 packages are included in [requirements.txt](requirements.txt).
 Virtual instruments include:
 - tuneBfree
 - Modartt Pianoteq 8 STAGE
@@ -90,8 +90,23 @@ Install tools for connecting audio.
 sudo apt install pw-jack pw-alsa qjackctl a2jmidid blueman
 ```
 Run `pw-jack qjackctl` to set it up for the soundcard.
-For the HifiBerry soundcard, the configuration file can be found in `config/rncbc.org/QjackCtl.conf`.
+For the HifiBerry DAC+ADC soundcard, the parameters should be
+- Driver: ALSA
+- ✅ Realtime
+- Interface: sndrphihifiberry,0
+- Sample Rate: 48000
+- Frames/Period: 128
+- Periods/Buffer: 2
+The advanced settings should be
+- Channels I/O: 2, 2
 To use MIDI over bluetooth, start blueman and search for devices.
+To send audio over the network, install [Sonobus](https://sonobus.net/linux.html).
+At the time of writing, the following commands were sufficient:
+```bash
+echo "deb http://pkg.sonobus.net/apt stable main" | sudo tee /etc/apt/sources.list.d/sonobus.list
+sudo wget -O /etc/apt/trusted.gpg.d/sonobus.gpg https://pkg.sonobus.net/apt/keyring.gpg
+sudo apt update && sudo apt install sonobus
+```
 
 Install MTS-ESP.
 ```bash
@@ -100,19 +115,21 @@ cmake -S third_party/mts-dylib-reference/ -B third_party/mts-dylib-reference
 make --directory=third_party/mts-dylib-reference/
 sudo cp third_party/mts-dylib-reference/libMTS.so /usr/local/lib/
 ```
+A summary of different tuning standards in electronic music is available [here](learn/tuning_standards.md).
 
-Install system daemon scripts.
+Install systemd scripts.
 ```bash
 sudo cp config/systemd/<service file> /lib/systemd/system/
 sudo systemctl enable <service file>
 sudo systemctl start <service file>
 ```
-`systemctl status`, `sudo systemctl stop`, `sudo systemctl restart`, and `sudo systemctl daemon-reload` are also useful commands.
+A shortcut is to use `sudo dev/daemon_reload.sh`.
+You can get more background on systemd [here](learn/systemd.md).
 
 
 Install tuneBfree.
 tuneBfree is found under `third_party/`.
-Follow the instruction in the README.
+Follow the instruction in the [README](third_party/tuneBfree/README.md).
 The exception is that you should should not add libjack-dev.
 It should be libjack-jackd2-dev instead, i.e.,
 ```bash
