@@ -1,7 +1,7 @@
 # West-Sahelian Classical Music
 
 > [!warning]
-> My knowledge of West-Sahelian music is limited and mistakes are very likely.
+> My knowledge of West-Sahelian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 The western Sahel region was part of the Malian empire (the Mandinka empire) in the middle ages.
 In that empire a caste of musicians known as jalis grew and they developed the classical music of the region.

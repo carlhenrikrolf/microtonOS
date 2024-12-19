@@ -1,7 +1,7 @@
 # Bantu Traditional Music
 
 > [!warning]
-> My knowledge of Bantu music is limited and mistakes are very likely.
+> My knowledge of Bantu music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 
 

@@ -1,7 +1,7 @@
 # Indonesian Classical Music
 
 > [!warning]
-> My knowledge of Indonesian music is lllimited, so mistakes are very likely.
+> My knowledge of Indonesian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 |       |5edo|
 |-------|----|

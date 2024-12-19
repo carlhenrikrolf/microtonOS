@@ -50,6 +50,7 @@ Additional options.
 If the application requires that another application is running, you can use the `Requires=<another -service file>` option under `[Unit]`.
 You can use this repeatedly if several other applications are necessary.
 If you need to define a variable before running `<commandline>`, you can add `Environment=<definition>` under `[Service]`.
+An example is that applications with an (active) GUI should have `Environment=DISPLAY=:0`.
 If you instead need to run another command, you can use `ExecStartPre=<other command>`or `ExecStartPost=<other command>` for running it before or after, respectively.
 
 **Installing the .service file.**
