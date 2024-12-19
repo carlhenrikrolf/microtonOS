@@ -42,7 +42,7 @@ Virtual instruments include:
 
 Background programs include:
 - Pipewire, Qjackctl, and a2jmidid (for routing MIDI and audio)
-- Blueman (for MIDI bluetooth connectivity)
+- Blueman (for MIDI bluetooth connectivity) and Sonobus (for network)
 - MTS-ESP (for tuning)
 
 
@@ -97,6 +97,7 @@ For the HifiBerry DAC+ADC soundcard, the parameters should be
 - Sample Rate: 48000
 - Frames/Period: 128
 - Periods/Buffer: 2
+
 The advanced settings should be
 - Channels I/O: 2, 2
 To use MIDI over bluetooth, start blueman and search for devices.
@@ -107,6 +108,7 @@ echo "deb http://pkg.sonobus.net/apt stable main" | sudo tee /etc/apt/sources.li
 sudo wget -O /etc/apt/trusted.gpg.d/sonobus.gpg https://pkg.sonobus.net/apt/keyring.gpg
 sudo apt update && sudo apt install sonobus
 ```
+A summary of sound tools is available [here](learn/linux_sound.md).
 
 Install MTS-ESP.
 ```bash
@@ -227,7 +229,7 @@ so are their splitting lines.
 ## Tunings
 
 🔴⚫ **12edo (default).** Used in contemporary music.
-Was independently discovered in [Europe](learn/european.md) and [China](learn/east_asian.md).
+Was independently discovered in [Europe](learn/european.md) and [China](learn/chinese.md).
 Used in [American urban music](learn/american.md).
 Used in [Romani traditional music](learn/romani.md).
 Approximates [Ethiopian classical music](learn/ethiopian.md).
@@ -265,7 +267,7 @@ Approximates [Indian classical music](learn/indian.md) well---in particular, its
 Used in [Turkish classical music](learn/turkish.md).
 After to 12edo, it is the tuning that can approximate the largest number of traditional musics including (apart from Indian and Turkish):
 [West-Sahelian classical music](learn/west_sahelian.md) and
-[East-Asian classical music](learn/east_asian.md).
+[East-Asian classical music](learn/chinese.md).
 
 🟠🟡 **24edo.**
 Used in contemporary [Arabic music](learn/arabic.md).
