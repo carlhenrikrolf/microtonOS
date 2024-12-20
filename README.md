@@ -76,12 +76,14 @@ pip3 install -r requirements.txt
 pip3 install . --use-pep517
 ```
 
-To set up the HifiBerry soundcard, copy these configuration files.
+To set up the HifiBerry DAC+ADC soundcard, copy these configuration files.
 ```bash
 sudo cp config/firmware/config.txt /boot/firmware/config.txt
 sudo cp config/etc/asound.conf /etc/
 ```
 Note that `config.txt` will be overwritten.
+`config.txt.` additionally overclocks the CPU to 3000.
+For other soundcard, the configurations would have to be different.
 Reboot for the changes to take effect.
 When using an audio application a red LED should be lit on the HifiBerry soundcard.
 
@@ -132,7 +134,7 @@ You can get more background on systemd [here](learn/systemd.md).
 
 Install tuneBfree.
 tuneBfree is found under `third_party/`.
-Follow the instruction in the [README](third_party/tuneBfree/README.md).
+Follow the instruction in the [README](third_party/tuneBfree/).
 The exception is that you should should not add libjack-dev.
 It should be libjack-jackd2-dev instead, i.e.,
 ```bash
@@ -308,6 +310,7 @@ Used in [Ancient Andean music](learn/andean.md).
 
 ⚫🟠 **7edo.**
 Used in [Bantu traditional music](learn/bantu.md) (e.g. in Zimbabwean music).
+Used in [Thai classical music](learn/thai.md).
 
 ⚫🔴 **Just 7-tone scale (uneven).**
 

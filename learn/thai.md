@@ -3,5 +3,22 @@
 > [!warning]
 > My knowledge of Thai music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
-- 7edo
-- 11ed3
+Cambodian and Laotian musics are similar to Thai music, but other cultures in South-East Asia are notably different.
+
+|              | 7edo |
+|--------------|------|
+| "ไทย (Thai)" | 1, 2, 4, 5, 7 |
+| "มอญ (Mon)"  | 1, 2, 3, 4, 5, 6, 7 |
+
+There are 5 modes of the "Thai scale" both in theory and in practice.
+It has been argued that 11ed3 would be a better approximation than 7edo as it accounts for a slight octave-stretching of 10 cents.
+
+## References
+
+Alexander John Ellis. 1885. *On the musical scales of various nations*.
+
+John Garzoli. 2015. *The myth of equidistance in thai tuning*. Analytical Approaches to World Music 4, no. 2.
+
+David Morton. 1970. *[Thai traditional music: Hot-house plant or sturdy stock](https://web.archive.org/web/20240527213159/https://thesiamsociety.org/wp-content/uploads/1970/03/JSS_058_2b_Morton_ThaiTraditionalMusic.pdf)*.
+
+William A Setheres. 2005. *Tuning, Timbre, Spectrum, Scale*. Springer.
