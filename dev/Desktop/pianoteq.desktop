@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Pianoteq 8 STAGE
+Exec=/usr/bin/pw-jack "/home/pi/Pianoteq 8 STAGE/arm-64bit/Pianoteq 8 STAGE"
+Comment=
+Terminal=false
+Icon=gnome-panel-launcher
+Type=Application

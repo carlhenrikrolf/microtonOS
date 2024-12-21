@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Surge XT
+Exec=/usr/bin/pw-jack "/usr/bin/Surge XT"
+Comment=
+Terminal=false
+Icon=gnome-panel-launcher
+Type=Application

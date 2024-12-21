@@ -6,7 +6,7 @@ The ends of the intervals are known as shrutis.
 Hindustani scales are known as thaat.
 Note that some common instruments, like the harmonium of European origin, do use 12edo.
 
-
+## Hindustani (Northern)
 
 |       |53edo |12edo |
 |-------|------|------|
@@ -31,8 +31,7 @@ Note that some common instruments, like the harmonium of European origin, do use
 
 Note that thaats bhairav and bharavi are different.
 
-
-
+## Carnatic (Southern)
 
 The equivalent to thaat in Carnatic music is known as melakarta. 
 However, every possible way to pick 7 different notes from a set of 12 notes is named as a melakarta.

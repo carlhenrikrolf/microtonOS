@@ -246,6 +246,7 @@ Wendy Carlos's Alpha Scale. Can also be used to approximate maqam saba in [Arabi
 
 🔴🟡 **17edo.**
 Approximates [Iranian classical music](learn/iranian.md).
+[Burmese classical music](learn/burmese.md)
 
 🔴🟢 **41edo (18-note subset).**
 
@@ -260,6 +261,8 @@ A 19-note subset of 48edo.
 Used in contemporary [Turkish music](learn/turkish.md).
 
 🟠⚫ **21edo.**
+[Thai classical music](learn/thai.md),
+[Ancient Andean music](learn/andean.md).
 
 🟠🔴 **22edo.**
 Used in experimental music.
@@ -274,6 +277,7 @@ After to 12edo, it is the tuning that can approximate the largest number of trad
 
 🟠🟡 **24edo.**
 Used in contemporary [Arabic music](learn/arabic.md).
+[Burmese classical music](learn/burmese.md)
 
 🟠🟢 **29edo.**
 Approximates [Arabic classical music](learn/arabic.md).

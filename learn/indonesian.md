@@ -41,12 +41,31 @@ There are 5 different kinds of ombak tuning:
 
 Surjodingrat, Sudarjana, Susanto. 1972. *Tone measurements of outstanding Javanese gamelans in Jogjakarta and Surakarta*.
 
-Wikipedia. *[Pelog](https://en.wikipedia.org/w/index.php?title=Pelog&oldid=1140275944)*.
-
-Wikipedia. *[Slendro](https://en.wikipedia.org/w/index.php?title=Slendro&oldid=1153122768)*.
+Wikipedia.
+- *[Pelog](https://en.wikipedia.org/w/index.php?title=Pelog&oldid=1140275944)*
+- *[Slendro](https://en.wikipedia.org/w/index.php?title=Slendro&oldid=1153122768)*
 
 William A Setheres, Wayne Vitale. 2019. *Ombak and octave stretching in Balinese gamelan*. Journal of Mathematics and Music.
 
-Xenharmonic Wiki. *[Pelog](https://en.xen.wiki/index.php?title=Pelog&oldid=146916)*.
+Xenharmonic Wiki.
+- *[Pelog](https://en.xen.wiki/index.php?title=Pelog&oldid=146916)*
+- *[Slendro](https://en.xen.wiki/index.php?title=Slendro&oldid=146696)*
 
-Xenharmonic Wiki. *[Slendro](https://en.xen.wiki/index.php?title=Slendro&oldid=146696)*.
+Iwan Gunowan. *[A Guide to the Sundanese Gamelan Tuning (Laras) for Ableton Live](https://web.archive.org/web/20241221100506/https://tuning.ableton.com/sundanese-gamelan/intro-to-sundanese-gamelan/)*. Ableton.
+- *[Degung Surupan 57](https://web.archive.org/web/20241221100716/https://tuning.ableton.com/sundanese-gamelan/degung-surupan-57/)* 
+-  *[Pelog 7 Tones](https://web.archive.org/web/20241221100732/https://tuning.ableton.com/sundanese-gamelan/pelog-7-tones/)*
+- *[Pelog Salendro 10 Tones KF](https://web.archive.org/web/20241221100740/https://tuning.ableton.com/sundanese-gamelan/pelog-salendro-10-tones-kf/)*
+- *[Pelog Salendro 10 Tones TBN](https://web.archive.org/web/20241221100757/https://tuning.ableton.com/sundanese-gamelan/pelog-salendro-10-tones-tbn/)*
+- *[Jawar](https://web.archive.org/web/20241221100807/https://tuning.ableton.com/sundanese-gamelan/jawar/)*
+- *[Liwung](https://web.archive.org/web/20241221100826/https://tuning.ableton.com/sundanese-gamelan/liwung/)*
+- *[Sorog](https://web.archive.org/web/20241221100902/https://tuning.ableton.com/sundanese-gamelan/sorog/)*
+- *[Salendro 5 Tones](https://web.archive.org/web/20241221100904/https://tuning.ableton.com/sundanese-gamelan/salendro-5-tones/)*
+- *[Degung Dwi Suara](https://web.archive.org/web/20241221100946/https://tuning.ableton.com/sundanese-gamelan/degung-dwi-suara/)*
+- *[Degung Tri Suara](https://web.archive.org/web/20241221100932/https://tuning.ableton.com/sundanese-gamelan/degung-tri-suara/)*
+- *[Madenda](https://web.archive.org/web/20241221101035/https://tuning.ableton.com/sundanese-gamelan/madenda/)*
+- *[Mataraman](https://web.archive.org/web/2/https://tuning.ableton.com/sundanese-gamelan/mataraman/)*
+- *[Wisaya](https://web.archive.org/web/20241221101024/https://tuning.ableton.com/sundanese-gamelan/wisaya/)*
+- *[Salendro Bedantara 17 Tones](https://web.archive.org/web/20241221101030/https://tuning.ableton.com/sundanese-gamelan/salendro-bedantara-17-tones/)*
+- *[Salendro Pedantara 10 Tones](https://web.archive.org/web/20241221101037/https://tuning.ableton.com/sundanese-gamelan/salendro-padantara-10-tones/)*
+- *[Salendro Pedantara 15 Tones](https://web.archive.org/web/2/https://tuning.ableton.com/sundanese-gamelan/salendro-padantara-15-tones/)*
+
