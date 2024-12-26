@@ -4,13 +4,24 @@
 > My knowledge of Ethiopian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 **Secular.**
+Scales in secular ethiopian music are know as ቅኝት (qenet, kignit, and various other spellings).
+Three of the scales come in two variants, similar to a major and a minor variant.
 
-|       |12edo, sharper|12edo, flatter|
+| 12edo   | "major" | "minor"|
 |-------|--------------|--------------|
-|qenet anchi hoye | 3, 6, 7, 10, 12 | 1, 5, 6, 9, 12 |
-|qenet bati | 4, 5, 7, 11, 12 | 3, 5, 7, 10, 12 |
-|qenet ambessel | 1, 5, 7, 8, 12 | (only one variety) |
-|qenet tezita | 2, 4, 7, 8, 12 | 2, 3, 7, 8, 12 |
+| አንቺ ሆዬ (anchi hoye) | 3, 6, 7, 10, 12 | 1, 5, 6, 9, 12 |
+| አምባሰል (ambessel) | 2, 5, 7, 9, 12 | 1, 5, 7, 8, 12 | 
+| ባቲ (bati) | 4, 5, 7, 11, 12 | 3, 5, 7, 10, 12 |
+| ትዝታ (tezita) | 2, 4, 7, 8, 12 | 2, 3, 7, 8, 12 |
+
+Note that ambessel "major" is an unusual scale (and sometimes thought of as a variant of anchi hoye instead).
+There are numerous further variations.
+For instance, the third, fourth, and fifth degress of bati may be raised.
+
+
+
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5ofN2feIdOF6D7bMb9fP07?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 **Christian.**
 - Ge'ez
@@ -22,7 +33,7 @@ Chris Frangou. *Common Ethiopian Pentatonic Scales or Qenet*.
 
 Olivier Tourney. 2007. *Gue'ez, ezl, araray. Les subtilités d'une trinité dans la psalmodie de l'Église thrétienne d'Éthiopie*. Annales d'Éthiopie.
 
-Dawit Tegbaru. *[Ethipian Music Modes (Kiñit)](https://web.archive.org/web/20240724142957/https://music-of-ethiopia.pubpub.org/pub/v1v1u0fy/release/2)*.
+Dawit Tegbaru. *[Ethiopian Music Modes (Kiñit)](https://web.archive.org/web/20240724142957/https://music-of-ethiopia.pubpub.org/pub/v1v1u0fy/release/2)*.
 
 Benjamin Beats. 2020. *[Ethiopian Scales](https://web.archive.org/web/20211205191021/https://www.scribd.com/document/502988787/FL12-Ethiopian-Scales)*. Frontline 12" Records.
 

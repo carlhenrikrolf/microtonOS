@@ -24,9 +24,11 @@ The modes are known as timbango, linyang, panchang, dibong, and allalake.
 
 ## Literature
 
-Harald Loquenz. 1997. *The Art of the Kora*. *[Scales and Tunings](https://web.archive.org/web/20240616235618/https://kora-music.com/e/skalen.htm)*.
+Alexander John Ellis. 1885. *[On the musical scales of various nations](https://books.google.com/books/about/On_the_Musical_Scales_of_Various_Nations.html?id=sNtDAAAAYAAJ)*. Journal of the Society of arts.
 
-Harald Loquenz. 1997. *The Art of the Kora*. *[Strings and Modes](https://web.archive.org/web/20240414193558/https://kora-music.com/e/tonleitern.htm)*.
+Harald Loquenz. 1997. *The Art of the Kora*.
+- *[Scales and Tunings](https://web.archive.org/web/20240616235618/https://kora-music.com/e/skalen.htm)*
+- *[Strings and Modes](https://web.archive.org/web/20240414193558/https://kora-music.com/e/tonleitern.htm)*
 
 John Hughes. *[The Kora](https://web.archive.org/web/20241125153630/https://www.johnhughesarts.com/johnhughesmusic/The_Kora.html)*.
 

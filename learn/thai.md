@@ -15,7 +15,7 @@ It has been argued that 11ed3 would be a better approximation than 7edo as it ac
 
 ## References
 
-Alexander John Ellis. 1885. *On the musical scales of various nations*.
+Alexander John Ellis. 1885. *[On the musical scales of various nations](https://books.google.com/books/about/On_the_Musical_Scales_of_Various_Nations.html?id=sNtDAAAAYAAJ)*. Journal of the Society of arts.
 
 John Garzoli. 2015. *The myth of equidistance in thai tuning*. Analytical Approaches to World Music 4, no. 2.
 
