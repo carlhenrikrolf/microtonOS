@@ -16,12 +16,9 @@ Chinese|Japanese|12edo|
 | minyo |     |4|
 
 ## References
-Wikipedia. *[Hirajoshi Scale](https://en.wikipedia.org/w/index.php?title=Hiraj%C5%8Dshi_scale&oldid=1220205549)*.
-
-Wikipedia. *[In Scale](https://en.wikipedia.org/w/index.php?title=In_scale&oldid=1222250665)*.
-
-Wikipedia. *[Iwato Scale](https://en.wikipedia.org/w/index.php?title=Iwato_scale&oldid=1059379646)*.
-
-Wikipedia. *[Japanese Mode](https://en.wikipedia.org/w/index.php?title=Japanese_mode&oldid=1238061586)*.
-
-Wikipedia. *[Yo Scale](https://en.wikipedia.org/w/index.php?title=Yo_scale&oldid=1221382314)*.
+Wikipedia.
+- *[Hirajoshi Scale](https://en.wikipedia.org/w/index.php?title=Hiraj%C5%8Dshi_scale&oldid=1220205549)*
+- *[In Scale](https://en.wikipedia.org/w/index.php?title=In_scale&oldid=1222250665)*
+- *[Iwato Scale](https://en.wikipedia.org/w/index.php?title=Iwato_scale&oldid=1059379646)*
+- *[Japanese Mode](https://en.wikipedia.org/w/index.php?title=Japanese_mode&oldid=1238061586)*
+- *[Yo Scale](https://en.wikipedia.org/w/index.php?title=Yo_scale&oldid=1221382314)*

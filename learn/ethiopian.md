@@ -18,20 +18,15 @@ Note that ambessel "major" is an unusual scale (and sometimes thought of as a va
 There are numerous further variations.
 For instance, the third, fourth, and fifth degress of bati may be raised.
 
-
-
-
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5ofN2feIdOF6D7bMb9fP07?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-
 **Christian.**
-- Ge'ez
+- ግዕዝ (Ge'ez)
 - Ezl
 - Araray
 
 ## References
 Chris Frangou. *Common Ethiopian Pentatonic Scales or Qenet*.
 
-Olivier Tourney. 2007. *Gue'ez, ezl, araray. Les subtilités d'une trinité dans la psalmodie de l'Église thrétienne d'Éthiopie*. Annales d'Éthiopie.
+Olivier Tourney. 2007. *[Gue'ez, ezl, araray. Les subtilités d'une trinité dans la psalmodie de l'Église thrétienne d'Éthiopie](https://hal.science/hal-02375932)*. Annales d'Éthiopie.
 
 Dawit Tegbaru. *[Ethiopian Music Modes (Kiñit)](https://web.archive.org/web/20240724142957/https://music-of-ethiopia.pubpub.org/pub/v1v1u0fy/release/2)*.
 
