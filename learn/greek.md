@@ -1,7 +1,9 @@
 # Greek Classical Music
 
-## Ancient
+**Ancient.**
 
-## East–Roman
+**Byzantine (East–Roman).**
 
-## Ottoman
+**Ottoman.**
+
+## References
