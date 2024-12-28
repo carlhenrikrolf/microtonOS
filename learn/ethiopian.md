@@ -3,6 +3,10 @@
 > [!warning]
 > My knowledge of Ethiopian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
+Common instruments in Ethiopian music involves harps such as the ክራር (krar) and the በገና (begena)
+as well as spike fiddles such as the ማሲንቆ (mesenqo)
+Traditional musicians are known as አዝማሪ (azmari).
+
 **Secular.**
 Scales in secular ethiopian music are know as ቅኝት (qenet, kignit, and various other spellings).
 Three of the scales come in two variants, similar to a major and a minor variant.
@@ -19,7 +23,7 @@ There are numerous further variations.
 For instance, the third, fourth, and fifth degress of bati may be raised.
 
 **Christian.**
-Christian music uses thress scales related to the three parts of the holy trinity.
+Christian music uses three scales (zema) related to the three parts of the holy trinity.
 Each scale, however, can vary considerably in its tuning.
 
 <table>
@@ -30,9 +34,11 @@ Each scale, however, can vary considerably in its tuning.
 <td> ararai </td><td> 2, 4, <br /> 7, 8, 11 </td><td>11edo</td>
 </tr>
 <tr>
-<td>izil</td><td>1, 2, <br /> 3, 4, 5</td><td>5edo</td>
+<td> ezil</td><td>2, 4, <br /> 6, 8, 10</td><td>10edo</td>
 </tr>
 </table>
+
+Note that ezil could just as well be written in 5edo.
 
 ## References
 Chris Frangou. *Common Ethiopian Pentatonic Scales or Qenet*.
@@ -46,3 +52,5 @@ Benjamin Beats. 2020. *[Ethiopian Scales](https://web.archive.org/web/2021120519
 Stéphanie Weisser and Francis Falceto. 2013. *Investigating qәñәt in Amhara secular music: an acoustic and historical study*. Annales d'Éthiopie.
 
 Diana Rowan. *[World Harp Techniques](https://web.archive.org/web/20240528225711/https://www.dianarowan.com/world-harp-techniques-chapter-3a#section-1657753007447)*.
+
+The Ethiopian Tewahedo Church Faith and Order. *[Church Music](https://web.archive.org/web/20170401012800/http://www.ethiopianorthodox.org/english/church/music.html)*.

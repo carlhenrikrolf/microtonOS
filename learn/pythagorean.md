@@ -1,5 +1,34 @@
 # Pythagorean Tuning
 
+Pythagorean tuning is a kind of just tuning (i.e., based on rational numbers).
+Although, it is named after Pythagoras of triangle-fame and his followers, pythagorean tuning precedes them.
+It seems to have been independently developed in the Middle East and China.
+It is based on multiplying and dividing the frequencies by 2 and 3 (the second and third harmonics).
+For this reason, it is also called a 3-limit tuning.
+The octave is 2, the perfect fifth 3/2, and the perfect fouth 4/3.
+The tuning is calculated in algorithmic steps:
+
+0. Start at an arbitrary initial frequency.
+1. Multiply last frequency with 3/2
+2. Divide last frequency with 4/3
+
+Continue by repeating steps 1. and 2.
+
+- If you go up to step 5., you get a major pentatonic scale.
+- If you go up to step 7., you get a lydian scale (a mode of the major scale).
+- if you go up to step 12., you get a chromatic scale.
+
+An issue is that step 13. is nearly but not quite an octave.
+The resulting unevenness is often considered unpleasant.
+A solution is to equally split the octave in 12 steps (12edo).
+This results in equal temperament, i.e. all intervals apart from the octave are slightly off.
+If you continue until step 53., you end up closer to the octave,
+and, therefore, 53edo has a very small error.
+
+The table below shows a 17-tone Pythagorean scale proposed by Medieval Iranian music theorist صفی الدین اورموی (Safi al-Din al-Urmawi al-Baghdadi).
+Furthermore, you can see comparisons to different temperaments.
+
+
 | ratio          | factorisation         | 17edo | error <br /> (cents) | 24edo | error <br /> (cents) | 29edo | error <br /> (cents) | 53edo | error <br /> (cents) |
 | -------------- | --------------------- | ----- | -------------------- | ----- | -------------------- | ----- | -------------------- | ----- | -------------------- |
 | 1              | $1$                   | 0     | 0.00                 | 0     | 0.00                 | 0     | 0.00                 | 0     | 0.00                 |
@@ -23,4 +52,6 @@
 
 ## References
 
-Ozan Yarman. 2007. *[A Comparative Evaluation of Pitch Notations in Turkish Makam Music: Abjad Scale & 24-Tone Pythagorean Tuning – 53 Equal Division of the Octave as a Common Grid](https://web.archive.org/web/20241227163624/https://musicstudies.org/wp-content/uploads/2017/01/Abjad_JIMS_071203.pdf)*. Journal of interdisciplinary music studies
+Ozan Yarman. 2007. *[A Comparative Evaluation of Pitch Notations in Turkish Makam Music: Abjad Scale & 24-Tone Pythagorean Tuning – 53 Equal Division of the Octave as a Common Grid](https://web.archive.org/web/20241227163624/https://musicstudies.org/wp-content/uploads/2017/01/Abjad_JIMS_071203.pdf)*. Journal of interdisciplinary music studies.
+
+Wikipedia. *12 Equal Temperament*. Section *[History](https://en.wikipedia.org/w/index.php?title=12_equal_temperament&oldid=1227218014#History)*.

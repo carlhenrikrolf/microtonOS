@@ -35,3 +35,5 @@ John Hughes. *[The Kora](https://web.archive.org/web/20241125153630/https://www.
 Ramon Daniel Perez Martinez, Roderic Knight, Verna Gillis. *[Kora Music from the Gambia Played by Foday Musa Suso](https://web.archive.org/web/20241204023102/https://folkways-media.si.edu/docs/folkways/artwork/FW08510.pdf)*. Folkways Records.
 
 Xavier Barois. *[Le Balafon](https://web.archive.org/web/20241218200921/http://inouiwebdoc.fr/pages/data/pdf/Le%20balafon%20-%20Xavier%20Barois.pdf)*.
+
+Diana Rowan. *World Harp Techniques*. Section 2 [Harp Literature Review](https://web.archive.org/web/20241228114725/https://www.dianarowan.com/world-harp-techniques-chapter-2)*.

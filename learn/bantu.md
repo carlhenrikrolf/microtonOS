@@ -25,6 +25,8 @@ The Shona word katsanzaira has the rather poetic meaning 'the gentle rain before
 
 ## References
 
-Wikipedia. *Mbira*. Section *[Tuning](https://en.wikipedia.org/w/index.php?title=Mbira&oldid=1230547573#Tuning)*.
+Wikipedia.
+- *Mbira*. Section *[Tuning](https://en.wikipedia.org/w/index.php?title=Mbira&oldid=1230547573#Tuning)*
+- *Baganda Music*. Section *[Musical Scale](https://en.wikipedia.org/w/index.php?title=Baganda_music&oldid=1224599545#Musical_scale)*
 
-Wikipedia. *Baganda Music*. Section *[Musical Scale](https://en.wikipedia.org/w/index.php?title=Baganda_music&oldid=1224599545#Musical_scale)*.
+N Scott Robinson. *[Mbira Tunings from Zimbabwe](https://web.archive.org/web/20241222132237/http://www.nscottrobinson.com/mbiratunings.php)*.
