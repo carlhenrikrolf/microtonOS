@@ -20,3 +20,8 @@
 |mixolydian | 4 |
 |minor (aeolian) | 5 |
 |locrian | 6 |
+
+
+## References
+
+Alexander John Ellis. 1885. *[On the musical scales of various nations](https://books.google.com/books/about/On_the_Musical_Scales_of_Various_Nations.html?id=sNtDAAAAYAAJ)*. Journal of the Society of arts.

@@ -29,3 +29,7 @@
 ## References
 
 Marc Sabat. *[22 Sruti (Center C)](https://web.archive.org/web/20241221101922/https://tuning.ableton.com/just-rational-intonation/22-sruti-center-c/)*. Ableton.
+
+Wikipedia. *[Shruti](https://en.wikipedia.org/w/index.php?title=Shruti_(music)&oldid=1243512839)*
+
+Xenharmonic Wiki. *[A Shruti List](https://en.xen.wiki/index.php?title=A_shruti_list&oldid=123028)*.

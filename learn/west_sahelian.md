@@ -17,9 +17,9 @@ In that empire a caste of musicians known as jalis grew and they developed the c
 Tomora ba, tomora mesengo, hardino, and sauta are all ways to tune the kora (a kind of harp).
 The bala (a kind of xylophone) is tuned differently, roughly to 7edo
 (in 41edo we can maintain the perfect fourth and the perfect fifth, but in 53edo they are lightly closer).
+Nonetheless, kora and balafon can be played together.
 'Ba' means big, and 'mesengo' means small; 'silaba' means 'the main road'.
 Tomora ba is common in western Gambia and Casamance, tomora mesengo and hardino in eastern Gambia, and sauta in Mali.
-
 The modes are known as timbango, linyang, panchang, dibong, and allalake.
 
 ## Literature
@@ -37,3 +37,8 @@ Ramon Daniel Perez Martinez, Roderic Knight, Verna Gillis. *[Kora Music from the
 Xavier Barois. *[Le Balafon](https://web.archive.org/web/20241218200921/http://inouiwebdoc.fr/pages/data/pdf/Le%20balafon%20-%20Xavier%20Barois.pdf)*.
 
 Diana Rowan. *World Harp Techniques*. Section 2 [Harp Literature Review](https://web.archive.org/web/20241228114725/https://www.dianarowan.com/world-harp-techniques-chapter-2)*.
+
+Roderic Knight.
+1971.
+*[Towards a Notation and Tablature for the Kora and its Application to Other Instruments](https://www.jstor.org/stable/pdf/30249953.pdf?casa_token=YgoeRx11c3UAAAAA:01omLloEIe9MIyj8UN5Vr3HzYaREcr2BjDGAq4uSc_cKGbO2u5V1ajIy9ZdafSMiYvJgMUdvONoOWP01zuq6O-St_Pfa11eDtN0m5qTnaLOpv1tbRIjH)*.
+African Music 5, no. 1: 23-36.

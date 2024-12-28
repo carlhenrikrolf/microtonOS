@@ -25,8 +25,8 @@ When descending, notes may be played one step lower.
 
 Edward J Hines. *[What are Makams?](https://web.archive.org/web/20230529113149/https://www.hinesmusic.com/What_Are_Makams.html)*.
 
-taqs.im. *[Guide to Middle Eastern Modal Music and the World of Makam](https://web.archive.org/web/20240620093105/https://taqs.im/scales/)*.
-
-taqs.im. *[Is it Sikah...? Or Segâh...? Exploring Modal Music Systems](https://web.archive.org/web/20230129220913/https://taqs.im/sikah-or-segah/)*.
+taqs.im.
+- *[Guide to Middle Eastern Modal Music and the World of Makam](https://web.archive.org/web/20240620093105/https://taqs.im/scales/)*
+- *[Is it Sikah...? Or Segâh...? Exploring Modal Music Systems](https://web.archive.org/web/20230129220913/https://taqs.im/sikah-or-segah/)*
 
 Wikipedia. *[Turkish Makam](https://en.wikipedia.org/w/index.php?title=Turkish_makam&oldid=1233804466)*.

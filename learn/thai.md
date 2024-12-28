@@ -4,6 +4,7 @@
 > My knowledge of Thai music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 Cambodian and Laotian musics are similar to Thai music, but other cultures in South-East Asia are notably different.
+Xylophones are tuned in 7edo.
 
 |              | 7edo |
 |--------------|------|

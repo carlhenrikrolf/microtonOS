@@ -96,6 +96,8 @@ Wikipedia.
 
 William A Setheres, Wayne Vitale. 2019. *Ombak and octave stretching in Balinese gamelan*. Journal of Mathematics and Music.
 
+William A Setheres. 2005. *Tuning, Timbre, Spectrum, Scale*. Springer.
+
 Xenharmonic Wiki.
 - *[Pelog](https://en.xen.wiki/index.php?title=Pelog&oldid=146916)*
 - *[Slendro](https://en.xen.wiki/index.php?title=Slendro&oldid=146696)*
@@ -118,3 +120,10 @@ Iwan Gunowan. *[A Guide to the Sundanese Gamelan Tuning (Laras) for Ableton Live
 - *[Salendro Pedantara 10 Tones](https://web.archive.org/web/20241221101037/https://tuning.ableton.com/sundanese-gamelan/salendro-padantara-10-tones/)*
 - *[Salendro Pedantara 15 Tones](https://web.archive.org/web/2/https://tuning.ableton.com/sundanese-gamelan/salendro-padantara-15-tones/)*
 
+Edward C Carterette, Roger A Kendall.
+1994.
+*[On the tuning and stretched octave of Javanese gamelans](https://www.jstor.org/stable/pdf/1513182.pdf?casa_token=DJtxB5KjyTcAAAAA:uEq5w4uGjAMN1b8FetZRpNjAVUeR9xbIsIjWENtC-Jf_GilSPvnb6oUiZ86ZC3wjPmT5nrVQ823XwDRDIsqhwVuhLGPxSEHFtSW4ROxedlqAjTKgqu-j)*.
+Leonardo Music Journal: 59-68.
+
+Martin Braun.
+*[Historical evidence for a nearly equidistant 9-tone gamelan pelog in Java](https://web.archive.org/web/20090511075526/http://w1.570.telia.com/~u57011259/pelog%20historical.htm)*
