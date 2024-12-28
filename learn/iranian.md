@@ -6,7 +6,7 @@ Notes in a scale can have many different functions; the *finalis* is interpreted
 
 |    | 17edo | 24edo | root |
 |------|-------|-------|------|
-| (dastgah-e shur)   دستگاه شور | 2, 4, 7, 10(9), 11, 14, 17 | 3, 6, 10, 14(13), 16, 20, 24 | D |
+| (dastgah-e shur) <br />  دستگاه  شور  <!--x--> | 2, 4, 7, 10(9), 11, 14, 17 | 3, 6, 10, 14(13), 16, 20, 24 | D |
 |(avaz-e bayat-e-tork)   آواز بیات ترک | 3, 6, 7, 10, 13, 15, 17 | 4, 8, 10, 14, 18, 21, 24 | F |
 |(avaz-e dashti)   آواز دشتی | 1, 4, 7, 10(9), 11, 14 | 2, 6, 10, 14(13), 16, 20, 24 | D |
 |(avaz-e abuata)  آواز ابوعطا | 1, 4, 7, 9, 13(12), 14, 17 | 2, 6, 10, 13, 18(17), 20, 24 | D |
@@ -45,3 +45,4 @@ Idil Samimi Mofakham. *[Persian Radif](https://web.archive.org/web/2/https://tun
 - *[Dastgāh-e Navā](https://web.archive.org/web/20240821220024/https://tuning.ableton.com/persian-radif/dastgah-e-nava/)*
 - *[Dastgāh-e Māhur](https://web.archive.org/web/20240821220016/https://tuning.ableton.com/persian-radif/dastgah-e-mahur/)*
 - *[Dastgāh-e Rast-Panjgāh](https://web.archive.org/web/20240821220023/https://tuning.ableton.com/persian-radif/dastgah-e-rast-panjgah/)*
+

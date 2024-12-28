@@ -19,9 +19,20 @@ There are numerous further variations.
 For instance, the third, fourth, and fifth degress of bati may be raised.
 
 **Christian.**
-- ግዕዝ (Ge'ez)
-- Ezl
-- Araray
+Christian music uses thress scales related to the three parts of the holy trinity.
+Each scale, however, can vary considerably in its tuning.
+
+<table>
+<tr>
+<td> ge'ez </td> <td> 4, 7, 11, 12 </td> <td> 12edo </td>
+</tr>
+<tr>
+<td> ararai </td><td> 2, 4, <br /> 7, 8, 11 </td><td>11edo</td>
+</tr>
+<tr>
+<td>izil</td><td>1, 2, <br /> 3, 4, 5</td><td>5edo</td>
+</tr>
+</table>
 
 ## References
 Chris Frangou. *Common Ethiopian Pentatonic Scales or Qenet*.

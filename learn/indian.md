@@ -6,7 +6,7 @@ The ends of the intervals are known as shrutis.
 Hindustani scales are known as thaat.
 Note that some common instruments, like the harmonium of European origin, do use 12edo.
 
-## Hindustani (Northern)
+**Hindustani (Northern).**
 
 |       |53edo |12edo |
 |-------|------|------|
@@ -17,8 +17,7 @@ Note that some common instruments, like the harmonium of European origin, do use
 | मारवा ठाट (marva thaat)| 5, 14, 26, 31, 40, 48, 53 | 1, 4, 6, 7, 9, 11, 12 |
 | तोड़ी ठाट (todi thaat) | 4, 13, 26, 31, 35, 48, 53 | 1, 3, 6, 7, 8, 11, 12 |
 
-> [!warning]
-> The exact choice of shrutis can vary somewhat. For example, raga darbari is a member of thaat asavari, where 14 is replaced by 13. The 53edo representations of the thaats have been derived from the ragas that named them.
+The exact choice of shrutis can vary somewhat. For example, raga darbari is a member of thaat asavari, where 14 is replaced by 13. The 53edo representations of the thaats have been derived from the ragas that named them.
 
 |       |mode|
 |-------|----|
@@ -31,7 +30,7 @@ Note that some common instruments, like the harmonium of European origin, do use
 
 Note that thaats bhairav and bharavi are different.
 
-## Carnatic (Southern)
+**Carnatic (Southern).**
 
 The equivalent to thaat in Carnatic music is known as melakarta. 
 However, every possible way to pick 7 different notes from a set of 12 notes is named as a melakarta.
@@ -40,18 +39,17 @@ If you want to reproduce an Indian sound, that is not very helpful, so I leave t
 ## References
 
 Eric Mercer. *[Raga Related Resources](https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0)*.
-
-Eric Mercer. *[Hindustani Raga Shruti Selection](https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0)*.
+- *[Hindustani Raga Shruti Selection](https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0)*
 
 Vidhyahar Oke. *[Topic 54: Selection of shrutis in various Ragas in Indian (Hindustani) Classical Music](https://web.archive.org/web/20240624095329/https://22shruti.com/research_topic_54.asp)*. 22shruti.
 
-Wikipedia. *[Melakarta](https://en.wikipedia.org/w/index.php?title=Melakarta&oldid=1237175236)*.
-
-Wikipedia. *Marva*. Section *[Aroha and Avaroha](https://en.wikipedia.org/w/index.php?title=Marva_(raga)&oldid=1225358085#Aroha_and_Avaroha)*.
-
-Wikipedia. *[Shruti](https://en.wikipedia.org/w/index.php?title=Shruti_(music)&oldid=1243512839)*.
-
-Wikipedia. *[Thaat](https://en.wikipedia.org/w/index.php?title=Thaat&oldid=1241451406)*.
+Wikipedia.
+- *[Melakarta](https://en.wikipedia.org/w/index.php?title=Melakarta&oldid=1237175236)*
+- *Marva*. Section *[Aroha and Avaroha](https://en.wikipedia.org/w/index.php?title=Marva_(raga)&oldid=1225358085#Aroha_and_Avaroha)*
+- *[Shruti](https://en.wikipedia.org/w/index.php?title=Shruti_(music)&oldid=1243512839)*
+- *[Thaat](https://en.wikipedia.org/w/index.php?title=Thaat&oldid=1241451406)*
 
 Xenharmonic Wiki. *[A Shruti List](https://en.xen.wiki/index.php?title=A_shruti_list&oldid=123028)*.
+
+
 
