@@ -3,38 +3,70 @@
 Indian classical music comprises two traditions: Hindustani classical music from the North and Carnatic classical music from the south.
 Both traditions pick notes to their scales from a set of 22 pitch intervals.
 The ends of the intervals are known as [shrutis](shruti.md).
-Note that some common instruments, like the harmonium of European origin, do use 12edo.
+The 22 shrutis are very well-approximated by 53edo.
+
+|     |53edo|
+|-----|-----|
+| श्रुति (shruti) | 4,5;8,9;13,14;17,18;22,23;26,27; <br /> 31;35,36;39,40;44,45;48,49;53 |
+
+Some common instruments, in particular the harmonium–an indianised variant of the European harmonium, do not distinguish between shrutis but uses 12edo.
+12edo pitches fall in between shruti intervals and approximate the perfect fifth well.
+String instruments are prominent and have a longer tradition.
+Instruments such as veena, sitar, and tambura have a very characteristic sound due to their many resonant strings, which are partially dampened to produce an evolving timbre.
+The tabla is a common type of drum and as with all Indian instruments should not be confused with Middle Eastern instruments with similar names.
+
+The modes in Indian music are known as ragas, of which there are many.
+In Hindustani music, they are categorised into *thaats* and, in Carnatic music, they are categorised into *melakartas*.
+Ragas may differ from thaats and melakartas in that:
+- They only use a 5 or 6-note subset of the 7 notes.
+- They look different when ascending or descending, e.g., by using different subsets in different directions. Trills can also look different when ascending or descending.
+- The prominent notes (apart from the root), the *vadi* and *samvadi* may differ.
 
 **Hindustani (Northern).**
 Hindustani music have a stronger Iranian influence.
-There are 10 *thaats*—scales that are particularly prominent.
+Indeed, Hindustan is the Persian name for India.
+There are 10 thaats—scales that are particularly prominent.
 
 |       |53edo |12edo |
 |-------|------|------|
-| बिलावल ठाट <br /> (bilaval thaat)| 9, 17, 22, <br /> 31, 39, 48, 53 | 2, 4, 5, <br /> 7, 9, 11, 12 |
-| भैरव ठाट <br /> (bhairav thaat)|5, 17, 22,<br />  31, 36, 48, 53 | 1, 4, 5,<br />  7, 8, 11, 12 |
-| पूर्वी ठाट <br /> (poorvi thaat)| 5, 17, 26, <br /> 31, 35, 48, 53 | 1, 4, 6,<br />  7, 8, 11, 12 |
-| मारवा ठाट <br /> (marva thaat)| 5, 14, 26,<br />  31, 40, 48, 53 | 1, 4, 6, <br /> 7, 9, 11, 12 |
-| तोड़ी ठाट <br /> (todi thaat) | 4, 13, 26,<br />  31, 35, 48, 53 | 1, 3, 6,<br />  7, 8, 11, 12 |
+| बिलावल ठाट <br /> (bilaval thaat)| 9,17,22, <br /> 31,39,48,53 | 2,4,5, <br /> 7,9,11,12 |
+| भैरव ठाट <br /> (bhairav thaat)|5,17,22,<br />  31,36,48,53 | 1,4,5,<br />  7,8,11,12 |
+| पूर्वी ठाट <br /> (poorvi thaat)| 5,17,26, <br /> 31,35,48,53 | 1,4,6,<br />  7,8,11,12 |
+| मारवा ठाट <br /> (marva thaat)| 5,14,26,<br />  31,40,48,53 | 1,4,6, <br /> 7,9,11,12 |
+| तोड़ी ठाट <br /> (todi thaat) | 4,13,26,<br />  31,35,48,53 | 1,3,6,<br />  7,8,11,12 |
 
 The exact choice of shrutis can vary somewhat. For example, raga darbari is a member of thaat asavari, where 14 is replaced by 13. The 53edo representations of the thaats have been derived from the ragas that named them.
 
 |       |mode|
 |-------|----|
-|बिलावल ठाट (bilaval thaat) | 0 |
-|काफ़ी ठाट (kafi thaat) | 1 |
-|भैरवी ठाट (bhairavi thaat) | 2 |
-|कल्याण ठाट (kalyan thaat, yaman thaat) | 3 |
-|खमाज ठाट (khamaj thaat) | 4 |
-|आशवरी ठाट (asavari thaat)| 5 |
+|बिलावल ठाट <br />(bilaval thaat) | 0 |
+|काफ़ी ठाट <br />(kafi thaat) | 1 |
+|भैरवी ठाट <br />(bhairavi thaat) | 2 |
+|कल्याण ठाट <br />(kalyan thaat, yaman thaat) | 3 |
+|खमाज ठाट <br />(khamaj thaat) | 4 |
+|आशवरी ठाट <br />(asavari thaat)| 5 |
 
 Note that thaats bhairav and bharavi are different.
 
 **Carnatic (Southern).**
+Carnatic refers to the state Karnataka in Southern India, but the area for Carnatic music extends to other states in Southern India, and the language used to teach Carnatic music is Telegu.
+The equivalent to thaat in Carnatic music is known as melakarta.
+Rather than selecting a few prominent scales, listing the melakartas is a combinatorial exercise leading to the large number of 72 melakartas.
+To make them more managable they are grouped into 12 chakras.
+A chakra is the set of melakartas with the same bottom four notes.
 
-The equivalent to thaat in Carnatic music is known as melakarta. 
-However, every possible way to pick 7 different notes from a set of 12 notes is named as a melakarta.
-If you want to reproduce an Indian sound, that is not very helpful, so I leave the melakarta system out.
+| perfect fourth (5) | sharp fourth (6) | 12edo |
+|----------------|-----------------|--------|
+| చంద్ర చక్రా <br /> (indu chakra) | ఋషి చక్రా <br />rishi chakra | 1,2,5(6) |
+| నేత్రా చక్రా <br />netra chakra | వాసు చక్రా <br />vasu chakra | 1,3,5(6) |
+| అగ్ని చక్రా <br />agni chakra | బ్రహ్మ చక్రా <br />brahma chakra | 1,4,5(6) |
+| వేదాలు చక్రా <br />vedas chakra | దిశ చక్రా <br />disi chakra | 2,3,5(6) |
+| బాణా చక్రా <br />bana chakra | రుద్ర చక్రా <br />rudra chakra | 2,4,5(6) |
+| రుతు చక్రా <br />rutu chakra | ఆదిత్యులు చక్రా <br />adityas chakra | 3,4,5(6) |
+
+The parenthesis is used for the sharp fourth.
+The melakartas are formed by taking one of the 12 chakras and combining it with one of the 6 chakras with perfect fourth to get an octave-spanning scale.
+
 
 ## References
 
@@ -42,8 +74,10 @@ If you want to reproduce an Indian sound, that is not very helpful, so I leave t
 <summary>
 Eric Mercer.
 </summary>
-- *[Raga Related Resources](https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0)*.
-- *[Hindustani Raga Shruti Selection](https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0)*
+<ul>
+<li><a href="https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0"><i>Raga Related Resources</i></a></li>
+<li><a href="https://docs.google.com/spreadsheets/d/1PgsqtV_TFpo2T6uOZdVHR3DQNS-r-gypZIXoiHs2xFI/edit?gid=0#gid=0"><i>Hindustani Raga Shruti Selection</i></a></li>
+</ul>
 </details>
 
 <details>
@@ -89,9 +123,11 @@ Vidhyahar Oke. *22Shruti*.
 <summary>
 Wikipedia.
 </summary>
-- *[Melakarta](https://en.wikipedia.org/w/index.php?title=Melakarta&oldid=1237175236)*
-- *Marva*. Section *[Aroha and Avaroha](https://en.wikipedia.org/w/index.php?title=Marva_(raga)&oldid=1225358085#Aroha_and_Avaroha)*
-- *[Thaat](https://en.wikipedia.org/w/index.php?title=Thaat&oldid=1241451406)*
+<ul>
+<li><a href="https://en.wikipedia.org/w/index.php?title=Melakarta&oldid=1237175236"><i>Melakarta</i></a></li>
+<li><i>Marva</i>. Section <a href="https://en.wikipedia.org/w/index.php?title=Marva_(raga)&oldid=1225358085#Aroha_and_Avaroha"><i>Aroha and Avaroha</i></a></li>
+<li><a href="https://en.wikipedia.org/w/index.php?title=Thaat&oldid=1241451406"><i>Thaat</i></a></li>
+</ul>
 </details>
 
 

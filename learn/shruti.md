@@ -1,5 +1,10 @@
 # श्रुति (Shruti)
 
+The 22 shruti in Indian music have been known since ancient times.
+There have been various ways to calculate them and below is one just intonation (5-limit tuning) and one equal temperament (53edo).
+Although, 22 by far seems the most common number, sometimes more shrutis than 22 are considered.
+Note that there are three different step sizes, in 53edo: 1, 3, and 4.
+
 | ratio   | factorisation                   | 53edo | error (cents) |
 | ------- | ------------------------------- | ----- | ------------- |
 | 1       | $1$                             | 0     | 0.00          |
