@@ -307,21 +307,6 @@ The notes are mapped such that maqam saba can be played from D above middle C th
 Approximates [Burmese classical music](learn/burmese.md) and the salendro bedantara scale of [Sundanese classical music](learn/indonesian.md).
 I approximate [Iranian classical music](learn/iranian.md) with 17edo.
 
-<details>
-<summary>
-<i>Halberstadt mapping</i>.
-</summary>
-<table>
-<tr>
-<th>🟥</th><th>🟧</th><th>🟥</th><th>🟧</th><th>🟥</th><th>🟥</th><th>🟧</th><th>🟥</th><th>🟧</th><th>🟥</th><th>🟧</th><th>🟥</th>
-</tr><tr>
-<td>0</td><td>1(2)</td><td>3</td><td>4</td><td>5(6)</td><td>7</td><td>8(9)</td><td>10</td><td>11(12)</td><td>13</td><td>14</td><td>15(16)</td>
-</tr><tr>
-<td>-1</td><td>0(1)</td><td>2</td><td>3</td><td>4(5)</td><td>6</td><td>7(8)</td><td>9</td><td>10(11)</td><td>12</td><td>13</td><td>14(15)</td>
-</tr>
-</table>
-</details>
-
 🔴🔵 **17-note Pythagorean (uneven).**
 [Pythagorean tuning](learn/pythagorean.md) seems to have been developed independently in East Asia and the Middle East.
 The 17 notes have historically been a foundation for [Iranian](learn/iranian.md), [Arabic](learn/arabic.md), and [Turkish](learn/turkish.md) music.
