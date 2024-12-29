@@ -313,7 +313,7 @@ I approximate [Iranian classical music](learn/iranian.md) with 17edo.
 </summary>
 <table>
 <tr>
-<td bgcolor="red"></td><td bgcolor="darkorange"></td><td bgcolor="red"></td><td bgcolor="darkorange"></td><td bgcolor="red"></td><td bgcolor="red"></td><td bgcolor="darkorange"></td><td bgcolor="red"></td><td bgcolor="darkorange"></td><td bgcolor="red"></td><td bgcolor="darkorange"></td><td bgcolor="red"></td>
+<th>🟥</th><th>🟧</th><th>🟥</th><th>🟧</th><th>🟥</th><th>🟥</th><th>🟧</th><th>🟥</th><th>🟧</th><th>🟥</th><th>🟧</th><th>🟥</th>
 </tr><tr>
 <td>0</td><td>1(2)</td><td>3</td><td>4</td><td>5(6)</td><td>7</td><td>8(9)</td><td>10</td><td>11(12)</td><td>13</td><td>14</td><td>15(16)</td>
 </tr><tr>
