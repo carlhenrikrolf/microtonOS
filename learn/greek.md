@@ -1,5 +1,9 @@
 # Greek Classical Music
 
+> [!warning]
+> Although I know a thing or two about Greek music, I'm far from an expert.
+> If you know something I don't, please raise an issue on Github.
+
 **Ancient.**
 String instruments such as harps were common in ancient Greek music.
 String instruments were also used for music-theoretical investigations.

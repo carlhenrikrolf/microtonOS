@@ -4,23 +4,25 @@
 > My knowledge of West-Sahelian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 The western Sahel region was part of the Malian empire (the Mandinka empire) in the middle ages.
-In that empire a caste of musicians known as jalis grew and they developed the classical music of the region.
+In that empire there was a caste of musicians called ߦߋ߬ߟߌ (jali), who developed the classical music of the region.
+Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߞߐ߬ߌߣ (ngoni) and the xylophone ߕߊߟߊ (bala).
 
 |      | 41edo | 53edo
 |------|-------|------
-|tomora ba (silaba) | 7,13,17, <br /> 24,31,37,41 | 9,17,22, <br /> 31,40,48,53
-|tomora mesengo (tomora) | 8,11,17, <br /> 24,32,35,41 | 10,14,22, <br /> 31,41,45,53
+|tomoraba ^[tomoraba] | 7,13,17, <br /> 24,31,37,41 | 9,17,22, <br /> 31,40,48,53
+|tomora misengo | 8,11,17, <br /> 24,32,35,41 | 10,14,22, <br /> 31,41,45,53
 |hardino | 6,14,17, <br /> 24,30,38,41 | 8,18,22, <br /> 31,39,49,53
 |sauta | 6,14,21, <br /> 24,30,38,41 | 8,18,26, <br /> 31,39,49,53
 |bala | 6,12,17, <br /> 24,29,35,41 | 8,15,23, <br /> 30,38,45,53
 
-Tomora ba, tomora mesengo, hardino, and sauta are all ways to tune the kora (a kind of harp).
-The bala (a kind of xylophone) is tuned differently, roughly to 7edo
+[ˆtomoraba]: Known under many names in Manding: silaba, silakoi, dumo, kumbemba, and balabengo. Balabengo means bala tuning, but it is different from the equiheptatonic tuning often used for the bala.
+
+Tomoraba is considered the original kora tuning.
+Tomora misengo, hardino, and sauta are ways to tune the kora adapted from other instruments such as the ngoni.
+The bala is tuned differently, roughly to 7edo
 (in 41edo we can maintain the perfect fourth and the perfect fifth, but in 53edo they are lightly closer).
 Nonetheless, kora and balafon can be played together.
-'Ba' means big, and 'mesengo' means small; 'silaba' means 'the main road'.
-Tomora ba is common in western Gambia and Casamance, tomora mesengo and hardino in eastern Gambia, and sauta in Mali.
-The modes are known as timbango, linyang, panchang, dibong, and allalake.
+Tomoraba is common in western Gambia and Casamance, tomora mesengo and hardino in eastern Gambia, and sauta in Mali.
 
 ## Literature
 

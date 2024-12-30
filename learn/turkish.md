@@ -1,5 +1,9 @@
 # Turkish Classical Music
 
+> [!warning]
+> Although I know a thing or two about Iranian music, I'm far from an expert.
+> If you know something I don't, please raise an issue on Github.
+
 Turkish classical music shares many similarities with [Arabic music](arabic.md).
 A big difference, however, is that it uses considerably smaller intervals.
 They are around half as big as in Arabic music (and a quarter as big as in European music).

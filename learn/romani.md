@@ -1,5 +1,9 @@
 # Romani Traditional Music
 
+> [!warning]
+> Although I know a thing or two about Iranian music, I'm far from an expert.
+> If you know something I don't, please raise an issue on Github.
+
 During medieval times, the Romani migrated from India to the Middle East and then Europe.
 Along the way, they mixed their different influences.
 Today their musics are national symbols for countries such as Spain, Hungary, and Romania (the words Romani and Romania only sound similar by coincidence and have different origins).

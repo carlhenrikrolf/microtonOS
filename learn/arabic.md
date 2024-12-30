@@ -1,5 +1,9 @@
 # Arabic Classical Music
 
+> [!warning]
+> Although I know a thing or two about Iranian music, I'm far from an expert.
+> If you know something I don't, please raise an issue on Github.
+
 Arabic music is partially based on [Pythagorean tuning](pythagorean.md).
 For example, what is known as maqam rast can be seen as the pentatonic scale in Pythagorean tuning with neutral tones added somewhere in the middle of the two large intervals.
 The precise tuning of these neutral intervals can vary between different Arabic countries.

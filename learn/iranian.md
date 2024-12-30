@@ -1,10 +1,14 @@
 # Iranian Classical Music
 
+> [!warning]
+> Although I know a thing or two about Iranian music, I'm far from an expert.
+> If you know something I don't, please raise an issue on Github.
+
 In medieval Iran, a 17-note octave was used.
 It was based on [Pythagorean tuning](pythagorean.md).
 I approximate it with 17edo.
-Common instruments include different guitar-like instruments such as tar, santur, and oud.
-The qanun (a zither) is depicted on Sumerian tablets and is still in use.
+Common instruments include different guitar-like instruments such as the تار (tar).
+The سنتور (santur—a zither played with malleets) is depicted on Sumerian tablets and is still in use.
 Tambourines and a goblet drum known as doumbek are common percussion instruments.
 Notes in a scale can have many different functions; the *finalis* is interpreted as the root.
 During the 1800s, scales started to diverge from the makam/maqam systems used in the Ottoman Empire.

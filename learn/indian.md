@@ -1,5 +1,9 @@
 # Indian Classical Music
 
+> [!warning]
+> Although I know a thing or two about Indian music, I'm far from an expert.
+> If you know something I don't, please raise an issue on Github.
+
 Indian classical music comprises two traditions: Hindustani classical music from the North and Carnatic classical music from the south.
 Both traditions pick notes to their scales from a set of 22 pitch intervals.
 The ends of the intervals are known as [shrutis](shruti.md).

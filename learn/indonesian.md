@@ -11,10 +11,14 @@ Instrumentation is more consistent—dominated by bronze percussion instruments 
 The Javanese people are concentrated on Eastern and central Java.
 There are two different tuning systems.
 
-|       | |   |
-|-------|----|----|
-| ꦱ꧀ꦭꦺꦤ꧀ꦢꦿꦺꦴ <br /> (sléndro) |1,2, <br /> 3,4,5| 5edo |
-| ꦥꦺꦭꦺꦴꦒ꧀ <br /> (pélog) | 1,2,4, <br /> 5,6,8,9 | 9edo |
+<table>
+<tr>
+<td>ꦱ꧀ꦭꦺꦤ꧀ꦢꦿꦺꦴ <br /> (sléndro)</td><td>1,2, <br /> 3,4,5</td><td>5edo</td>
+</tr><tr>
+<td>ꦥꦺꦭꦺꦴꦒ꧀ <br /> (pélog)</td><td>1,2,4, <br /> 5,6,8,9 </td><td>9edo</td>
+</tr>
+</table>
+
 
 The scales from both tuning systems use five notes.
 In the case of sléndro, all of the notes are used.
@@ -49,11 +53,16 @@ There are 5 different kinds of ombak tuning:
 **Sundanese (Western).**
 The Sundanese people are concentrated on Western Java.
 
-|   |   |   |
-|---|---|---|
-| ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮕᮓᮔ᮪ᮒᮛ <br /> (salendro padantara) | 3,6, <br /> 9,12,15 | 15edo |
-| ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮘᮨᮓᮔ᮪ᮒᮛ <br /> (salendro bedanatara) | 4,7, <br /> 10,14,17 | 17edo |
-| ᮕᮦᮜᮧᮌ᮪ <br /> (pélog) | 2,4,7, <br /> 9,11,13,16 | 16edo |
+<table>
+<tr>
+<td>ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮕᮓᮔ᮪ᮒᮛ <br /> (salendro padantara)</td><td>3,6, <br /> 9,12,15</td><td>15edo</td>
+</tr><tr>
+<td>ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮘᮨᮓᮔ᮪ᮒᮛ <br /> (salendro bedanatara)</td><td>4,7, <br /> 10,14,17</td><td>17edo</td>
+</tr><tr>
+<td>ᮕᮦᮜᮧᮌ᮪ <br /> (pélog)</td><td>2,4,7, <br /> 9,11,13,16</td><td>16edo</td>
+</tr>
+</table>
+
 
 There are two variants of sléndro (known as salendro in Sundanese).
 Salendro pedantara is identical to Javanese sléndro.
