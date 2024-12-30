@@ -16,6 +16,11 @@ PulseAudio is mainly developed for playback of recorded music.
 As such, it has not been optimised for low-latency audio.
 This becomes a problem when connecting instruments as they will make sound with noticeable delay since pressing a key.
 Therefore, PulseAudio should not be used for making a Linux-based synth.
+Indeed, it can be good to check whether any PulseAudio processes are running and, if so, uninstall them.
+This applies also for bridges such as pipewire-pulse.
+Before uninstalling anything, it can be good to check `sudo raspi-config` and advanced options > audio.
+(If you see audio volume and mic volume at the top panel, this is not necessarily a good thing.
+It means that some kind of PulseAudio is running.)
 
 JACK has been optimised for low-latency with the purpose of using it with musical instruments.
 An inportant feature of JACK is the *patchbay*.

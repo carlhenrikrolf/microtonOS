@@ -13,8 +13,8 @@ A number of other suggestions were also proposed such as 53-tone, 60-tone, and 3
 
 Chinese|Japanese|12edo|24edo|
 |------|----|-----|---|
-| gong  |ryo  | 2, 4, <br> 7, 9, 12 | 4, 8, 14, <br /> 18, 24 |
-|(not used) | in(sen)| 1, 5, <br />7, 8, 12   | 2(1), 10, <br /> 14, 16(15), 24
+| gong  |ryo  | 2,4, <br /> 7,9,12 | 4,8, <br /> 14,18,24 |
+|(not used) | in(sen)| 1,5, <br />7,8,12   | 2(1),10, <br /> 14,16(15),24
 
 The parenthetical notes are used in a downward motions while playing a kind of flute known as the shakuhachi.
 A number of different modes have been named.

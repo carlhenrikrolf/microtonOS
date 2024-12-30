@@ -13,8 +13,8 @@ There are two different tuning systems.
 
 |       | |   |
 |-------|----|----|
-| ꦱ꧀ꦭꦺꦤ꧀ꦢꦿꦺꦴ (sléndro) |1, 2, <br /> 3, 4, 5| 5edo |
-| ꦥꦺꦭꦺꦴꦒ꧀ (pélog) | 1, 2, 4, <br /> 5, 6, 8, 9 | 9edo |
+| ꦱ꧀ꦭꦺꦤ꧀ꦢꦿꦺꦴ <br /> (sléndro) |1,2, <br /> 3,4,5| 5edo |
+| ꦥꦺꦭꦺꦴꦒ꧀ <br /> (pélog) | 1,2,4, <br /> 5,6,8,9 | 9edo |
 
 The scales from both tuning systems use five notes.
 In the case of sléndro, all of the notes are used.
@@ -22,12 +22,12 @@ In the case of pélog different 5-note subsets are used.
 
 |       |9edo|12edo|
 |-------|----|-----|
-|pélog bem | 1, 4, <br /> 5, 6, 9 | 1, 6, <br /> 7, 8, 12 |
-|pélog barang | 1, 4, <br /> 5, 7, 9 | 1, 6, <br /> 7, 9, 12 |
-|pélog selisir | 1, 2, <br /> 5, 6, 9 | 1, 3, <br /> 7, 8, 12 |
-|pélog tembung | 1, 2, <br /> 5, 6, 9 | 1, 2, <br /> 6, 7, 12 |
-|pélog sunaren | 1, 3, <br /> 5, 6, 9 | 1, 3, <br /> 6, 9, 12 |
-|pélog baro | 2, 3, <br /> 4, 7, 9 | 3, 4, <br /> 5, 9, 12 |
+|pélog bem | 1,4, <br /> 5,6,9 | 1,6, <br /> 7,8,12 |
+|pélog barang | 1,4, <br /> 5,7,9 | 1,6, <br /> 7,9,12 |
+|pélog selisir | 1,2, <br /> 5,6,9 | 1,3, <br /> 7,8,12 |
+|pélog tembung | 1,2, <br /> 5,6,9 | 1,2, <br /> 6,7,12 |
+|pélog sunaren | 1,3, <br /> 5,6,9 | 1,3, <br /> 6,9,12 |
+|pélog baro | 2,3, <br /> 4,7,9 | 3,4, <br /> 5,9,12 |
 
 Note that pélog tunings vary greatly and both 9edo and 12edo fall within that variation.
 
@@ -51,9 +51,9 @@ The Sundanese people are concentrated on Western Java.
 
 |   |   |   |
 |---|---|---|
-| ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮕᮓᮔ᮪ᮒᮛ <br /> (salendro padantara) | 3, 6, <br /> 9, 12, 15 | 15edo |
-| ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮘᮨᮓᮔ᮪ᮒᮛ <br /> (salendro bedanatara) | 4, 7, <br /> 10, 14, 17 | 17edo |
-| ᮕᮦᮜᮧᮌ᮪ <br /> (pélog) | 2, 4, 7, <br /> 9, 11, 13, 16 | 16edo |
+| ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮕᮓᮔ᮪ᮒᮛ <br /> (salendro padantara) | 3,6, <br /> 9,12,15 | 15edo |
+| ᮞᮜᮨᮔ᮪ᮓᮢᮧ ᮘᮨᮓᮔ᮪ᮒᮛ <br /> (salendro bedanatara) | 4,7, <br /> 10,14,17 | 17edo |
+| ᮕᮦᮜᮧᮌ᮪ <br /> (pélog) | 2,4,7, <br /> 9,11,13,16 | 16edo |
 
 There are two variants of sléndro (known as salendro in Sundanese).
 Salendro pedantara is identical to Javanese sléndro.
@@ -62,17 +62,17 @@ As before 5-note subsets of pélog are used as scales.
 
 |    | 16edo |
 |----|-------|
-| jawar | 2, 4, <br /> 9, 11, 16 | 
-| liwung | 2, 7, <br /> 9, 11, 16 |
-| sorog | 2, 7, <br /> 9, 11, 16 |
+| jawar | 2,4, <br /> 9,11,16 | 
+| liwung | 2,7, <br /> 9,11,16 |
+| sorog | 2,7, <br /> 9,11,16 |
 
 There are also additional scales for the solo instrument, which can be either a sulintang (a kind of flute) or a rebab (a kind of spike fiddle).
 When the xylophones and vibraphone-like instruments are playing in salendro pedanatara, the solo instrument can play in one of two different scales.
 
 |    | 15edo |
 |----|-------|
-|mataraman | 5, 6, <br /> 11, 12, 15 |
-|madenda | 1, 3, <br /> 7, 14, 15 |
+|mataraman | 5,6, <br /> 11,12,15 |
+|madenda | 1,3, <br /> 7,14,15 |
 
 Mataraman and madenda can further be played in different modes.
 
@@ -90,19 +90,35 @@ Alexander John Ellis. 1885. *[On the musical scales of various nations](https://
 
 Surjodingrat, Sudarjana, Susanto. 1972. *Tone measurements of outstanding Javanese gamelans in Jogjakarta and Surakarta*.
 
+<details>
+<summary>
 Wikipedia.
+</summary>
+
 - *[Pelog](https://en.wikipedia.org/w/index.php?title=Pelog&oldid=1140275944)*
 - *[Slendro](https://en.wikipedia.org/w/index.php?title=Slendro&oldid=1153122768)*
+
+</details>
 
 William A Setheres, Wayne Vitale. 2019. *Ombak and octave stretching in Balinese gamelan*. Journal of Mathematics and Music.
 
 William A Setheres. 2005. *Tuning, Timbre, Spectrum, Scale*. Springer.
 
+<details>
+<summary>
 Xenharmonic Wiki.
+</summary>
+
 - *[Pelog](https://en.xen.wiki/index.php?title=Pelog&oldid=146916)*
 - *[Slendro](https://en.xen.wiki/index.php?title=Slendro&oldid=146696)*
 
-Iwan Gunowan. *[A Guide to the Sundanese Gamelan Tuning (Laras) for Ableton Live](https://web.archive.org/web/20241221100506/https://tuning.ableton.com/sundanese-gamelan/intro-to-sundanese-gamelan/)*. Ableton.
+</details>
+
+<details>
+<summary>
+Iwan Gunowan. <a href="https://web.archive.org/web/20241221100506/https://tuning.ableton.com/sundanese-gamelan/intro-to-sundanese-gamelan/"><i>A Guide to the Sundanese Gamelan Tuning (Laras) for Ableton Live</i></a>. Ableton.
+</summary>
+
 - *[Degung Surupan 57](https://web.archive.org/web/20241221100716/https://tuning.ableton.com/sundanese-gamelan/degung-surupan-57/)* 
 -  *[Pelog 7 Tones](https://web.archive.org/web/20241221100732/https://tuning.ableton.com/sundanese-gamelan/pelog-7-tones/)*
 - *[Pelog Salendro 10 Tones KF](https://web.archive.org/web/20241221100740/https://tuning.ableton.com/sundanese-gamelan/pelog-salendro-10-tones-kf/)*
@@ -119,6 +135,8 @@ Iwan Gunowan. *[A Guide to the Sundanese Gamelan Tuning (Laras) for Ableton Live
 - *[Salendro Bedantara 17 Tones](https://web.archive.org/web/20241221101030/https://tuning.ableton.com/sundanese-gamelan/salendro-bedantara-17-tones/)*
 - *[Salendro Pedantara 10 Tones](https://web.archive.org/web/20241221101037/https://tuning.ableton.com/sundanese-gamelan/salendro-padantara-10-tones/)*
 - *[Salendro Pedantara 15 Tones](https://web.archive.org/web/2/https://tuning.ableton.com/sundanese-gamelan/salendro-padantara-15-tones/)*
+
+</details>
 
 Edward C Carterette, Roger A Kendall.
 1994.

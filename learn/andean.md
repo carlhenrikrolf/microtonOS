@@ -10,9 +10,9 @@ Therefore, I provide some ancient tunings, namely tunings measured from panpipes
 
 |     | 7edo | 43Hz steps |
 |-----|------|------------|
-|steps| 0, 2, 3, 4, (5,) 6, 7 | 0, 1, 2, 3, (4,) 5, 6
-|cents| -37, 305, 477, 649, 820, (991,) 1162 | 0, 244, 458, 648, 820, (976,) 1119 |
-|Hz   | 277, 338, 374, 413, 456, (503,) 556 | 284, 327, 370, 413, 456, (499,) 542 |
+|steps| 0, <br /> 2,3, <br /> 4,(5,)6,7 | 0, <br />  1,2, <br /> 3,(4,)5,6
+|cents| -37, <br /> 305,477, <br /> 649,820,(991,)1162 | 0, <br /> 244,458, <br />  648,820,(976,)1119 |
+|Hz   | 277, <br /> 338,374, <br /> 413,456,(503,)556 | 284, <br /> 327,370, <br /> 413,456,(499,)542 |
 
 One theory is that the panpipes were intended to be tuned in 7edo with two notes removed forming a pentatonic scale.
 We know that contemporary Andean music uses pentatonic scales for panpipes, and many cultures around the use and have used 7edo.

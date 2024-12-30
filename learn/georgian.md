@@ -8,8 +8,8 @@ Harmony is often in fourths and fifths.
 
 |        | 4ed3/2 | 20ed3/2 |
 |--------|--------|---------|
-|"major" | 1,2,3,4| 5, 10, 15, 20 |
-|"minor" | (indistinguishable)|5, 9, 15, 20 |
+|"major" | 1,2,3,4| 5,10,15,20 |
+|"minor" | (indistinguishable)|5,9,15,20 |
 
 The scales are repeated on the perfect fith.
 In other words, the fifth is the equave.

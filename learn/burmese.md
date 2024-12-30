@@ -8,12 +8,13 @@ The tuning of these instruments can vary widely, but below are two suggestions o
 
 |              | 17edo | 24edo |
 |--------------|-------|-------|
-| ည့င်လုံ (hyin loun) | 5, 7, 10, 15, 17 | 7, 10, 14, 21, 24 |
-| မြ၌င် (myin zaing)   | 3, 6, 10, 13, 17 | 4, 8, 14, 18, 24 |
-| ဩကပြန် (auk pyan)    | 5, 8, 10, 15, 17 | 7, 11, 14, 21, 24 |
-| ပုလဲ (pale)   | 3, 5, 10, 13, 17 | 4, 7, 14, 18, 24 |
+| ည့င်လုံ <br /> (hyin loun) | 5,7, <br /> 10,15,17 | 7,10, <br /> 14,21,24 |
+| မြ၌င် <br /> (myin zaing)   | 3,6, <br /> 10,13,17 | 4,8, <br /> 14,18,24 |
+| ဩကပြန် <br /> (auk pyan)    | 5,8, <br /> 10,15,17 | 7,11, <br /> 14,21,24 |
+| ပုလဲ <br /> (pale)   | 3,5, <br /> 10,13,17 | 4,7, <br /> 14,18,24 |
 
 Note that there are several additional scales that vary only slightly from these.
+Furthermore, there is frequent use of accidentals outside of these scales.
 
 ## References
 

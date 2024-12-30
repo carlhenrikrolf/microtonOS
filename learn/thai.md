@@ -8,8 +8,8 @@ Xylophones are tuned in 7edo.
 
 |              | 7edo |
 |--------------|------|
-| "ไทย (Thai)" | 1, 2, 4, 5, 7 |
-| "มอญ (Mon)"  | 1, 2, 3, 4, 5, 6, 7 |
+| "ไทย (Thai)" | 1,2, <br /> 4,5,7 |
+| "มอญ (Mon)"  | 1,2,3, <br /> 4,5,6,7 |
 
 There are 5 modes of the "Thai scale" both in theory and in practice.
 It has been argued that 11ed3 would be a better approximation than 7edo as it accounts for a slight octave-stretching of 10 cents.

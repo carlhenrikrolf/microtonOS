@@ -1,7 +1,7 @@
 # Romani Traditional Music
 
 During medieval times, the Romani migrated from India to the Middle East and then Europe.
-Along the way, they mixed their different influences such as Indian rhythms, Middle-Eastern scales and European chords.
+Along the way, they mixed their different influences.
 Today their musics are national symbols for countries such as Spain, Hungary, and Romania (the words Romani and Romania only sound similar by coincidence and have different origins).
 Common instruments include guitars (Spain and French-speaking Europe) and zithers, and accordions (Balkan) and violins.
 
@@ -28,3 +28,14 @@ Wikipedia.
 <li><a href="https://en.wikipedia.org/w/index.php?title=Romanian_major_scale&oldid=1213379389"><i>Romanian Major Scale</i></a></li>
 </ul>
 </details>
+
+Mary Ann Harbar Willis. 2011.
+*[Gypsy Violin Basics: A Beginner's Guide: A Beginner's Guide](https://books.google.se/books?id=u2Ktu7OFtUcC&dq=Romanian+major+scale&pg=PA54&redir_esc=y#v=onepage&q=Romanian%20major%20scale&f=false)*.
+Mel Bay Publications. p. 54.
+ISBN 9781610653497.
+
+Herman Rechberger.
+2018.
+*[Scales and Modes Around the World](https://books.google.se/books?id=tvxMDwAAQBAJ&dq=%22Hungarian+major+scale%22&pg=PA75&redir_esc=y#v=onepage&q=%22Hungarian%20major%20scale%22&f=false)*, p. 36.
+Fennica Gehrman Ltd.
+ISBN 9789525489286.

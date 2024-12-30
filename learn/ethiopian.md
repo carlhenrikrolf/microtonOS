@@ -13,10 +13,10 @@ Three of the scales come in two variants, similar to a major and a minor variant
 
 | 12edo   | "major" | "minor"|
 |-------|--------------|--------------|
-| አንቺ ሆዬ (anchi hoye) | 3, 6, 7, 10, 12 | 1, 5, 6, 9, 12 |
-| አምባሰል (ambessel) | 2, 5, 7, 9, 12 | 1, 5, 7, 8, 12 | 
-| ባቲ (bati) | 4, 5, 7, 11, 12 | 3, 5, 7, 10, 12 |
-| ትዝታ (tezita) | 2, 4, 7, 8, 12 | 2, 3, 7, 8, 12 |
+| አንቺ ሆዬ <br /> (anchi hoye) | 3,6, <br /> 7,10,12 | 1,5, <br /> 6,9,12 |
+| አምባሰል <br /> (ambessel) | 2,5, <br /> 7,9,12 | 1,5, <br /> 7,8,12 | 
+| ባቲ <br /> (bati) | 4,5, <br /> 7,11,12 | 3,5, <br /> 7,10,12 |
+| ትዝታ <br /> (tezita) | 2,4, <br /> 7,8,12 | 2,3, <br /> 7,8,12 |
 
 Note that ambessel "major" is an unusual scale (and sometimes thought of as a variant of anchi hoye instead).
 There are numerous further variations.
@@ -28,13 +28,13 @@ Each scale, however, can vary considerably in its tuning.
 
 <table>
 <tr>
-<td> ge'ez </td> <td> 4, 7, 11, 12 </td> <td> 12edo </td>
+<td> ge'ez </td> <td> 4,7,11,12 </td> <td> 12edo </td>
 </tr>
 <tr>
-<td> ararai </td><td> 2, 4, <br /> 7, 8, 11 </td><td>11edo</td>
+<td> ararai </td><td> 2,4, <br /> 7,8,11 </td><td>11edo</td>
 </tr>
 <tr>
-<td> ezil</td><td>2, 4, <br /> 6, 8, 10</td><td>10edo</td>
+<td> ezil</td><td>2,4, <br /> 6,8,10</td><td>10edo</td>
 </tr>
 </table>
 

@@ -11,13 +11,13 @@ Although subsaharan Africa is diverse, most countries in the region today have a
 
 <table>
 <tr>
-<td>dambatsoko </td><td>2, 4, 5, <br />7, 9, 11, 12</td><td> 12edo</td><td> Zimbabwe </td>
+<td>dambatsoko </td><td>2,4,5, <br />7,9,11,12</td><td> 12edo</td><td> Zimbabwe </td>
 </tr>
 <tr>
-<td>saungweme</td><td> 1, 2, 3, <br />4, 5, 6, 7 </td><td> 7edo </td><td> Zimbabwe </td>
+<td>saungweme</td><td> 1,2,3, <br />4,5,6,7 </td><td> 7edo </td><td> Zimbabwe </td>
 </tr>
 <tr>
-<td>mwànjo </td><td> 1, 2, <br />3, 4, 5 </td><td> 5edo </td><td> Uganda </td>
+<td>mwànjo </td><td> 1,2, <br />3,4,5 </td><td> 5edo </td><td> Uganda </td>
 </tr>
 </table>
 
@@ -39,9 +39,15 @@ The Shona word katsanzaira has the rather poetic meaning 'the gentle rain before
 
 ## References
 
+<details>
+<summary>
 Wikipedia.
+</summary>
+
 - *Mbira*. Section *[Tuning](https://en.wikipedia.org/w/index.php?title=Mbira&oldid=1230547573#Tuning)*
 - *Baganda Music*. Section *[Musical Scale](https://en.wikipedia.org/w/index.php?title=Baganda_music&oldid=1224599545#Musical_scale)*
+
+</details>
 
 N Scott Robinson. *[Mbira Tunings from Zimbabwe](https://web.archive.org/web/20241222132237/http://www.nscottrobinson.com/mbiratunings.php)*.
 

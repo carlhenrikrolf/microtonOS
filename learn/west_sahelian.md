@@ -8,11 +8,11 @@ In that empire a caste of musicians known as jalis grew and they developed the c
 
 |      | 41edo | 53edo
 |------|-------|------
-|tomora ba (silaba) | 7, 13, 17, 24, 31, 37, 41 | 9, 17, 22, 31, 40, 48, 53
-|tomora mesengo (tomora) | 8, 11, 17, 24, 32, 35, 41 | 10, 14, 22, 31, 41, 45, 53
-|hardino | 6, 14, 17, 24, 30, 38, 41 | 8, 18, 22, 31, 39, 49, 53
-|sauta | 6, 14, 21, 24, 30, 38, 41 | 8, 18, 26, 31, 39, 49, 53
-|bala | 6, 12, 17, 24, 29, 35, 41 | 8, 15, 23, 30, 38, 45, 53
+|tomora ba (silaba) | 7,13,17, <br /> 24,31,37,41 | 9,17,22, <br /> 31,40,48,53
+|tomora mesengo (tomora) | 8,11,17, <br /> 24,32,35,41 | 10,14,22, <br /> 31,41,45,53
+|hardino | 6,14,17, <br /> 24,30,38,41 | 8,18,22, <br /> 31,39,49,53
+|sauta | 6,14,21, <br /> 24,30,38,41 | 8,18,26, <br /> 31,39,49,53
+|bala | 6,12,17, <br /> 24,29,35,41 | 8,15,23, <br /> 30,38,45,53
 
 Tomora ba, tomora mesengo, hardino, and sauta are all ways to tune the kora (a kind of harp).
 The bala (a kind of xylophone) is tuned differently, roughly to 7edo
@@ -26,9 +26,15 @@ The modes are known as timbango, linyang, panchang, dibong, and allalake.
 
 Alexander John Ellis. 1885. *[On the musical scales of various nations](https://books.google.com/books/about/On_the_Musical_Scales_of_Various_Nations.html?id=sNtDAAAAYAAJ)*. Journal of the Society of arts.
 
-Harald Loquenz. 1997. *The Art of the Kora*.
+<details>
+<summary>
+Harald Loquenz. 1997. <i>The Art of the Kora</i>.
+</summary>
+
 - *[Scales and Tunings](https://web.archive.org/web/20240616235618/https://kora-music.com/e/skalen.htm)*
 - *[Strings and Modes](https://web.archive.org/web/20240414193558/https://kora-music.com/e/tonleitern.htm)*
+
+</details>
 
 John Hughes. *[The Kora](https://web.archive.org/web/20241125153630/https://www.johnhughesarts.com/johnhughesmusic/The_Kora.html)*.
 

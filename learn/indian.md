@@ -84,6 +84,7 @@ Eric Mercer.
 <summary>
 Vidhyahar Oke. *22Shruti*.
 </summary>
+
 - Section 1 *[The short expression used in this website for 22 shrutis](https://web.archive.org/web/20240616160001/https://22shruti.com/research_topic_1.asp)*
 - Section 2 *[Non-English Musical, Technical and other terms](https://web.archive.org/web/20240528132550/https://22shruti.com/research_topic_2.asp)*
 - Section 3 *[Introduction to the Harmonium](https://web.archive.org/web/20240714134203/https://22shruti.com/research_topic_3.asp)*
@@ -117,6 +118,7 @@ Vidhyahar Oke. *22Shruti*.
 - Section 31 *[22 Shruti Relationships Template](https://web.archive.org/web/20240422181708/https://22shruti.com/research_topic_31.asp)*
 - Section 32 *[Practical Use of Decimals : Knowing exact distance of 22 Shrutis from Shadja](https://web.archive.org/web/20240528135305/https://22shruti.com/research_topic_32.asp)*
 - Section 54 *[Selection of shrutis in various Ragas in Indian (Hindustani) Classical Music](https://web.archive.org/web/20240624095329/https://22shruti.com/research_topic_54.asp)*
+
 </details>
 
 <details>
