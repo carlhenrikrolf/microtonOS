@@ -5,7 +5,7 @@
 
 The western Sahel region was part of the Malian empire (the Mandinka empire) in the middle ages.
 In that empire there was a caste of musicians called ߦߋ߬ߟߌ (jali), who developed the classical music of the region.
-Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߞߐ߬ߌߣ (ngoni) and the xylophone ߕߊߟߊ (bala).
+Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߞߐ߬ߌߣ (ngoni), the xylophone ߕߊߟߊ (bala), and the goblet drum ߦߍߣߓߋ (djembe).
 
 |      | 41edo | 53edo
 |------|-------|------
@@ -17,6 +17,7 @@ Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (ban
 
 (Tomoraba is known under many names in Manding: silaba, silakoi, dumo, kumbemba, and balabengo. Balabengo means bala tuning, but it is different from the equiheptatonic tuning often used for the bala.)
 
+The tunings are known as kombengulo (sg. kombengo).
 Tomoraba is considered the original kora tuning.
 Tomora misengo, hardino, and sauta are ways to tune the kora adapted from other instruments such as the ngoni.
 The bala is tuned differently, roughly to 7edo

@@ -187,7 +187,7 @@ $d=2$ is the Park layout used in Shiverware's Musix Pro.
 
 ![Harmonic table](resources/harmonic_table.svg)
 
-⚫🟠 **Wicki--Hayden.**
+⚫🟠 **Wicki–Hayden.**
 $d=3$ is the Wicki--Hayden layout. For calculations, see below. The Wicki--Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
 The bandoneón typically uses a non-isomorphic layout that is different between the left and right hands as well as whether the instrument is squeezed or dragged. Life is short so we will ignore such complex layouts.
 
@@ -210,11 +210,11 @@ For example, if you want to use $d=6$ for 24edo and you use $\mathrm{round}(d/3)
 
 
 ⚫🟡 **Jankó.**
-Bosanquet--Wilson layouts.
+Bosanquet–Wilson layouts.
 $d=3$ is the Jankó layout.
 $d=4$ is the type C accordion layout.
 Both $d=3$ and $d=4$ are given as examples below.
-$d=4$ plus left--right flip corresponds to both the type B accordion layout and the dugmetara layout (popular in the Balkans).
+$d=4$ plus left–right flip corresponds to both the type B accordion layout and the dugmetara layout (popular in the Balkans).
 $d=5, 6, 8,$ and $13$
 correspond to the Lumatone presets for 19edo, both 22edo and 24edo, 31edo, and 53edo respectively. 
 
@@ -228,9 +228,9 @@ $+,0,-$ represent three consecutive steps
 
 ![Splits](resources/splits.svg)
 
-For the 2D tuning invariant layouts, i.e., Wicki--Hayden and Jankó,
+For the 2D tuning invariant layouts, i.e., Wicki–Hayden and Jankó,
 even modest values for $d$ benefit from a split.
-As these layouts are 'tilted' to fit the Exquis better,
+As these layouts are "tilted" to fit the Exquis better,
 so are their splitting lines.
 
 ![Slashes](resources/slashes.svg)
