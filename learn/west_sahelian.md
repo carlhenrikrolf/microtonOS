@@ -4,18 +4,18 @@
 > My knowledge of West-Sahelian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 The western Sahel region was part of the Malian empire (the Mandinka empire) in the middle ages.
-In that empire there was a caste of musicians called ߦߋ߬ߟߌ (jali), who developed the classical music of the region.
-Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߞߐ߬ߌߣ (ngoni), the xylophone ߕߊߟߊ (bala), and the goblet drum ߦߍߣߓߋ (djembe).
+In that empire there was a caste of musicians called ߖߋ߬ߟߌ (jeli), who developed the classical music of the region.
+Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߞߐ߬ߌߣ (ngoni), the xylophone ߕߊߟߊ (bala), and the goblet drum ߖߍ߲ߓߋ (djembe).
 
 |      | 41edo | 53edo
 |------|-------|------
-|tomoraba | 7,13,17, <br /> 24,31,37,41 | 9,17,22, <br /> 31,40,48,53
+|tomoraba[^tomoraba] | 7,13,17, <br /> 24,31,37,41 | 9,17,22, <br /> 31,40,48,53
 |tomora misengo | 8,11,17, <br /> 24,32,35,41 | 10,14,22, <br /> 31,41,45,53
 |hardino | 6,14,17, <br /> 24,30,38,41 | 8,18,22, <br /> 31,39,49,53
 |sauta | 6,14,21, <br /> 24,30,38,41 | 8,18,26, <br /> 31,39,49,53
 |bala | 6,12,17, <br /> 24,29,35,41 | 8,15,23, <br /> 30,38,45,53
 
-(Tomoraba is known under many names in Manding: silaba, silakoi, dumo, kumbemba, and balabengo. Balabengo means bala tuning, but it is different from the equiheptatonic tuning often used for the bala.)
+[^tomoraba]: Tomoraba is known under many names in Manding: silaba, silakoi, dumo, kumbemba, and balabengo. Balabengo means bala tuning, but it is different from the equiheptatonic tuning often used for the bala.
 
 The tunings are known as kombengulo (sg. kombengo).
 Tomoraba is considered the original kora tuning.
