@@ -44,10 +44,11 @@ Below are some different examples.
 |-----|-----------|-----------|--------|---------|
 |24edo|2,7,10 | 2,9,10 | 2,8,10 | 2,8,10|
 |29edo|2,9,12 | 3,10,12 |2,10,12 | 2,9,12|
-|8ed4/3| 2,6,8 | 3,7,8 | 1,6,8 | 2,6,8 |
 
-Note that jins hijaz does not always snap on to the same grid (29edo) as most of the other ajnas.
-8ed4/3 is a better fit and illustrates that octaves are not always so important.
+> [!tip]
+> Jins hijaz does not always snap on to the same grid (24edo, 29edo) as most of the other ajnas. Try 19edo, 31edo, or 8ed4/3.
+
+Octaves are not always so important.
 Lack of octave equivalence can take two forms in Arabic music:
 
 - The scale of a maqam may not repeat at the octave e.g. when combinining 3 or more *different* ajnas.

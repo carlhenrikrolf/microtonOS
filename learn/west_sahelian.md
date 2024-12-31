@@ -5,7 +5,7 @@
 
 The western Sahel region was part of the Malian empire (the Mandinka empire) in the middle ages.
 In that empire there was a caste of musicians called ߖߋ߬ߟߌ (jeli), who developed the classical music of the region.
-Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߞߐ߬ߌߣ (ngoni), the xylophone ߕߊߟߊ (bala), and the goblet drum ߖߍ߲ߓߋ (djembe).
+Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߤߐ߬ߣߌ߲ (ngoni), the xylophone ߕߊߟߊ (bala), and the goblet drum ߖߍ߲ߓߋ (djembe).
 
 |      | 41edo | 53edo
 |------|-------|------

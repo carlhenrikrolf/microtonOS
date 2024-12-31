@@ -72,9 +72,9 @@ As before 5-note subsets of pélog are used as scales.
 |    | 16edo |
 |----|-------|
 | jawar | 2,4, <br /> 9,11,16 | 
-| liwung | 2,7, <br /> 9,11,16 |
-| sorog | 2,7, <br /> 9,11,16 |
+| liwung, <br /> sorog | 2,7, <br /> 9,11,16 |
 
+Note that liwung and sorog are associated with different starting notes
 There are also additional scales for the solo instrument, which can be either a sulintang (a kind of flute) or a rebab (a kind of spike fiddle).
 When the xylophones and vibraphone-like instruments are playing in salendro pedanatara, the solo instrument can play in one of two different scales.
 
