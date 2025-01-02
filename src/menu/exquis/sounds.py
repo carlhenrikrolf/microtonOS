@@ -31,8 +31,8 @@ class Sounds:
     ):
         self.outport = outport
         self.engine_banks_pgms = engine_banks_pgms
-        self.base_color = xq.to_color(base_color)
-        self.click_color = xq.to_color(click_color)
+        self.base_color = xq.led(base_color)
+        self.click_color = xq.led(click_color)
         self.engine = 0
         self.bank = 0
         self.pgm = 0

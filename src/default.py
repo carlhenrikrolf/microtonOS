@@ -1,4 +1,5 @@
 import mido
+from colour import Color
 from menu import Sounds
 from utils import Inport, Outport, make_threads
 from midi_implementation.midi1 import control_change as cc
@@ -12,32 +13,42 @@ engine_banks_pgms = [
     ["Surge XT", (8, 14, 7, 4, 4)],
 ]
 
+menu_colors = [  # 🔴🟠🟡🟢🔵🟣
+    Color("red"),
+    Color("darkorange"),
+    Color("yellow"),
+    Color("green"),
+    Color("blue"),
+    Color("magenta"),
+]
+
 
 def microtonOS(client_name):
     class Script:
         def __init__(self):
+            self.is_init = True
             self.exquis_is_init = True
             self.reopen = False
             self.engine = 0
             self.bank = 0
             self.pgm = 0
 
+        def init_touch(self):
+            buttons = [
+                xq.settings,
+                xq.sounds,
+                xq.record,
+                xq.tracks,
+                xq.scenes,
+                xq.play_stop,
+            ]
+            for i, button in enumerate(buttons):
+                xq.send(to_exquis, xq.sysex(xq.color_button, button, xq.led(menu_colors[i])))
+
         def exquis(self, msg):
             if self.exquis_is_init:
-                xq.send(
-                    to_exquis, xq.sysex(xq.color_button, xq.sounds, sounds.base_color)
-                )
-                for menu_button in [
-                    xq.settings,
-                    xq.record,
-                    xq.tracks,
-                    xq.scenes,
-                    xq.play_stop,
-                ]:
-                    xq.send(
-                        to_exquis,
-                        xq.sysex(xq.color_button, menu_button, xq.led("black")),
-                    )
+                self.init_touch()
+                self.is_init = False
                 self.exquis_is_init = False
 
             if sounds.onoff(msg) is True:
@@ -61,11 +72,17 @@ def microtonOS(client_name):
                 to_isomorphic.send(msg)
 
         def widi(self, msg):
+            if self.is_init:
+                self.init_touch()
+                self.is_init = False
             assigned_to_pedal = assign.target(msg)
             if assigned_to_pedal is None:
                 to_manual2.send(msg)
 
         def reface_cp(self, msg):
+            if self.is_init:
+                self.init_touch()
+                self.is_init = False
             assign.onoff(msg, cc.foot_controller[0])
             assign.source(msg, cc.foot_controller[1])
             assigned_to_pedal = assign.target(msg)
@@ -93,7 +110,7 @@ def microtonOS(client_name):
         for i in range(len(engine_banks_pgms))
     ]
     assign = Assign(to_halberstadt)
-    sounds = Sounds(to_exquis, engine_banks_pgms)
+    sounds = Sounds(to_exquis, engine_banks_pgms, base_color=menu_colors[1])
     script = Script()
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
     from_widi = Inport(script.widi, client_name, name="widi")
