@@ -60,3 +60,17 @@ Fritz A Kuttner.
 1965.
 *[A musicological interpretation of the twelve lüs in china's traditional tone system](https://www.jstor.org/stable/pdf/850415.pdf?casa_token=tkKqBQTPG0YAAAAA:oujc4nFr_xz_LD6Pz7zExRfrg5clbkNmcpa34zQFH6aeO12z1RQKFKBWnxHhdd2QfkOtqmNOhL5y2y9qJfK7c-Y4MddXQv5htsezu2MTsWeZOZQKmk52)*.
 Ethnomusicology: 22-38.
+
+<details>
+<summary>
+Nancy Yi Liang. 2021.
+<a href="https://web.archive.org/web/20240805164207/https://blog.nyl.io/guqin-series-an-introduction/"><i>Guqin Series (古琴)</i></a>
+</summary>
+
+- *[Harmonics and Hui Positions](https://web.archive.org/web/20240527230104/https://blog.nyl.io/guqin-part-1-harmonics-and-hui/)*
+- *[Open and Pressed Notes](https://web.archive.org/web/20240805155836/https://blog.nyl.io/guqin-part-2-open-and-pressed-notes/)*
+- *[Tabulature Old and New](https://web.archive.org/web/20240721191627/https://blog.nyl.io/guqin-part-3-tablature-old-and-new/)*
+- *[Jian Zi Pu Font](https://web.archive.org/web/20240721193805/https://blog.nyl.io/jian-zi-pu-font/)*
+- *[TLDRs and Links](https://web.archive.org/web/20240805152713/https://blog.nyl.io/guqin-coda-tldr-links/)*
+
+</details>
