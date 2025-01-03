@@ -10,9 +10,6 @@ surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
 audio_name = "JACK.Built-in Audio Stereo" #"JACK.system"
 
 list_devices_command = [
-    #'sudo',
-    #'-u',
-    #'pi',
     *surge_path,
     "--list-devices",
 ]
@@ -43,9 +40,6 @@ class Script:
     def __init__(self):
         self.is_init = True
         self.commandline = [
-            #'sudo',
-            #'-u',
-            #'pi',
             *surge_path,
             "--audio-interface=" + get_output_id(audio_name),
             "--audio-ports=0,1",
