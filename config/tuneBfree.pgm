@@ -20,15 +20,15 @@
 1 {name="Jimmy Smith",
    drawbars="88 8000 008",
    drawbarslower="84 8000 000",
-   drawbarspedals="80 0000 000"}
+   drawbarspedals="80 8000 000"}
 2 {name="Charles Earland",
    drawbars="88 8800 008",
    drawbarslower="88 8000 000",
-   drawbarspedals="80 0000 000"}
+   drawbarspedals="80 8000 000"}
 3 {name="Squabbling",
    drawbars="80 0008 888",
    drawbarslower="80 8000 000",
-   drawbarspedals="80 0000 000"}
+   drawbarspedals="80 8000 000"}
 4 {name="Full Upper",
    drawbars="88 8888 888",
    drawbarslower="88 8000 000",
@@ -36,7 +36,7 @@
 5 {name="Full Organ",
    drawbars="88 8888 888",
    drawbarslower="88 8888 888",
-   drawbarspedals="80 8000 000"}
+   drawbarspedals="88 8888 888"}
 6 {name="Bossa/Reggae",
    drawbars="80 0000 008",
    drawbarslower="80 0000 000",
@@ -61,7 +61,7 @@
 11 {name="Thirds",
    drawbars="00 0000 088",
    drawbarslower="00 0000 880",
-   drawbarspedals="80 0000 000"}
+   drawbarspedals="00 0000 080"}
 
 12 {name="Random",
    drawbars=random,

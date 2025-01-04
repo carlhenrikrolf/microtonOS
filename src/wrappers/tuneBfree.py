@@ -7,19 +7,23 @@ from utils import Inport, Outport, handle_terminations, warmup
 
 client_name = "tuneBfree Wrapper"
 pause = 0.001
-commandline = [
-    "/usr/bin/pw-jack",
-    "/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree",
-    "--noconfig",
-    "--config",
-    "home/pi/microtonOS/config/tuneBfree.cfg",
-    "--noprogram",
-    "--program",
-    "/home/pi/microtonOS/config/tuneBfree.pgm",
-    #"midi.driver=" + "alsa",
-    #"midi.port=" + client_name,
-    #"jack.connect=" + "''", # "system",
-]
+config_path = "/home/pi/microtonOS/config/"
+
+
+def commandline(config):
+    return [
+        "/usr/bin/pw-jack",
+        "/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree",
+        "--noconfig",
+        "--config",
+        config_path + config,
+        "--noprogram",
+        "--program",
+        config_path + "tuneBfree.pgm",
+    ]
+
+
+configs = ["tuneBfree.cfg", "tuneSQUAREfree.cfg", "tuneSAWfree.cfg"]
 done = "All systems go. press CTRL-C, or send SIGINT or SIGHUP to terminate"
 backup_cc = range(1, 120)
 
@@ -188,12 +192,13 @@ def expression(msg):
         to_tuneBfree.send(mido.Message("control_change", control=11, value=value))
 
 
-def dispatch(msg, bank=0):
-    if bank == 1:
-        if msg.channel in [0, 15, 13, 14]:
-            to_tuneBfree.send(msg.copy(channel=0))
-        else:
-            to_tuneBfree.send(msg.copy(channel=1))
+def dispatch(msg):
+    if msg.channel in range(1, 13):
+        to_tuneBfree.send(msg.copy(channel=1))
+    elif msg.channel == 13:
+        to_tuneBfree.send(msg.copy(channel=1))
+    elif msg.channel == 14:
+        to_tuneBfree.send(msg.copy(channel=0))
     else:
         to_tuneBfree.send(msg.copy(channel=0))
 
@@ -203,23 +208,22 @@ def all_notes_off(msg):
         for channel in range(0, 3):
             for note in range(0, 128):
                 to_tuneBfree.send(mido.Message("note_off", note=note, channel=channel))
-                # sleep(pause)
-
 
 class Script:
     def __init__(self):
-        self.process = subprocess.Popen(commandline)
+        self.bank = 0
+        self.program = 0
+        self.process = subprocess.Popen(commandline(configs[self.bank]))
         handle_terminations(self.process)
         self.to_frequency = [0.0] * 128
         for note in range(0, 128):
             self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
-        self.control_to_value = [0] * 128
-        self.bank = 0
-        self.program = 0
+        self.control_to_value = [None] * 128
 
     def run(self, msg):
         if msg.is_cc(cc.bank_select[0]):
             self.bank = msg.value
+            self.load()
         elif msg.type == "control_change":
             if msg.control in backup_cc:
                 self.control_to_value[msg.control] = msg.value
@@ -237,7 +241,7 @@ class Script:
         elif msg.type in ["aftertouch", "polytouch"]:
             to_tuneBfree.send(leslie.translate(boost=msg.value))
         elif hasattr(msg, "channel"):
-            dispatch(msg, bank=self.bank)
+            dispatch(msg)
             self.restart(msg)
         else:
             to_tuneBfree.send(msg)
@@ -251,14 +255,6 @@ class Script:
                 for note in range(0, 128):
                     self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
                 self.load()
-                to_tuneBfree.send(mido.Message("program_change", program=self.program))
-                sleep(pause)
-                for control, value in enumerate(self.control_to_value):
-                    if control in backup_cc:
-                        self.run(
-                            mido.Message("control_change", control=control, value=value)
-                        )
-                        sleep(pause)
                 self.run(msg)
 
     def load(self):
@@ -266,7 +262,7 @@ class Script:
             self.process.terminate()
         finally:
             self.process = subprocess.Popen(
-                commandline,
+                commandline(configs[self.bank]),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
@@ -284,6 +280,14 @@ class Script:
                     break
             self.process.stdout = None
             self.process.stderr = None
+
+    def resend(self):
+        to_tuneBfree.send(mido.Message("program_change", program=self.program))
+        sleep(pause)
+        for control, value in enumerate(self.control_to_value):
+            if control in backup_cc and value is not None:
+                self.run(mido.Message("control_change", control=control, value=value))
+                sleep(pause)
 
 
 warmup.client()

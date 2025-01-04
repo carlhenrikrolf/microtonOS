@@ -9,7 +9,7 @@ from modulation.pedals import Assign
 
 engine_banks_pgms = [
     ["Pianoteq", (9, 4, 4, 2)],
-    ["tuneBfree", (12, 12)],
+    ["tuneBfree", (12, 12, 12)],
     ["Surge XT", (8, 14, 7, 4, 4)],
 ]
 
