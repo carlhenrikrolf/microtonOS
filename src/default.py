@@ -1,7 +1,7 @@
 import mido
 from colour import Color
 from menu import Sounds
-from utils import Inport, Outport, make_threads
+from utils import Inport, Outport, make_threads, set_volume, set_gain
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
 from modulation.pedals import Assign
@@ -22,6 +22,15 @@ menu_colors = [  # 🔴🟠🟡🟢🔵🟣
     Color("magenta"),
 ]
 
+buttons = [
+    xq.settings,
+    xq.sounds,
+    xq.record,
+    xq.tracks,
+    xq.scenes,
+    xq.play_stop,
+]
+
 
 def microtonOS(client_name):
     class Script:
@@ -34,16 +43,10 @@ def microtonOS(client_name):
             self.pgm = 0
 
         def init_touch(self):
-            buttons = [
-                xq.settings,
-                xq.sounds,
-                xq.record,
-                xq.tracks,
-                xq.scenes,
-                xq.play_stop,
-            ]
             for i, button in enumerate(buttons):
-                xq.send(to_exquis, xq.sysex(xq.color_button, button, xq.led(menu_colors[i])))
+                xq.send(
+                    to_exquis, xq.sysex(xq.color_button, button, xq.led(menu_colors[i]))
+                )
 
         def exquis(self, msg):
             if self.exquis_is_init:
@@ -51,12 +54,23 @@ def microtonOS(client_name):
                 self.is_init = False
                 self.exquis_is_init = False
 
-            if sounds.onoff(msg) is True:
-                self.engine, self.bank, self.pgm = sounds.select(msg)
+            if any(
+                [xq.is_sysex(msg, [xq.click, button, xq.pressed]) for button in buttons]
+            ):
                 for outport in to_engine:
                     outport.send(
                         mido.Message("control_change", control=cc.all_notes_off)
                     )
+
+            if sounds.onoff(msg) is True:
+                self.engine, self.bank, self.pgm = sounds.select(msg)
+                volume, volume_is_muted = sounds.set_volume(msg)
+                if volume is not None:
+                    set_volume(volume, volume_is_muted)
+                gain, gain_is_muted = sounds.set_gain(msg)
+                if gain is not None:
+                    set_gain(gain, gain_is_muted)
+
             elif sounds.onoff(msg) is False:
                 print("eng =", self.engine, "bnk =", self.bank, "pgm =", self.pgm)
                 to_isomorphic.send(msg)

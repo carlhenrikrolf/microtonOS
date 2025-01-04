@@ -26,13 +26,13 @@ class Sounds:
         self,
         outport,
         engine_banks_pgms,
-        base_color=Color("red"),
-        click_color=Color("white"),
+        base_color="red",
+        click_color="white",
     ):
         self.outport = outport
         self.engine_banks_pgms = engine_banks_pgms
-        self.base_color = xq.led(base_color)
-        self.click_color = xq.led(click_color)
+        self.base_color = base_color
+        self.click_color = click_color
         self.engine = 0
         self.bank = 0
         self.pgm = 0
@@ -50,35 +50,37 @@ class Sounds:
                 xq.send(self.outport, xq.sysex(xq.map_key_to_note, key, key))
             for i, key in enumerate(engines):
                 if i < self.n_engines:
-                    xq.send(self.outport, xq.sysex(xq.color_key, key, self.base_color))
+                    xq.send(self.outport, xq.sysex(xq.color_key, key, xq.led(self.base_color)))
                 else:
                     break
             for key in range(i, 61):
                 xq.send(
                     self.outport,
-                    xq.sysex(xq.color_key, mapping[key], xq.to_color("black")),
+                    xq.sysex(xq.color_key, mapping[key], xq.led("black")),
                 )
             for button in [xq.octave_up, xq.octave_down, xq.page_left, xq.page_right]:
                 xq.send(
                     self.outport,
-                    xq.sysex(xq.color_button, button, xq.to_color("black")),
+                    xq.sysex(xq.color_button, button, xq.led("black")),
                 )
 
-            # get_volume()
+            volume, volume_is_muted = get_volume()
+            volume_indicator = Color(self.base_color)
+            volume_indicator.luminance = 0 if volume_is_muted else volume
             xq.send(
-                self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.to_color("black"))
-            ) # replace to color by led
-            # Color.luminance ...
-
-            # get_gain()
+                self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.led(volume_indicator))
+            )
+            gain, gain_is_muted = get_gain()
+            gain_indicator = Color(self.base_color)
+            gain_indicator.luminance = 0 if gain_is_muted else gain
             xq.send(
-                self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.to_color("black"))
+                self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.led(gain_indicator))
             )
             xq.send(
-                self.outport, xq.sysex(xq.color_knob, xq.knob3, xq.to_color("black"))
+                self.outport, xq.sysex(xq.color_knob, xq.knob3, xq.led("black"))
             )
             xq.send(
-                self.outport, xq.sysex(xq.color_knob, xq.knob4, xq.to_color("black"))
+                self.outport, xq.sysex(xq.color_knob, xq.knob4, xq.led("black"))
             )
 
             self.n_banks = 0
@@ -92,12 +94,38 @@ class Sounds:
             return False
 
         return self.is_on
-    
+
     def set_volume(self, msg):
-        pass
+        volume, volume_is_muted = get_volume()
+        if xq.is_sysex(msg, [xq.clockwise, xq.knob1, None]):
+            volume = min(1, volume + xq.rotation(msg) / 100)
+        elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, None]):
+            volume = max(0, volume + xq.rotation(msg) / 100)
+        elif xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]):
+            volume_is_muted = not volume_is_muted
+        else:
+            return None, None
+        volume_indicator = Color(self.base_color)
+        volume_indicator.luminance = 0 if volume_is_muted else volume
+        xq.send(
+            self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.led(volume_indicator))
+        )
+        return volume, volume_is_muted
 
     def set_gain(self, msg):
-        pass
+        gain, gain_is_muted = get_gain()
+        if xq.is_sysex(msg, [xq.clockwise, xq.knob2, None]):
+            gain = min(1, gain + xq.rotation(msg) / 100)
+        elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]):
+            gain = max(0, gain + xq.rotation(msg) / 100)
+        elif xq.is_sysex(msg, [xq.click, xq.button2, xq.pressed]):
+            gain_is_muted = not gain_is_muted
+        else:
+            return None, None
+        gain_indicator = Color(self.base_color)
+        gain_indicator.luminance = 0 if gain_is_muted else gain
+        xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.led(gain_indicator)))
+        return gain, gain_is_muted
 
     def select(self, msg):
         if msg.type == "note_on":
@@ -108,17 +136,17 @@ class Sounds:
                         if j < self.n_engines:
                             xq.send(
                                 self.outport,
-                                xq.sysex(xq.color_key, key, self.base_color),
+                                xq.sysex(xq.color_key, key, xq.led(self.base_color)),
                             )
                         else:
                             break
                     for key in range(j, 61):
                         xq.send(
                             self.outport,
-                            xq.sysex(xq.color_key, mapping[key], xq.to_color("black")),
+                            xq.sysex(xq.color_key, mapping[key], xq.led("black")),
                         )
                     xq.send(
-                        self.outport, xq.sysex(xq.color_key, msg.note, self.click_color)
+                        self.outport, xq.sysex(xq.color_key, msg.note, xq.led(self.click_color))
                     )
                     self.engine = i
                     self.n_banks = len(self.engine_banks_pgms[self.engine][1])
@@ -129,7 +157,7 @@ class Sounds:
                             if j < self.n_banks:
                                 xq.send(
                                     self.outport,
-                                    xq.sysex(xq.color_key, key, self.base_color),
+                                    xq.sysex(xq.color_key, key, xq.led(self.base_color)),
                                 )
                             else:
                                 break
@@ -141,20 +169,20 @@ class Sounds:
                         if j < self.n_banks:
                             xq.send(
                                 self.outport,
-                                xq.sysex(xq.color_key, key, self.base_color),
+                                xq.sysex(xq.color_key, key, xq.led(self.base_color)),
                             )
                         else:
                             xq.send(
                                 self.outport,
-                                xq.sysex(xq.color_key, key, xq.to_color("black")),
+                                xq.sysex(xq.color_key, key, xq.led("black")),
                             )
                     for key in pgms:
                         xq.send(
                             self.outport,
-                            xq.sysex(xq.color_key, key, xq.to_color("black")),
+                            xq.sysex(xq.color_key, key, xq.led("black")),
                         )
                     xq.send(
-                        self.outport, xq.sysex(xq.color_key, msg.note, self.click_color)
+                        self.outport, xq.sysex(xq.color_key, msg.note, xq.led(self.click_color))
                     )
                     self.bank = i
                     self.n_pgms = round(
@@ -166,7 +194,7 @@ class Sounds:
                             if j < self.n_pgms:
                                 xq.send(
                                     self.outport,
-                                    xq.sysex(xq.color_key, key, self.base_color),
+                                    xq.sysex(xq.color_key, key, xq.led(self.base_color)),
                                 )
                             else:
                                 break
@@ -178,15 +206,15 @@ class Sounds:
                         if j < self.n_pgms:
                             xq.send(
                                 self.outport,
-                                xq.sysex(xq.color_key, key, self.base_color),
+                                xq.sysex(xq.color_key, key, xq.led(self.base_color)),
                             )
                         else:
                             xq.send(
                                 self.outport,
-                                xq.sysex(xq.color_key, key, xq.to_color("black")),
+                                xq.sysex(xq.color_key, key, xq.led("black")),
                             )
                     xq.send(
-                        self.outport, xq.sysex(xq.color_key, msg.note, self.click_color)
+                        self.outport, xq.sysex(xq.color_key, msg.note, xq.led(self.click_color))
                     )
                     self.pgm = i
 
