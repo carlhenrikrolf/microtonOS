@@ -156,7 +156,7 @@ class Exquis: # version 1.2.0
 			else:
 				if data[2] is None:
 					if indata[3:5] == data[0:2]:
-						return True, (indata[5] if len(indata[5:]) == 1 else indata[5:])
+						return True #, (indata[5] if len(indata[5:]) == 1 else indata[5:])
 					else:
 						return False
 				elif type(data[2]) is list:
@@ -200,6 +200,15 @@ class Exquis: # version 1.2.0
 			# return True if sum(self.current_menus) > 0 else False
 		# else:
 			# return False
+
+	def rotation(self, msg):
+		if msg.type == 'sysex':
+			indata = list(msg.data)
+			if indata[0:4] == [*self.prefix, self.clockwise]:
+				return int(indata[5])
+			elif indata[0:4] == [*self.prefix, self.counter_clockwise]:
+				return -int(indata[5])
+		return None
 		
 	def to_knob(self, button):
 		return button - 10

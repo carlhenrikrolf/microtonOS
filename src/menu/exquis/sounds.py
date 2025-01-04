@@ -1,4 +1,5 @@
 from colour import Color
+from utils import get_volume, get_gain
 from midi_implementation.dualo import exquis as xq
 				
 				
@@ -19,7 +20,6 @@ mapping = [
 engines = [55, 56, 57, 58, 59, 60, 50, 51, 52, 53, 54, 44, 45, 46, 47, 48, 49]
 banks = [33, 34, 35, 36, 37, 38, 28, 29, 30, 31, 32, 22, 23, 24, 25, 26, 27]
 pgms = [11, 12, 13, 14, 15, 16, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
-
 
 class Sounds:
     def __init__(
@@ -64,9 +64,13 @@ class Sounds:
                     xq.sysex(xq.color_button, button, xq.to_color("black")),
                 )
 
+            # get_volume()
             xq.send(
                 self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.to_color("black"))
-            )
+            ) # replace to color by led
+            # Color.luminance ...
+
+            # get_gain()
             xq.send(
                 self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.to_color("black"))
             )
@@ -88,6 +92,12 @@ class Sounds:
             return False
 
         return self.is_on
+    
+    def set_volume(self, msg):
+        pass
+
+    def set_gain(self, msg):
+        pass
 
     def select(self, msg):
         if msg.type == "note_on":
