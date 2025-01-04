@@ -44,6 +44,11 @@ class Sounds:
         self.is_on = None
         self.submenu = 0
 
+        self.volume = 1
+        self.volume_is_muted = False
+        self.gain = 1
+        self.gain_is_muted = False
+
     def onoff(self, msg):
         if xq.is_sysex(msg, [xq.click, xq.sounds, xq.pressed]):
             for key in xq.keys:
@@ -64,15 +69,15 @@ class Sounds:
                     xq.sysex(xq.color_button, button, xq.led("black")),
                 )
 
-            volume, volume_is_muted = get_volume()
+            self.volume, self.volume_is_muted = get_volume()
             volume_indicator = Color(self.base_color)
-            volume_indicator.luminance = 0 if volume_is_muted else volume
+            volume_indicator.luminance = 0 if self.volume_is_muted else self.volume
             xq.send(
                 self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.led(volume_indicator))
             )
-            gain, gain_is_muted = get_gain()
+            self.gain, self.gain_is_muted = get_gain()
             gain_indicator = Color(self.base_color)
-            gain_indicator.luminance = 0 if gain_is_muted else gain
+            gain_indicator.luminance = 0 if self.gain_is_muted else self.gain
             xq.send(
                 self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.led(gain_indicator))
             )
@@ -96,36 +101,34 @@ class Sounds:
         return self.is_on
 
     def set_volume(self, msg):
-        volume, volume_is_muted = get_volume()
         if xq.is_sysex(msg, [xq.clockwise, xq.knob1, None]):
-            volume = min(1, volume + xq.rotation(msg) / 100)
+            self.volume = min(1, self.volume + xq.rotation(msg) / 100)
         elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob1, None]):
-            volume = max(0, volume + xq.rotation(msg) / 100)
+            self.volume = max(0, self.volume + xq.rotation(msg) / 100)
         elif xq.is_sysex(msg, [xq.click, xq.button1, xq.pressed]):
-            volume_is_muted = not volume_is_muted
+            self.volume_is_muted = not self.volume_is_muted
         else:
-            return None, None
+            return False
         volume_indicator = Color(self.base_color)
-        volume_indicator.luminance = 0 if volume_is_muted else volume
+        volume_indicator.luminance = 0 if self.volume_is_muted else self.volume
         xq.send(
             self.outport, xq.sysex(xq.color_knob, xq.knob1, xq.led(volume_indicator))
         )
-        return volume, volume_is_muted
+        return True
 
     def set_gain(self, msg):
-        gain, gain_is_muted = get_gain()
         if xq.is_sysex(msg, [xq.clockwise, xq.knob2, None]):
-            gain = min(1, gain + xq.rotation(msg) / 100)
+            self.gain = min(1, self.gain + xq.rotation(msg) / 100)
         elif xq.is_sysex(msg, [xq.counter_clockwise, xq.knob2, None]):
-            gain = max(0, gain + xq.rotation(msg) / 100)
+            self.gain = max(0, self.gain + xq.rotation(msg) / 100)
         elif xq.is_sysex(msg, [xq.click, xq.button2, xq.pressed]):
-            gain_is_muted = not gain_is_muted
+            self.gain_is_muted = not self.gain_is_muted
         else:
-            return None, None
+            return False
         gain_indicator = Color(self.base_color)
-        gain_indicator.luminance = 0 if gain_is_muted else gain
+        gain_indicator.luminance = 0 if self.gain_is_muted else self.gain
         xq.send(self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.led(gain_indicator)))
-        return gain, gain_is_muted
+        return True
 
     def select(self, msg):
         if msg.type == "note_on":

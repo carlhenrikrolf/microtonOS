@@ -41,6 +41,8 @@ def microtonOS(client_name):
             self.engine = 0
             self.bank = 0
             self.pgm = 0
+            self.change_volume = False
+            self.change_gain = False
 
         def init_touch(self):
             for i, button in enumerate(buttons):
@@ -64,12 +66,8 @@ def microtonOS(client_name):
 
             if sounds.onoff(msg) is True:
                 self.engine, self.bank, self.pgm = sounds.select(msg)
-                volume, volume_is_muted = sounds.set_volume(msg)
-                if volume is not None:
-                    set_volume(volume, volume_is_muted)
-                gain, gain_is_muted = sounds.set_gain(msg)
-                if gain is not None:
-                    set_gain(gain, gain_is_muted)
+                self.change_volume += sounds.set_volume(msg)
+                self.change_gain += sounds.set_gain(msg)
 
             elif sounds.onoff(msg) is False:
                 print("eng =", self.engine, "bnk =", self.bank, "pgm =", self.pgm)
@@ -82,6 +80,12 @@ def microtonOS(client_name):
                 to_engine[self.engine].send(
                     mido.Message("program_change", program=self.pgm)
                 )
+                if self.change_volume:
+                    set_volume(sounds.volume, sounds.volume_is_muted)
+                    self.change_volume = False
+                if self.change_gain:
+                    set_gain(sounds.gain, sounds.gain_is_muted)
+                    self.change_gain = False
             else:
                 to_isomorphic.send(msg)
 

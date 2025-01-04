@@ -91,6 +91,9 @@ Install tools for connecting audio.
 ```bash
 sudo apt install pw-jack pw-alsa qjackctl a2jmidid blueman
 ```
+Check that both default source and sink are configured by using `wpctl status` and checking that they are prepended by `*`s.
+If not, note the id and use:
+`wpctl set-default <id>`
 Run `pw-jack qjackctl` to set it up for the soundcard.
 For the HifiBerry DAC+ADC soundcard, the parameters should be
 - Driver: ALSA
