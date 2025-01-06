@@ -209,6 +209,7 @@ def all_notes_off(msg):
             for note in range(0, 128):
                 to_tuneBfree.send(mido.Message("note_off", note=note, channel=channel))
 
+
 class Script:
     def __init__(self):
         self.bank = 0
@@ -240,13 +241,14 @@ class Script:
                 all_notes_off(msg)
         elif msg.type in ["aftertouch", "polytouch"]:
             to_tuneBfree.send(leslie.translate(boost=msg.value))
+        elif msg.type == "program_change":
+            self.program = msg.program
+            self.resend()
         elif hasattr(msg, "channel"):
             dispatch(msg)
             self.restart(msg)
         else:
             to_tuneBfree.send(msg)
-            if msg.type == "program_change":
-                self.program = msg.program
 
     def restart(self, msg):
         if msg.type == "note_on":
