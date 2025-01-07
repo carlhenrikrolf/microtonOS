@@ -257,6 +257,7 @@ class Script:
                 for note in range(0, 128):
                     self.to_frequency[note] = mts.note_to_frequency(mts_client, note, 0)
                 self.load()
+                self.resend()
                 self.run(msg)
 
     def load(self):
