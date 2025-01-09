@@ -7,7 +7,7 @@ Requires=mtsesp_master.service
 [Service]
 User=pi
 Environment=XDG_RUNTIME_DIR="/run/user/1000"
-ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/surge_xt.py
+ExecStart=/usr/bin/pw-jack /home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/surge_xt.py
 Restart=always
 RestartSec=2s
 TimeoutSec=infinity
