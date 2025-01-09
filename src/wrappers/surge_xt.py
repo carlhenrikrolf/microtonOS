@@ -7,7 +7,8 @@ from utils import Inport, Outport, handle_terminations, warmup
 # parameters
 client_name = "Surge XT Wrapper"
 surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
-audio_name = "JACK.Built-in Audio Stereo" #"JACK.system"
+audio_name = "JACK.Built-in Audio Stereo"
+audio_input_name = "JACK.Midi-Bridge"
 
 list_devices_command = [
     *surge_path,
@@ -26,9 +27,9 @@ def get_input_id(name):
         return None
 
 
-def get_output_id(name):
+def get_output_id(name, kind=""):
     output = subprocess.check_output(list_devices_command).decode()
-    pattern = "\[(\d+)\.(\d+)\] : " + name
+    pattern = kind + ": " + "\[(\d+)\.(\d+)\] : " + name
     match = re.search(pattern, output)
     if match:
         return str(match.group(1)) + "." + str(match.group(2))
@@ -41,8 +42,10 @@ class Script:
         self.is_init = True
         self.commandline = [
             *surge_path,
-            "--audio-interface=" + get_output_id(audio_name),
-            "--audio-ports=0,1",
+            "--audio-interface=" + get_output_id(audio_name, "Output Audio Device"),
+            #"--audio-ports=0,1",
+            "--audio-input-interface=" + get_output_id(audio_input_name, "Input Audio Device"),
+            #"--audio-input-ports=0,1",
             "--midi-input=" + get_input_id("from " + client_name),
             "--no-stdin",
         ]

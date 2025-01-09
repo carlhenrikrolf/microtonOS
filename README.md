@@ -107,6 +107,7 @@ The advanced settings should be
 - Channels I/O: 2, 2
 
 To use MIDI over bluetooth, start blueman and search for devices.
+(To pair a mac with the pi through bluetooth midi: 1. On Mac, advertise bluetooth midi with Audio Midi Setup or Surge XT. 2. On Raspberry Pi, search devices on blueman and trust the Mac. 3. On Raspberry Pi, connect to the Mac. 4. On both, approve the pairing.)
 To send audio over the network, install [Sonobus](https://sonobus.net/linux.html).
 At the time of writing, the following commands were sufficient:
 ```bash
