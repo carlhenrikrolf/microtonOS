@@ -60,8 +60,7 @@ If you forget the option, you can later add
 ```bash
 git submodule update --init --recursive
 ```
-In case you have your own fork, do not forget to set `git config --global user.name=<user name>`
-and `git config --global user.email=<user email>`.
+
 
 The following steps will be performed from withing the repository, so
 ```bash
@@ -89,8 +88,10 @@ When using an audio application a red LED should be lit on the HifiBerry soundca
 
 Install tools for connecting audio.
 ```bash
-sudo apt install pw-jack pw-alsa qjackctl a2jmidid blueman
+sudo apt install pipewire-jack pipewire-alsa qjackctl a2jmidid blueman
+sudo apt remove pipewire-pulse
 ```
+Before using Pipewire/Wireplumber, use `chmod 0700 /run/user/1000`
 Check that both default source and sink are configured by using `wpctl status` and checking that they are prepended by `*`s.
 If not, note the id and use:
 `wpctl set-default <id>`
@@ -159,6 +160,36 @@ sudo apt install surge-xt-release
 Download Pianoteq (from user area if you have a license).
 Extract into `/home/pi/`; `/home/pi/Pianoteq <version>/` should be created.
 To add `.ptq` files, go into `.local/share/Modartt/Addons` and add them there.
+
+<details>
+<summary>
+Useful if you want to develop it further.
+</summary>
+
+In case you have your own fork, do not forget to set `git config --global user.name=<user name>`
+and `git config --global user.email=<user email>`.
+Other useful pieces of software to install:
+```bash
+sudo apt install qpwgraph code guitarix aeolus hydrogen
+```
+Sfizz build:
+```bash
+cd ~
+git clone https://github.com/sfztools/sfizz.git
+cd sfizz
+cmake .
+make
+```
+Xentotune build:
+```bash
+cd ~
+git clone --recurse-submodules https://github.com/narenratan/xentotune
+cd xentotune
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release
+```
+
+</details>
 
 
 ## Isomorphic Layouts
