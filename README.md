@@ -172,6 +172,19 @@ Other useful pieces of software to install:
 ```bash
 sudo apt install qpwgraph code guitarix aeolus hydrogen
 ```
+
+Carla and Catia:
+```bash
+cd ~/Downloads
+sudo apt-get update
+sudo apt-get install apt-transport-https gpgv wget
+wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
+sudo dpkg -i kxstudio-repos_11.1.0_all.deb
+sudo apt update
+sudo apt install carla catia
+```
+Better check https://kx.studio/Repositories as it may be subject to change.
+
 Sfizz build:
 ```bash
 cd ~
