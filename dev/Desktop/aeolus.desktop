@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Aeolus
+Comment=Organ Emulator
+Comment[fr]=Émulateur d'orgue
+Keywords=audio;sound;jackd;synth;
+Exec=/usr/bin/pw-jack /usr/bin/aeolus -t
+Terminal=true
+Type=Application
+Icon=audio-x-generic
+Categories=AudioVideo;Audio;

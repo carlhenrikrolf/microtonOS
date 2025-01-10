@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Meterbridge
+GenericName=Audio Level Meter
+Comment=Audio level meter for JACK
+Keywords=audio;sound;jackd;measure;meter;
+Icon=meterbridge32x32
+Exec=/usr/bin/pw-jack /usr/bin/meterbridge -t vu alsa_pcm:playback_1 alsa_pcm:playback_2
+Terminal=false
+Categories=AudioVideo;Audio;

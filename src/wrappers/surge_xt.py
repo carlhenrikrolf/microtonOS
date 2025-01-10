@@ -6,10 +6,10 @@ from midi_implementation.mpe import set_mpe_mode  # , set_pitchbend_sensitivity
 from utils import Inport, Outport, handle_terminations, warmup
 
 client_name = "Surge XT Wrapper"
-vocoder = "Surge XT Vocoder"
+vocoder_name = client_name #"Surge XT Vocoder"
 surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
 audio_name = "JACK.Built-in Audio Stereo"
-audio_input_name = "JACK."+vocoder
+audio_input_name = "JACK."+vocoder_name
 
 list_devices_command = [
     *surge_path,
@@ -38,19 +38,16 @@ def get_output_id(name, kind=""):
         return None
     
 
-def thru():
-    client = jack.Client(vocoder)
+vocoder = jack.Client(vocoder_name)
 
-    @client.set_process_callback
-    def process(frames):
-        for inport, outport in zip(client.inports, client.outports):
-            inport.get_buffer()[:] = outport.get_buffer()
+@vocoder.set_process_callback
+def process(frames):
+    for inport, outport in zip(vocoder.inports, vocoder.outports):
+        inport.get_buffer()[:] = outport.get_buffer()
 
-    for channel in 1, 2:
-        client.inports.register('in_'+str(channel))
-        client.outports.register('out_'+str(channel))
-
-    return client
+for channel in 1, 2:
+    vocoder.inports.register('in_'+str(channel))
+    vocoder.outports.register('out_'+str(channel))
 
 
 class Script:
@@ -59,9 +56,9 @@ class Script:
         self.commandline = [
             *surge_path,
             "--audio-interface=" + get_output_id(audio_name, "Input Audio Device"),
-            #"--audio-ports=0,1",
+            "--audio-ports=0,1",
             "--audio-input-interface=" + get_output_id(audio_input_name, "Output Audio Device"),
-            #"--audio-input-ports=0,1",
+            "--audio-input-ports=0,1",
             "--midi-input=" + get_input_id("from " + client_name),
             "--no-stdin",
         ]
@@ -81,7 +78,7 @@ class Script:
         to_surge_xt.send(msg)
 
 
-with thru():
+with vocoder:
     warmup.client()
     to_surge_xt = Outport(client_name, verbose=False)
     script = Script()

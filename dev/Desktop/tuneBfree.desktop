@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=tuneBfree
+Exec=/usr/bin/pw-jack /home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree
+Comment=
+Terminal=true
+Icon=gnome-panel-launcher
+Type=Application
