@@ -4,6 +4,8 @@ from menu import Sounds
 from utils import Inport, Outport, make_threads, set_volume, set_gain
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
+from midi_implementation.yamaha import reface_cp as cp
+from midi_implementation.cme import widi_master as widi
 from modulation.pedals import Assign
 
 
@@ -11,6 +13,13 @@ engine_banks_pgms = [
     ["Pianoteq", (9, 4, 4, 2)],
     ["tuneBfree", (12, 12, 12)],
     ["Surge XT", (8, 14, 7, 4, 4)],
+]
+
+drivers = [
+    ["Synth 1", cp.is_connected],
+    ["Synth 2", widi.is_connected],
+    # "Module 1",
+    # "Controller 1",
 ]
 
 menu_colors = [  # 🔴🟠🟡🟢🔵🟣
@@ -41,6 +50,7 @@ def microtonOS(client_name):
             self.engine = 0
             self.bank = 0
             self.pgm = 0
+            self.outport = to_engine[self.engine]
             self.change_volume = False
             self.change_gain = False
 
@@ -70,34 +80,31 @@ def microtonOS(client_name):
                 self.change_gain += sounds.set_gain(msg)
 
             elif sounds.onoff(msg) is False:
-                print("eng =", self.engine, "bnk =", self.bank, "pgm =", self.pgm)
+                # print("eng =", self.engine, "bnk =", self.bank, "pgm =", self.pgm)
                 to_isomorphic.send(msg)
-                to_engine[self.engine].send(
-                    mido.Message(
-                        "control_change", control=cc.bank_select[0], value=self.bank
+                if self.engine >= 0:
+                    self.outport = to_engine[self.engine]
+                    self.outport.send(
+                        mido.Message(
+                            "control_change", control=cc.bank_select[0], value=self.bank
+                        )
                     )
-                )
-                to_engine[self.engine].send(
-                    mido.Message("program_change", program=self.pgm)
-                )
+                    self.outport.send(mido.Message("program_change", program=self.pgm))
+                else:
+                    driver = -self.engine
+                    self.outport = to_driver[driver]
+
                 if self.change_volume:
                     set_volume(sounds.volume, sounds.volume_is_muted)
                     self.change_volume = False
                 if self.change_gain:
                     set_gain(sounds.gain, sounds.gain_is_muted)
                     self.change_gain = False
+
             else:
                 to_isomorphic.send(msg)
 
-        def widi(self, msg):
-            if self.is_init:
-                self.init_touch()
-                self.is_init = False
-            assigned_to_pedal = assign.target(msg)
-            if assigned_to_pedal is None:
-                to_manual2.send(msg)
-
-        def reface_cp(self, msg):
+        def synth1(self, msg):
             if self.is_init:
                 self.init_touch()
                 self.is_init = False
@@ -111,15 +118,21 @@ def microtonOS(client_name):
             ):
                 to_halberstadt.send(msg)
 
+        def synth2(self, msg):
+            if self.is_init:
+                self.init_touch()
+                self.is_init = False
+            assigned_to_pedal = assign.target(msg)
+            if assigned_to_pedal is None:
+                to_manual2.send(msg)
+
         def mtsesp_master(self, msg):
             if xq.is_sysex(msg):
                 to_exquis.send(msg)
             else:
-                to_engine[self.engine].send(msg)
+                self.outport.send(msg)
 
     to_exquis = Outport(client_name, name="Exquis")
-    to_reface_cp = Outport(client_name, name="Reface CP")
-    to_widi = Outport(client_name, "widi")
     to_isomorphic = Outport(client_name, name="Isomorphic")
     to_halberstadt = Outport(client_name, name="Halberstadt")
     to_manual2 = Outport(client_name, name="Manual 2")
@@ -127,13 +140,14 @@ def microtonOS(client_name):
         Outport(client_name, name=engine_banks_pgms[i][0])
         for i in range(len(engine_banks_pgms))
     ]
+    to_driver = [Outport(client_name, name=drivers[i][0]) for i in range(len(drivers))]
     assign = Assign(to_halberstadt)
-    sounds = Sounds(to_exquis, engine_banks_pgms, base_color=menu_colors[1])
+    sounds = Sounds(to_exquis, engine_banks_pgms, drivers, base_color=menu_colors[1])
     script = Script()
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
-    from_widi = Inport(script.widi, client_name, name="widi")
-    from_reface_cp = Inport(script.reface_cp, client_name, name="Reface CP")
-    from_mtsesp_master = Inport(script.mtsesp_master, client_name, "MTS-ESP master")
+    from_synth1 = Inport(script.synth1, client_name, name="Synth 1")
+    from_synth2 = Inport(script.synth2, client_name, name="Synth 2")
+    from_mtsesp_master = Inport(script.mtsesp_master, client_name, "MTS-ESP Master")
     make_threads(
-        [from_exquis.open, from_widi.open, from_reface_cp.open, from_mtsesp_master.open]
+        [from_exquis.open, from_synth1.open, from_synth2.open, from_mtsesp_master.open]
     )

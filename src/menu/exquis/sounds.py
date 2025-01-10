@@ -26,11 +26,13 @@ class Sounds:
         self,
         outport,
         engine_banks_pgms,
+        drivers,
         base_color="red",
         click_color="white",
     ):
         self.outport = outport
         self.engine_banks_pgms = engine_banks_pgms
+        self.drivers = drivers
         self.base_color = base_color
         self.click_color = click_color
         self.engine = 0
@@ -40,6 +42,7 @@ class Sounds:
         self.n_engines = len(self.engine_banks_pgms)
         self.n_banks = 0
         self.n_pgms = 0
+        self.n_drivers = len(self.drivers)
 
         self.is_on = None
         self.submenu = 0

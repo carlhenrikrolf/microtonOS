@@ -81,6 +81,7 @@ control_change = ControlChange()
 class SystemExclusive:
 	
 	non_commercial = 0x7D
+	device_inquiry = [0x7E, 0x7F, 0x06, 0x01]
 
 system_exclusive = SystemExclusive()
 

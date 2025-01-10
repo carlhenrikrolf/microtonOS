@@ -1,0 +1,13 @@
+[Unit]
+Description=Start the Minilogue XD driver
+After=graphical.target
+
+[Service]
+User=pi
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/drivers/minilogue_xd.py
+Restart=always
+RestartSec=2s
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target
