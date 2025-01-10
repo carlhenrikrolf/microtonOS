@@ -6,7 +6,7 @@ from midi_implementation.mpe import set_mpe_mode  # , set_pitchbend_sensitivity
 from utils import Inport, Outport, handle_terminations, warmup
 
 client_name = "Surge XT Wrapper"
-vocoder_name = client_name #"Surge XT Vocoder"
+vocoder_name = "Surge Vocoder Wrapper"
 surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
 audio_name = "JACK.Built-in Audio Stereo"
 audio_input_name = "JACK."+vocoder_name
