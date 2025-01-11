@@ -88,6 +88,7 @@ When using an audio application a red LED should be lit on the HifiBerry soundca
 
 Install tools for connecting audio.
 ```bash
+sudo apt update
 sudo apt install pipewire-jack pipewire-alsa qjackctl a2jmidid blueman
 sudo apt remove pipewire-pulse
 ```
@@ -168,6 +169,14 @@ Useful if you want to develop it further.
 
 In case you have your own fork, do not forget to set `git config --global user.name=<user name>`
 and `git config --global user.email=<user email>`.
+Set up `ssh-keygen` and copy-paste `.pub` contents to Github.
+
+Additional package managers:
+```bash
+sudo apt install pacman-package-manager
+wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+```
+
 Other useful pieces of software to install:
 ```bash
 sudo apt install qpwgraph code guitarix aeolus hydrogen
@@ -200,6 +209,7 @@ git clone --recurse-submodules https://github.com/narenratan/xentotune
 cd xentotune
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
+sudo cp -rf build/Xentotune.clap /lib/clap
 ```
 
 </details>

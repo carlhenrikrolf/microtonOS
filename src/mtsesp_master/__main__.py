@@ -17,7 +17,7 @@ from mtsesp_master.isomorphic import isomorphic
 from utils import Outport, Inport, make_threads, warmup
 
 # parameters
-client_name = "MTS-ESP master"
+client_name = "MTS-ESP Master"
 
 
 # script
@@ -197,12 +197,12 @@ mpe = MPE(outport=to_microtonOS, zone="lower", polyphony=12)
 active_sensing = ActiveSensing(to_microtonOS)
 script = Script()
 from_isomorphic = Inport(
-    script.isomorphic, client_name, name="isomorphic", verbose=False
+    script.isomorphic, client_name, name="Isomorphic", verbose=False
 )
 from_halberstadt = Inport(
     script.halberstadt, client_name, name="Halberstadt", verbose=False
 )
-from_manual2 = Inport(script.manual2, client_name, name="manual 2", verbose=False)
+from_manual2 = Inport(script.manual2, client_name, name="Manual 2", verbose=False)
 warmup.master()
 with esp.Master():
     esp.set_scale_name(warmup.message)
