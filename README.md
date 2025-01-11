@@ -162,58 +162,7 @@ Download Pianoteq (from user area if you have a license).
 Extract into `/home/pi/`; `/home/pi/Pianoteq <version>/` should be created.
 To add `.ptq` files, go into `.local/share/Modartt/Addons` and add them there.
 
-<details>
-<summary>
-Useful if you want to develop it further.
-</summary>
-
-In case you have your own fork, do not forget to set `git config --global user.name=<user name>`
-and `git config --global user.email=<user email>`.
-Set up `ssh-keygen` and copy-paste `.pub` contents to Github.
-
-Additional package managers:
-```bash
-sudo apt install pacman-package-manager
-wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
-```
-
-Other useful pieces of software to install:
-```bash
-sudo apt install qpwgraph code guitarix aeolus hydrogen
-```
-
-Carla and Catia:
-```bash
-cd ~/Downloads
-sudo apt-get update
-sudo apt-get install apt-transport-https gpgv wget
-wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
-sudo dpkg -i kxstudio-repos_11.1.0_all.deb
-sudo apt update
-sudo apt install carla catia
-```
-Better check https://kx.studio/Repositories as it may be subject to change.
-
-Sfizz build:
-```bash
-cd ~
-git clone https://github.com/sfztools/sfizz.git
-cd sfizz
-cmake .
-make
-```
-Xentotune build:
-```bash
-cd ~
-git clone --recurse-submodules https://github.com/narenratan/xentotune
-cd xentotune
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
-sudo cp -rf build/Xentotune.clap /lib/clap
-```
-
-</details>
-
+[Developing microtonOS further.](learn/developing.md)
 
 ## Isomorphic Layouts
 I suggest to think of musically useful isomorphic layouts as belonging to one of four categories.
