@@ -168,7 +168,7 @@ class Sounds:
                             else:
                                 break
 
-            elif msg.note in drivers:
+            elif msg.note in drivers and self.submenu <= 1:
                 i = drivers.index(msg.note)
                 if i < self.n_drivers:
                     is_connected = self.drivers[i][1]()

@@ -10,7 +10,7 @@ commandline = [
     "/home/pi/Pianoteq 8 STAGE/arm-64bit/Pianoteq 8 STAGE",
     "--preset",
     "NY Steinway D Classical",
-    # "--headless",
+    "--headless",
 ]
 
 
