@@ -91,7 +91,7 @@ def microtonOS(client_name):
                     )
                     self.outport.send(mido.Message("program_change", program=self.pgm))
                 else:
-                    driver = -self.engine
+                    driver = -self.engine - 1
                     self.outport = to_driver[driver]
 
                 if self.change_volume:

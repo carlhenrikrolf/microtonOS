@@ -90,7 +90,7 @@ Install tools for connecting audio.
 ```bash
 sudo apt update
 sudo apt install pipewire-jack pipewire-alsa qjackctl a2jmidid blueman
-sudo apt remove pipewire-pulse
+sudo apt purge pipewire-pulse pulseaudio
 ```
 Before using Pipewire/Wireplumber, use `chmod 0700 /run/user/1000`
 Check that both default source and sink are configured by using `wpctl status` and checking that they are prepended by `*`s.

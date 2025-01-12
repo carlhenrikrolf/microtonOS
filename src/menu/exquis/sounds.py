@@ -21,6 +21,8 @@ engines = [55, 56, 57, 58, 59, 60, 50, 51, 52, 53, 54, 44, 45, 46, 47, 48, 49]
 banks = [33, 34, 35, 36, 37, 38, 28, 29, 30, 31, 32, 22, 23, 24, 25, 26, 27]
 pgms = [11, 12, 13, 14, 15, 16, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
 
+drivers = [5,4,3,2,1,0,10,9,8,7,6,16,15,14,13,12,11]
+
 class Sounds:
     def __init__(
         self,
@@ -52,20 +54,30 @@ class Sounds:
         self.gain = 1
         self.gain_is_muted = False
 
+    def start(self):
+        for key in xq.keys:
+            xq.send(self.outport, xq.sysex(xq.map_key_to_note, key, key))
+        for i, key in enumerate(engines):
+            if i < self.n_engines:
+                xq.send(self.outport, xq.sysex(xq.color_key, key, xq.led(self.base_color)))
+            else:
+                break
+        for key in range(i, 61):
+            xq.send(
+                self.outport,
+                xq.sysex(xq.color_key, mapping[key], xq.led("black")),
+            )
+        for i, key in enumerate(drivers):
+            if i < self.n_drivers:
+                is_connected = self.drivers[i][1]()
+                if is_connected:
+                    xq.send(self.outport, xq.sysex(xq.color_key, key, xq.led(self.base_color)))
+            else:
+                break
+
     def onoff(self, msg):
         if xq.is_sysex(msg, [xq.click, xq.sounds, xq.pressed]):
-            for key in xq.keys:
-                xq.send(self.outport, xq.sysex(xq.map_key_to_note, key, key))
-            for i, key in enumerate(engines):
-                if i < self.n_engines:
-                    xq.send(self.outport, xq.sysex(xq.color_key, key, xq.led(self.base_color)))
-                else:
-                    break
-            for key in range(i, 61):
-                xq.send(
-                    self.outport,
-                    xq.sysex(xq.color_key, mapping[key], xq.led("black")),
-                )
+            self.start()
             for button in [xq.octave_up, xq.octave_down, xq.page_left, xq.page_right]:
                 xq.send(
                     self.outport,
@@ -138,19 +150,7 @@ class Sounds:
             if msg.note in engines:
                 i = engines.index(msg.note)
                 if i < self.n_engines:
-                    for j, key in enumerate(engines):
-                        if j < self.n_engines:
-                            xq.send(
-                                self.outport,
-                                xq.sysex(xq.color_key, key, xq.led(self.base_color)),
-                            )
-                        else:
-                            break
-                    for key in range(j, 61):
-                        xq.send(
-                            self.outport,
-                            xq.sysex(xq.color_key, mapping[key], xq.led("black")),
-                        )
+                    self.start()
                     xq.send(
                         self.outport, xq.sysex(xq.color_key, msg.note, xq.led(self.click_color))
                     )
@@ -167,6 +167,19 @@ class Sounds:
                                 )
                             else:
                                 break
+
+            elif msg.note in drivers:
+                i = drivers.index(msg.note)
+                if i < self.n_drivers:
+                    is_connected = self.drivers[i][1]()
+                    if is_connected:
+                        self.start()
+                        xq.send(
+                            self.outport, xq.sysex(xq.color_key, msg.note, xq.led(self.click_color))
+                        )
+                        self.engine = - i - 1
+                        self.submenu = 0
+
 
             elif msg.note in banks and self.n_banks > 1 and self.submenu > 0:
                 i = banks.index(msg.note)
