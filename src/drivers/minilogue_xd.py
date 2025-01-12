@@ -15,6 +15,9 @@ class Script:
     def microtonOS(self, msg):
         if hasattr(msg, "channel"):
             msg.channel = 0
+        if msg.is_cc(74):
+            msg.control = 1 if msg.value >= 64 else 2
+            msg.value = (msg.value - 64)*2 if msg.value >=64 else (63 - msg.value)*2
         to_minilogue_xd.send(msg)
 
 

@@ -108,27 +108,32 @@ def microtonOS(client_name):
             if self.is_init:
                 self.init_touch()
                 self.is_init = False
-            assign.onoff(msg, cc.foot_controller[0])
-            assign.source(msg, cc.foot_controller[1])
-            assigned_to_pedal = assign.target(msg)
-            if (
-                assigned_to_pedal is None
-                and not msg.is_cc(cc.foot_controller[0])
-                and not msg.is_cc(cc.foot_controller[1])
-            ):
-                to_halberstadt.send(msg)
+            if not sounds.is_on:
+                assign.onoff(msg, cc.foot_controller[0])
+                assign.source(msg, cc.foot_controller[1])
+                assigned_to_pedal = assign.target(msg)
+                if (
+                    assigned_to_pedal is None
+                    and not msg.is_cc(cc.foot_controller[0])
+                    and not msg.is_cc(cc.foot_controller[1])
+                ):
+                    to_halberstadt.send(msg)
 
         def synth2(self, msg):
             if self.is_init:
                 self.init_touch()
                 self.is_init = False
-            assigned_to_pedal = assign.target(msg)
-            if assigned_to_pedal is None:
-                to_manual2.send(msg)
+            if not sounds.is_on:
+                assigned_to_pedal = assign.target(msg)
+                if assigned_to_pedal is None:
+                    to_manual2.send(msg)
 
         def mtsesp_master(self, msg):
-            if xq.is_sysex(msg):
-                to_exquis.send(msg)
+            if xq.is_sysex(msg) and not sounds.is_on:
+                    to_exquis.send(msg)
+            elif msg.type in ["clock", "start", "stop", "continue"]:
+                for outport in to_exquis, *to_engine, *to_driver:
+                    outport.send(msg)
             else:
                 self.outport.send(msg)
 
