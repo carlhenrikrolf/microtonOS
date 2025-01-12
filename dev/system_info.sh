@@ -1,4 +1,8 @@
 #! /bin/bash
+echo SYSTEM
+echo
+echo $(uname -a) # good if PREEMPT
+echo
 echo HOST
 echo
 echo hostname: $(hostname)

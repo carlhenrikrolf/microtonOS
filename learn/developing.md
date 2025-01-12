@@ -18,6 +18,8 @@ wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bas
 
 sudo apt install flatpak
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+curl https://sh.rustup.rs -sSf | sh
 ```
 Then reboot. More info at [Pi-Apps](https://pi-apps.io/install/) and [Flatpak](https://flathub.org/setup/Raspberry%20Pi%20OS).
 
@@ -84,3 +86,9 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 sudo cp -rf build/Xentotune.clap /lib/clap
 ```
+
+Librespot:
+```bash
+cargo install librespot
+```
+
