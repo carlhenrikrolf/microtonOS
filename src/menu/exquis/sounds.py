@@ -31,12 +31,20 @@ class Sounds:
         drivers,
         base_color="red",
         click_color="white",
+        local1_is_connected=lambda: False,
+        local2_is_connected=lambda: False,
     ):
         self.outport = outport
         self.engine_banks_pgms = engine_banks_pgms
         self.drivers = drivers
         self.base_color = base_color
         self.click_color = click_color
+        self.local1_is_connected = local1_is_connected
+        self.local2_is_connected = local2_is_connected
+
+        self.local1 = False
+        self.local2 = False
+
         self.engine = 0
         self.bank = 0
         self.pgm = 0
@@ -96,11 +104,13 @@ class Sounds:
             xq.send(
                 self.outport, xq.sysex(xq.color_knob, xq.knob2, xq.led(gain_indicator))
             )
+            local2 = (self.click_color if self.local2 else self.base_color) if self.local2_is_connected() else "black"
             xq.send(
-                self.outport, xq.sysex(xq.color_knob, xq.knob3, xq.led("black"))
+                self.outport, xq.sysex(xq.color_knob, xq.knob3, xq.led(local2))
             )
+            local1 = (self.click_color if self.local1 else self.base_color) if self.local1_is_connected() else "black"
             xq.send(
-                self.outport, xq.sysex(xq.color_knob, xq.knob4, xq.led("black"))
+                self.outport, xq.sysex(xq.color_knob, xq.knob4, xq.led(local1))
             )
 
             self.n_banks = 0
@@ -114,6 +124,21 @@ class Sounds:
             return False
 
         return self.is_on
+    
+    def local_control(self, msg):
+        if xq.is_sysex(msg, [xq.click, xq.button3, xq.pressed]):
+            self.local2 = not self.local2
+            local2 = (self.click_color if self.local2 else self.base_color) if self.local2_is_connected() else "black"
+            xq.send(
+                self.outport, xq.sysex(xq.color_knob, xq.knob3, xq.led(local2))
+            )
+        elif xq.is_sysex(msg, [xq.click, xq.button4, xq.pressed]):
+            self.local1 = not self.local1
+            local1 = (self.click_color if self.local1 else self.base_color) if self.local1_is_connected() else "black"
+            xq.send(
+                self.outport, xq.sysex(xq.color_knob, xq.knob4, xq.led(local1))
+            )
+        return self.local1, self.local2
 
     def set_volume(self, msg):
         if xq.is_sysex(msg, [xq.clockwise, xq.knob1, None]):

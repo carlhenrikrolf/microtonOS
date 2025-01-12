@@ -53,6 +53,8 @@ def microtonOS(client_name):
             self.outport = to_engine[self.engine]
             self.change_volume = False
             self.change_gain = False
+            self.local1 = False
+            self.local2 = False
 
         def init_touch(self):
             for i, button in enumerate(buttons):
@@ -78,6 +80,7 @@ def microtonOS(client_name):
                 self.engine, self.bank, self.pgm = sounds.select(msg)
                 self.change_volume += sounds.set_volume(msg)
                 self.change_gain += sounds.set_gain(msg)
+                self.local1, self.local2 = sounds.local_control(msg)
 
             elif sounds.onoff(msg) is False:
                 # print("eng =", self.engine, "bnk =", self.bank, "pgm =", self.pgm)
@@ -129,11 +132,20 @@ def microtonOS(client_name):
                     to_manual2.send(msg)
 
         def mtsesp_master(self, msg):
-            if xq.is_sysex(msg) and not sounds.is_on:
-                    to_exquis.send(msg)
+            if xq.is_active_sensing(msg):
+                to_exquis.send(msg)
+            elif xq.is_sysex(msg) and not sounds.is_on:
+                to_exquis.send(msg)
             elif msg.type in ["clock", "start", "stop", "continue"]:
                 for outport in to_exquis, *to_engine, *to_driver:
                     outport.send(msg)
+            elif hasattr(msg, "channel"):
+                if self.local1 and msg.channel in [0, 13]:
+                    to_driver[0].send(msg)
+                elif self.local2 and msg.channel in [14, 15]:
+                    to_driver[1].send(msg)
+                else:
+                    self.outport.send(msg)
             else:
                 self.outport.send(msg)
 
@@ -147,7 +159,7 @@ def microtonOS(client_name):
     ]
     to_driver = [Outport(client_name, name=drivers[i][0]) for i in range(len(drivers))]
     assign = Assign(to_halberstadt)
-    sounds = Sounds(to_exquis, engine_banks_pgms, drivers, base_color=menu_colors[1])
+    sounds = Sounds(to_exquis, engine_banks_pgms, drivers, base_color=menu_colors[1], local1_is_connected=drivers[0][1], local2_is_connected=drivers[1][1])
     script = Script()
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
     from_synth1 = Inport(script.synth1, client_name, name="Synth 1")
