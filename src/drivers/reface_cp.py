@@ -249,7 +249,7 @@ class Script:
             )
 
     def microtonOS(self, msg):
-        pass
+        to_reface_cp.send(msg)
 
 
 to_microtonOS = Outport(client_name, name="microtonOS", verbose=False)

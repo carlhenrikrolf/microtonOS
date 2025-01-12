@@ -13,6 +13,8 @@ class Script:
             to_minilogue_xd.send(msg)
 
     def microtonOS(self, msg):
+        if hasattr(msg, "channel"):
+            msg.channel = 0
         to_minilogue_xd.send(msg)
 
 
