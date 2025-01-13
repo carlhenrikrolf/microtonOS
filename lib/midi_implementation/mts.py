@@ -10,7 +10,10 @@ all_devices = 0x7F
 midi_tuning = 0x08
 note_change = 0x02
 note_change_bank = 0x07
-resolution = 0.0061
+
+# utils
+max_cents = 100
+resolution = 100 / 2**14
 
 
 # sysex messages
@@ -27,11 +30,16 @@ def keybased(
         keys = [keys]
         notes = [notes]
         cents = [cents]
+    assert len(keys) == len(notes) == len(cents) <= 128
+    assert [i in range(128) for i in keys]
+    assert [i in range(128) for i in notes]
+    assert all([0 <= c < max_cents for c in cents])
+    assert tuning_program in range(128)
     ll = len(keys)
     yy = [0] * ll
     zz = [0] * ll
     for i, c in enumerate(cents):
-        tmp = round(c / resolution)
+        tmp = min(127, round(c / resolution))
         yy[i] = tmp // 128
         zz[i] = tmp % 128
     if tuning_bank is None:
@@ -41,7 +49,7 @@ def keybased(
             midi_tuning,
             note_change,
             tuning_program,
-            ll,
+            ll - 1,
         ]
         if not realtime:
             raise Warning("Please assign tuning_bank for non-real time")
@@ -53,7 +61,7 @@ def keybased(
             note_change_bank,
             tuning_bank,
             tuning_program,
-            ll,
+            ll - 1,
         ]
     else:
         data = [
@@ -63,7 +71,7 @@ def keybased(
             note_change_bank,
             tuning_bank,
             tuning_program,
-            ll,
+            ll - 1,
         ]
     for i in range(ll):
         data.append(keys[i])
@@ -90,15 +98,15 @@ def dump_request(tuning_program, tuning_bank=None, device_number=all_devices):
 
 
 # clients
-class MtsEspClient:
-    default_tuning = [[i] * 16 for i in range(128)]
+class MtsEsp:
+    default_tuning = [[0]*16]*128
 
     def __init__(
         self,
         outport,
         client,
-        channel,
-        tuning_program,
+        channel=0,
+        tuning_program=0,
         tuning_bank=None,
         realtime=True,
         device_number=all_devices,
@@ -107,8 +115,8 @@ class MtsEspClient:
         self.outport = outport
         self.client = client
         self.channel = channel
-        self.tuning_program = (tuning_program,)
-        self.tuning_bank = (tuning_bank,)
+        self.tuning_program = tuning_program
+        self.tuning_bank = tuning_bank
         self.realtime = realtime
         self.device_number = device_number
         self.sample_rate = sample_rate
@@ -116,32 +124,33 @@ class MtsEspClient:
         self.is_on = [[False] * 16] * 128
 
     def query(self):
-        semitones = self.default_tuning
+        semitones = [i for i in range(128)]
         cents = [0] * 128
         for channel in range(16):
             for note in range(128):
                 retuning = esp.retuning_in_semitones(self.client, note, channel)
                 self.tuning[note][channel] = retuning
                 if channel == self.channel:
-                    semitone = int(retuning)
-                    semitones[note] = semitone
-                    cents[note] = (retuning - semitone) * 100
-            sysex = keybased(
-                [i for i in range(128)],
-                semitones,
-                cents,
-                self.tuning_program,
-                tuning_bank=self.tuning_bank,
-                realtime=self.realtime,
-                device_number=self.device_number,
-            )
-            self.outport.send(sysex)
+                    fraction = note + retuning
+                    whole = (int(fraction) + 1) if ((int(fraction) + 1) - fraction <= resolution) else int(fraction)
+                    semitones[note] = max([0, whole])
+                    cents[note] = max([0, (fraction - whole) * 100])
+        sysex = keybased(
+            [i for i in range(128)],
+            semitones,
+            cents,
+            self.tuning_program,
+            tuning_bank=self.tuning_bank,
+            realtime=self.realtime,
+            device_number=self.device_number,
+        )
+        self.outport.send(sysex)
 
-    def note_on(self, msg):
+    def dispatch(self, msg):
         if msg.type == "note_on":
             self.is_on[msg.note][msg.channel] = True
             tuning = esp.retuning_in_semitones(self.client, msg.note, msg.channel)
-            if tuning != self.tuning[msg.note][msg.channel]:
+            if abs(tuning - self.tuning[msg.note][msg.channel]) > resolution/2:
                 self.query()
             should_filter = esp.should_filter_note(self.client, msg.note, msg.channel)
             if not should_filter:
@@ -152,7 +161,7 @@ class MtsEspClient:
                 self.is_on[msg.note][msg.channel] = False
             self.outport.send(msg)
 
-    def continuous(self):
+    def open(self):
         while True:
             is_on = any(self.is_on)
             if is_on:
