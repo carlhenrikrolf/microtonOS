@@ -89,6 +89,5 @@ sudo cp -rf build/Xentotune.clap /lib/clap
 
 Librespot:
 ```bash
-cargo install librespot
+cargo install librespot --no-default-features --features alsa-backend jackaudio-backend rodiojack-backend
 ```
-
