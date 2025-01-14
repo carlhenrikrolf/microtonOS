@@ -71,7 +71,7 @@ def microtonOS(client_name):
             if any(
                 [xq.is_sysex(msg, [xq.click, button, xq.pressed]) for button in buttons]
             ):
-                for outport in to_engine:
+                for outport in *to_engine, *to_driver:
                     outport.send(
                         mido.Message("control_change", control=cc.all_notes_off)
                     )
