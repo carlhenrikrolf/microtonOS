@@ -39,7 +39,7 @@ def keybased(
     yy = [0] * ll
     zz = [0] * ll
     for i, c in enumerate(cents):
-        tmp = round(c / resolution)  # min(127, round(c / resolution))
+        tmp = round(c / resolution)
         yy[i] = tmp // 128
         zz[i] = tmp % 128
     if tuning_bank is None:
@@ -110,7 +110,7 @@ class MtsEsp:
         tuning_bank=None,
         realtime=True,
         device_number=all_devices,
-        sample_rate=None,
+        query_rate=None,
     ):
         self.outport = outport
         self.client = client
@@ -119,7 +119,7 @@ class MtsEsp:
         self.tuning_bank = tuning_bank
         self.realtime = realtime
         self.device_number = device_number
-        self.sample_rate = sample_rate
+        self.query_rate = query_rate
         self.tuning = self.default_tuning
         self.is_on = [[False] * 16] * 128
 
@@ -177,4 +177,4 @@ class MtsEsp:
             is_on = any(self.is_on)
             if is_on:
                 self.query()
-                time.sleep(1 / self.sample_rate)
+                time.sleep(1 / self.query_rate)
