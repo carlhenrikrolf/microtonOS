@@ -12,8 +12,8 @@ note_change = 0x02
 note_change_bank = 0x07
 
 # utils
-max_cents = 100
 resolution = 100 / 2**14
+max_cents = 100 - resolution / 2
 
 
 # sysex messages
@@ -39,7 +39,7 @@ def keybased(
     yy = [0] * ll
     zz = [0] * ll
     for i, c in enumerate(cents):
-        tmp = min(127, round(c / resolution))
+        tmp = round(c / resolution)  # min(127, round(c / resolution))
         yy[i] = tmp // 128
         zz[i] = tmp % 128
     if tuning_bank is None:
@@ -99,7 +99,7 @@ def dump_request(tuning_program, tuning_bank=None, device_number=all_devices):
 
 # clients
 class MtsEsp:
-    default_tuning = [[0]*16]*128
+    default_tuning = [[0] * 16] * 128
 
     def __init__(
         self,
@@ -123,18 +123,29 @@ class MtsEsp:
         self.tuning = self.default_tuning
         self.is_on = [[False] * 16] * 128
 
-    def query(self):
+    def query(self, msg):
+        run = True if msg is None else False
+        if not run and msg.type == "note_on":
+            tuning = esp.retuning_in_semitones(self.client, msg.note, msg.channel)
+            run = abs(tuning - self.tuning[msg.note][msg.channel]) > resolution / (
+                2 * 100
+            )
+        if run:
+            for channel in range(16):
+                for note in range(128):
+                    retuning = esp.retuning_in_semitones(self.client, note, channel)
+                    self.tuning[note][channel] = retuning
+        return run
+
+    def sysex(self):
         semitones = [i for i in range(128)]
         cents = [0] * 128
-        for channel in range(16):
-            for note in range(128):
-                retuning = esp.retuning_in_semitones(self.client, note, channel)
-                self.tuning[note][channel] = retuning
-                if channel == self.channel:
-                    fraction = note + retuning
-                    whole = (int(fraction) + 1) if ((int(fraction) + 1) - fraction <= resolution) else int(fraction)
-                    semitones[note] = max([0, whole])
-                    cents[note] = max([0, (fraction - whole) * 100])
+        for note in range(128):
+            retuning = esp.retuning_in_semitones(self.client, note, self.channel)
+            fraction = note + retuning
+            whole = int(fraction + resolution / (2 * 100))
+            semitones[note] = max([0, whole])
+            cents[note] = max([0, (fraction - whole) * 100])
         sysex = keybased(
             [i for i in range(128)],
             semitones,
@@ -144,14 +155,14 @@ class MtsEsp:
             realtime=self.realtime,
             device_number=self.device_number,
         )
-        self.outport.send(sysex)
+        return sysex
 
     def dispatch(self, msg):
         if msg.type == "note_on":
             self.is_on[msg.note][msg.channel] = True
-            tuning = esp.retuning_in_semitones(self.client, msg.note, msg.channel)
-            if abs(tuning - self.tuning[msg.note][msg.channel]) > resolution/2:
-                self.query()
+            if self.query(msg):
+                sysex = self.sysex()
+                self.outport.send(sysex)
             should_filter = esp.should_filter_note(self.client, msg.note, msg.channel)
             if not should_filter:
                 self.is_on[msg.note][msg.channel] = True
