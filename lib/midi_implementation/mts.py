@@ -30,9 +30,9 @@ def keybased(
         keys = [keys]
         notes = [notes]
         cents = [cents]
-    assert len(keys) == len(notes) == len(cents) <= 128
-    assert [i in range(128) for i in keys]
-    assert [i in range(128) for i in notes]
+    assert 0 < len(keys) == len(notes) == len(cents) <= 128
+    assert all([i in range(128) for i in keys])
+    assert all([i in range(128) for i in notes])
     assert all([0 <= c < max_cents for c in cents])
     assert tuning_program in range(128)
     ll = len(keys)
@@ -40,6 +40,8 @@ def keybased(
     zz = [0] * ll
     for i, c in enumerate(cents):
         tmp = round(c / resolution)
+        # tmp = min(2**14 - 1, tmp)
+        # tmp = max(0, tmp)
         yy[i] = tmp // 128
         zz[i] = tmp % 128
     if tuning_bank is None:
@@ -105,7 +107,8 @@ class MtsEsp:
         self,
         outport,
         client,
-        channel=0,
+        in_channel=0,
+        out_channel=0,  # todo
         tuning_program=0,
         tuning_bank=None,
         realtime=True,
@@ -114,7 +117,7 @@ class MtsEsp:
     ):
         self.outport = outport
         self.client = client
-        self.channel = channel
+        self.in_channel = in_channel
         self.tuning_program = tuning_program
         self.tuning_bank = tuning_bank
         self.realtime = realtime
@@ -141,11 +144,18 @@ class MtsEsp:
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
-            retuning = esp.retuning_in_semitones(self.client, note, self.channel)
+            retuning = esp.retuning_in_semitones(self.client, note, self.in_channel)
             fraction = note + retuning
             whole = int(fraction + resolution / (2 * 100))
-            semitones[note] = max([0, whole])
-            cents[note] = max([0, (fraction - whole) * 100])
+            if whole >= 128:
+                semitones[note] = 127
+                cents[note] = max_cents - 1
+            elif whole < 0:
+                semitones[note] = 0
+                cents[note] = 0
+            else:
+                semitones[note] = max([0, whole])
+                cents[note] = max([0, (fraction - whole) * 100])
         sysex = keybased(
             [i for i in range(128)],
             semitones,
