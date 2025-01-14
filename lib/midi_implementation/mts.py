@@ -101,7 +101,6 @@ def dump_request(tuning_program, tuning_bank=None, device_number=all_devices):
 
 # clients
 class MtsEsp:
-    default_tuning = [[0] * 16] * 128
 
     def __init__(
         self,
@@ -123,7 +122,7 @@ class MtsEsp:
         self.realtime = realtime
         self.device_number = device_number
         self.query_rate = query_rate
-        self.tuning = self.default_tuning
+        self.tuning = [[0] * 16] * 128
         self.is_on = [[False] * 16] * 128
 
     def query(self, msg):
