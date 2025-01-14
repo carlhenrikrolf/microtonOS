@@ -30,7 +30,7 @@ def keybased(
         keys = [keys]
         notes = [notes]
         cents = [cents]
-    assert 0 < len(keys) == len(notes) == len(cents) <= 128
+    assert 0 < len(keys) == len(notes) == len(cents) <= 127
     assert all([i in range(128) for i in keys])
     assert all([i in range(128) for i in notes])
     assert all([0 <= c < max_cents for c in cents])
@@ -51,7 +51,7 @@ def keybased(
             midi_tuning,
             note_change,
             tuning_program,
-            ll - 1,
+            ll,
         ]
         if not realtime:
             raise Warning("Please assign tuning_bank for non-real time")
@@ -63,7 +63,7 @@ def keybased(
             note_change_bank,
             tuning_bank,
             tuning_program,
-            ll - 1,
+            ll,
         ]
     else:
         data = [
@@ -73,7 +73,7 @@ def keybased(
             note_change_bank,
             tuning_bank,
             tuning_program,
-            ll - 1,
+            ll,
         ]
     for i in range(ll):
         data.append(keys[i])
@@ -122,8 +122,8 @@ class MtsEsp:
         self.realtime = realtime
         self.device_number = device_number
         self.query_rate = query_rate
-        self.tuning = [[0] * 16] * 128
-        self.is_on = [[False] * 16] * 128
+        self.tuning = [[0 for _ in range(16)] for _ in range(128)]
+        self.is_on = [[False for _ in range(16)] for _ in range(128)]
 
     def query(self, msg):
         run = True if msg is None else False
@@ -143,7 +143,7 @@ class MtsEsp:
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
-            retuning = esp.retuning_in_semitones(self.client, note, self.in_channel)
+            retuning = self.tuning[note][self.in_channel]
             fraction = note + retuning
             whole = int(fraction + resolution / (2 * 100))
             if whole >= 128:
@@ -156,9 +156,9 @@ class MtsEsp:
                 semitones[note] = max([0, whole])
                 cents[note] = max([0, (fraction - whole) * 100])
         sysex = keybased(
-            [i for i in range(128)],
-            semitones,
-            cents,
+            [i for i in range(127)],
+            semitones[:-1],
+            cents[:-1],
             self.tuning_program,
             tuning_bank=self.tuning_bank,
             realtime=self.realtime,
