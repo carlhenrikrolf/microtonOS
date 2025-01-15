@@ -118,10 +118,7 @@ def keybased(
 def keybased_dump( 
     name, notes, cents, tuning_program, tuning_bank=None, device_number=all_devices
 ):
-    # something is not quite right.
-    # Pianoteq receives dump messages from Korg, but not from me
-    # The OG checksum specification ignored the midi tuning byte
-    # however, the correction does not.
+    print("NOT working as intended! Under development")
     assert len(notes) == len(cents) == 128
     assert all([i is None or i in range(128) for i in notes])
     assert all([c is None or 0 <= c < max_cents for c in cents])
@@ -204,7 +201,8 @@ def panic():
     return sysex
 
 
-def parse(sysex, unit="Hertz"):  # not working, segmentation error, not mts tuning
+def parse(sysex, unit="Hertz"):
+    print("NOT working as intended! Under development")
     assert unit in ["ratios", "Hertz", "semitones"]
     result = [[0.0 for _ in range(16)] for _ in range(128)]
     with esp.Client() as esp_client:
@@ -223,8 +221,8 @@ class MtsEsp:
         self,
         outport,
         client,
-        in_channel=0,
-        out_channel=0,  # todo
+        rx_channel=None,
+        tx_channel=None,
         tuning_program=0,
         tuning_bank=None,
         realtime=True,
@@ -233,7 +231,8 @@ class MtsEsp:
     ):
         self.outport = outport
         self.client = client
-        self.in_channel = in_channel
+        self.rx_channel = -1 if rx_channel is None else rx_channel
+        self.tx_channel = tx_channel
         self.tuning_program = tuning_program
         self.tuning_bank = tuning_bank
         self.realtime = realtime
@@ -260,7 +259,7 @@ class MtsEsp:
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
-            retuning = self.tuning[note][self.in_channel]
+            retuning = self.tuning[note][self.rx_channel]
             fraction = note + retuning
             whole = int(fraction + resolution / (2 * 100))
             if whole >= 128:
@@ -284,10 +283,12 @@ class MtsEsp:
         return sysex
 
     def dispatch(self, msg):
+        tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
         if msg.type in ["note_on", "note_off"]:
             if msg.type == "note_on" and msg.velocity > 0:
                 self.is_on[msg.note][msg.channel] = True
-                if self.query(msg):
+                queried = self.query(msg)
+                if queried:
                     sysex = self.sysex()
                     self.outport.send(sysex)
                 should_filter = esp.should_filter_note(
@@ -295,16 +296,21 @@ class MtsEsp:
                 )
                 if not should_filter:
                     self.is_on[msg.note][msg.channel] = True
-                    self.outport.send(msg)
+                    note_on = msg.copy(channel=tx_channel)
+                    self.outport.send(note_on)
             else:
                 self.is_on[msg.note][msg.channel] = False
+                note_off = msg.copy(channel=tx_channel)
+                self.outport.send(note_off)
         else:
-            self.outport.send(msg)
+            misc = msg.copy(channel=tx_channel)
+            self.outport.send(misc)
 
     def open(self):
         while True:
             is_on = any(self.is_on)
             if is_on:
-                if self.query():
+                queried = self.query()
+                if queried:
                     raise Warning("Not yet implemented")
                 time.sleep(1 / self.query_rate)
