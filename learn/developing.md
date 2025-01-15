@@ -41,6 +41,9 @@ sudo apt install python3-pyqt5.qtsvg python3-rdflib pyqt5-dev-tools libmagic-dev
 cd Carla
 make
 sudo make install
+sudo cp -rf /bin/carla.lv2/ /lib/lv2/
+sudo cp -rf /bin/carla.lv2/ /usr/lib/lv2/
+sudo cp -rf /bin/carla.lv2/ /usr/local/lib/lv2/
 ```
 Run Carla:
 ```bash
