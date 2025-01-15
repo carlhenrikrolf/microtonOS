@@ -117,14 +117,16 @@ system_exclusive = SystemExclusive()
 
 
 class MtsEsp:
-    def __init__(self, outport, client, pitchbend_range=2, tx_channel=None, query_rate=0):
+    def __init__(
+        self, outport, client, pitchbend_range=2, tx_channel=None, query_rate=0
+    ):
         self.outport = outport
         self.client = client
         self.pitchbend_range = pitchbend_range
         self.tx_channel = tx_channel
         self.query_rate = query_rate
 
-        self.resolution = 2 * self.pitchbend_range / 2**14  # int
+        self.resolution = 2 * self.pitchbend_range / 2**14
         self.queue = []
         self.tuning = [[0 for _ in range(16)] for _ in range(128)]
         self.is_on = [[False for _ in range(16)] for _ in range(128)]
@@ -140,16 +142,18 @@ class MtsEsp:
                     retuning = esp.retuning_in_semitones(self.client, note, channel)
                     self.tuning[note][channel] = retuning
         return run
-    def is_12edo(self):
-            pass
 
-    def note_pitch(self, msg):
-        note = int(self.tuning[msg.note][msg.channel] + self.resolution/2)
-        note += note
+    def is_12edo(self):
+        pass
+
+    def note_pitch(self, pair):
+        rx_note, rx_channel = pair
+        note = round(self.tuning[rx_note][rx_channel])
+        note += rx_note
         note = max([0, min([127, note])])
-        pitch = self.tuning[msg.note][msg.channel] - note
-        pitch /= self.resolution # check this!
-        pitch = max([-self.resolution/2, min([self.resolution/2, pitch])])
+        pitch = self.tuning[rx_note][rx_channel] - note
+        pitch /= self.resolution
+        pitch = max([-(2**14) / 2, min([2**14 / 2 - 1, pitch])])
         pitch = int(pitch)
         return note, pitch
 
@@ -158,26 +162,45 @@ class MtsEsp:
         if msg.type in ["note_on", "note_off"]:
             if msg.type == "note_on" and msg.velocity > 0:
                 self.is_on[msg.note][msg.channel] = True
-                note, pitch = self.note_pitch(msg)
-                if self.query(msg): # can be generalised
-                    self.outport.send(mido.Message("control_change", control=123))
+                note, pitch = self.note_pitch([msg.note, msg.channel])
+                if self.query(msg):
+                    _, pitch = self.note_pitch(self.queue[-1])
+                    pitchwheel = mido.Message('pitchwheel', pitch=pitch)
                 elif len(self.queue) >= 1:
-                    self.outport.send(mido.Message("note_off", note=note, velocity=msg.velocity, channel=tx_channel))
-                pitchwheel = mido.Message("pitchwheel", pitch=..., channel=tx_channel)
-                ...
-                self.queue.append([msg.note,msg.channel])
+                    note_off = mido.Message(
+                        "note_off", note=note, velocity=msg.velocity, channel=tx_channel
+                    )
+                    self.outport.send(note_off)
+                pitchwheel = mido.Message("pitchwheel", pitch=pitch, channel=tx_channel)
+                self.outport.send(pitchwheel)
+                note_on = msg.copy(note=note, channel=tx_channel)
+                self.outport.send(note_on)
+                self.queue.append([msg.note, msg.channel])
             else:
                 self.is_on[msg.note][msg.channel] = False
-                note = [msg.note, msg.channel]
-                self.outport.send(msg.copy(channel=tx_channel))
+                note, _ = self.note_pitch([msg.note, msg.channel])
+                note_off = msg.copy(note=note, channel=tx_channel)
+                self.outport.send(note_off)
                 if len(self.queue) > 0:
-                     if note == self.queue[-1]:
-                          pitchwheel = ...
-                          ...
-                if note in self.queue:
-                    self.queue.remove(note)
+                    if [msg.note, msg.channel] == self.queue[-1]:
+                        self.queue.pop()
+                        note, pitch = self.note_pitch(self.queue[-1])
+                        pitchwheel = mido.Message(
+                            "pitchwheel", pitch=pitch, channel=tx_channel
+                        )
+                        self.outport.send(pitchwheel)
+                        note_on = mido.Message(
+                            "note_on",
+                            note=note,
+                            velocity=msg.velocity,
+                            channel=tx_channel,
+                        )
+                        self.outport.send(note_on)
+                    elif [msg.note, msg.channel] in self.queue:
+                        self.queue.remove([msg.note, msg.channel])
         else:
-            ...
+            misc = msg.copy(channel=tx_channel)
+            self.outport(misc)
 
     def open(self):
         while True:

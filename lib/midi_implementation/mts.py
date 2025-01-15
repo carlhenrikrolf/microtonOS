@@ -20,13 +20,20 @@ resolution = 100 / 2**14
 max_cents = 100 - resolution / 2
 
 
-def checksum(data):  # dont know if rightly understood
+def checksum(data):
     result = int(hex(data[0]), base=16)
     for d in data[1:]:
         result ^= int(hex(d), base=16)
-    result &= 0x7F
     result = int(result)
     return [*data, result]
+
+
+def error_correction(sysex):
+    detection = sysex.data[0]
+    for d in sysex.data[1:-1]:
+        detection ^= d
+    check = sysex.data[-1]
+    return detection == check
 
 
 def encode(name: str, length=16, encoding="ascii"):
