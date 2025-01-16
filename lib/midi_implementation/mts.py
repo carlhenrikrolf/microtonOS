@@ -3,7 +3,7 @@ import mtsespy as esp
 import time
 
 # sysex bytes
-no_change = [0x7F, 0x7F, 0x7F]
+ignore = 0x7F
 universal_non_realtime = 0x7E
 universal_realtime = 0x7F
 all_devices = 0x7F
@@ -18,20 +18,24 @@ bulk_dump_request_bank = 0x03
 # utils
 resolution = 100 / 2**14
 max_cents = 100 - resolution / 2
+ensure_7bit = 0b01111111
 
 
 def checksum(data):
-    result = int(hex(data[0]), base=16)
+    result = data[0]
     for d in data[1:]:
-        result ^= int(hex(d), base=16)
+        result ^= d
+    result &= ensure_7bit
     result = int(result)
     return [*data, result]
 
 
 def error_correction(sysex):
+    """True if correct False otherwise"""
     detection = sysex.data[0]
     for d in sysex.data[1:-1]:
         detection ^= d
+    detection &= ensure_7bit
     check = sysex.data[-1]
     return detection == check
 
@@ -130,9 +134,9 @@ def keybased_dump(
     zz = [0] * 128
     for i, c in enumerate(cents):
         if c is None or notes[i] is None:
-            xx[i] = 0x7F
-            yy[i] = 0x7F
-            zz[i] = 0x7F
+            xx[i] = ignore
+            yy[i] = ignore
+            zz[i] = ignore
         else:
             tmp = round(c / resolution)
             yy[i] = tmp // 128
@@ -238,8 +242,10 @@ class MtsEsp:
         self.realtime = realtime
         self.device_number = device_number
         self.query_rate = query_rate
+
         self.tuning = [[0 for _ in range(16)] for _ in range(128)]
         self.is_on = [[False for _ in range(16)] for _ in range(128)]
+        self.in_range = [True]*128
 
     def query(self, msg=None):
         run = True if msg is None else False
@@ -254,33 +260,49 @@ class MtsEsp:
                     retuning = esp.retuning_in_semitones(self.client, note, channel)
                     self.tuning[note][channel] = retuning
         return run
+    
+    def convert(fraction):
+        whole = int(fraction + resolution / (2 * 100))
+        in_range = False
+        if whole >= 128:
+            semitones = 127
+            cents = max_cents - 1
+        elif whole < 0:
+            semitones = 0
+            cents = 0
+        else:
+            semitones = max([0, whole])
+            cents = max([0, (fraction - whole) * 100])
+            in_range = True
+        return semitones, cents, in_range
 
-    def sysex(self):
+    def send_keybased(self):
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
             retuning = self.tuning[note][self.rx_channel]
             fraction = note + retuning
-            whole = int(fraction + resolution / (2 * 100))
-            if whole >= 128:
-                semitones[note] = 127
-                cents[note] = max_cents - 1
-            elif whole < 0:
-                semitones[note] = 0
-                cents[note] = 0
-            else:
-                semitones[note] = max([0, whole])
-                cents[note] = max([0, (fraction - whole) * 100])
-        sysex = keybased(
-            [i for i in range(127)],
-            semitones[:-1],
-            cents[:-1],
+            semitones[note], cents[note], self.in_range[note] = self.convert(fraction)
+        lower = keybased(
+            [i for i in range(0,64)],
+            semitones[0:64],
+            cents[0:64],
             self.tuning_program,
             tuning_bank=self.tuning_bank,
             realtime=self.realtime,
             device_number=self.device_number,
         )
-        return sysex
+        self.outport.send(lower)
+        upper = keybased(
+            [i for i in range(64,128)],
+            semitones[64:128],
+            cents[64:128],
+            self.tuning_program,
+            tuning_bank=self.tuning_bank,
+            realtime=self.realtime,
+            device_number=self.device_number,
+        )
+        self.outport.send(upper)
 
     def dispatch(self, msg):
         tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
@@ -289,11 +311,11 @@ class MtsEsp:
                 self.is_on[msg.note][msg.channel] = True
                 queried = self.query(msg)
                 if queried:
-                    sysex = self.sysex()
-                    self.outport.send(sysex)
+                    self.send_keybased()
                 should_filter = esp.should_filter_note(
                     self.client, msg.note, msg.channel
                 )
+                should_filter = should_filter or not self.in_range[msg.note]
                 if not should_filter:
                     self.is_on[msg.note][msg.channel] = True
                     note_on = msg.copy(channel=tx_channel)

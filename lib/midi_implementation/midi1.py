@@ -114,3 +114,115 @@ class SystemExclusive:
 
 
 system_exclusive = SystemExclusive()
+
+
+class MtsEsp:
+    def __init__(
+        self, outport, client, pitchbend_range=2, tx_channel=None, query_rate=0
+    ):
+        self.outport = outport
+        self.client = client
+        self.pitchbend_range = pitchbend_range
+        self.tx_channel = tx_channel
+        self.query_rate = query_rate
+
+        self.resolution = 2 * self.pitchbend_range / 2**14
+        self.queue = []
+        self.tuning = [[0 for _ in range(16)] for _ in range(128)]
+        self.is_on = [[False for _ in range(16)] for _ in range(128)]
+
+    def query(self, msg=None):
+        run = True if msg is None else False
+        if not run and msg.type == "note_on":
+            tuning = esp.retuning_in_semitones(self.client, msg.note, msg.channel)
+            run = abs(tuning - self.tuning[msg.note][msg.channel]) > self.resolution / 2
+        if run:
+            for channel in range(16):
+                for note in range(128):
+                    retuning = esp.retuning_in_semitones(self.client, note, channel)
+                    self.tuning[note][channel] = retuning
+        return run
+
+    def standard_tuning(self):
+        for note in range(127):
+            step = esp.retuning_in_semitones(self.client, note + 1, -1)
+            step -= esp.retuning_in_semitones(self.client, note, -1)
+            is_semitone = abs(step - 1.0) < self.resolution / 2
+            if not is_semitone:
+                return False
+        _, pitch, _ = self.note_pitch([69,0])
+        tx_channel = 0 if self.tx_channel is None else self.tx_channel
+        pitchwheel = mido.Message("pitchwheel", pitch=pitch, channel=tx_channel)
+        self.outport.send(pitchwheel)
+        return True
+
+    def note_pitch(self, note_channel):
+        rx_note, rx_channel = note_channel
+        note = round(self.tuning[rx_note][rx_channel])
+        note += rx_note
+        note = max([0, min([127, note])])
+        pitch = self.tuning[rx_note][rx_channel] - note
+        pitch /= self.resolution
+        in_range = (-(2**14)/2 <= pitch < 2**14/2)
+        pitch = max([-(2**14) / 2, min([2**14 / 2 - 1, pitch])])
+        pitch = int(pitch)
+        return note, pitch, in_range
+
+    def enqueue(self, msg, tx_channel):
+        note, _, in_range = self.note_pitch([msg.note, msg.channel])
+        if in_range:
+            if len(self.queue) >= 1:
+                note_off = mido.Message(
+                    "note_off", note=note, velocity=msg.velocity, channel=tx_channel
+                )
+                self.outport.send(note_off)
+            self.queue.append([msg.note, msg.channel])
+
+    def dequeue(self, msg, tx_channel):
+        if len(self.queue) > 0:
+            if [msg.note, msg.channel] == self.queue[-1]:
+                self.queue.pop()
+                self.bend_note(self.queue[-1], tx_channel, msg.velocity)
+            elif [msg.note, msg.channel] in self.queue:
+                self.queue.remove([msg.note, msg.channel])
+
+    def bend_note(self, note_channel, tx_channel, velocity):
+        note, pitch, in_range = self.note_pitch(note_channel)
+        if in_range:
+            pitchwheel = mido.Message("pitchwheel", pitch=pitch, channel=tx_channel)
+            self.outport.send(pitchwheel)
+            note_on = mido.Message(
+                "note_on",
+                note=note,
+                velocity=velocity,
+                channel=tx_channel,
+            )
+            self.outport.send(note_on)
+
+    def dispatch(self, msg):
+        tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
+        if msg.type in ["note_on", "note_off"]:
+            if msg.type == "note_on" and msg.velocity > 0:
+                self.is_on[msg.note][msg.channel] = True
+                self.enqueue(msg, tx_channel)
+                queried = self.query(msg)
+                if queried:
+                    self.queue = []
+                self.bend_note([msg.note, msg.channel], tx_channel, msg.velocity)
+            else:
+                self.is_on[msg.note][msg.channel] = False
+                note, _, _ = self.note_pitch([msg.note, msg.channel])
+                note_off = msg.copy(note=note, channel=tx_channel)
+                self.outport.send(note_off)
+                self.dequeue(msg, tx_channel)
+        else:
+            misc = msg.copy(channel=tx_channel)
+            self.outport(misc)
+
+    def open(self):
+        while True:
+            is_on = any(self.is_on)
+            if is_on:
+                if self.query():
+                    raise Warning("Not yet implemented")
+                time.sleep(1 / self.query_rate)
