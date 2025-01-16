@@ -143,7 +143,7 @@ class MtsEsp:
                     self.tuning[note][channel] = retuning
         return run
 
-    def standard_tuning(self):
+    def standard_tuning(self): # not working?
         for note in range(127):
             step = esp.retuning_in_semitones(self.client, note + 1, -1)
             step -= esp.retuning_in_semitones(self.client, note, -1)
@@ -156,12 +156,13 @@ class MtsEsp:
         self.outport.send(pitchwheel)
         return True
 
-    def note_pitch(self, note_channel):
+    def note_pitch(self, note_channel): # is incorrect
         rx_note, rx_channel = note_channel
-        note = round(self.tuning[rx_note][rx_channel])
-        note += rx_note
+        fraction = self.tuning[rx_note][rx_channel]
+        fraction += rx_note
+        note = round(fraction)
         note = max([0, min([127, note])])
-        pitch = self.tuning[rx_note][rx_channel] - note
+        pitch = fraction - note
         pitch /= self.resolution
         in_range = (-(2**14)/2 <= pitch < 2**14/2)
         pitch = max([-(2**14) / 2, min([2**14 / 2 - 1, pitch])])
@@ -182,7 +183,12 @@ class MtsEsp:
         if len(self.queue) > 0:
             if [msg.note, msg.channel] == self.queue[-1]:
                 self.queue.pop()
-                self.bend_note(self.queue[-1], tx_channel, msg.velocity)
+                velocity = 64 if msg.velocity == 0 else msg.velocity
+                if len(self.queue) > 0:
+                    self.bend_note(self.queue[-1], tx_channel, velocity)
+                else:
+                    note, _, _ = self.note_pitch([msg.note,msg.channel])
+                    self.outport.send(msg.copy(note=note, channel=tx_channel))
             elif [msg.note, msg.channel] in self.queue:
                 self.queue.remove([msg.note, msg.channel])
 
@@ -218,7 +224,7 @@ class MtsEsp:
                     self.dequeue(msg, tx_channel)
             else:
                 misc = msg.copy(channel=tx_channel)
-                self.outport(misc)
+                self.outport.send(misc)
         else:
             self.outport.send(msg)
 

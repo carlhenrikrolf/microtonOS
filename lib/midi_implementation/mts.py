@@ -32,12 +32,8 @@ def checksum(data):
 
 def error_correction(sysex):
     """True if correct False otherwise"""
-    detection = sysex.data[0]
-    for d in sysex.data[1:-1]:
-        detection ^= d
-    detection &= ensure_7bit
-    check = sysex.data[-1]
-    return detection == check
+    check = checksum(sysex.data[:-1])
+    return check[-1] == sysex.data[-1]
 
 
 def encode(name: str, length=16, encoding="ascii"):
@@ -119,7 +115,7 @@ def keybased(
     return mido.Message("sysex", data=data)
 
 
-def keybased_dump( 
+def keybased_dump(
     name, notes, cents, tuning_program, tuning_bank=None, device_number=all_devices
 ):
     print("NOT working as intended! Under development")
@@ -245,7 +241,7 @@ class MtsEsp:
 
         self.tuning = [[0 for _ in range(16)] for _ in range(128)]
         self.is_on = [[False for _ in range(16)] for _ in range(128)]
-        self.in_range = [True]*128
+        self.in_range = [True] * 128
 
     def query(self, msg=None):
         run = True if msg is None else False
@@ -260,8 +256,8 @@ class MtsEsp:
                     retuning = esp.retuning_in_semitones(self.client, note, channel)
                     self.tuning[note][channel] = retuning
         return run
-    
-    def convert(self,fraction):
+
+    def convert(self, fraction):
         whole = int(fraction + resolution / (2 * 100))
         in_range = False
         if whole >= 128:
@@ -284,7 +280,7 @@ class MtsEsp:
             fraction = note + retuning
             semitones[note], cents[note], self.in_range[note] = self.convert(fraction)
         lower = keybased(
-            [i for i in range(0,64)],
+            [i for i in range(0, 64)],
             semitones[0:64],
             cents[0:64],
             self.tuning_program,
@@ -294,7 +290,7 @@ class MtsEsp:
         )
         self.outport.send(lower)
         upper = keybased(
-            [i for i in range(64,128)],
+            [i for i in range(64, 128)],
             semitones[64:128],
             cents[64:128],
             self.tuning_program,

@@ -1,9 +1,11 @@
 import mido
+import mtsespy as esp
 from time import sleep
 from midi_implementation.yamaha import reface_cp as cp
-from midi_implementation.midi1 import control_change as cc
+from midi_implementation import midi1
 from utils import Inport, Outport, make_threads
 
+cc = midi1.control_change
 client_name = "Reface CP Driver"
 pause = 0.001
 
@@ -249,12 +251,21 @@ class Script:
             )
 
     def microtonOS(self, msg):
-        to_reface_cp.send(msg)
+        can_read = msg.type in ["note_on", "note_off", "control_change", "sysex"]
+        can_read = can_read and not msg.is_cc(cc.brightness)
+        if can_read:
+            standard_tuning = midi1_client.standard_tuning()
+            if standard_tuning:
+                to_reface_cp.send(msg)
+            else:
+                midi1_client.dispatch(msg)
 
 
-to_microtonOS = Outport(client_name, name="microtonOS", verbose=False)
-to_reface_cp = Outport(client_name, name="Reface CP", verbose=False)
-script = Script()
-from_reface_cp = Inport(script.reface_cp, client_name, name="Reface CP", verbose=False)
-from_microtonOS = Inport(script.microtonOS, client_name, name="microtonOS")
-make_threads([from_reface_cp.open, from_microtonOS.open])
+with esp.Client() as esp_client:
+    to_microtonOS = Outport(client_name, name="microtonOS", verbose=False)
+    to_reface_cp = Outport(client_name, name="Reface CP", verbose=True)
+    midi1_client = midi1.MtsEsp(to_reface_cp, esp_client, pitchbend_range=2)
+    script = Script()
+    from_reface_cp = Inport(script.reface_cp, client_name, name="Reface CP", verbose=False)
+    from_microtonOS = Inport(script.microtonOS, client_name, name="microtonOS", verbose=False)
+    make_threads([from_reface_cp.open, from_microtonOS.open])

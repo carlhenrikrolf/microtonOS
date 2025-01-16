@@ -137,8 +137,7 @@ def microtonOS(client_name):
             elif xq.is_sysex(msg) and not sounds.is_on:
                 to_exquis.send(msg)
             elif msg.type in ["clock", "start", "stop", "continue"]:
-                for outport in to_exquis, *to_engine, *to_driver:
-                    outport.send(msg)
+                clock.send(msg)
             elif hasattr(msg, "channel"):
                 if self.local1 and msg.channel in [0, 13]:
                     to_driver[0].send(msg)
@@ -158,6 +157,7 @@ def microtonOS(client_name):
         for i in range(len(engine_banks_pgms))
     ]
     to_driver = [Outport(client_name, name=drivers[i][0]) for i in range(len(drivers))]
+    clock = Outport(client_name, name="Clock")
     assign = Assign(to_halberstadt)
     sounds = Sounds(to_exquis, engine_banks_pgms, drivers, base_color=menu_colors[1], local1_is_connected=drivers[0][1], local2_is_connected=drivers[1][1])
     script = Script()
