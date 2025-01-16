@@ -261,7 +261,7 @@ class MtsEsp:
                     self.tuning[note][channel] = retuning
         return run
     
-    def convert(fraction):
+    def convert(self,fraction):
         whole = int(fraction + resolution / (2 * 100))
         in_range = False
         if whole >= 128:
@@ -305,28 +305,31 @@ class MtsEsp:
         self.outport.send(upper)
 
     def dispatch(self, msg):
-        tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
-        if msg.type in ["note_on", "note_off"]:
-            if msg.type == "note_on" and msg.velocity > 0:
-                self.is_on[msg.note][msg.channel] = True
-                queried = self.query(msg)
-                if queried:
-                    self.send_keybased()
-                should_filter = esp.should_filter_note(
-                    self.client, msg.note, msg.channel
-                )
-                should_filter = should_filter or not self.in_range[msg.note]
-                if not should_filter:
+        if hasattr(msg, "channel"):
+            tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
+            if msg.type in ["note_on", "note_off"]:
+                if msg.type == "note_on" and msg.velocity > 0:
                     self.is_on[msg.note][msg.channel] = True
-                    note_on = msg.copy(channel=tx_channel)
-                    self.outport.send(note_on)
+                    queried = self.query(msg)
+                    if queried:
+                        self.send_keybased()
+                    should_filter = esp.should_filter_note(
+                        self.client, msg.note, msg.channel
+                    )
+                    should_filter = should_filter or not self.in_range[msg.note]
+                    if not should_filter:
+                        self.is_on[msg.note][msg.channel] = True
+                        note_on = msg.copy(channel=tx_channel)
+                        self.outport.send(note_on)
+                else:
+                    self.is_on[msg.note][msg.channel] = False
+                    note_off = msg.copy(channel=tx_channel)
+                    self.outport.send(note_off)
             else:
-                self.is_on[msg.note][msg.channel] = False
-                note_off = msg.copy(channel=tx_channel)
-                self.outport.send(note_off)
+                misc = msg.copy(channel=tx_channel)
+                self.outport.send(misc)
         else:
-            misc = msg.copy(channel=tx_channel)
-            self.outport.send(misc)
+            self.outport.send(msg)
 
     def open(self):
         while True:

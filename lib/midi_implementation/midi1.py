@@ -200,24 +200,27 @@ class MtsEsp:
             self.outport.send(note_on)
 
     def dispatch(self, msg):
-        tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
-        if msg.type in ["note_on", "note_off"]:
-            if msg.type == "note_on" and msg.velocity > 0:
-                self.is_on[msg.note][msg.channel] = True
-                self.enqueue(msg, tx_channel)
-                queried = self.query(msg)
-                if queried:
-                    self.queue = []
-                self.bend_note([msg.note, msg.channel], tx_channel, msg.velocity)
+        if hasattr(msg, "channel"):
+            tx_channel = msg.channel if self.tx_channel is None else self.tx_channel
+            if msg.type in ["note_on", "note_off"]:
+                if msg.type == "note_on" and msg.velocity > 0:
+                    self.is_on[msg.note][msg.channel] = True
+                    self.enqueue(msg, tx_channel)
+                    queried = self.query(msg)
+                    if queried:
+                        self.queue = []
+                    self.bend_note([msg.note, msg.channel], tx_channel, msg.velocity)
+                else:
+                    self.is_on[msg.note][msg.channel] = False
+                    note, _, _ = self.note_pitch([msg.note, msg.channel])
+                    note_off = msg.copy(note=note, channel=tx_channel)
+                    self.outport.send(note_off)
+                    self.dequeue(msg, tx_channel)
             else:
-                self.is_on[msg.note][msg.channel] = False
-                note, _, _ = self.note_pitch([msg.note, msg.channel])
-                note_off = msg.copy(note=note, channel=tx_channel)
-                self.outport.send(note_off)
-                self.dequeue(msg, tx_channel)
+                misc = msg.copy(channel=tx_channel)
+                self.outport(misc)
         else:
-            misc = msg.copy(channel=tx_channel)
-            self.outport(misc)
+            self.outport.send(msg)
 
     def open(self):
         while True:
