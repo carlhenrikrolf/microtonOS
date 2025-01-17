@@ -1,5 +1,6 @@
 import mido
 import mtsespy as esp
+from numpy import random
 import time
 
 
@@ -118,13 +119,20 @@ system_exclusive = SystemExclusive()
 
 class MtsEsp:
     def __init__(
-        self, outport, client, pitchbend_range=2, tx_channel=None, query_rate=0
+        self,
+        outport,
+        client,
+        pitchbend_range=2,
+        tx_channel=None,
+        query_rate=0,
+        humanization=12,
     ):
         self.outport = outport
         self.client = client
         self.pitchbend_range = pitchbend_range
         self.tx_channel = tx_channel
         self.query_rate = query_rate
+        self.humanization = humanization
 
         self.resolution = 2 * self.pitchbend_range / 2**14
         self.queue = []
@@ -143,20 +151,20 @@ class MtsEsp:
                     self.tuning[note][channel] = retuning
         return run
 
-    def standard_tuning(self): # not working?
+    def standard_tuning(self):  # not working?
         for note in range(127):
             step = esp.retuning_in_semitones(self.client, note + 1, -1)
             step -= esp.retuning_in_semitones(self.client, note, -1)
             is_semitone = abs(step - 1.0) < self.resolution / 2
             if not is_semitone:
                 return False
-        _, pitch, _ = self.note_pitch([69,0])
+        _, pitch, _ = self.note_pitch([69, 0])
         tx_channel = 0 if self.tx_channel is None else self.tx_channel
         pitchwheel = mido.Message("pitchwheel", pitch=pitch, channel=tx_channel)
         self.outport.send(pitchwheel)
         return True
 
-    def note_pitch(self, note_channel): # is incorrect
+    def note_pitch(self, note_channel):  # is incorrect
         rx_note, rx_channel = note_channel
         fraction = self.tuning[rx_note][rx_channel]
         fraction += rx_note
@@ -164,7 +172,7 @@ class MtsEsp:
         note = max([0, min([127, note])])
         pitch = fraction - note
         pitch /= self.resolution
-        in_range = (-(2**14)/2 <= pitch < 2**14/2)
+        in_range = -(2**14) / 2 <= pitch < 2**14 / 2
         pitch = max([-(2**14) / 2, min([2**14 / 2 - 1, pitch])])
         pitch = int(pitch)
         return note, pitch, in_range
@@ -172,7 +180,8 @@ class MtsEsp:
     def enqueue(self, msg, tx_channel):
         note, _, in_range = self.note_pitch([msg.note, msg.channel])
         if in_range:
-            if len(self.queue) >= 1:
+            if len(self.queue) > 0:
+                note, _, _ = self.note_pitch(self.queue[-1])
                 note_off = mido.Message(
                     "note_off", note=note, velocity=msg.velocity, channel=tx_channel
                 )
@@ -183,14 +192,23 @@ class MtsEsp:
         if len(self.queue) > 0:
             if [msg.note, msg.channel] == self.queue[-1]:
                 self.queue.pop()
-                velocity = 64 if msg.velocity == 0 else msg.velocity
+                velocity = random.normal(64, self.humanization)
+                velocity = round(velocity)
+                velocity = max([1, min([127, velocity])])
                 if len(self.queue) > 0:
                     self.bend_note(self.queue[-1], tx_channel, velocity)
                 else:
-                    note, _, _ = self.note_pitch([msg.note,msg.channel])
+                    note, _, _ = self.note_pitch([msg.note, msg.channel])
                     self.outport.send(msg.copy(note=note, channel=tx_channel))
             elif [msg.note, msg.channel] in self.queue:
                 self.queue.remove([msg.note, msg.channel])
+                note, _, _ = self.note_pitch([msg.note, msg.channel])
+                note_on, _, _ = self.note_pitch(self.queue[-1])
+                if note != note_on:
+                    self.outport.send(msg.copy(note=note, channel=tx_channel))
+        else:
+            note, _, _ = self.note_pitch([msg.note, msg.channel])
+            self.outport.send(msg.copy(note=note, channel=tx_channel))
 
     def bend_note(self, note_channel, tx_channel, velocity):
         note, pitch, in_range = self.note_pitch(note_channel)
