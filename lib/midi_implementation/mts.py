@@ -6,7 +6,7 @@ import time
 ignore = 0x7F
 universal_non_realtime = 0x7E
 universal_realtime = 0x7F
-all_devices = 0x7F
+all_devices = 0x7F  # i.e. 127. scala2mts uses 0 instead
 midi_tuning = 0x08
 note_change = 0x02
 note_change_bank = 0x07
@@ -26,14 +26,13 @@ def checksum(data):
     for d in data[1:]:
         result ^= d
     result &= ensure_7bit
-    result = int(result)
-    return [*data, result]
+    return result
 
 
 def error_correction(sysex):
     """True if correct False otherwise"""
     check = checksum(sysex.data[:-1])
-    return check[-1] == sysex.data[-1]
+    return check == sysex.data[-1]
 
 
 def encode(name: str, length=16, encoding="ascii"):
@@ -70,12 +69,6 @@ def keybased(
     assert tuning_bank is None or tuning_bank in range(128)
     assert device_number in range(128)
     ll = len(keys)
-    yy = [0] * ll
-    zz = [0] * ll
-    for i, c in enumerate(cents):
-        tmp = round(c / resolution)
-        yy[i] = tmp // 128
-        zz[i] = tmp % 128
     if tuning_bank is None:
         data = [
             universal_realtime,
@@ -107,6 +100,12 @@ def keybased(
             tuning_program,
             ll,
         ]
+    yy = [0] * ll
+    zz = [0] * ll
+    for i, c in enumerate(cents):
+        tmp = round(c / resolution)
+        yy[i] = tmp // 128
+        zz[i] = tmp % 128
     for i in range(ll):
         data.append(keys[i])
         data.append(notes[i])
@@ -125,6 +124,31 @@ def keybased_dump(
     assert tuning_program in range(128)
     assert tuning_bank is None or tuning_bank in range(128)
     assert device_number in range(128)
+    data_length = 16 + 128 * 3 + 1
+    if tuning_bank is None:
+        header_length = 5
+        message_length = header_length + data_length
+        data=[-1] * message_length
+        data[:header_length] = [
+            universal_non_realtime,
+            device_number,
+            midi_tuning,
+            bulk_dump_reply,
+            tuning_program,
+        ]
+    else:
+        header_length = 6
+        message_length = header_length + data_length
+        data=[-1] * message_length
+        data[:header_length] = [
+            universal_non_realtime,
+            device_number,
+            midi_tuning,
+            bulk_dump_reply_bank,
+            tuning_bank,
+            tuning_program,
+        ]
+    data[header_length : header_length + 16] = encode(name)
     xx = notes
     yy = [0] * 128
     zz = [0] * 128
@@ -137,29 +161,11 @@ def keybased_dump(
             tmp = round(c / resolution)
             yy[i] = tmp // 128
             zz[i] = tmp % 128
-    if tuning_bank is None:
-        data = [
-            universal_non_realtime,
-            device_number,
-            midi_tuning,
-            bulk_dump_reply,
-            tuning_program,
-        ]
-    else:
-        data = [
-            universal_non_realtime,
-            device_number,
-            midi_tuning,
-            bulk_dump_reply_bank,
-            tuning_bank,
-            tuning_program,
-        ]
-    data = [*data, *encode(name)]
-    for i in range(128):
-        data.append(xx[i])
-        data.append(yy[i])
-        data.append(zz[i])
-    return mido.Message("sysex", data=data)
+    words = range(header_length + 16, message_length-1, 3)
+    for key, i in enumerate(words):
+        data[i : i + 3] = [xx[key], yy[key], zz[key]]
+    data[message_length-1] = checksum(data[:-1])
+    return mido.Message('sysex', data=data)
 
 
 def octave(n_bytes, channels, realtime=True):
@@ -231,7 +237,7 @@ class MtsEsp:
     ):
         self.outport = outport
         self.client = client
-        #self.rx_channel = -1 if rx_channel is None else rx_channel
+        # self.rx_channel = -1 if rx_channel is None else rx_channel
         self.tx_channel = tx_channel
         self.tuning_program = tuning_program
         self.tuning_bank = tuning_bank
@@ -241,7 +247,7 @@ class MtsEsp:
 
         self.tuning = [[0 for _ in range(16)] for _ in range(128)]
         self.is_on = [[False for _ in range(16)] for _ in range(128)]
-        #self.in_range = [True] * 128
+        # self.in_range = [True] * 128
 
     def query(self, msg=None):
         run = True if msg is None else False
@@ -271,7 +277,7 @@ class MtsEsp:
             cents = max([0, (fraction - whole) * 100])
             in_range = True
         return semitones, cents, in_range
-    
+
     def send_single_change(self, msg):
         retuning = self.tuning[msg.note][msg.channel]
         fraction = msg.note + retuning
@@ -292,7 +298,9 @@ class MtsEsp:
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
-            retuning = esp.retuning_in_semitones(self.client, note, -1) # self.tuning[note][self.rx_channel]
+            retuning = esp.retuning_in_semitones(
+                self.client, note, -1
+            )  # self.tuning[note][self.rx_channel]
             fraction = note + retuning
             semitones[note], cents[note], _ = self.convert(fraction)
             # self.in_range[note] = _
@@ -330,7 +338,9 @@ class MtsEsp:
                     should_filter = esp.should_filter_note(
                         self.client, msg.note, msg.channel
                     )
-                    should_filter = should_filter or not in_range # self.in_range[msg.note]
+                    should_filter = (
+                        should_filter or not in_range
+                    )  # self.in_range[msg.note]
                     if not should_filter:
                         self.is_on[msg.note][msg.channel] = True
                         note_on = msg.copy(channel=tx_channel)
