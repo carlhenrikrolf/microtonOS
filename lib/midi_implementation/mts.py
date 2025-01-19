@@ -117,7 +117,6 @@ def keybased(
 def keybased_dump(
     name, notes, cents, tuning_program, tuning_bank=None, device_number=all_devices
 ):
-    print("NOT working as intended! Under development")
     assert len(notes) == len(cents) == 128
     assert all([i is None or i in range(128) for i in notes])
     assert all([c is None or 0 <= c < max_cents for c in cents])
@@ -227,7 +226,6 @@ class MtsEsp:
         self,
         outport,
         client,
-        rx_channel=None,
         tx_channel=None,
         tuning_program=0,
         tuning_bank=None,
@@ -237,7 +235,6 @@ class MtsEsp:
     ):
         self.outport = outport
         self.client = client
-        # self.rx_channel = -1 if rx_channel is None else rx_channel
         self.tx_channel = tx_channel
         self.tuning_program = tuning_program
         self.tuning_bank = tuning_bank
@@ -247,7 +244,6 @@ class MtsEsp:
 
         self.tuning = [[0 for _ in range(16)] for _ in range(128)]
         self.is_on = [[False for _ in range(16)] for _ in range(128)]
-        # self.in_range = [True] * 128
 
     def query(self, msg=None):
         run = True if msg is None else False
@@ -295,35 +291,23 @@ class MtsEsp:
         return in_range
 
     def send_dump(self):
+        name = esp.get_scale_name(self.client)
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
             retuning = esp.retuning_in_semitones(
                 self.client, note, -1
-            )  # self.tuning[note][self.rx_channel]
+            )
             fraction = note + retuning
             semitones[note], cents[note], _ = self.convert(fraction)
-            # self.in_range[note] = _
-        lower = keybased(
-            [i for i in range(0, 64)],
-            semitones[0:64],
-            cents[0:64],
+        sysex = keybased_dump(
+            name,
+            semitones,
+            cents,
             self.tuning_program,
-            tuning_bank=self.tuning_bank,
-            realtime=self.realtime,
             device_number=self.device_number,
         )
-        self.outport.send(lower)
-        upper = keybased(
-            [i for i in range(64, 128)],
-            semitones[64:128],
-            cents[64:128],
-            self.tuning_program,
-            tuning_bank=self.tuning_bank,
-            realtime=self.realtime,
-            device_number=self.device_number,
-        )
-        self.outport.send(upper)
+        self.outport.send(sysex)
 
     def dispatch(self, msg):
         if hasattr(msg, "channel"):
@@ -340,7 +324,7 @@ class MtsEsp:
                     )
                     should_filter = (
                         should_filter or not in_range
-                    )  # self.in_range[msg.note]
+                    )
                     if not should_filter:
                         self.is_on[msg.note][msg.channel] = True
                         note_on = msg.copy(channel=tx_channel)
