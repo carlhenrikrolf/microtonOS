@@ -1,26 +1,12 @@
 import mido
 from colour import Color
 from menu import Sounds
-from utils import Inport, Outport, make_threads, set_volume, set_gain
+from utils import Inport, Outport, make_threads, set_volume, set_gain, negative
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
 from midi_implementation.yamaha import reface_cp as cp
 from midi_implementation.cme import widi_master as widi
 from modulation.pedals import Assign
-
-
-engine_banks_pgms = [
-    ["Pianoteq", (9, 4, 4, 2)],
-    ["tuneBfree", (12, 12, 12)],
-    ["Surge XT", (8, 14, 7, 4, 4)],
-]
-
-drivers = [
-    ["Synth 1", cp.is_connected],
-    ["Synth 2", widi.is_connected],
-    # "Module 1",
-    # "Controller 1",
-]
 
 menu_colors = [  # 🔴🟠🟡🟢🔵🟣
     Color("red"),
@@ -40,6 +26,40 @@ buttons = [
     xq.play_stop,
 ]
 
+engine_banks_pgms = [
+    ["Pianoteq", (9, 4, 4, 2)],
+    ["tuneBfree", (12, 12, 12)],
+    ["Surge XT", (8, 14, 7, 4, 4)],
+]
+
+drivers = [
+    ["Synth 1", cp.is_connected],
+    ["Synth 2", widi.is_connected],
+    # "Module 1",
+    # "Controller 1",
+]
+
+def local1_is_connected(engine, is_on):
+    base = menu_colors[1]
+    if cp.is_connected():
+        if engine == -1:
+            color = negative(base) if is_on else base
+        else:
+            color = Color("white") if is_on else base
+    else:
+        color = Color("black")
+    return color
+
+def local2_is_connected(engine, is_on):
+    base = menu_colors[1]
+    if widi.is_connected():
+        if engine == -2:
+            color = negative(base) if is_on else base
+        else:
+            color = Color("white") if is_on else base
+    else:
+        color = Color("black")
+    return color
 
 def microtonOS(client_name):
     class Script:
@@ -139,12 +159,27 @@ def microtonOS(client_name):
             elif msg.type in ["clock", "start", "stop", "continue"]:
                 clock.send(msg)
             elif hasattr(msg, "channel"):
-                if self.local1 and msg.channel in [0, 13]:
-                    to_driver[0].send(msg)
-                elif self.local2 and msg.channel in [14, 15]:
-                    to_driver[1].send(msg)
+                if self.engine == -1:
+                    if self.local1 and msg.channel in range(1,13):
+                        to_driver[2-1].send(msg)
+                    elif self.local2 and msg.channel in [14, 15]:
+                        to_driver[2-1].send(msg)
+                    else:
+                        self.outport.send(msg)
+                elif self.engine == -2:
+                    if self.local2 and msg.channel in range(1,13):
+                        to_driver[1-1].send(msg)
+                    elif self.local1 and msg.channel in [0, 13]:
+                        to_driver[1-1].send(msg)
+                    else:
+                        self.outport.send(msg)
                 else:
-                    self.outport.send(msg)
+                    if self.local1 and msg.channel in [0, 13]:
+                        to_driver[1-1].send(msg)
+                    elif self.local2 and msg.channel in [14, 15]:
+                        to_driver[2-1].send(msg)
+                    else:
+                        self.outport.send(msg)
             else:
                 self.outport.send(msg)
 

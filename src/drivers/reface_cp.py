@@ -251,8 +251,10 @@ class Script:
             )
 
     def microtonOS(self, msg):
-        can_read = msg.type in ["note_on", "note_off", "control_change", "sysex"]
-        can_read = can_read and not msg.is_cc(cc.brightness)
+        can_read = msg.type in ["note_on", "note_off", "sysex"]
+        if msg.type == "control_change":
+            readable_ccs = [msg.is_cc(i) for i in [cc.all_notes_off, cc.all_sound_off, cc.modulation_wheel]]
+            can_read = any(readable_ccs)
         if can_read:
             standard_tuning = midi1_client.standard_tuning()
             if standard_tuning:
@@ -267,5 +269,5 @@ with esp.Client() as esp_client:
     midi1_client = midi1.MtsEsp(to_reface_cp, esp_client, pitchbend_range=2)
     script = Script()
     from_reface_cp = Inport(script.reface_cp, client_name, name="Reface CP", verbose=False)
-    from_microtonOS = Inport(script.microtonOS, client_name, name="microtonOS", verbose=False)
+    from_microtonOS = Inport(script.microtonOS, client_name, name="microtonOS", verbose=True)
     make_threads([from_reface_cp.open, from_microtonOS.open])
