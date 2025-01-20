@@ -199,20 +199,26 @@ class MtsEsp:
                     self.bend_note(self.queue[-1], tx_channel, velocity)
                 else:
                     note, _, _ = self.note_pitch([msg.note, msg.channel])
-                    self.outport.send(msg.copy(note=note, channel=tx_channel))
+                    note_off = msg.copy(note=note, channel=tx_channel)
+                    self.outport.send(note_off)
             elif [msg.note, msg.channel] in self.queue:
                 self.queue.remove([msg.note, msg.channel])
                 note, _, _ = self.note_pitch([msg.note, msg.channel])
                 note_on, _, _ = self.note_pitch(self.queue[-1])
                 if note != note_on:
-                    self.outport.send(msg.copy(note=note, channel=tx_channel))
+                    note_off = msg.copy(note=note, channel=tx_channel)
+                    self.outport.send(note_off)
         else:
             note, _, _ = self.note_pitch([msg.note, msg.channel])
-            self.outport.send(msg.copy(note=note, channel=tx_channel))
+            note_off = msg.copy(note=note, channel=tx_channel)
+            self.outport.send(note_off)
 
     def bend_note(self, note_channel, tx_channel, velocity):
         note, pitch, in_range = self.note_pitch(note_channel)
         if in_range:
+            for sustain in [control_change.damper_pedal, control_change.sostenuto, control_change.hold2]:
+                pedal_off = mido.Message('control_change', control=sustain, value=0, channel=tx_channel)
+                self.outport.send(pedal_off)
             pitchwheel = mido.Message("pitchwheel", pitch=pitch, channel=tx_channel)
             self.outport.send(pitchwheel)
             note_on = mido.Message(

@@ -1,7 +1,18 @@
 import mido
 from colour import Color
+import subprocess
 from menu import Sounds
-from utils import Inport, Outport, make_threads, set_volume, set_gain, negative
+from utils import (
+    Inport,
+    Outport,
+    make_threads,
+    set_volume,
+    set_gain,
+    negative,
+    get_volume,
+    get_gain,
+    handle_terminations,
+)
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
 from midi_implementation.yamaha import reface_cp as cp
@@ -35,31 +46,64 @@ engine_banks_pgms = [
 drivers = [
     ["Synth 1", cp.is_connected],
     ["Synth 2", widi.is_connected],
-    # "Module 1",
-    # "Controller 1",
 ]
 
-def local1_is_connected(engine, is_on):
-    base = menu_colors[1]
-    if cp.is_connected():
-        if engine == -1:
-            color = negative(base) if is_on else base
-        else:
-            color = Color("white") if is_on else base
-    else:
-        color = Color("black")
-    return color
 
-def local2_is_connected(engine, is_on):
-    base = menu_colors[1]
-    if widi.is_connected():
-        if engine == -2:
-            color = negative(base) if is_on else base
+class KnobLeds:
+    def __init__(self, engine=0, base=menu_colors[1], max_luminance=0.8):
+        self.engine = engine
+        self.base = base
+        self.max_luminance = max_luminance
+
+    def volume(self, is_on):
+        color = self.base
+        volume, muted = get_volume()
+        luminance = volume * self.max_luminance
+        color.luminance = 0 if muted else luminance
+        return color
+
+    def mic(self, is_on):
+        color = negative(self.base) if is_on else self.base
+        gain, _ = get_gain()
+        luminance = gain * self.max_luminance
+        color.luminance = 0 if _ else luminance
+        return color
+
+    def local2_is_connected(self, is_on):
+        if widi.is_connected():
+            if self == -2:
+                color = negative(self.base) if is_on else self.base
+            else:
+                color = Color("white") if is_on else self.base
         else:
-            color = Color("white") if is_on else base
-    else:
-        color = Color("black")
-    return color
+            color = Color("black")
+        return color
+
+    def local1_is_connected(self, is_on):
+        if cp.is_connected():
+            if self.engine == -1:
+                color = negative(self.base) if is_on else self.base
+            else:
+                color = Color("white") if is_on else self.base
+        else:
+            color = Color("black")
+        return color
+    
+
+class XentoTune:
+    xentotune = "/home/pi/microtonOS/src/wrappers/xentotune.sh"
+    def __init__(self):
+        self.is_on = "false"
+        self.process = subprocess.Popen([self.xentotune, self.is_on])
+        handle_terminations(self.process)
+    
+    def switch(self):
+        self.process.close()
+        self.is_on = "true" if self.is_on == "false" else "false"
+        self.process = subprocess.Popen([self.xentotune, self.is_on])
+
+        
+
 
 def microtonOS(client_name):
     class Script:
@@ -103,7 +147,6 @@ def microtonOS(client_name):
                 self.local1, self.local2 = sounds.local_control(msg)
 
             elif sounds.onoff(msg) is False:
-                # print("eng =", self.engine, "bnk =", self.bank, "pgm =", self.pgm)
                 to_isomorphic.send(msg)
                 if self.engine >= 0:
                     self.outport = to_engine[self.engine]
@@ -160,24 +203,24 @@ def microtonOS(client_name):
                 clock.send(msg)
             elif hasattr(msg, "channel"):
                 if self.engine == -1:
-                    if self.local1 and msg.channel in range(1,13):
-                        to_driver[2-1].send(msg)
+                    if self.local1 and msg.channel in range(1, 13):
+                        to_driver[2 - 1].send(msg)
                     elif self.local2 and msg.channel in [14, 15]:
-                        to_driver[2-1].send(msg)
+                        to_driver[2 - 1].send(msg)
                     else:
                         self.outport.send(msg)
                 elif self.engine == -2:
-                    if self.local2 and msg.channel in range(1,13):
-                        to_driver[1-1].send(msg)
+                    if self.local2 and msg.channel in range(1, 13):
+                        to_driver[1 - 1].send(msg)
                     elif self.local1 and msg.channel in [0, 13]:
-                        to_driver[1-1].send(msg)
+                        to_driver[1 - 1].send(msg)
                     else:
                         self.outport.send(msg)
                 else:
                     if self.local1 and msg.channel in [0, 13]:
-                        to_driver[1-1].send(msg)
+                        to_driver[1 - 1].send(msg)
                     elif self.local2 and msg.channel in [14, 15]:
-                        to_driver[2-1].send(msg)
+                        to_driver[2 - 1].send(msg)
                     else:
                         self.outport.send(msg)
             else:
@@ -194,7 +237,14 @@ def microtonOS(client_name):
     to_driver = [Outport(client_name, name=drivers[i][0]) for i in range(len(drivers))]
     clock = Outport(client_name, name="Clock")
     assign = Assign(to_halberstadt)
-    sounds = Sounds(to_exquis, engine_banks_pgms, drivers, base_color=menu_colors[1], local1_is_connected=drivers[0][1], local2_is_connected=drivers[1][1])
+    sounds = Sounds(
+        to_exquis,
+        engine_banks_pgms,
+        drivers,
+        base_color=menu_colors[1],
+        local1_is_connected=drivers[0][1],
+        local2_is_connected=drivers[1][1],
+    )
     script = Script()
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
     from_synth1 = Inport(script.synth1, client_name, name="Synth 1")

@@ -18,7 +18,7 @@ list_devices_command = [
 
 
 
-def get_input_id(name):
+def get_midi_id(name):
     output = subprocess.check_output(list_devices_command).decode()
     pattern = "\[(\d+)\] : " + name
     match = re.search(pattern, output)
@@ -28,7 +28,7 @@ def get_input_id(name):
         return None
 
 
-def get_output_id(name, kind=""):
+def get_audio_id(name, kind=""):
     output = subprocess.check_output(list_devices_command).decode()
     pattern = kind + ": " + "\[(\d+)\.(\d+)\] : " + name
     match = re.search(pattern, output)
@@ -55,11 +55,11 @@ class Script:
         self.is_init = True
         self.commandline = [
             *surge_path,
-            "--audio-interface=" + get_output_id(audio_name, "Input Audio Device"),
+            "--audio-interface=" + get_audio_id(audio_name, "Input Audio Device"),
             "--audio-ports=0,1",
-            #"--audio-input-interface=" + get_output_id(audio_input_name, "Output Audio Device"),
+            #"--audio-input-interface=" + get_audio_id(audio_input_name, "Output Audio Device"),
             #"--audio-input-ports=0,1",
-            "--midi-input=" + get_input_id("from " + client_name),
+            "--midi-input=" + get_midi_id("from " + client_name),
             "--no-stdin",
         ]
         self.process = subprocess.Popen(self.commandline)
