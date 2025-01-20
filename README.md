@@ -74,6 +74,13 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 pip3 install . --use-pep517
 ```
+Note that `PyQt5` may take a long time to make a copy within the virtual environment.[^pyqt5]
+Use the folloing to finalise the copying:
+```bash
+cp -r /usr/lib/python3/dist-packages/PyQt5/* /home/pi/microtonOS/.venv/lib/python3*/site-packages/PyQt5 --no-clobber
+```
+
+[^pyqt5]: If it does not work, try installing it manually with `.venv/bin/pip3 install pyqt5 --config-settings --confirm-license= --verbose`.
 
 To set up the HifiBerry DAC+ADC soundcard, copy these configuration files.
 ```bash

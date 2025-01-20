@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE CARLA-PROJECT>
+<CARLA-PROJECT VERSION='2.6'>
+ <EngineSettings>
+  <ForceStereo>false</ForceStereo>
+  <PreferPluginBridges>true</PreferPluginBridges>
+  <PreferUiBridges>true</PreferUiBridges>
+  <UIsAlwaysOnTop>false</UIsAlwaysOnTop>
+  <MaxParameters>200</MaxParameters>
+  <UIBridgesTimeout>4000</UIBridgesTimeout>
+ </EngineSettings>
+
+ <Transport>
+  <BeatsPerMinute>120</BeatsPerMinute>
+ </Transport>
+
+ <!-- Xentotune -->
+ <Plugin>
+  <Info>
+   <Type>CLAP</Type>
+   <Name>Xentotune</Name>
+   <Binary>/usr/lib/clap/Xentotune.clap</Binary>
+   <Identifier>naren.Xentotune</Identifier>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <ExternalPatchbay>
+  <Connection>
+   <Source>Built-in Audio Stereo:capture_FL</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Built-in Audio Stereo:capture_FL</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Built-in Audio Stereo:capture_FR</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Built-in Audio Stereo:capture_FR</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>SonoBus:out_1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>SonoBus:out_2</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_left</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_right</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_2</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_2</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
+   <Target>Pianoteq:midi_in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:tuneBfree Wrapper:(capture_0) from tuneBfree Wrapper</Source>
+   <Target>setBfree:midi_in</Target>
+  </Connection>
+  <Positions>
+   <Position x1="1659" y1="1106">
+    <Name>Carla</Name>
+   </Position>
+   <Position x1="1463" y1="1228" x2="1936" y2="1222">
+    <Name>Built-in Audio Stereo</Name>
+   </Position>
+   <Position x1="1720" y1="1285">
+    <Name>SonoBus</Name>
+   </Position>
+   <Position x1="1731" y1="1463">
+    <Name>setBfree</Name>
+   </Position>
+   <Position x1="1589" y1="1389">
+    <Name>Pianoteq</Name>
+   </Position>
+   <Position x1="1798" y1="1349">
+    <Name>Surge XT</Name>
+   </Position>
+   <Position x1="1572" y1="1527" x2="1952" y2="1348">
+    <Name>Midi-Bridge</Name>
+   </Position>
+  </Positions>
+ </ExternalPatchbay>
+</CARLA-PROJECT>
