@@ -5,8 +5,9 @@ Requires=qjackctl.service
 
 [Service]
 User=pi
+Environment=DISPLAY=:0
 Environment=XDG_RUNTIME_DIR="/run/user/1000"
-ExecStart=/usr/bin/pw-jack /usr/bin/sonobus --group=microtonos --username=pi --load-setup=/home/pi/microtonOS/config/setup.sonobus --headless
+ExecStart=/usr/bin/bash /home/pi/microtonOS/src/wrappers/sonobus.sh
 Restart=always
 RestartSec=2s
 TimeoutSec=infinity

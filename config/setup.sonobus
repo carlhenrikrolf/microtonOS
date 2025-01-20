@@ -12,7 +12,7 @@
       <PARAM id="defnetauto" value="2.0"/>
       <PARAM id="defnetbuf" value="0.0009999999310821295"/>
       <PARAM id="defsendqual" value="4.0"/>
-      <PARAM id="dry" value="0.0"/>
+      <PARAM id="dry" value="1.0"/>
       <PARAM id="dynamicresampling" value="0.0"/>
       <PARAM id="hearlatencytest" value="0.0"/>
       <PARAM id="ingain" value="1.00000011920929"/>
@@ -53,8 +53,8 @@
                   DisableKeyShortcuts="0" PeerDisplayMode="0" lastChatWidth="250"
                   lastChatShown="0" chatFontSizeOffset="0" chatFixedWidthFont="0"
                   lastSoundboardWidth="250" lastSoundboardShown="0" linkMonDelayTimes="1"
-                  lastUsername="pi 5" langOverrideCode="" lastWindowWidth="800"
-                  lastWindowHeight="600" autoDropRateThreshNew="0.5" reconnServLoss="1">
+                  lastUsername="pi" langOverrideCode="" lastWindowWidth="800" lastWindowHeight="600"
+                  autoDropRateThreshNew="0.5" reconnServLoss="1">
         <VideoLinkInfo roomMode="1" showNames="1" screenShare="0" extraParams="" beDir="0"
                        largeShare="0" pushViewMode="0"/>
       </ExtraState>

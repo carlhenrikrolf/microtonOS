@@ -8,6 +8,7 @@ from utils import Inport, Outport, handle_terminations, warmup
 client_name = "tuneBfree Wrapper"
 pause = 0.001
 config_path = "/home/pi/microtonOS/config/"
+audio_output="SonoBus"
 
 
 def commandline(config):
@@ -20,6 +21,7 @@ def commandline(config):
         "--noprogram",
         "--program",
         config_path + "tuneBfree.pgm",
+        "jack.connect=" + audio_output,
     ]
 
 

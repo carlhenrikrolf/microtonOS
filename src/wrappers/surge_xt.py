@@ -8,7 +8,7 @@ from utils import Inport, Outport, handle_terminations, warmup
 client_name = "Surge XT Wrapper"
 #vocoder_name = "Surge Vocoder Wrapper"
 surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
-audio_name = "JACK.Built-in Audio Stereo"
+audio_name = "JACK.SonoBus" #"JACK.Built-in Audio Stereo"
 #audio_input_name = "JACK."+vocoder_name
 
 list_devices_command = [
