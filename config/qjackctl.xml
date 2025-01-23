@@ -4,6 +4,10 @@
   <socket type="jack-midi" client="Midi\-Bridge" name="XentoTune Wrapper to XentoTune" exclusive="off">
    <plug>XentoTune\ Wrapper\:\(capture_0\)\ from\ XentoTune\ Wrapper</plug>
   </socket>
+  <socket type="jack-audio" client="Carla" name="XentoTune Audio" exclusive="on">
+   <plug>Xentotune\:output_1</plug>
+   <plug>Xentotune\:output_2</plug>
+  </socket>
   <socket type="jack-audio" client="Carla" name="Thru Audio" exclusive="on">
    <plug>Audio\ Gain\ \(Stereo\)\:output_1</plug>
    <plug>Audio\ Gain\ \(Stereo\)\:output_2</plug>
@@ -102,7 +106,12 @@
   <socket type="jack-midi" client="Carla" name="Thru MID" exclusive="on">
    <plug>Audio\ Gain\ \(Stereo\)\:events\-in</plug>
   </socket>
-  <socket type="jack-audio" client="Carla" name="Thru Audio" exclusive="off">
+  <socket type="jack-midi" client="Carla" name="XentoTune MIDI" exclusive="on">
+   <plug>Xentotune\:event\-in</plug>
+  </socket>
+  <socket type="jack-audio" client="Carla" name="XentoTune-Thru Audio" exclusive="off">
+   <plug>Xentotune\:input_1</plug>
+   <plug>Xentotune\:input_2</plug>
    <plug>Audio\ Gain\ \(Stereo\)\:input_1</plug>
    <plug>Audio\ Gain\ \(Stereo\)\:input_2</plug>
   </socket>
@@ -222,9 +231,11 @@
   <cable input="Pianoteq Wrapper" type="alsa-midi" output="microtonOS to Pianoteq Wrapper"/>
   <cable input="Isomorphic to MTS-ESP master" type="alsa-midi" output="microtonOS to Isomorphic"/>
   <cable input="Exquis to microtonOS" type="alsa-midi" output="Exquis"/>
-  <cable input="Thru Audio" type="jack-audio" output="Soundcard"/>
+  <cable input="XentoTune-Thru Audio" type="jack-audio" output="Soundcard"/>
   <cable input="Thru MID" type="jack-midi" output="XentoTune Wrapper to XentoTune"/>
+  <cable input="XentoTune MIDI" type="jack-midi" output="XentoTune Wrapper to XentoTune"/>
   <cable input="SonoBus" type="jack-audio" output="Thru Audio"/>
+  <cable input="SonoBus" type="jack-audio" output="XentoTune Audio"/>
  </cables>
 </patchbay>
 

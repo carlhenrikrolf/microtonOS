@@ -2,7 +2,7 @@ import subprocess
 from midi_implementation.midi1 import control_change as cc
 from utils import handle_terminations, Outport, Inport
 
-headless = False
+headless = True
 switch = cc.local_onoff_switch
 
 client_name = "XentoTune Wrapper"

@@ -30,7 +30,12 @@
    <Parameter>
     <Index>0</Index>
     <Name>Gain</Name>
-    <Value>1</Value>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>7</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>4</MappedMaximum>
+    <MidiCC>7</MidiCC>
+    <Value>4</Value>
    </Parameter>
 
    <Parameter>
@@ -50,19 +55,11 @@
  <ExternalPatchbay>
   <Connection>
    <Source>Built-in Audio Stereo:capture_FL</Source>
-   <Target>SonoBus:in_1</Target>
-  </Connection>
-  <Connection>
-   <Source>Built-in Audio Stereo:capture_FL</Source>
-   <Target>Built-in Audio Stereo:playback_FL</Target>
+   <Target>Carla:Audio Gain (Stereo):input_1</Target>
   </Connection>
   <Connection>
    <Source>Built-in Audio Stereo:capture_FR</Source>
-   <Target>SonoBus:in_2</Target>
-  </Connection>
-  <Connection>
-   <Source>Built-in Audio Stereo:capture_FR</Source>
-   <Target>Built-in Audio Stereo:playback_FR</Target>
+   <Target>Carla:Audio Gain (Stereo):input_2</Target>
   </Connection>
   <Connection>
    <Source>SonoBus:out_1</Source>
@@ -74,27 +71,35 @@
   </Connection>
   <Connection>
    <Source>setBfree:out_left</Source>
-   <Target>Built-in Audio Stereo:playback_FL</Target>
+   <Target>SonoBus:in_1</Target>
   </Connection>
   <Connection>
    <Source>setBfree:out_right</Source>
-   <Target>Built-in Audio Stereo:playback_FR</Target>
+   <Target>SonoBus:in_2</Target>
   </Connection>
   <Connection>
    <Source>Pianoteq:out_1</Source>
-   <Target>Built-in Audio Stereo:playback_FL</Target>
+   <Target>SonoBus:in_1</Target>
   </Connection>
   <Connection>
    <Source>Pianoteq:out_2</Source>
-   <Target>Built-in Audio Stereo:playback_FR</Target>
+   <Target>SonoBus:in_2</Target>
   </Connection>
   <Connection>
    <Source>Surge XT:out_1</Source>
-   <Target>Built-in Audio Stereo:playback_FL</Target>
+   <Target>SonoBus:in_1</Target>
   </Connection>
   <Connection>
    <Source>Surge XT:out_2</Source>
-   <Target>Built-in Audio Stereo:playback_FR</Target>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Audio Gain (Stereo):output_1</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Audio Gain (Stereo):output_2</Source>
+   <Target>SonoBus:in_2</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
@@ -103,6 +108,10 @@
   <Connection>
    <Source>Midi-Bridge:tuneBfree Wrapper:(capture_0) from tuneBfree Wrapper</Source>
    <Target>setBfree:midi_in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Audio Gain (Stereo):events-in</Target>
   </Connection>
   <Positions>
    <Position x1="1692" y1="1122">
