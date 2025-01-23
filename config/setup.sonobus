@@ -3,8 +3,8 @@
 <PROPERTIES>
   <VALUE name="audioSetup">
     <DEVICESETUP deviceType="JACK" audioOutputDeviceName="Built-in Audio Stereo"
-                 audioInputDeviceName="Built-in Audio Stereo" audioDeviceRate="48000.0"
-                 audioDeviceBufferSize="1024"/>
+                 audioInputDeviceName="Pianoteq" audioDeviceRate="48000.0" audioDeviceBufferSize="0"
+                 audioDeviceInChans="11111"/>
   </VALUE>
   <VALUE name="filterStateXML">
     <SonoBusAoO>
