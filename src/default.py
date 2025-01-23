@@ -50,10 +50,10 @@ drivers = [
 
 
 class KnobLeds:
-    def __init__(self, engine=0, base=menu_colors[1], max_luminance=0.8):
+    def __init__(self, engine=0, base=menu_colors[1]):
         self.engine = engine
         self.base = base
-        self.max_luminance = max_luminance
+        self.max_luminance = base.luminance
 
     def volume(self, is_on):
         color = self.base
@@ -98,12 +98,9 @@ class XentoTune:
         handle_terminations(self.process)
     
     def switch(self):
-        self.process.close()
         self.is_on = "true" if self.is_on == "false" else "false"
+        self.process.terminate()
         self.process = subprocess.Popen([self.xentotune, self.is_on])
-
-        
-
 
 def microtonOS(client_name):
     class Script:

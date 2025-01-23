@@ -5,6 +5,7 @@
 [submodule "tuneBfree"]
 	path = third_party/tuneBfree
 	url = git@github.com:carlhenrikrolf/tuneBfree.git
+	ignore = dirty
 [submodule "third_party/Carla"]
 	path = third_party/Carla
 	url = https://github.com/falkTX/Carla.git

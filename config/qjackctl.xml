@@ -1,175 +1,189 @@
 <!DOCTYPE patchbay>
-<patchbay version="0.9.9" name="qjackctl">
+<patchbay name="qjackctl" version="0.9.9">
  <output-sockets>
-  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="Clock">
+  <socket type="jack-midi" client="Midi\-Bridge" name="XentoTune Wrapper to XentoTune" exclusive="off">
+   <plug>XentoTune\ Wrapper\:\(capture_0\)\ from\ XentoTune\ Wrapper</plug>
+  </socket>
+  <socket type="jack-audio" client="Carla" name="Thru Audio" exclusive="on">
+   <plug>Audio\ Gain\ \(Stereo\)\:output_1</plug>
+   <plug>Audio\ Gain\ \(Stereo\)\:output_2</plug>
+  </socket>
+  <socket type="alsa-midi" client="microtonOS" name="Clock" exclusive="off">
    <plug>Clock\ from\ microtonOS</plug>
   </socket>
-  <socket client="BES_BLE" type="jack-audio" exclusive="on" name="Soundcore Life Alt">
+  <socket type="jack-audio" client="BES_BLE" name="Soundcore Life Alt" exclusive="on">
    <plug>monitor_FL</plug>
    <plug>monitor_FR</plug>
   </socket>
-  <socket client="Soundcore\ Life\ Q30" type="jack-audio" exclusive="on" name="Soundcore Life Q1">
+  <socket type="jack-audio" client="Soundcore\ Life\ Q30" name="Soundcore Life Q1" exclusive="on">
    <plug>monitor_FL</plug>
    <plug>monitor_FR</plug>
   </socket>
-  <socket client="Midi\-Bridge" type="jack-midi" exclusive="on" name="tuneBfree Wrapper">
+  <socket type="jack-midi" client="Midi\-Bridge" name="tuneBfree Wrapper" exclusive="on">
    <plug>tuneBfree\ Wrapper\:\(capture_0\)\ from\ tuneBfree\ Wrapper</plug>
   </socket>
-  <socket client="Midi\-Bridge" type="jack-midi" exclusive="on" name="Pianoteq Wrapper">
+  <socket type="jack-midi" client="Midi\-Bridge" name="Pianoteq Wrapper" exclusive="on">
    <plug>Pianoteq\ Wrapper\:\(capture_0\)\ from\ Pianoteq\ Wrapper</plug>
   </socket>
-  <socket client="reface\ CP" type="alsa-midi" exclusive="on" name="Reface CP">
+  <socket type="alsa-midi" client="reface\ CP" name="Reface CP" exclusive="on">
    <plug>reface\ CP\ MIDI\ 1</plug>
   </socket>
-  <socket client="WIDI\ Master" type="alsa-midi" exclusive="on" name="WIDI Master">
+  <socket type="alsa-midi" client="WIDI\ Master" name="WIDI Master" exclusive="on">
    <plug>WIDI\ Master\ Bluetooth</plug>
   </socket>
-  <socket client="Minilogue\ XD\ Driver" type="alsa-midi" exclusive="on" name="Minilogue XD Driver to microtonOS">
+  <socket type="alsa-midi" client="Minilogue\ XD\ Driver" name="Minilogue XD Driver to microtonOS" exclusive="on">
    <plug>microtonOS\ from\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="microtonOS to Synth 1">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Synth 1" exclusive="off">
    <plug>Synth\ 1\ from\ microtonOS</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="microtonOS to Synth 2">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Synth 2" exclusive="off">
    <plug>Synth\ 2\ from\ microtonOS</plug>
   </socket>
-  <socket client="Minilogue\ XD\ Driver" type="alsa-midi" exclusive="off" name="Minilogue XD Driver to Minilogue XD">
+  <socket type="alsa-midi" client="Minilogue\ XD\ Driver" name="Minilogue XD Driver to Minilogue XD" exclusive="off">
    <plug>Minilogue\ XD\ from\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Manual 2">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Manual 2" exclusive="on">
    <plug>Manual\ 2\ from\ microtonOS</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Surge XT">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Surge XT" exclusive="on">
    <plug>Surge\ XT\ from\ microtonOS</plug>
   </socket>
-  <socket client="Reface\ CP\ Driver" type="alsa-midi" exclusive="on" name="Reface CP Driver to microtonOS">
+  <socket type="alsa-midi" client="Reface\ CP\ Driver" name="Reface CP Driver to microtonOS" exclusive="on">
    <plug>microtonOS\ from\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Halberstadt">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Halberstadt" exclusive="on">
    <plug>Halberstadt\ from\ microtonOS</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to tuneBfree">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to tuneBfree" exclusive="on">
    <plug>tuneBfree\ from\ microtonOS</plug>
   </socket>
-  <socket client="setBfree" type="jack-audio" exclusive="on" name="tuneBfree">
+  <socket type="jack-audio" client="setBfree" name="tuneBfree" exclusive="on">
    <plug>out_left</plug>
    <plug>out_right</plug>
   </socket>
-  <socket client="sonobus\.P\.[0-9]+\.7" type="jack-audio" exclusive="off" name="SonoBus">
-   <plug>out_000</plug>
-   <plug>out_001</plug>
-  </socket>
-  <socket client="Surge\ XT" type="jack-audio" exclusive="on" name="Surge XT">
+  <socket type="jack-audio" client="SonoBus" name="SonoBus" exclusive="off">
    <plug>out_1</plug>
    <plug>out_2</plug>
   </socket>
-  <socket client="Reface\ CP\ Driver" type="alsa-midi" exclusive="off" name="Reface CP Driver to Reface CP">
+  <socket type="jack-audio" client="Surge\ XT" name="Surge XT" exclusive="on">
+   <plug>out_1</plug>
+   <plug>out_2</plug>
+  </socket>
+  <socket type="alsa-midi" client="Reface\ CP\ Driver" name="Reface CP Driver to Reface CP" exclusive="off">
    <plug>Reface\ CP\ from\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Exquis">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Exquis" exclusive="on">
    <plug>Exquis\ from\ microtonOS</plug>
   </socket>
-  <socket client="MTS\-ESP\ Master" type="alsa-midi" exclusive="on" name="MTS-ESP Master">
+  <socket type="alsa-midi" client="MTS\-ESP\ Master" name="MTS-ESP Master" exclusive="on">
    <plug>from\ MTS\-ESP\ Master</plug>
   </socket>
-  <socket client="Pianoteq" type="jack-audio" exclusive="on" name="Pianoteq">
+  <socket type="jack-audio" client="Pianoteq" name="Pianoteq" exclusive="on">
    <plug>out_1</plug>
    <plug>out_2</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Pianoteq Wrapper">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Pianoteq Wrapper" exclusive="on">
    <plug>Pianoteq\ from\ microtonOS</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Isomorphic">
+  <socket type="alsa-midi" client="microtonOS" name="microtonOS to Isomorphic" exclusive="on">
    <plug>Isomorphic\ from\ microtonOS</plug>
   </socket>
-  <socket client="Exquis" type="alsa-midi" exclusive="on" name="Exquis">
+  <socket type="alsa-midi" client="Exquis" name="Exquis" exclusive="on">
    <plug>Exquis\ MIDI\ 1</plug>
    <plug>Exquis\ MIDI\ 2</plug>
   </socket>
-  <socket client="Built\-in\ Audio\ Stereo" type="jack-audio" exclusive="on" name="Soundcard">
+  <socket type="jack-audio" client="Built\-in\ Audio\ Stereo" name="Soundcard" exclusive="on">
    <plug>capture_FL</plug>
    <plug>capture_FR</plug>
   </socket>
  </output-sockets>
  <input-sockets>
-  <socket client="MacBookAirM3" type="alsa-midi" exclusive="off" name="macOS">
+  <socket type="jack-midi" client="Carla" name="Thru MID" exclusive="on">
+   <plug>Audio\ Gain\ \(Stereo\)\:events\-in</plug>
+  </socket>
+  <socket type="jack-audio" client="Carla" name="Thru Audio" exclusive="off">
+   <plug>Audio\ Gain\ \(Stereo\)\:input_1</plug>
+   <plug>Audio\ Gain\ \(Stereo\)\:input_2</plug>
+  </socket>
+  <socket type="alsa-midi" client="MacBookAirM3" name="macOS" exclusive="off">
    <plug>MacBookAirM3\ Bluetooth</plug>
   </socket>
-  <socket client="Reface\ CP\ Driver" type="alsa-midi" exclusive="on" name="microtonOS to Reface CP Driver">
+  <socket type="alsa-midi" client="Reface\ CP\ Driver" name="microtonOS to Reface CP Driver" exclusive="on">
    <plug>microtonOS\ to\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket client="BES_BLE" type="jack-audio" exclusive="on" name="Soundcore Life Alt">
+  <socket type="jack-audio" client="BES_BLE" name="Soundcore Life Alt" exclusive="on">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
-  <socket client="WIDI\ Master" type="alsa-midi" exclusive="off" name="WIDI Master">
+  <socket type="alsa-midi" client="WIDI\ Master" name="WIDI Master" exclusive="off">
    <plug>WIDI\ Master\ Bluetooth</plug>
   </socket>
-  <socket client="Soundcore\ Life\ Q30" type="jack-audio" exclusive="on" name="Soundcore Life Q1">
+  <socket type="jack-audio" client="Soundcore\ Life\ Q30" name="Soundcore Life Q1" exclusive="on">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
-  <socket client="Surge\ XT" type="jack-audio" exclusive="on" name="Surge XT Audio">
+  <socket type="jack-audio" client="Surge\ XT" name="Surge XT Audio" exclusive="on">
    <plug>in_1</plug>
    <plug>in_2</plug>
   </socket>
-  <socket client="setBfree" type="jack-midi" exclusive="on" name="tuneBfree">
+  <socket type="jack-midi" client="setBfree" name="tuneBfree" exclusive="on">
    <plug>midi_in</plug>
   </socket>
-  <socket client="Pianoteq" type="jack-midi" exclusive="on" name="Pianoteq">
+  <socket type="jack-midi" client="Pianoteq" name="Pianoteq" exclusive="on">
    <plug>midi_in</plug>
   </socket>
-  <socket client="Reface\ CP\ Driver" type="alsa-midi" exclusive="on" name="Reface CP to Reface CP Driver">
+  <socket type="alsa-midi" client="Reface\ CP\ Driver" name="Reface CP to Reface CP Driver" exclusive="on">
    <plug>Reface\ CP\ to\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket client="Surge\ XT\ Wrapper" type="alsa-midi" exclusive="off" name="Surge XT Wrapper">
+  <socket type="alsa-midi" client="Surge\ XT\ Wrapper" name="Surge XT Wrapper" exclusive="off">
    <plug>to\ Surge\ XT\ Wrapper</plug>
   </socket>
-  <socket client="MTS\-ESP\ Master" type="alsa-midi" exclusive="on" name="Manual 2 to MTS-ESP master">
+  <socket type="alsa-midi" client="MTS\-ESP\ Master" name="Manual 2 to MTS-ESP master" exclusive="on">
    <plug>Manual\ 2\ to\ MTS\-ESP\ Master</plug>
   </socket>
-  <socket client="MTS\-ESP\ Master" type="alsa-midi" exclusive="on" name="Halberstadt to MTS-ESP Master">
+  <socket type="alsa-midi" client="MTS\-ESP\ Master" name="Halberstadt to MTS-ESP Master" exclusive="on">
    <plug>Halberstadt\ to\ MTS\-ESP\ Master</plug>
   </socket>
-  <socket client="SonoBus" type="jack-audio" exclusive="off" name="SonoBus">
+  <socket type="jack-audio" client="SonoBus" name="SonoBus" exclusive="off">
    <plug>in_1</plug>
    <plug>in_2</plug>
   </socket>
-  <socket client="reface\ CP" type="alsa-midi" exclusive="on" name="Reface CP">
+  <socket type="alsa-midi" client="reface\ CP" name="Reface CP" exclusive="on">
    <plug>reface\ CP\ MIDI\ 1</plug>
   </socket>
-  <socket client="Minilogue\ XD\ Driver" type="alsa-midi" exclusive="off" name="Minilogue XD to Minilogue XD Driver">
+  <socket type="alsa-midi" client="Minilogue\ XD\ Driver" name="Minilogue XD to Minilogue XD Driver" exclusive="off">
    <plug>Minilogue\ XD\ to\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket client="Minilogue\ XD\ Driver" type="alsa-midi" exclusive="on" name="microtonOS to Minilogue XD Driver">
+  <socket type="alsa-midi" client="Minilogue\ XD\ Driver" name="microtonOS to Minilogue XD Driver" exclusive="on">
    <plug>microtonOS\ to\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="Synth 1 to microtonOS">
+  <socket type="alsa-midi" client="microtonOS" name="Synth 1 to microtonOS" exclusive="off">
    <plug>Synth\ 1\ to\ microtonOS</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="Synth 2 to microtonOS">
+  <socket type="alsa-midi" client="microtonOS" name="Synth 2 to microtonOS" exclusive="off">
    <plug>Synth\ 2\ to\ microtonOS</plug>
   </socket>
-  <socket client="Exquis" type="alsa-midi" exclusive="off" name="Exquis">
+  <socket type="alsa-midi" client="Exquis" name="Exquis" exclusive="off">
    <plug>Exquis\ MIDI\ 1</plug>
    <plug>Exquis\ MIDI\ 2</plug>
   </socket>
-  <socket client="tuneBfree\ Wrapper" type="alsa-midi" exclusive="on" name="tuneBfree Wrapper">
+  <socket type="alsa-midi" client="tuneBfree\ Wrapper" name="tuneBfree Wrapper" exclusive="on">
    <plug>to\ tuneBfree\ Wrapper</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="MTS-ESP Master to microtonOS">
+  <socket type="alsa-midi" client="microtonOS" name="MTS-ESP Master to microtonOS" exclusive="on">
    <plug>MTS\-ESP\ Master\ to\ microtonOS</plug>
   </socket>
-  <socket client="Pianoteq\ Wrapper" type="alsa-midi" exclusive="off" name="Pianoteq Wrapper">
+  <socket type="alsa-midi" client="Pianoteq\ Wrapper" name="Pianoteq Wrapper" exclusive="off">
    <plug>to\ Pianoteq\ Wrapper</plug>
   </socket>
-  <socket client="MTS\-ESP\ Master" type="alsa-midi" exclusive="on" name="Isomorphic to MTS-ESP master">
+  <socket type="alsa-midi" client="MTS\-ESP\ Master" name="Isomorphic to MTS-ESP master" exclusive="on">
    <plug>Isomorphic\ to\ MTS\-ESP\ Master</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="on" name="Exquis to microtonOS">
+  <socket type="alsa-midi" client="microtonOS" name="Exquis to microtonOS" exclusive="on">
    <plug>Exquis\ to\ microtonOS</plug>
   </socket>
-  <socket client="Built\-in\ Audio\ Stereo" type="jack-audio" exclusive="on" name="Soundcard">
+  <socket type="jack-audio" client="Built\-in\ Audio\ Stereo" name="Soundcard" exclusive="on">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
@@ -181,8 +195,6 @@
   <cable input="WIDI Master" type="alsa-midi" output="Clock"/>
   <cable input="Surge XT Wrapper" type="alsa-midi" output="Clock"/>
   <cable input="Exquis" type="alsa-midi" output="Clock"/>
-  <cable input="SonoBus" type="jack-audio" output="Soundcore Life Alt"/>
-  <cable input="SonoBus" type="jack-audio" output="Soundcore Life Q1"/>
   <cable input="tuneBfree" type="jack-midi" output="tuneBfree Wrapper"/>
   <cable input="Pianoteq" type="jack-midi" output="Pianoteq Wrapper"/>
   <cable input="Reface CP to Reface CP Driver" type="alsa-midi" output="Reface CP"/>
@@ -210,7 +222,9 @@
   <cable input="Pianoteq Wrapper" type="alsa-midi" output="microtonOS to Pianoteq Wrapper"/>
   <cable input="Isomorphic to MTS-ESP master" type="alsa-midi" output="microtonOS to Isomorphic"/>
   <cable input="Exquis to microtonOS" type="alsa-midi" output="Exquis"/>
-  <cable input="SonoBus" type="jack-audio" output="Soundcard"/>
+  <cable input="Thru Audio" type="jack-audio" output="Soundcard"/>
+  <cable input="Thru MID" type="jack-midi" output="XentoTune Wrapper to XentoTune"/>
+  <cable input="SonoBus" type="jack-audio" output="Thru Audio"/>
  </cables>
 </patchbay>
 
