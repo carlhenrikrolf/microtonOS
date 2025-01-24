@@ -12,5 +12,4 @@ then OPTIONS="--headless"
 else OPTIONS=""
 fi
 
-sleep 5
 $COMMAND "--group="$GROUP "--username="$USERNAME "--load-setup="$CONFIG_PATH$CONFIG_FILE $OPTIONS

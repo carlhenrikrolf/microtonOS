@@ -8,8 +8,8 @@ from utils import Inport, Outport, handle_terminations, warmup
 client_name = "tuneBfree Wrapper"
 pause = 0.001
 config_path = "/home/pi/microtonOS/config/"
-audio_output="SonoBus"
-
+#audio_output="SonoBus"
+audio_output="Built-in Audio Stereo"
 
 def commandline(config):
     return [

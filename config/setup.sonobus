@@ -12,7 +12,7 @@
       <PARAM id="defnetauto" value="2.0"/>
       <PARAM id="defnetbuf" value="0.0009999999310821295"/>
       <PARAM id="defsendqual" value="4.0"/>
-      <PARAM id="dry" value="1.0"/>
+      <PARAM id="dry" value="0.0"/>
       <PARAM id="dynamicresampling" value="0.0"/>
       <PARAM id="hearlatencytest" value="0.0"/>
       <PARAM id="ingain" value="1.00000011920929"/>
@@ -38,7 +38,7 @@
       <PARAM id="mettempo" value="100.0"/>
       <PARAM id="nmainreverblevel" value="1.0"/>
       <PARAM id="reconnectlast" value="0.0"/>
-      <PARAM id="sendchannels" value="2.0"/>
+      <PARAM id="sendchannels" value="0.0"/>
       <PARAM id="sendfileaudio" value="0.0"/>
       <PARAM id="sendmetaudio" value="0.0"/>
       <PARAM id="sendsoundboardaudio" value="0.0"/>
