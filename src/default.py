@@ -1,6 +1,5 @@
 import mido
 from colour import Color
-import subprocess
 from menu import Sounds
 from utils import (
     Inport,
@@ -8,10 +7,7 @@ from utils import (
     make_threads,
     set_volume,
     set_gain,
-    negative,
     get_volume,
-    get_gain,
-    handle_terminations,
 )
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
@@ -48,59 +44,52 @@ drivers = [
     ["Synth 2", widi.is_connected],
 ]
 
-
-class KnobLeds:
-    def __init__(self, engine=0, base=menu_colors[1]):
-        self.engine = engine
-        self.base = base
-        self.max_luminance = base.luminance
-
-    def volume(self, is_on):
-        color = self.base
-        volume, muted = get_volume()
-        luminance = volume * self.max_luminance
-        color.luminance = 0 if muted else luminance
-        return color
-
-    def mic(self, is_on):
-        color = negative(self.base) if is_on else self.base
-        gain, _ = get_gain()
-        luminance = gain * self.max_luminance
-        color.luminance = 0 if _ else luminance
-        return color
-
-    def local2_is_connected(self, is_on):
-        if widi.is_connected():
-            if self == -2:
-                color = negative(self.base) if is_on else self.base
-            else:
-                color = Color("white") if is_on else self.base
-        else:
-            color = Color("black")
-        return color
-
-    def local1_is_connected(self, is_on):
-        if cp.is_connected():
-            if self.engine == -1:
-                color = negative(self.base) if is_on else self.base
-            else:
-                color = Color("white") if is_on else self.base
-        else:
-            color = Color("black")
-        return color
-    
-
-class XentoTune:
-    xentotune = "/home/pi/microtonOS/src/wrappers/xentotune.sh"
+class Indicators:
     def __init__(self):
-        self.is_on = "false"
-        self.process = subprocess.Popen([self.xentotune, self.is_on])
-        handle_terminations(self.process)
+        self.volume, self.muted = get_volume()
+        self.gain = 1
+        self.xentotune = False
+        self.engine = 0
+        self.widi = widi.is_connected()
+        self.reface_cp = cp.is_connected()
+
+    def knob1(self, click=None, turn=None):
+        if click is turn is None:
+            self.volume, self.muted = get_volume()
+        else:
+            if click is not None:
+                self.muted = not self.muted
+            if turn is not None:
+                update = self.volume + turn
+                self.volume = max([0, min([1, update])])            
+        result = 0 if self.muted else self.volume
+        return result
     
-    def switch(self):
-        self.is_on = "true" if self.is_on == "false" else "false"
-        self.process.terminate()
-        self.process = subprocess.Popen([self.xentotune, self.is_on])
+    def knob2(self, click=None, turn=None):
+        if click is not None:
+            self.xentotune = not self.xentotune
+        if turn is not None:
+            update = self.gain + turn
+            self.gain = max([0, min([1, update])])
+        result = self.gain * (-1 if self.xentotune else 1)
+        return result
+
+    def knob3(self, click=None, turn=None):
+        self.widi = widi.is_connected() if click is None else not self.widi
+        if self.widi:
+            result = -1 if self.engine == -2 else 1
+        else:
+            result = 0
+        return result
+
+    def knob4(self, click=None, turn=None):
+        self.reface_cp = cp.is_connected() if click is None else not self.reface_cp
+        if self.reface_cp:
+            result = -1 if self.engine == -1 else 1
+        else:
+            result = 0
+        return result
+    
 
 def microtonOS(client_name):
     class Script:
