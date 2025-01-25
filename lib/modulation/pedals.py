@@ -4,22 +4,7 @@ from midi_implementation.midi1 import control_change as cc
 
 
 class Assign:
-    ignored = [
-        cc.damper_pedal,
-        cc.soft_pedal,
-        cc.sostenuto,
-        cc.legato_footswitch,
-        cc.hold2,
-        *cc.expression_controller,
-        *cc.foot_controller,
-        *cc.bank_select,
-        cc.timbre,
-        cc.data_increment,
-        cc.data_decrement,
-        *cc.rpn,
-        *cc.nrpn,
-        *cc.channel_mode_message,
-    ]
+    ignored = cc.not_knobs
 
     def __init__(self, outport, channel=0):
         self.outport = outport

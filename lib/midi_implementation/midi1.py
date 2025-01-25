@@ -5,33 +5,35 @@ import time
 
 
 class ControlChange:
-    effect_controller = [None] * 2
-    general_purpose_controller = [None] * 8
-    sound_controller = [None] * 10
-    effect_depth = [None] * 5
+    effect_controller = [-1] * 2
+    general_purpose_controller = [-1] * 8
+    sound_controller = [-1] * 10
+    effect_depth = [-1] * 5
+    pedals = [-1] * 8
+    config = [-1] * 8
 
-    bank_select = [0, 32]
+    config[0:2] = bank_select = [0, 32]
     modulation_wheel = [1, 33]
     breath_controller = [2, 34]
-    foot_controller = [4, 36]
+    pedals[0:2] = foot_controller = [4, 36]
     portamento_time = [5, 37]
-    data_entry = [6, 38]
+    config[2:4] = data_entry = [6, 38]
     volume = [7, 39]
     balance = [8, 40]
     pan = [10, 42]
-    expression_controller = [11, 43]
+    pedals[2:4] = expression_controller = [11, 43]
     effect_controller[0] = [12, 44]
     effect_controller[1] = [13, 45]
     general_purpose_controller[0] = [16, 48]
     general_purpose_controller[1] = [17, 49]
     general_purpose_controller[2] = [18, 50]
     general_purpose_controller[3] = [19, 51]
-    damper_pedal = 64
+    pedals[4] = damper_pedal = 64
     portamento = 65
-    sostenuto = 66
-    soft_pedal = 67
-    legato_footswitch = 68
-    hold2 = 69
+    pedals[5] = sostenuto = 66
+    pedals[6] = soft_pedal = 67
+    pedals[7] = legato_footswitch = 68
+    pedals[8] = hold2 = 69
     sound_controller[0] = sound_variation = 70
     sound_controller[1] = timbre = 71
     sound_controller[2] = release_time = 72
@@ -47,16 +49,16 @@ class ControlChange:
     general_purpose_controller[6] = 82
     general_purpose_controller[7] = 83
     portamento_control = 84
-    high_resolution_velocity_prefix = 88
+    config[4] = high_resolution_velocity_prefix = 88
     effect_depth[0] = reverb = 91
     effect_depth[1] = tremolo = 92
     effect_depth[2] = chorus = 93
     effect_depth[3] = detune = celeste = 94
     effect_depth[4] = phaser = 95
-    data_increment = 96
-    data_decrement = 97
-    nrpn = [99, 98]
-    rpn = [101, 100]
+    config[5] = data_increment = 96
+    config[6] = data_decrement = 97
+    config[7] = nrpn = [99, 98]
+    config[8] = rpn = [101, 100]
 
     undefined_msb = [3, 9, 14, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31]
     undefined_lsb = [35, 41, 46, 47, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63]
@@ -104,6 +106,18 @@ class ControlChange:
     channel_mode_message[5] = omni_mode_on = 125
     channel_mode_message[6] = mono_mode = 126
     channel_mode_message[7] = poly_mode = 127
+
+    not_knobs = [*config, modulation_wheel, breath_controller, *pedals, brightness, *channel_mode_message]
+    knobs = []
+    for control in range(128):
+        if control not in not_knobs:
+            knobs.append(control)
+
+    def is_in(self, msg: mido.Message, controls: list):
+        for control in controls:
+            if msg.is_cc(control):
+                return True
+        return False
 
 
 control_change = ControlChange()
