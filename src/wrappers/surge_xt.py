@@ -57,9 +57,8 @@ class Script:
         self.commandline = [
             *surge_path,
             "--audio-interface=" + get_audio_id(audio_name, "Output Audio Device"),
-            #"--audio-ports=1,2,3,4,5",
-            #"--audio-input-interface=" + get_audio_id(audio_input_name, "Output Audio Device"),
-            #"--audio-input-ports=0,1",
+            "--audio-input-interface=" + get_audio_id(audio_name, "Input Audio Device"),
+            "--audio-input-ports=2,3",
             "--midi-input=" + get_midi_id("from " + client_name),
             "--no-stdin",
         ]

@@ -1,15 +1,17 @@
 from colour import Color
 
+def convert(color):
+    return Color(color) if type(color) is str else color
+
 def negative(color):
+    color = convert(color)
     result = Color()
-    if type(color) is str:
-        result = Color(color)
-        return negative(result)
-    else:
-        result.rgb = [1-i for i in color.rgb]
-        return result
+    result.rgb = [1-i for i in color.rgb]
+    return result
     
-def set_luminance(color, coefficient, reference=Color("white")):
+def set_luminance(color, coefficient, reference=None):
+    color = convert(color)
+    reference = convert(color if reference is None else reference)
     if 0 <= coefficient <= 1:
         luminance = coefficient * reference.luminance
         result = color

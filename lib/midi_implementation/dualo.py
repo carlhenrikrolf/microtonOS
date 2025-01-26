@@ -212,17 +212,20 @@ class Exquis: # version 1.2.0
 		
 	def to_knob(self, button):
 		return button - 10
+	
+	def to_button(self, knob):
+		return knob + 10
 		
 	def wait(self):
 		time.sleep(self.polling_time)
 		
-	def to_color(self, color):
-		if type(color) is Color:
-			return [round(i*127) for i in color.rgb]
-		elif type(color) is str:
-			return self.to_color(Color(color))
-		else:
-			raise Warning('Color type not supported')
+	# def to_color(self, color):
+	# 	if type(color) is Color:
+	# 		return [round(i*127) for i in color.rgb]
+	# 	elif type(color) is str:
+	# 		return self.to_color(Color(color))
+	# 	else:
+	# 		raise Warning('Color type not supported')
 		
 	def led(self, color):
 		if type(color) is Color:

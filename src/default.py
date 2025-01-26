@@ -7,6 +7,7 @@ from utils import (
     make_threads,
     set_volume,
     get_volume,
+    set_luminance,
 )
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
@@ -38,7 +39,10 @@ engine_banks_pgms = [
     ["Surge XT", (8, 14, 7, 4, 4)],
 ]
 
-drivers = ["Synth 1", "Synth 2"]
+drivers = [
+    ["Synth 1", cp.is_connected],
+    ["Synth 2", widi.is_connected],
+]
 
 
 def is_transport(msg):
@@ -53,53 +57,45 @@ def loopbackable(msg):
 
 class Indicators:
     def __init__(self):
-        self.volume, self.muted = get_volume()
         self.gain = 1
         self.xentotune = False
         self.engine = 0
-        self.widi = widi.is_connected()
-        self.reface_cp = cp.is_connected()
+        self.widi = False
+        self.cp = False
+        self.sounds_color = "DarkOrange"
 
-    def knob1(self, turn=None, click=None):
-        assert True if turn is None else 0 <= turn <= 1
-        if click is turn is None:
-            self.volume, self.muted = get_volume()
+    def sounds1(self, turn=None, click=None):
+        volume, muted = get_volume() if click is turn is None else (turn, click)
+        luminance = 0 if muted else volume
+        color = set_luminance(self.sounds_color, luminance)
+        return color
+
+    def sounds2(self, turn=None, click=None):
+        if not (turn is click is None):
+            self.gain, self.xentotune = turn, click
+        luminance = self.gain * (-1 if self.xentotune else 1)
+        color = set_luminance(self.sounds_color, luminance)
+        return color
+
+    def sounds3(self, turn=None, click=None):
+        if widi.is_connected():
+            self.widi = self.widi if click is None else click
+            reference = None if self.widi else Color("white")
+            luminance = -1 if self.engine == -2 else 1
+            color = set_luminance(self.sounds_color, luminance, reference=reference)
         else:
-            if click is not None:
-                self.muted = not self.muted
-            if turn is not None:
-                update = self.volume + turn
-                self.volume = max([0, min([1, update])])
-        result = 0 if self.muted else self.volume
-        return result
+            color = Color("black")
+        return color
 
-    def knob2(self, turn=None, click=None):
-        assert True if turn is None else 0 <= turn <= 1
-        if click is not None:
-            self.xentotune = not self.xentotune
-        if turn is not None:
-            update = self.gain + turn
-            self.gain = max([0, min([1, update])])
-        result = self.gain * (-1 if self.xentotune else 1)
-        return result
-
-    def knob3(self, turn=None, click=None):
-        assert True if turn is None else 0 <= turn <= 1
-        self.widi = widi.is_connected() if click is None else not self.widi
-        if self.widi:
-            result = -1 if self.engine == -2 else 1
+    def sounds4(self, turn=None, click=None):
+        if cp.is_connected():
+            self.cp = self.cp if click is None else click
+            reference = None if self.cp else Color("white")
+            luminance = -1 if self.engine == -1 else 1
+            color = set_luminance(self.sounds_color, luminance, reference=reference)
         else:
-            result = 0
-        return result
-
-    def knob4(self, turn=None, click=None):
-        assert True if turn is None else 0 <= turn <= 1
-        self.reface_cp = cp.is_connected() if click is None else not self.reface_cp
-        if self.reface_cp:
-            result = -1 if self.engine == -1 else 1
-        else:
-            result = 0
-        return result
+            color = Color("black")
+        return color
 
 
 def microtonOS(client_name):
@@ -143,16 +139,15 @@ def microtonOS(client_name):
             if sounds.onoff(msg) is True:
                 self.engine, self.bank, self.pgm = sounds.select(msg)
                 self.indicators = self.engine
-                self.volume, self.muted = sounds.knob1(
+                self.volume, self.muted = sounds.knob(1,
                     msg
-                )  # self.change_volume += sounds.set_volume(msg)
-                self.gain, self.xentotune = sounds.knob2(
+                )
+                self.gain, self.xentotune = sounds.knob(2,
                     msg
-                )  # self.change_gain += sounds.set_gain(msg)
-                _, self.local1 = sounds.knob3(
-                    msg
-                )  # self.local1, self.local2 = sounds.local_control(msg)
-                _, self.local2 = sounds.knob4(msg)  # sim.
+                )
+                _, self.local1 = sounds.knob(3, msg
+                )
+                _, self.local2 = sounds.knob(4,msg)  # sim.
 
             elif sounds.onoff(msg) is False:
                 to_isomorphic.send(msg)
@@ -191,7 +186,7 @@ def microtonOS(client_name):
                     clock.send(msg)
                 elif local and loopbackable(msg):
                     to_halberstadt.send(msg)
-                elif not local:
+                elif not local:  # Can assign not be moved to loopback from mtsesp?
                     assign.onoff(msg, cc.foot_controller[0])
                     assign.source(msg, cc.foot_controller[1])
                     assigned_to_pedal = assign.target(msg)
@@ -221,7 +216,7 @@ def microtonOS(client_name):
                 to_exquis.send(msg)
             elif xq.is_sysex(msg) and not sounds.is_on:
                 to_exquis.send(msg)
-            elif cc.is_in(msg, cc.knobs) and self.xentotune:
+            elif self.xentotune and cc.is_in(msg, cc.knobs):
                 to_xentotune.send(msg)
             elif hasattr(msg, "channel"):
                 if self.engine == -1:
@@ -256,7 +251,7 @@ def microtonOS(client_name):
         Outport(client_name, name=engine_banks_pgms[i][0])
         for i in range(len(engine_banks_pgms))
     ]
-    to_driver = [Outport(client_name, name=driver) for driver in drivers]
+    to_driver = [Outport(client_name, name=driver[0]) for driver in drivers]
     to_xentotune = Outport(client_name, name="XentoTune")
     clock = Outport(client_name, name="Clock")
     assign = Assign(to_halberstadt)
@@ -264,7 +259,8 @@ def microtonOS(client_name):
     sounds = Sounds(
         to_exquis,
         engine_banks_pgms,
-        indicators,
+        drivers=drivers,
+        indicators=[indicators.sounds1, indicators.sounds2, indicators.sounds3, indicators.sounds4],
         base_color=menu_colors[1],
     )
     script = Script()

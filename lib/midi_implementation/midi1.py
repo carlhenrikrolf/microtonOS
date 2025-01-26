@@ -9,8 +9,8 @@ class ControlChange:
     general_purpose_controller = [-1] * 8
     sound_controller = [-1] * 10
     effect_depth = [-1] * 5
-    pedals = [-1] * 8
-    config = [-1] * 8
+    pedals = [-1] * 9
+    config = [-1] * 11
 
     config[0:2] = bank_select = [0, 32]
     modulation_wheel = [1, 33]
@@ -57,8 +57,8 @@ class ControlChange:
     effect_depth[4] = phaser = 95
     config[5] = data_increment = 96
     config[6] = data_decrement = 97
-    config[7] = nrpn = [99, 98]
-    config[8] = rpn = [101, 100]
+    config[7:9] = nrpn = [99, 98]
+    config[9:11] = rpn = [101, 100]
 
     undefined_msb = [3, 9, 14, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31]
     undefined_lsb = [35, 41, 46, 47, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63]
@@ -107,7 +107,7 @@ class ControlChange:
     channel_mode_message[6] = mono_mode = 126
     channel_mode_message[7] = poly_mode = 127
 
-    not_knobs = [*config, modulation_wheel, breath_controller, *pedals, brightness, *channel_mode_message]
+    not_knobs = [*config, *modulation_wheel, *breath_controller, *pedals, brightness, *channel_mode_message]
     knobs = []
     for control in range(128):
         if control not in not_knobs:
