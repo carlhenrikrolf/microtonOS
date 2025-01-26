@@ -1,16 +1,12 @@
 # modules
 import re
 import subprocess
-#import jack
 from midi_implementation.mpe import set_mpe_mode  # , set_pitchbend_sensitivity
 from utils import Inport, Outport, handle_terminations, warmup
 
 client_name = "Surge XT Wrapper"
-#vocoder_name = "Surge Vocoder Wrapper"
 surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
-#audio_name = "JACK.SonoBus"
 audio_name = "JACK.Built-in Audio Stereo"
-#audio_input_name = "JACK."+vocoder_name
 
 list_devices_command = [
     *surge_path,
@@ -37,18 +33,7 @@ def get_audio_id(name, kind=""):
         return str(match.group(1)) + "." + str(match.group(2))
     else:
         return None
-    
 
-#vocoder = jack.Client(vocoder_name)
-#
-#@vocoder.set_process_callback
-#def process(frames):
-#    for inport, outport in zip(vocoder.inports, vocoder.outports):
-#        inport.get_buffer()[:] = outport.get_buffer()
-#
-#for channel in 1, 2:
-#    vocoder.inports.register('in_'+str(channel))
-#    vocoder.outports.register('out_'+str(channel))
 
 
 class Script:
@@ -57,8 +42,8 @@ class Script:
         self.commandline = [
             *surge_path,
             "--audio-interface=" + get_audio_id(audio_name, "Output Audio Device"),
-            "--audio-input-interface=" + get_audio_id(audio_name, "Input Audio Device"),
-            "--audio-input-ports=2,3",
+            #"--audio-input-interface=" + get_audio_id(audio_name, "Input Audio Device"),
+            #"--audio-input-ports=2,3",
             "--midi-input=" + get_midi_id("from " + client_name),
             "--no-stdin",
         ]
@@ -78,7 +63,6 @@ class Script:
         to_surge_xt.send(msg)
 
 
-#with vocoder:
 warmup.client()
 to_surge_xt = Outport(client_name, verbose=False)
 script = Script()

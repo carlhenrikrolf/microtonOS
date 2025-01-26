@@ -8,7 +8,7 @@ switch = cc.local_onoff_switch
 
 client_name = "XentoTune Wrapper"
 pipewire = "/usr/bin/pw-jack"
-carla = "/home/pi/microtonOS/third_party/Carla/source/frontend/carla-jack-single"
+carla = "/home/pi/microtonOS/third_party/Carla/source/frontend/carla-jack-multi"
 config_path = "/home/pi/microtonOS/config/"
 xentotune = [
     pipewire,
@@ -23,20 +23,12 @@ thru = [
     "--no-gui" if headless else "",
 ]
 
-guitarix = [
-    pipewire,
-    "/usr/bin/guitarix",
-    "--nogui" if headless else "--hideonquit",
-]
-
 class Script:
     def __init__(self):
         self.is_on = not thru_on_init
         command = xentotune if self.is_on else thru
         self.process = subprocess.Popen(command)
         handle_terminations(self.process)
-        #self.guitarix = subprocess.Popen(guitarix)
-        #handle_terminations(self.guitarix)
 
     def switch(self, msg):
         is_on = True if msg.value >= 64 else False
