@@ -2,7 +2,7 @@ import subprocess
 from midi_implementation.midi1 import control_change as cc
 from utils import handle_terminations, Outport, Inport
 
-headless = True
+headless = False
 thru_on_init = True
 switch = cc.local_onoff_switch
 
@@ -14,14 +14,15 @@ xentotune = [
     pipewire,
     carla,
     config_path + "xentotune.carxp",
-    "--no-gui" if headless else "",
 ]
 thru = [
     pipewire,
     carla,
     config_path + "thru.carxp",
-    "--no-gui" if headless else "",
 ]
+if headless:
+    xentotune.append("--no-gui")
+    thru.append("--no-gui")
 
 class Script:
     def __init__(self):

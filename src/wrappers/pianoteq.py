@@ -4,7 +4,7 @@ from utils import Outport, Inport, handle_terminations, warmup
 from midi_implementation.midi1 import control_change as cc
 
 # parameters
-headless = False
+headless = True
 client_name = "Pianoteq Wrapper"
 commandline = [
     "/usr/bin/pw-jack",
