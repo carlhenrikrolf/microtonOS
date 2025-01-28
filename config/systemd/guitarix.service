@@ -7,7 +7,7 @@ Requires=qjackctl.service
 User=pi
 Environment=DISPLAY=:0
 Environment=XDG_RUNTIME_DIR="/run/user/1000"
-ExecStart=/usr/bin/bash /home/pi/microtonOS/src/wrappers/guitarix.sh
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/guitarix.py
 Restart=always
 RestartSec=2s
 TimeoutSec=infinity

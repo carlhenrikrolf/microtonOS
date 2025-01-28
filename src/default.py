@@ -8,6 +8,7 @@ from utils import (
     set_volume,
     get_volume,
     set_luminance,
+    negative,
 )
 from midi_implementation.midi1 import control_change as cc
 from midi_implementation.dualo import exquis as xq
@@ -80,9 +81,10 @@ class Indicators:
     def sounds3(self, turn=None, click=None):
         if widi.is_connected():
             self.widi = self.widi if click is None else click
-            reference = None if self.widi else Color("white")
-            luminance = -1 if self.engine == -2 else 1
-            color = set_luminance(self.sounds_color, luminance, reference=reference)
+            if self.engine != -2:
+                color = Color("white") if self.widi else Color(self.sounds_color)
+            else:
+                color = negative(self.sounds_color) if self.widi else Color(self.sounds_color)
         else:
             color = Color("black")
         return color
@@ -90,9 +92,10 @@ class Indicators:
     def sounds4(self, turn=None, click=None):
         if cp.is_connected():
             self.cp = self.cp if click is None else click
-            reference = None if self.cp else Color("white")
-            luminance = -1 if self.engine == -1 else 1
-            color = set_luminance(self.sounds_color, luminance, reference=reference)
+            if self.engine != -1:
+                color = Color("white") if self.cp else Color(self.sounds_color)
+            else:
+                color = negative(self.sounds_color) if self.cp else Color(self.sounds_color)
         else:
             color = Color("black")
         return color

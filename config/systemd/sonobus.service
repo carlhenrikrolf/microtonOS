@@ -1,15 +1,13 @@
 [Unit]
 Description=Start Sonobus
 After=graphical.target
-After=pianoteq.service
-Requires=pianoteq.service
 Requires=qjackctl.service
 
 [Service]
 User=pi
 Environment=DISPLAY=:0
 Environment=XDG_RUNTIME_DIR="/run/user/1000"
-ExecStart=/usr/bin/bash /home/pi/microtonOS/src/wrappers/sonobus.sh
+ExecStart=/usr/bin/pw-jack /home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/sonobus.py
 Restart=always
 RestartSec=2s
 TimeoutSec=infinity

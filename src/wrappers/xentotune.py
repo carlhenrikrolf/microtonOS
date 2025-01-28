@@ -14,11 +14,13 @@ xentotune = [
     pipewire,
     carla,
     config_path + "xentotune.carxp",
+    "--cnprefix=Thru",
 ]
 thru = [
     pipewire,
     carla,
     config_path + "thru.carxp",
+    "--cnprefix=Thru",
 ]
 if headless:
     xentotune.append("--no-gui")

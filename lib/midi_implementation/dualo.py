@@ -2,10 +2,10 @@ import mido
 import time
 from colour import Color
 
+manufacturer_id = [0x00, 0x21, 0x7E]
+
 class Exquis: # version 1.2.0
-	
-	prefix = [0x00, 0x21, 0x7E]
-	
+		
 	# mapping keys to notes
 	default_map = [27, 28, 29, 30, 31, 32, 31, 32, 33, 34, 35, 34, 35, 36, 37, 38, 39, 38, 39, 40, 41, 42, 41, 42, 43, 44, 45, 46, 45, 46, 47, 48, 49, 48, 49, 50, 51, 52, 53, 52, 53, 54, 55, 56, 55, 56, 57, 58, 59, 60, 59, 60, 61, 62, 63, 62, 63, 64, 65, 66, 67] 
 	equals_keys_map = list(range(0,61))
@@ -122,14 +122,14 @@ class Exquis: # version 1.2.0
 		assert 0 < sleep < 1 
 		while True:
 			port.send(
-				mido.Message('sysex', data=self.prefix)
+				mido.Message('sysex', data=manufacturer_id)
 			)
 			time.sleep(sleep)
 			
 	def is_active_sensing(self, msg=None):
 		if type(msg) is None:
 			return (time.perf_counter_ns() - self.last_sensing <= 1e9)
-		elif (msg.type == 'sysex') and (list(msg.data) == self.prefix):
+		elif (msg.type == 'sysex') and (list(msg.data) == manufacturer_id):
 			self.last_sensing = time.perf_counter_ns()
 			return True
 		else:
@@ -138,18 +138,18 @@ class Exquis: # version 1.2.0
 	
 	def sysex(self, action=[], control=[], state=[]):
 		if ([] in [action, control, state]) or (None in [action, control, state]):
-			return mido.Message('sysex', data=self.prefix)
+			return mido.Message('sysex', data=manufacturer_id)
 		else:
 			if type(state) is list:
-				return mido.Message('sysex', data=[*self.prefix, action, control, *state])
+				return mido.Message('sysex', data=[*manufacturer_id, action, control, *state])
 			else:
-				return mido.Message('sysex', data=[*self.prefix, action, control, state])
+				return mido.Message('sysex', data=[*manufacturer_id, action, control, state])
 				
 	def is_sysex(self, msg, data=None):
 		if msg.type == 'sysex':
 			indata = list(msg.data)
 			if data is None:
-				if indata[0:3] == self.prefix:
+				if indata[0:3] == manufacturer_id:
 					return True
 				else:
 					return False
@@ -160,12 +160,12 @@ class Exquis: # version 1.2.0
 					else:
 						return False
 				elif type(data[2]) is list:
-					if indata == [*self.prefix, data[0], data[1], *data[2]]:
+					if indata == [*manufacturer_id, data[0], data[1], *data[2]]:
 						return True
 					else:
 						return False
 				else:
-					if indata == [*self.prefix, data[0], data[1], data[2]]:
+					if indata == [*manufacturer_id, data[0], data[1], data[2]]:
 						return True
 					else:
 						return False
@@ -182,31 +182,13 @@ class Exquis: # version 1.2.0
 			self.current_knob_colors[sysex.data[4]] = sysex.data[5]
 		port.send(sysex)
 		time.sleep(self.polling_time)
-				
-		
-	# def is_menu(self, msg=None, state=None):
-		# if msg is None:
-			# return True if sum(self.current_menus) > 0 else False
-		# if msg.type == 'sysex' and list(msg.data[0:4]) == [*self.prefix, self.click]:
-			# button = msg.data[4]
-			# if button in self.menu:
-				# onoff = msg.data[5]
-				# self.current_menus[button] = onoff
-				# if state == self.pressed:
-					# return True if sum(self.current_menus) > 0 else False
-				# elif state == self.released:
-					# return True if sum(self.current_menus) == 0 else False
-		# if state is None:
-			# return True if sum(self.current_menus) > 0 else False
-		# else:
-			# return False
 
 	def rotation(self, msg):
 		if msg.type == 'sysex':
 			indata = list(msg.data)
-			if indata[0:4] == [*self.prefix, self.clockwise]:
+			if indata[0:4] == [*manufacturer_id, self.clockwise]:
 				return int(indata[5])
-			elif indata[0:4] == [*self.prefix, self.counter_clockwise]:
+			elif indata[0:4] == [*manufacturer_id, self.counter_clockwise]:
 				return -int(indata[5])
 		return None
 		
@@ -219,14 +201,6 @@ class Exquis: # version 1.2.0
 	def wait(self):
 		time.sleep(self.polling_time)
 		
-	# def to_color(self, color):
-	# 	if type(color) is Color:
-	# 		return [round(i*127) for i in color.rgb]
-	# 	elif type(color) is str:
-	# 		return self.to_color(Color(color))
-	# 	else:
-	# 		raise Warning('Color type not supported')
-		
 	def led(self, color):
 		if type(color) is Color:
 			return [round(i*127) for i in color.rgb]
@@ -234,7 +208,80 @@ class Exquis: # version 1.2.0
 			return self.led(Color(color))
 		else:
 			raise Warning('Color type not supported')
+		
+	def brightness(self, level: float, outport=None):
+		if outport is None:
+			return mido.Message("sysex")
 
 exquis = Exquis()
 
+exquis1_2_0 = Exquis()
+
+
+class Exquis2_0_0:
+
+	# exquis receives
+	mpe_poly = 7
+	pad_remote = 30
+	luminosity = 5 # 0 to 100 # strange above 120
+	slider_remote = 60
+	slider_color = 61
+	sliders = [i for i in range(6)]
+	button_remote = 40
+	knob_remote = 51
+	color_knob = 51
+	on = 1
+	off = 0
+	color_key = 31
+	color_note = 20
+	map_key_to_note = 21
+
+	knob1 = exquis1_2_0.knob1
+	knob2 = exquis1_2_0.knob2
+	knob3 = exquis1_2_0.knob3
+	knob4 = exquis1_2_0.knob4
+
+	# exquis transmits
+	button_click = 42
+	pad_click = 32 # commence en haut à gauche
+	knob_turn = 53 # 0 to 5 knob number # sounds unfinished?
+
+	sounds = exquis1_2_0.sounds
+	record = exquis1_2_0.record
+	loops = exquis1_2_0.loops
+	tracks = loops
+	snaps = exquis1_2_0.snaps
+	scenes = snaps
+	octave_up = exquis1_2_0.octave_down # switch?
+	octave_down = exquis1_2_0.octave_up # switch?
+	page_left = exquis1_2_0.page_left
+	page_right = exquis1_2_0.page_right
+
+
+	def led(self, color):
+		if type(color) is str:
+			color = Color(color)
+		result = [0]*3
+		for i, j in enumerate(color.rgb):
+			result[i] = round(j * 127)
+		return result
+	
+	def mpe(self, turn_on: bool, outport=None):
+		last_byte = self.on if turn_on else self.off
+		data = [*manufacturer_id, self.mpe_poly, last_byte]
+		sysex = mido.Message("sysex", data)
+		if outport is None:
+			return sysex
+		else:
+			outport.send(sysex)
+	
+	def brightness(self, level: float, outport=None):
+		assert 0 <= level <= 1
+		level = round(level*100)
+		data = [*manufacturer_id, self.luminosity, level]
+		sysex = mido.Message("sysex", data)
+		if outport is None:
+			return sysex
+		else:
+			outport.send(sysex)
 

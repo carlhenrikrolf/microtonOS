@@ -454,6 +454,52 @@ Approximates the Carlos gamma scale (experimental music).
 Same as before but mapped to 35 steps in a streched octave.
 It can approximate both the "minor" and the "major" scales in [Georgian classical music](learn/georgian.md).
 
+## Controls
+
+Knob 4 controls what function the pedal connected to the Yamaha Reface CP has.
+Note that the Yamaha FC3A pedal has _half-pedalling_ which means that it can send 128 different values for how much the pedal is pressed (half-pedalling alternatives from other manufacturers have poor interoperability).
+
+- RdI (cc 64) = sustain
+- RdII (cc 66) = sostenuto
+- Wr (cc 67) = soft
+- Clv (cc 11) = expression
+- Toy (cc 4 for on/off, cc 36 for value) = after selection, assigns the first knob turned to the pedal
+- CP (cc 69) = note shift
+
+Note shift means that all switchable keys (as defined by the tuning, see [code](src/mtsesp_master/presets/tunings.py)) are switched upon pressing and switched back upon releasing.
+Switching individual keys is also possible by pulling slider 3 down to -- and pressing the corresponding key in the bottom octave.
+Pressing again switches the key back (the 41edo preset is an exception where there are three-way switches). 
+
+![Reface CP](resources/reface_cp.png)
+
+To switch between isomorphic layout presets, turn knob D.
+LEDs C and D show the number of the layout, where ⚫⚫ is the default.
+To change the dilation, turn knob C.
+Clicking knob C sets the dilation to the number of steps in one and a half tone (i.e. minor third).
+Clicking D creates a keyboard split.
+
+To switch between tuning presets, turn knob B.
+LEDs A and B show the number of the tuning, where 🔴🟠 is the default.
+To shift the notes step-wise up or down, turn knob A.
+Clicking knob A resets the key switches on the Halberstadt keyboards.
+Clicking knob B shifts one of the Halberstadt keyboards up one step while keeping the other (in my case the Yamaha Reface CP) unchanged.
+
+![Exquis knobs](resources/exquis_knobs.png)
+
+Buttons j and k mirrors the isomorphic layout.
+If playing the Exquis with the long edge facing you, it makes sense to click the button with the arrow pointing in your direction.
+That way, notes ascend away from you and from left to right.
+
+Buttons g and h shifts the "octave" down or up one step.
+The shift applies to the entire tuning, not just the Exquis.
+In octaveless tunings, the "octave" is streched or compressed according to how the notes are mapped in the Halberstadt tuning.
+
+![Exquis buttons](resources/exquis_buttons.png)
+
+When pressing any buttons a to f, an all notes off message is transmitted to all virtual and physical instruments.
+Add a Python script [here](src/mtsesp_master/encoders/) and edit the `__init__.py` file to adapt to other controllers than the Exquis.
+
+
 
 
 
