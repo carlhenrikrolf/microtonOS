@@ -470,7 +470,7 @@ Note shift means that all switchable keys (as defined by the tuning, see [code](
 Switching individual keys is also possible by pulling slider 3 down to -- and pressing the corresponding key in the bottom octave.
 Pressing again switches the key back (the 41edo preset is an exception where there are three-way switches). 
 
-<img width="20%" height="20%" src="resources/reface_cp.png" />
+<img width="60%" height="60%" src="resources/reface_cp.png" />
 
 To switch between isomorphic layout presets, turn knob D.
 LEDs C and D show the number of the layout, where ⚫⚫ is the default.
@@ -484,7 +484,7 @@ To shift the notes step-wise up or down, turn knob A.
 Clicking knob A resets the key switches on the Halberstadt keyboards.
 Clicking knob B shifts one of the Halberstadt keyboards up one step while keeping the other (in my case the Yamaha Reface CP) unchanged.
 
-![Exquis knobs](resources/exquis_knobs.png)
+<img width="60%" height="60%" src="resources/exquis_knobs.png" />
 
 Buttons j and k mirrors the isomorphic layout.
 If playing the Exquis with the long edge facing you, it makes sense to click the button with the arrow pointing in your direction.
@@ -494,7 +494,7 @@ Buttons g and h shifts the "octave" down or up one step.
 The shift applies to the entire tuning, not just the Exquis.
 In octaveless tunings, the "octave" is streched or compressed according to how the notes are mapped in the Halberstadt tuning.
 
-![Exquis buttons](resources/exquis_buttons.png)
+<img width="60%" height="60%" src="resources/exquis_buttons.png" />
 
 When pressing any buttons a to f, an all notes off message is transmitted to all virtual and physical instruments.
 Add a Python script [here](src/mtsesp_master/encoders/) and edit the `__init__.py` file to adapt to other controllers than the Exquis.
