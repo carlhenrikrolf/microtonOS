@@ -12,8 +12,6 @@ client_name = "Minilogue XD Driver"
 class Script:
     def minilogue_xd(self, msg):
         to_microtonOS.send(msg)
-        if msg.type in ["control_change", "program_change"]:
-            to_minilogue_xd.send(msg)
 
     def microtonOS(self, msg):
         ignore = hasattr(msg, "channel") and msg.channel == 15

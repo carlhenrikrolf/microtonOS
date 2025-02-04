@@ -339,7 +339,7 @@ This subset is mapped to white keys.
 🔴🟢
 **14edo.**
 86¢ steps.
-The 7-note subset approximates scales used by many cultures around the world such as in [Thai classical music](learn/thai.md), [Bantu traditional music](learn/bantu.md), for bala in [West-Sahelian classical music](learn/west_sahelian.md), and it was possibly used in [ancient Andean music](learn/andean.md).
+The 7-note subset approximates scales used by many cultures around the world such as in [Thai classical music](learn/thai.md), [Bantu traditional music](learn/bantu.md), for bala in [Malian classical music](learn/malian.md), and it was possibly used in [ancient Andean music](learn/andean.md).
 
 🔴🔵
 **15edo.**
@@ -378,7 +378,7 @@ The 17 notes have historically been a foundation for [Iranian](learn/iranian.md)
 **41edo (18-note subset).**
 Multiples of 29¢ steps.
 Approximates the perfect fifth *very* well.
-Approximates [West-Sahelian classical music](learn/west_sahelian.md).
+Approximates [Malian classical music](learn/malian.md).
 The black keys plus C and F (i.e. like a Db major scale) approximates 7edo used to play the bala.
 The remaining keys can be used for various kora tunings.
 

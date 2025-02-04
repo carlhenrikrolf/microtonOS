@@ -1,0 +1,15 @@
+[Unit]
+Description=Start librespot as a subprocess to its wrapper
+After=graphical.target
+Requires=qjackctl.service
+
+[Service]
+User=pi
+Environment=XDG_RUNTIME_DIR="/run/user/1000"
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/librespot.py
+Restart=always
+RestartSec=2s
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target

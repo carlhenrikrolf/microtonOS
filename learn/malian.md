@@ -1,9 +1,10 @@
 # West-Sahelian Classical Music
 
 > [!warning]
-> My knowledge of West-Sahelian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
+> My knowledge of Malian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
 The western Sahel region was part of the Malian empire (the Mandinka empire) in the middle ages.
+Apart from Mali, it also covered what is now Burkina Faso, Senegal, Gambia, and parts of the Ivory Coast.
 In that empire there was a caste of musicians called ߖߋ߬ߟߌ (jeli), who developed the classical music of the region.
 Noteable instruments include the harp-like ߤߐߙߊ (kora), the guitar-like (banjo-like) ߣߤߐ߬ߣߌ߲ (ngoni), the xylophone ߕߊߟߊ (bala), and the goblet drum ߖߍ߲ߓߋ (djembe).
 
