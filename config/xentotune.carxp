@@ -4,7 +4,7 @@
  <EngineSettings>
   <ForceStereo>false</ForceStereo>
   <PreferPluginBridges>true</PreferPluginBridges>
-  <PreferUiBridges>true</PreferUiBridges>
+  <PreferUiBridges>false</PreferUiBridges>
   <UIsAlwaysOnTop>false</UIsAlwaysOnTop>
   <MaxParameters>200</MaxParameters>
   <UIBridgesTimeout>4000</UIBridgesTimeout>
@@ -25,8 +25,668 @@
 
   <Data>
    <Active>Yes</Active>
+   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
    <Options>0x1</Options>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxAmplifier-X -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxAmplifier-X</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>MasterGain</Name>
+    <Symbol>MasterGain</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>7</MappedControlIndex>
+    <MappedMinimum>-20</MappedMinimum>
+    <MappedMaximum>20</MappedMaximum>
+    <MidiCC>7</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>PreGain</Name>
+    <Symbol>PreGain</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>Distortion</Name>
+    <Symbol>Distortion</Symbol>
+    <Value>20</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>Drive</Name>
+    <Symbol>Drive</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>94</MappedControlIndex>
+    <MappedMinimum>0.00999999977648258</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>94</MidiCC>
+    <Value>0.00999999977648258</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>Middle</Name>
+    <Symbol>Middle</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>Bass</Name>
+    <Symbol>Bass</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>Treble</Name>
+    <Symbol>Treble</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>Cabinet</Name>
+    <Symbol>Cabinet</Symbol>
+    <Value>10</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>8</Index>
+    <Name>Presence</Name>
+    <Symbol>Presence</Symbol>
+    <Value>5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>9</Index>
+    <Name>Model</Name>
+    <Symbol>model</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>10</Index>
+    <Name>Tonestack Model</Name>
+    <Symbol>t_model</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>11</Index>
+    <Name>Cab Model</Name>
+    <Symbol>c_model</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>13</Index>
+    <Name>BYPASS</Name>
+    <Symbol>BYPASS</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>14</Index>
+    <Name>HIGHGAIN</Name>
+    <Symbol>HIGHGAIN</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxTremolo -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxTremolo</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_tremolo#_tremolo</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Dry/Wet</Name>
+    <Symbol>dry_wet</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>92</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>92</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>Mode</Name>
+    <Symbol>mode</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>Depth</Name>
+    <Symbol>depth</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>3</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>3</MidiCC>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>Freq</Name>
+    <Symbol>freq</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>9</MappedControlIndex>
+    <MappedMinimum>0.100000001490116</MappedMinimum>
+    <MappedMaximum>50</MappedMaximum>
+    <MidiCC>9</MidiCC>
+    <Value>50</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>Reset</Name>
+    <Symbol>reset</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxWahwah -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxWahwah</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_colwah_#_colwah_</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>WAH</Name>
+    <Symbol>WAH</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>14</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>14</MidiCC>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>FREQ</Name>
+    <Symbol>FREQ</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>15</MappedControlIndex>
+    <MappedMinimum>24</MappedMinimum>
+    <MappedMaximum>360</MappedMaximum>
+    <MidiCC>15</MidiCC>
+    <Value>360</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>MODE</Name>
+    <Symbol>MODE</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>MODEL</Name>
+    <Symbol>MODEL</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>WET_DRY</Name>
+    <Symbol>WET_DRY</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>70</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>70</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>BYPASS</Name>
+    <Symbol>BYPASS</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxChorus-Stereo -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxChorus-Stereo</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_chorus_stereo#_chorus_stereo</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Level</Name>
+    <Symbol>level</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>Delay</Name>
+    <Symbol>delay</Symbol>
+    <Value>0.0199999995529652</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>Depth</Name>
+    <Symbol>depth</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>20</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>20</MidiCC>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>Freq</Name>
+    <Symbol>freq</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>21</MappedControlIndex>
+    <MappedMinimum>0.100000001490116</MappedMinimum>
+    <MappedMaximum>10</MappedMaximum>
+    <MidiCC>21</MidiCC>
+    <Value>10</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>BYPASS</Name>
+    <Symbol>BYPASS</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>93</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>93</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxPhaser -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxPhaser</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_phaser#_phaser</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Dry/Wet</Name>
+    <Symbol>dry_wet</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>95</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>95</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>LEVEL</Name>
+    <Symbol>level</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>22</MappedControlIndex>
+    <MappedMinimum>-60</MappedMinimum>
+    <MappedMaximum>10</MappedMaximum>
+    <MidiCC>22</MidiCC>
+    <Value>10</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>SPEED</Name>
+    <Symbol>speed</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>23</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>10</MappedMaximum>
+    <MidiCC>23</MidiCC>
+    <Value>10</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- Shiroverb -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>Shiroverb</Name>
+   <URI>https://github.com/ninodewit/SHIRO-Plugins/plugins/shiroverb</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>shimmer</Name>
+    <Symbol>shimmer</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>24</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>24</MidiCC>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>decay</Name>
+    <Symbol>decay</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>25</MappedControlIndex>
+    <MappedMinimum>1</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>25</MidiCC>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>damping</Name>
+    <Symbol>damping</Symbol>
+    <Value>50</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>mix</Name>
+    <Symbol>mix</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>12</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>12</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>ratio</Name>
+    <Symbol>ratio</Symbol>
+    <Value>2</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>roomsize</Name>
+    <Symbol>roomsize</Symbol>
+    <Value>150</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>bandwidth</Name>
+    <Symbol>bandwidth</Symbol>
+    <Value>74.9700012207031</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>tone</Name>
+    <Symbol>tone</Symbol>
+    <Value>1500</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxEcho-Stereo -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxEcho-Stereo</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_echo_stereo#_echo_stereo</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Mode</Name>
+    <Symbol>mode</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>R Level</Name>
+    <Symbol>level_r</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>26</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>26</MidiCC>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>R Time</Name>
+    <Symbol>timt_r</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>27</MappedControlIndex>
+    <MappedMinimum>1</MappedMinimum>
+    <MappedMaximum>2000</MappedMaximum>
+    <MidiCC>27</MidiCC>
+    <Value>2000</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>L Level</Name>
+    <Symbol>level_l</Symbol>
+    <Value>57.4803161621094</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>L Time</Name>
+    <Symbol>timt_l</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>LFO</Name>
+    <Symbol>lfo</Symbol>
+    <Value>0.200000002980232</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>Link (L+R)</Name>
+    <Symbol>link</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>BYPASS</Name>
+    <Symbol>BYPASS</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>13</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>13</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxReverb-Stereo -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxReverb-Stereo</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_reverb_stereo#_reverb_stereo</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <Volume>1.27</Volume>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Dry/Wet</Name>
+    <Symbol>dry_wet</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>91</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>91</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>LFO</Name>
+    <Symbol>lfo</Symbol>
+    <Value>0.200000002980232</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>Roomsize</Name>
+    <Symbol>roomsize</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>Damp</Name>
+    <Symbol>damp</Symbol>
+    <Value>0.200000002980232</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>Mode</Name>
+    <Symbol>mode</Symbol>
+    <Value>0</Value>
+   </Parameter>
 
    <CustomData>
     <Type>http://kxstudio.sf.net/ns/carla/property</Type>
@@ -39,19 +699,19 @@
  <ExternalPatchbay>
   <Connection>
    <Source>Built-in Audio Stereo:capture_FL</Source>
+   <Target>Carla:Xentotune:input_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Built-in Audio Stereo:capture_FR</Source>
+   <Target>Carla:Xentotune:input_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Null:out_0</Source>
    <Target>SonoBus:in_1</Target>
   </Connection>
   <Connection>
-   <Source>Built-in Audio Stereo:capture_FL</Source>
-   <Target>Built-in Audio Stereo:playback_FL</Target>
-  </Connection>
-  <Connection>
-   <Source>Built-in Audio Stereo:capture_FR</Source>
+   <Source>Null:out_1</Source>
    <Target>SonoBus:in_2</Target>
-  </Connection>
-  <Connection>
-   <Source>Built-in Audio Stereo:capture_FR</Source>
-   <Target>Built-in Audio Stereo:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>SonoBus:out_1</Source>
@@ -66,24 +726,160 @@
    <Target>Built-in Audio Stereo:playback_FL</Target>
   </Connection>
   <Connection>
+   <Source>setBfree:out_left</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
    <Source>setBfree:out_right</Source>
    <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_right</Source>
+   <Target>SonoBus:in_2</Target>
   </Connection>
   <Connection>
    <Source>Pianoteq:out_1</Source>
    <Target>Built-in Audio Stereo:playback_FL</Target>
   </Connection>
   <Connection>
+   <Source>Pianoteq:out_1</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
    <Source>Pianoteq:out_2</Source>
    <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_2</Source>
+   <Target>SonoBus:in_2</Target>
   </Connection>
   <Connection>
    <Source>Surge XT:out_1</Source>
    <Target>Built-in Audio Stereo:playback_FL</Target>
   </Connection>
   <Connection>
+   <Source>Surge XT:out_1</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
    <Source>Surge XT:out_2</Source>
    <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_2</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Xentotune:output_1</Source>
+   <Target>Carla:GxAmplifier-X:in</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Xentotune:output_2</Source>
+   <Target>Carla:GxAmplifier-X:in</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxAmplifier-X:Out</Source>
+   <Target>Carla:GxWahwah:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxAmplifier-X:Out</Source>
+   <Target>Carla:GxTremolo:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Shiroverb:Audio Output 1</Source>
+   <Target>Carla:GxReverb-Stereo:In1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Shiroverb:Audio Output 2</Source>
+   <Target>Carla:GxReverb-Stereo:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxWahwah:Out</Source>
+   <Target>Carla:GxChorus-Stereo:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxWahwah:Out</Source>
+   <Target>Carla:GxPhaser:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxReverb-Stereo:Out1</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxReverb-Stereo:Out1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxReverb-Stereo:Out1</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxReverb-Stereo:Out</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxEcho-Stereo:Out</Source>
+   <Target>Carla:GxReverb-Stereo:In1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxEcho-Stereo:Out1</Source>
+   <Target>Carla:GxReverb-Stereo:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxPhaser:Out</Source>
+   <Target>Carla:Shiroverb:Audio Input 1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxPhaser:Out</Source>
+   <Target>Carla:GxEcho-Stereo:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxChorus-Stereo:Out</Source>
+   <Target>Carla:Shiroverb:Audio Input 1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxChorus-Stereo:Out</Source>
+   <Target>Carla:GxEcho-Stereo:In</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:GxChorus-Stereo:Out1</Source>
+   <Target>Carla:GxEcho-Stereo:In1</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Xentotune:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxAmplifier-X:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Shiroverb:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxWahwah:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxReverb-Stereo:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxEcho-Stereo:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxPhaser:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxChorus-Stereo:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:GxTremolo:event-in</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
@@ -94,25 +890,28 @@
    <Target>setBfree:midi_in</Target>
   </Connection>
   <Positions>
-   <Position x1="1659" y1="1106">
+   <Position x1="1497" y1="706" x2="1916" y2="788">
     <Name>Carla</Name>
    </Position>
-   <Position x1="1463" y1="1228" x2="1936" y2="1222">
+   <Position x1="1655" y1="557" x2="2108" y2="1212">
     <Name>Built-in Audio Stereo</Name>
    </Position>
-   <Position x1="1720" y1="1285">
+   <Position x1="1566" y1="1299">
+    <Name>Null</Name>
+   </Position>
+   <Position x1="1980" y1="1224">
     <Name>SonoBus</Name>
    </Position>
    <Position x1="1731" y1="1463">
     <Name>setBfree</Name>
    </Position>
-   <Position x1="1589" y1="1389">
+   <Position x1="1661" y1="1288">
     <Name>Pianoteq</Name>
    </Position>
    <Position x1="1798" y1="1349">
     <Name>Surge XT</Name>
    </Position>
-   <Position x1="1572" y1="1527" x2="1952" y2="1348">
+   <Position x1="1098" y1="1079" x2="2179" y2="1315">
     <Name>Midi-Bridge</Name>
    </Position>
   </Positions>

@@ -2,25 +2,27 @@ import subprocess
 from midi_implementation.midi1 import control_change as cc
 from utils import handle_terminations, Outport, Inport
 
-headless = False
+headless = True
 thru_on_init = True
+prefix = "XentoTune"
 switch = cc.local_onoff_switch
 
 client_name = "XentoTune Wrapper"
 pipewire = "/usr/bin/pw-jack"
-carla = "/home/pi/microtonOS/third_party/Carla/source/frontend/carla-jack-multi"
+carla_path = "/home/pi/microtonOS/third_party/Carla/source/frontend/"
+carlas = ["carla", "carla-jack-single", "carla-jack-multi"]
 config_path = "/home/pi/microtonOS/config/"
 xentotune = [
     pipewire,
-    carla,
+    carla_path + carlas[1],
     config_path + "xentotune.carxp",
-    "--cnprefix=Thru",
+    "--cnprefix=" + prefix,
 ]
 thru = [
     pipewire,
-    carla,
+    carla_path + carlas[1],
     config_path + "thru.carxp",
-    "--cnprefix=Thru",
+    "--cnprefix=" + prefix,
 ]
 if headless:
     xentotune.append("--no-gui")
@@ -37,6 +39,7 @@ class Script:
         is_on = True if msg.value >= 64 else False
         if is_on != self.is_on:
             self.process.terminate()
+            self.process.wait()
             command = xentotune if is_on else thru
             self.process = subprocess.Popen(command)
             self.is_on = is_on

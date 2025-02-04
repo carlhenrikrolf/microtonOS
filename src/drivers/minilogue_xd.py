@@ -12,23 +12,21 @@ client_name = "Minilogue XD Driver"
 class Script:
     def minilogue_xd(self, msg):
         to_microtonOS.send(msg)
-        if msg.type in ["control_change", "program_change", "sysex"]:
+        if msg.type in ["control_change", "program_change"]:
             to_minilogue_xd.send(msg)
 
     def microtonOS(self, msg):
-        if hasattr(msg, "channel"):
-            msg.channel = 0
-        if msg.is_cc(74):
-            msg.control = 1 if msg.value >= 64 else 2
-            msg.value = (
-                (msg.value - 64) * 2 if msg.value >= 64 else (63 - msg.value) * 2
-            )
-        program_change = (
-            msg.type == "program_change"
-            or msg.is_cc(cc.bank_select[0])
-            or msg.is_cc(cc.bank_select[1])
-        )
-        if not program_change:
+        ignore = hasattr(msg, "channel") and msg.channel == 15
+        ignore = ignore or msg.type == "program_change"
+        ignore = ignore or cc.is_in(msg, cc.bank_select)
+        if not ignore:
+            if hasattr(msg, "channel"):
+                msg.channel = 0
+            if msg.is_cc(74):
+                msg.control = 1 if msg.value >= 64 else 2
+                msg.value = (
+                    (msg.value - 64) * 2 if msg.value >= 64 else (63 - msg.value) * 2
+                )
             mts_client.dispatch(msg)
 
 

@@ -215,10 +215,10 @@ class Exquis: # version 1.2.0
 
 exquis = Exquis()
 
-exquis1_2_0 = Exquis()
+exquis_v1_2_0 = Exquis()
 
 
-class Exquis2_0_0:
+class Exquis_v2_0_0:
 
 	# exquis receives
 	mpe_poly = 7
@@ -236,26 +236,26 @@ class Exquis2_0_0:
 	color_note = 20
 	map_key_to_note = 21
 
-	knob1 = exquis1_2_0.knob1
-	knob2 = exquis1_2_0.knob2
-	knob3 = exquis1_2_0.knob3
-	knob4 = exquis1_2_0.knob4
+	knob1 = exquis_v1_2_0.knob1
+	knob2 = exquis_v1_2_0.knob2
+	knob3 = exquis_v1_2_0.knob3
+	knob4 = exquis_v1_2_0.knob4
 
 	# exquis transmits
 	button_click = 42
 	pad_click = 32 # commence en haut à gauche
 	knob_turn = 53 # 0 to 5 knob number # sounds unfinished?
 
-	sounds = exquis1_2_0.sounds
-	record = exquis1_2_0.record
-	loops = exquis1_2_0.loops
+	sounds = exquis_v1_2_0.sounds
+	record = exquis_v1_2_0.record
+	loops = exquis_v1_2_0.loops
 	tracks = loops
-	snaps = exquis1_2_0.snaps
+	snaps = exquis_v1_2_0.snaps
 	scenes = snaps
-	octave_up = exquis1_2_0.octave_down # switch?
-	octave_down = exquis1_2_0.octave_up # switch?
-	page_left = exquis1_2_0.page_left
-	page_right = exquis1_2_0.page_right
+	octave_up = exquis_v1_2_0.octave_down # switch?
+	octave_down = exquis_v1_2_0.octave_up # switch?
+	page_left = exquis_v1_2_0.page_left
+	page_right = exquis_v1_2_0.page_right
 
 
 	def led(self, color):

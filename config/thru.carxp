@@ -62,6 +62,14 @@
    <Target>Carla:Audio Gain (Stereo):input_2</Target>
   </Connection>
   <Connection>
+   <Source>Null:out_0</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Null:out_1</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
    <Source>SonoBus:out_1</Source>
    <Target>Built-in Audio Stereo:playback_FL</Target>
   </Connection>
@@ -70,28 +78,8 @@
    <Target>Built-in Audio Stereo:playback_FR</Target>
   </Connection>
   <Connection>
-   <Source>setBfree:out_left</Source>
-   <Target>SonoBus:in_1</Target>
-  </Connection>
-  <Connection>
-   <Source>setBfree:out_right</Source>
-   <Target>SonoBus:in_2</Target>
-  </Connection>
-  <Connection>
-   <Source>Pianoteq:out_1</Source>
-   <Target>SonoBus:in_1</Target>
-  </Connection>
-  <Connection>
-   <Source>Pianoteq:out_2</Source>
-   <Target>SonoBus:in_2</Target>
-  </Connection>
-  <Connection>
-   <Source>Surge XT:out_1</Source>
-   <Target>SonoBus:in_1</Target>
-  </Connection>
-  <Connection>
-   <Source>Surge XT:out_2</Source>
-   <Target>SonoBus:in_2</Target>
+   <Source>Carla:Audio Gain (Stereo):output_1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
   </Connection>
   <Connection>
    <Source>Carla:Audio Gain (Stereo):output_1</Source>
@@ -99,7 +87,63 @@
   </Connection>
   <Connection>
    <Source>Carla:Audio Gain (Stereo):output_2</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Audio Gain (Stereo):output_2</Source>
    <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_left</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_left</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_right</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>setBfree:out_right</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_1</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_2</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_2</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_1</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_1</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_2</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Surge XT:out_2</Source>
+   <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Audio Gain (Stereo):events-in</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
@@ -109,18 +153,17 @@
    <Source>Midi-Bridge:tuneBfree Wrapper:(capture_0) from tuneBfree Wrapper</Source>
    <Target>setBfree:midi_in</Target>
   </Connection>
-  <Connection>
-   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:Audio Gain (Stereo):events-in</Target>
-  </Connection>
   <Positions>
-   <Position x1="1692" y1="1122">
+   <Position x1="1550" y1="1054">
     <Name>Carla</Name>
    </Position>
-   <Position x1="1463" y1="1228" x2="2009" y2="1274">
+   <Position x1="1258" y1="1123" x2="2114" y2="1168">
     <Name>Built-in Audio Stereo</Name>
    </Position>
-   <Position x1="1720" y1="1285">
+   <Position x1="1618" y1="1247">
+    <Name>Null</Name>
+   </Position>
+   <Position x1="1930" y1="1178">
     <Name>SonoBus</Name>
    </Position>
    <Position x1="1731" y1="1463">
@@ -132,7 +175,7 @@
    <Position x1="1798" y1="1349">
     <Name>Surge XT</Name>
    </Position>
-   <Position x1="1572" y1="1527" x2="1952" y2="1348">
+   <Position x1="999" y1="1266" x2="1952" y2="1348">
     <Name>Midi-Bridge</Name>
    </Position>
   </Positions>
