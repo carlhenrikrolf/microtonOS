@@ -470,7 +470,7 @@ Note shift means that all switchable keys (as defined by the tuning, see [code](
 Switching individual keys is also possible by pulling slider 3 down to -- and pressing the corresponding key in the bottom octave.
 Pressing again switches the key back (the 41edo preset is an exception where there are three-way switches). 
 
-![Reface CP](resources/reface_cp.png)
+<img width="20%" height="20%" url="resources/reface_cp.png" />
 
 To switch between isomorphic layout presets, turn knob D.
 LEDs C and D show the number of the layout, where ⚫⚫ is the default.

@@ -1,13 +1,10 @@
 # Experimental Music
 
-- 12edo.
-- Octaveless.
-- Regular Temperaments.
-    - 22edo
-- Just intonation
-    - utonal
-    - hexany
-    - decany
+**12edo.**
+
+**Bohlen–Pierce.**
+
+**Just intonation.**
 
 ## References
 
