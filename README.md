@@ -166,6 +166,8 @@ echo "deb http://pkg.sonobus.net/apt stable main" | sudo tee /etc/apt/sources.li
 sudo wget -O /etc/apt/trusted.gpg.d/sonobus.gpg https://pkg.sonobus.net/apt/keyring.gpg
 sudo apt update && sudo apt install sonobus
 ```
+Sonobus can be installed on other devices running on Windows, MacOS, iOS, Linux, or Android.
+Then audio can be transferred between those devices.
 (As a bonus, you can [install Librespot](learn/librespot.md) to stream Spotify audio.)
 
 
@@ -196,8 +198,8 @@ sudo apt install surge-xt-release
 
 Install [tuneBfree](https://github.com/narenratan/tuneBfree).
 ```bash
-sudo apt install libjack-jackd2-dev libopengl-dev libglu1-mesa-dev libftgl-dev libwebp-dev xxd
 make --directory=third_party/tuneBfree/
+sudo cp -r third_party/tuneBfree/build/tuneBfree.lv2 /usr/lib/lv2
 ```
 Note that the tuneBfree README suggests to install the dependency `libjack-dev`.
 Do **not** do this.

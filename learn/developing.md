@@ -32,21 +32,6 @@ sudo apt install qpwgraph guitarix aeolus hydrogen
 ```
 
 
-Catia:
-```bash
-cd ~/Downloads
-sudo apt-get update
-sudo apt-get install apt-transport-https gpgv wget
-wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
-sudo dpkg -i kxstudio-repos_11.1.0_all.deb
-sudo apt update
-sudo apt install catia
-```
-Better check https://kx.studio/Repositories as it may be subject to change.
-
-> [!danger]
-> Using software such as Cadence and Claudia tends to lead to errors with the ladish backend on Raspberry Pi.
-> Stick with Qjackctl, and use the better patchbay GUI in Catia.
 
 Build Sfizz:
 ```bash
