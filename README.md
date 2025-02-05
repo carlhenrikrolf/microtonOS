@@ -12,6 +12,19 @@ It is screen-free, and, at its height, visual feedback is a somewhat culture-agn
 The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 midi controller + 1 Linux computer.
 
 ## Components
+**Raspberry Pi.**
+I use a Raspberry Pi 5 8GB RAM together with:
+- Official powersupply (5.1V, 5.0A/9.0V, 3.0A/12.0V, 2.25A, 15.0V 1.8A, and 27W)
+- Inno-Maker Raspberry Pi 5 Aluminum Case (with combined fan and heatsink)
+- Geeekpi GPIO pin header extension
+- HifiBerry ADC plus DAC soundcard
+- 64GB Sandisk Pro Extreme SD card
+
+(Get the Raspberry Pi with the fastest CPU. It is usually the latest generation.
+As for RAM, it needs at least 4GB.
+An alternative to HifiBerry is Blokas PiSound.
+As for SD cards, get a high-quality one from Sandisk, Samsung, or Raspberry Pi with 32GB to 64GB.)
+
 **Intuitive Instruments Exquis.**
 This is the main controller in my setup.
 (A similar alternative would be, e.g., one of the the Novation Launchpads.)
@@ -26,18 +39,13 @@ It has a nice keybed for a small keyboard and works great as a MIDI controller.
 Alternative MIDI controllers include any Arturia Keystep or Korg microKey.
 I would suggest getting two small keyboards for two manuals rather than one big.)
 
-**Raspberry Pi.**
-I use a Raspberry Pi 5 8GB RAM together with:
-- Official powersupply (5.1V, 5.0A/9.0V, 3.0A/12.0V, 2.25A, 15.0V 1.8A, and 27W)
-- Inno-Maker Raspberry Pi 5 Aluminum Case (with combined fan and heatsink)
-- Geeekpi GPIO pin header extension
-- HifiBerry ADC plus DAC soundcard
-- 64GB Sandisk Pro Extreme SD card
-
-(Get the Raspberry Pi with the fastest CPU. It is usually the latest generation.
-As for RAM, it needs at least 4GB.
-An alternative to HifiBerry is Blokas PiSound.
-As for SD cards, get a high-quality one from Sandisk, Samsung, or Raspberry Pi with 32GB to 64GB.)
+**Guitar.**
+I use a Gibson SG, but any guitar will be fine. Any kind of microphone works.
+For usage with the soundcard, it is advisable to change the gain settings.
+I use [+12 dB](https://www.hifiberry.com/docs/data-sheets/datasheet-dac-adc/).
+An electric guitar has too large impedance for the analogue input to the HifiBerry cards and many other soundcards.
+One solution is to use a Boss effects pedal in between.
+The pedal needs power but it does not need to actively apply an effect.
 
 **Cables and adapters.**
 USB, TRS, and RCA adapters and cables are all necessary.
@@ -62,9 +70,18 @@ Background programs include:
 
 ## Installation
 Burn the SD card with the Raspberry Pi OS.
-Make sure the username is 'pi'.
+Make sure the username is *pi*.
 Assemble the Raspberry Pi together with the case and soundcard.
 Insert the SD card and pick appropriate settings for the OS.
+In particular, make sure to use *pipewire* in the audio settings (and not *pulseaudio*).
+Install a number of dependencies through a pre-installed package manager.
+Do this by opening a terminal and running:
+```bash
+sudo apt update
+sudo apt install cmake python3-pyqt5.qtsvg python3-rdflib pyqt5-dev-tools libmagic-dev liblo-dev libasound2-dev libpulse-dev libx11-dev libxcursor-dev libxext-dev qtbase5-dev libfluidsynth-dev libjack-jackd2-dev libopengl-dev libglu1-mesa-dev libftgl-dev libwebp-dev xxd pipewire-jack pipewire-alsa qjackctl a2jmidid blueman
+sudo apt purge pipewire-pulse pulseaudio
+```
+
 
 From the default directory (`/home/pi`), clone the repository with
 ```bash
@@ -75,26 +92,34 @@ If you forget the option, you can later add
 git submodule update --init --recursive
 ```
 
-
 The following steps will be performed from withing the repository, so
 ```bash
 cd microtonOS/
 ```
 
-Install Python3 packages.
+Install Python3 packages in a virtual environment.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt
 pip3 install . --use-pep517
 ```
-Note that `PyQt5` may take a long time to make a copy within the virtual environment.[^pyqt5]
-Use the folloing to finalise the copying:
+PyQt5 should already be installed as part of the OS. However, a copy within the virtual environment is necessary.
+Note that PyQt5 may take a long time to make a copy within the virtual environment.[^pyqt5]
+Use the following to finalise the copying:
 ```bash
 cp -r /usr/lib/python3/dist-packages/PyQt5/* /home/pi/microtonOS/.venv/lib/python3*/site-packages/PyQt5 --no-clobber
 ```
 
 [^pyqt5]: If it does not work, try installing it manually with `.venv/bin/pip3 install pyqt5 --config-settings --confirm-license= --verbose`.
+
+Install MTS-ESP.
+```bash
+cmake -S third_party/mts-dylib-reference/ -B third_party/mts-dylib-reference
+make --directory=third_party/mts-dylib-reference/
+sudo cp third_party/mts-dylib-reference/libMTS.so /usr/local/lib/
+```
+A summary of different tuning standards in electronic music is available [here](learn/tuning_standards.md).
 
 To set up the HifiBerry DAC+ADC soundcard, copy these configuration files.
 ```bash
@@ -105,18 +130,18 @@ Note that `config.txt` will be overwritten.
 `config.txt.` additionally overclocks the CPU to 3000.
 For other soundcard, the configurations would have to be different.
 Reboot for the changes to take effect.
-When using an audio application a red LED should be lit on the HifiBerry soundcard.
+When using an audio application (e.g. Qjackctl below) a red LED should be lit on the HifiBerry soundcard.
 
-Install tools for connecting audio.
+Set up Pipewire/Wireplumber.
 ```bash
-sudo apt update
-sudo apt install pipewire-jack pipewire-alsa qjackctl a2jmidid blueman
-sudo apt purge pipewire-pulse pulseaudio
+chmod 0700 /run/user/1000
+wpctl status
 ```
-Before using Pipewire/Wireplumber, use `chmod 0700 /run/user/1000`
-Check that both default source and sink are configured by using `wpctl status` and checking that they are prepended by `*`s.
+Check that both default source (mic) and sink (audio out) are prepended by `*`s.
 If not, note the id and use:
 `wpctl set-default <id>`
+
+Qjackctl is a tool for routing
 Run `pw-jack qjackctl` to set it up for the soundcard.
 For the HifiBerry DAC+ADC soundcard, the parameters should be
 - Driver: ALSA
@@ -129,8 +154,11 @@ For the HifiBerry DAC+ADC soundcard, the parameters should be
 The advanced settings should be
 - Channels I/O: 2, 2
 
+A summary of sound tools is available [here](learn/linux_sound.md).
+
 To use MIDI over bluetooth, start blueman and search for devices.
 (To pair a mac with the pi through bluetooth midi: 1. On Mac, advertise bluetooth midi with Audio Midi Setup or Surge XT. 2. On Raspberry Pi, search devices on blueman and trust the Mac. 3. On Raspberry Pi, connect to the Mac. 4. On both, approve the pairing.)
+Bluetooth works great with MIDI but not always great with audio as it struggles with delays for example.
 To send audio over the network, install [Sonobus](https://sonobus.net/linux.html).
 At the time of writing, the following commands were sufficient:
 ```bash
@@ -138,39 +166,24 @@ echo "deb http://pkg.sonobus.net/apt stable main" | sudo tee /etc/apt/sources.li
 sudo wget -O /etc/apt/trusted.gpg.d/sonobus.gpg https://pkg.sonobus.net/apt/keyring.gpg
 sudo apt update && sudo apt install sonobus
 ```
-A summary of sound tools is available [here](learn/linux_sound.md).
+(As a bonus, you can [install Librespot](learn/librespot.md) to stream Spotify audio.)
 
-Install MTS-ESP.
+
+Install [Carla](https://github.com/falkTX/Carla).
 ```bash
-sudo apt install cmake
-cmake -S third_party/mts-dylib-reference/ -B third_party/mts-dylib-reference
-make --directory=third_party/mts-dylib-reference/
-sudo cp third_party/mts-dylib-reference/libMTS.so /usr/local/lib/
+make --directory=third_party/Carla
+make install --directory=third_party/Carla
 ```
-A summary of different tuning standards in electronic music is available [here](learn/tuning_standards.md).
-
-Install systemd scripts.
+Install [XentoTune](https://github.com/narenratan/xentotune).
 ```bash
-sudo cp config/systemd/<service file> /lib/systemd/system/
-sudo systemctl enable <service file>
-sudo systemctl start <service file>
+cmake -S third_part/xentotune -B third_party/xentotune/build -DCMAKE_BUILD_TYPE=Release
+cmake -S third_party/xentotune --build third_party/xentotune/build --config Release
+sudo cp -rf third_party/xentotune/build/Xentotune.clap /lib/clap
 ```
-A shortcut is to use `sudo dev/daemon_reload.sh`.
-You can get more background on systemd [here](learn/systemd.md).
+[Set up XentoTune and Carla.](learn/xentotune.md)
 
-
-Install tuneBfree.
-tuneBfree is found under `third_party/`.
-Follow the instruction in the [README](third_party/tuneBfree/).
-The exception is that you should should not add libjack-dev.
-It should be libjack-jackd2-dev instead, i.e.,
-```bash
-sudo apt install libjack-jackd2-dev libopengl-dev libglu1-mesa-dev libftgl-dev libwebp-dev xxd
-make --directory=third_party/tuneBfree/
-```
-
-Install Surge, e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
-You may have to apply an apt fix install command.
+Install [Surge XT](https://surge-synthesizer.github.io/), e.g. from [open build](https://software.opensuse.org//download.html?project=home%3Asurge-synth-team&package=surge-xt-release).
+(You may have to apply an apt fix install command.)
 At the time of writing, the you could install it with
 ```bash
 echo 'deb http://download.opensuse.org/repositories/home:/surge-synth-team/Raspbian_12/ /' | sudo tee /etc/apt/sources.list.d/home:surge-synth-team.list
@@ -178,12 +191,44 @@ curl -fsSL https://download.opensuse.org/repositories/home:surge-synth-team/Rasp
 sudo apt update
 sudo apt install surge-xt-release
 ```
+[Set up Surge XT.](learn/surge_xt.md)
 
-Download Pianoteq (from user area if you have a license).
+
+Install [tuneBfree](https://github.com/narenratan/tuneBfree).
+```bash
+sudo apt install libjack-jackd2-dev libopengl-dev libglu1-mesa-dev libftgl-dev libwebp-dev xxd
+make --directory=third_party/tuneBfree/
+```
+Note that the tuneBfree README suggests to install the dependency `libjack-dev`.
+Do **not** do this.
+It will remove `libjack-jackd2-dev` from before.
+(It is possible to revert by `sudo apt install libjack-jackd2-dev qjackctl`.)
+[Set up tuneBfree](learn/tuneBfree.md)
+
+
+Download [Pianoteq](https://www.modartt.com/) (from the user area if you have a license).
 Extract into `/home/pi/`; `/home/pi/Pianoteq <version>/` should be created.
+(Extraction does not have to be there, it's a suggestion.)
+Enter that directory and run
+```bash
+sudo cp arm-64bit/Pianoteq <version> /usr/bin
+sudo cp -r arm-64bit/Pianoteq <version>.lv2 /usr/lib/lv2
+```
 To add `.ptq` files, go into `.local/share/Modartt/Addons` and add them there.
+[Set up Pianoteq](learn/pianoteq.md)
 
-[Developing microtonOS further.](learn/developing.md)
+Go back to `microtonOS/` and install the systemd scripts.
+Each `.service` file makes sure a program is started automatically at boot.
+```bash
+sudo cp config/systemd/<service file> /lib/systemd/system/
+sudo systemctl enable <service file>
+sudo systemctl start <service file>
+```
+A shortcut is to use `sudo dev/daemon_reload.sh`.
+[More background on systemd.](learn/systemd.md)
+
+[Develop microtonOS further.](learn/developing.md)
+If you want to.
 
 ## Isomorphic Layouts
 I suggest to think of musically useful isomorphic layouts as belonging to one of four categories.
@@ -514,6 +559,8 @@ When pressing any buttons a to f, an all notes off message is transmitted to all
 Add a Python script [here](src/mtsesp_master/encoders/) and edit the `__init__.py` file to adapt to other controllers than the Exquis.
 
 
+## Instruments
 
+![Exquis](resources/exquis.png)
 
 

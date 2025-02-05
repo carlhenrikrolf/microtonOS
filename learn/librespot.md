@@ -3,7 +3,7 @@
 As a bonus, you can install librespot for playing Spotify content from the Raspberry Pi.
 Of course, this can also be achieved through bluetooth, but the playback quality over bluetooth can be lacking especially with several devices connected simultaneously.
 
-Start by installing the package manager cargo.
+Start by installing the package manager [Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html).
 ```bash
 curl https://sh.rustup.rs -sSf | sh
 ```

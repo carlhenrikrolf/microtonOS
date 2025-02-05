@@ -1,0 +1,1 @@
+[Patchstorage LV2 plugins](https://patchstorage.com/platform/lv2-plugins/) is a good collection of effects.

@@ -18,8 +18,6 @@ wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bas
 
 sudo apt install flatpak
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
-curl https://sh.rustup.rs -sSf | sh
 ```
 Then reboot. More info at [Pi-Apps](https://pi-apps.io/install/) and [Flatpak](https://flathub.org/setup/Raspberry%20Pi%20OS).
 
@@ -33,23 +31,6 @@ sudo apt install code
 sudo apt install qpwgraph guitarix aeolus hydrogen
 ```
 
-Build Carla:
-```bash
-cd ~
-git clone --recurse-submodules https://github.com/falkTX/Carla.git
-sudo apt install python3-pyqt5.qtsvg python3-rdflib pyqt5-dev-tools libmagic-dev liblo-dev libasound2-dev libpulse-dev libx11-dev libxcursor-dev libxext-dev qtbase5-dev libfluidsynth-dev
-cd Carla
-make
-sudo make install
-sudo cp -rf /bin/carla.lv2/ /lib/lv2/
-sudo cp -rf /bin/carla.lv2/ /usr/lib/lv2/
-sudo cp -rf /bin/carla.lv2/ /usr/local/lib/lv2/
-```
-Run Carla:
-```bash
-deactivate
-pw-jack ~/Carla/source/frontend/carla
-```
 
 Catia:
 ```bash
@@ -80,17 +61,3 @@ Run Sfizz:
 pw-jack ~/sfizz/library/bin/sfizz_jack
 ```
 
-Xentotune:
-```bash
-cd ~
-git clone --recurse-submodules https://github.com/narenratan/xentotune
-cd xentotune
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
-sudo cp -rf build/Xentotune.clap /lib/clap
-```
-
-Librespot:
-```bash
-cargo install librespot --no-default-features --features alsa-backend jackaudio-backend rodiojack-backend
-```
