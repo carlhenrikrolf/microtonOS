@@ -3,21 +3,28 @@
 # microtonOS
 
 Making a xenharmonic synth out of a Raspberry Pi.
-Most microtonal/xenharmonic products are geared towards music production---microtonOS is not.
+Most microtonal/xenharmonic products are geared towards music production—microtonOS is not.
 microtonOS is a synthesiser meant for jamming.
 You can jam by yourself and discover different music cultures as well as experimental approaches to harmony.
 Or, you can use one of the many connectivity options on the Raspberry Pi to add additional instruments played by friends.
 At first glance, microtonOS is ticking all the boxes.
-It is a knob-per-function synthesiser with carefully selected presets.
-Furthermore, it is screen-free, and, at its height, visual feedback is a somewhat culture-agnostic geometric representation of the tuning system.
+It is screen-free, and, at its height, visual feedback is a somewhat culture-agnostic geometric representation of the tuning system.
 The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 midi controller + 1 Linux computer.
 
 ## Components
 **Intuitive Instruments Exquis.**
 This is the main controller in my setup.
+(A similar alternative would be, e.g., one of the the Novation Launchpads.)
 
-**Piano and organ style midi keyboards.**
-I use a Yamaha Reface CP.
+**Yamaha and Korg.**
+I use a Yamaha Reface CP and a Korg Minilogue XD.
+The Minilogue XD is a synthesiser with good support for microtonality.
+The Yamaha Reface series only allows monophonic microtonality,
+and I use the Reface CP a bit like a Fender Rhodes Piano Bass.
+It has a nice keybed for a small keyboard and works great as a MIDI controller.
+(Apart from Korg, e.g., Sequential, Novation, and ASM Sound Machines tend to support microtonality.
+Alternative MIDI controllers include any Arturia Keystep or Korg microKey.
+I would suggest getting two small keyboards for two manuals rather than one big.)
 
 **Raspberry Pi.**
 I use a Raspberry Pi 5 8GB RAM together with:
@@ -27,20 +34,27 @@ I use a Raspberry Pi 5 8GB RAM together with:
 - HifiBerry ADC plus DAC soundcard
 - 64GB Sandisk Pro Extreme SD card
 
+(Get the Raspberry Pi with the fastest CPU. It is usually the latest generation.
+As for RAM, it needs at least 4GB.
+An alternative to HifiBerry is Blokas PiSound.
+As for SD cards, get a high-quality one from Sandisk, Samsung, or Raspberry Pi with 32GB to 64GB.)
+
 **Cables and adapters.**
 USB, TRS, and RCA adapters and cables are all necessary.
 I'm using a CME WIDI Master adapter for MIDI over bluetooth.
-DIN-5 for midi can be useful.
+(If you want to jam you can simply lend your CME WIDI master.)
 
 **Software.**
 The OS I use is Raspberry Pi OS 64bit Bookworm.
 Python3 packages are included in [requirements.txt](requirements.txt).
 Virtual instruments include:
-- tuneBfree
 - Modartt Pianoteq 8 STAGE
+- tuneBfree
 - Surge XT
+- XentoTune
 
 Background programs include:
+- Carla (a host for audio plugins)
 - Pipewire, Qjackctl, and a2jmidid (for routing MIDI and audio)
 - Blueman (for MIDI bluetooth connectivity) and Sonobus (for network)
 - MTS-ESP (for tuning)

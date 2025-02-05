@@ -1,4 +1,8 @@
 # Australian Aboriginial Music
+
+> [!warning]
+> My knowledge of Australian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
+
 The traditional music of Australian aboriginals is predominantly vocal. Sometimes it is accompanied by a drone played on a didgeridoo.
 
 <table>

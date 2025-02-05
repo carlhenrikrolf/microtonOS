@@ -1,4 +1,8 @@
 # Mongolian Traditional Music
+
+> [!warning]
+> My knowledge of Mongolian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
+
 Apart from Mongolia, similar music exists in the Tuva and Altai regions in Russia as well as in Tibet. The area is notable for throat-singing in which different harmonics are emphasised at different times to form a melody. Notable instruments include the jaw harp and the horse-head fiddle.
 
 |                        | harmonics       | ratios              | register |

@@ -1,4 +1,8 @@
 # Melanesian Traditional Music
+
+> [!warning]
+> My knowledge of Melanesian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
+
 Melanesia is a very culturally diverse region. The 'Are'are is one culture from the Solomon Islands. They are known for their panflute ensembles
 
 <table>
@@ -9,7 +13,7 @@ Melanesia is a very culturally diverse region. The 'Are'are is one culture from 
 
 Note that in the 'au keto and 'au taka'iori ensembles, the panflutes come in pairs tuned a neutral second (1 step in 7edo) apart.
 
-> [!note] Chords
+> [!Chords]
 > Chords are built from neutral seconds (1 in 7edo, 3 in 22edo). Tones can be doubled at the octave. There are typically 4 voices in total.
 
 ## References
