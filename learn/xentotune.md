@@ -10,3 +10,7 @@ Once downloaded, copy to the appropriate location.
 ```bash
 sudo cp -r <plugin>.lv2 /usr/lib/lv2
 ```
+For a set of effects to get started install the following.
+```bash
+sudo apt install guitarix aida-x dragonfly-reverb calf-plugins shiro-plugins airwindows-lv2 tap-lv2 caps-lv2 mda-lv2
+```

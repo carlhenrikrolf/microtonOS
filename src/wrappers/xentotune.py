@@ -2,11 +2,13 @@ import subprocess
 from midi_implementation.midi1 import control_change as cc
 from utils import handle_terminations, Outport, Inport
 
+# parameters
 headless = True
 thru_on_init = True
+
+# definitions
 prefix = "XentoTune"
 switch = cc.local_onoff_switch
-
 client_name = "XentoTune Wrapper"
 pipewire = "/usr/bin/pw-jack"
 carla_path = "/home/pi/microtonOS/third_party/Carla/source/frontend/"
@@ -50,7 +52,7 @@ class Script:
         else:
             to_xentotune.send(msg)
 
-
+# run script
 to_xentotune = Outport(client_name)
 script = Script()
 from_microtonOS = Inport(script.run, client_name)

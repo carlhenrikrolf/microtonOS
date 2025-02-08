@@ -37,126 +37,114 @@
   </Data>
  </Plugin>
 
- <!-- GxAmplifier-X -->
+ <!-- TAP Tubewarmth -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>GxAmplifier-X</Name>
-   <URI>http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX</URI>
+   <Name>TAP Tubewarmth</Name>
+   <URI>http://moddevices.com/plugins/tap/tubewarmth</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
    <Options>0x1</Options>
 
    <Parameter>
     <Index>0</Index>
-    <Name>MasterGain</Name>
-    <Symbol>MasterGain</Symbol>
+    <Name>Drive</Name>
+    <Symbol>drive</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>7</MappedControlIndex>
-    <MappedMinimum>-20</MappedMinimum>
-    <MappedMaximum>20</MappedMaximum>
-    <MidiCC>7</MidiCC>
-    <Value>0</Value>
+    <MappedControlIndex>94</MappedControlIndex>
+    <MappedMinimum>0.100000001490116</MappedMinimum>
+    <MappedMaximum>10</MappedMaximum>
+    <MidiCC>94</MidiCC>
+    <Value>0.100000001490116</Value>
    </Parameter>
 
    <Parameter>
     <Index>1</Index>
-    <Name>PreGain</Name>
-    <Symbol>PreGain</Symbol>
-    <Value>0</Value>
+    <Name>Tape--Tube Blend</Name>
+    <Symbol>blend</Symbol>
+    <Value>10</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
+ <!-- GxWahwah -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>GxWahwah</Name>
+   <URI>http://guitarix.sourceforge.net/plugins/gx_colwah_#_colwah_</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>WAH</Name>
+    <Symbol>WAH</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>14</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>14</MidiCC>
+    <Value>0.472440958023071</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>FREQ</Name>
+    <Symbol>FREQ</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>15</MappedControlIndex>
+    <MappedMinimum>24</MappedMinimum>
+    <MappedMaximum>360</MappedMaximum>
+    <MidiCC>15</MidiCC>
+    <Value>185.385833740234</Value>
    </Parameter>
 
    <Parameter>
     <Index>2</Index>
-    <Name>Distortion</Name>
-    <Symbol>Distortion</Symbol>
-    <Value>20</Value>
+    <Name>MODE</Name>
+    <Symbol>MODE</Symbol>
+    <Value>0</Value>
    </Parameter>
 
    <Parameter>
     <Index>3</Index>
-    <Name>Drive</Name>
-    <Symbol>Drive</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>94</MappedControlIndex>
-    <MappedMinimum>0.00999999977648258</MappedMinimum>
-    <MappedMaximum>1</MappedMaximum>
-    <MidiCC>94</MidiCC>
-    <Value>0.00999999977648258</Value>
+    <Name>MODEL</Name>
+    <Symbol>MODEL</Symbol>
+    <Value>6</Value>
    </Parameter>
 
    <Parameter>
     <Index>4</Index>
-    <Name>Middle</Name>
-    <Symbol>Middle</Symbol>
-    <Value>0.5</Value>
+    <Name>WET_DRY</Name>
+    <Symbol>WET_DRY</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>70</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>70</MidiCC>
+    <Value>0</Value>
    </Parameter>
 
    <Parameter>
     <Index>5</Index>
-    <Name>Bass</Name>
-    <Symbol>Bass</Symbol>
-    <Value>0.5</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>6</Index>
-    <Name>Treble</Name>
-    <Symbol>Treble</Symbol>
-    <Value>0.5</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>7</Index>
-    <Name>Cabinet</Name>
-    <Symbol>Cabinet</Symbol>
-    <Value>10</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>8</Index>
-    <Name>Presence</Name>
-    <Symbol>Presence</Symbol>
-    <Value>5</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>9</Index>
-    <Name>Model</Name>
-    <Symbol>model</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>10</Index>
-    <Name>Tonestack Model</Name>
-    <Symbol>t_model</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>11</Index>
-    <Name>Cab Model</Name>
-    <Symbol>c_model</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>13</Index>
     <Name>BYPASS</Name>
     <Symbol>BYPASS</Symbol>
     <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>14</Index>
-    <Name>HIGHGAIN</Name>
-    <Symbol>HIGHGAIN</Symbol>
-    <Value>0</Value>
    </Parameter>
 
    <CustomData>
@@ -177,7 +165,6 @@
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
    <Options>0x1</Options>
 
@@ -209,7 +196,7 @@
     <MappedMinimum>0</MappedMinimum>
     <MappedMaximum>1</MappedMaximum>
     <MidiCC>3</MidiCC>
-    <Value>1</Value>
+    <Value>0.472440958023071</Value>
    </Parameter>
 
    <Parameter>
@@ -221,7 +208,7 @@
     <MappedMinimum>0.100000001490116</MappedMinimum>
     <MappedMaximum>50</MappedMaximum>
     <MidiCC>9</MidiCC>
-    <Value>50</Value>
+    <Value>24.0677185058594</Value>
    </Parameter>
 
    <Parameter>
@@ -239,74 +226,122 @@
   </Data>
  </Plugin>
 
- <!-- GxWahwah -->
+ <!-- Calf Phaser -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>GxWahwah</Name>
-   <URI>http://guitarix.sourceforge.net/plugins/gx_colwah_#_colwah_</URI>
+   <Name>Calf Phaser</Name>
+   <URI>http://calf.sourceforge.net/plugins/Phaser</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
-   <Options>0x1</Options>
+   <Options>0x3f1</Options>
 
    <Parameter>
     <Index>0</Index>
-    <Name>WAH</Name>
-    <Symbol>WAH</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>14</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>1</MappedMaximum>
-    <MidiCC>14</MidiCC>
-    <Value>1</Value>
+    <Name>Center Freq</Name>
+    <Symbol>base_freq</Symbol>
+    <Value>933.085998535156</Value>
    </Parameter>
 
    <Parameter>
     <Index>1</Index>
-    <Name>FREQ</Name>
-    <Symbol>FREQ</Symbol>
+    <Name>Mod depth</Name>
+    <Symbol>mod_depth</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>15</MappedControlIndex>
-    <MappedMinimum>24</MappedMinimum>
-    <MappedMaximum>360</MappedMaximum>
-    <MidiCC>15</MidiCC>
-    <Value>360</Value>
+    <MappedControlIndex>22</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>10800</MappedMaximum>
+    <MidiCC>22</MidiCC>
+    <Value>5187.40185546875</Value>
    </Parameter>
 
    <Parameter>
     <Index>2</Index>
-    <Name>MODE</Name>
-    <Symbol>MODE</Symbol>
-    <Value>0</Value>
+    <Name>Mod rate</Name>
+    <Symbol>mod_rate</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>23</MappedControlIndex>
+    <MappedMinimum>0.00999999977648258</MappedMinimum>
+    <MappedMaximum>20</MappedMaximum>
+    <MidiCC>23</MidiCC>
+    <Value>0.385065078735352</Value>
    </Parameter>
 
    <Parameter>
     <Index>3</Index>
-    <Name>MODEL</Name>
-    <Symbol>MODEL</Symbol>
-    <Value>0</Value>
+    <Name>Feedback</Name>
+    <Symbol>feedback</Symbol>
+    <Value>0.5</Value>
    </Parameter>
 
    <Parameter>
     <Index>4</Index>
-    <Name>WET_DRY</Name>
-    <Symbol>WET_DRY</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>70</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>100</MappedMaximum>
-    <MidiCC>70</MidiCC>
-    <Value>0</Value>
+    <Name># Stages</Name>
+    <Symbol>stages</Symbol>
+    <Value>6</Value>
    </Parameter>
 
    <Parameter>
     <Index>5</Index>
-    <Name>BYPASS</Name>
-    <Symbol>BYPASS</Symbol>
+    <Name>Stereo phase</Name>
+    <Symbol>stereo</Symbol>
+    <Value>180</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>Reset</Name>
+    <Symbol>reset</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>Amount</Name>
+    <Symbol>amount</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>8</Index>
+    <Name>Dry Amount</Name>
+    <Symbol>dry</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>9</Index>
+    <Name>Active</Name>
+    <Symbol>on</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>95</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>95</MidiCC>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>10</Index>
+    <Name>Input Gain</Name>
+    <Symbol>level_in</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>11</Index>
+    <Name>Output Gain</Name>
+    <Symbol>level_out</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>20</Index>
+    <Name>LFO</Name>
+    <Symbol>lfo</Symbol>
     <Value>1</Value>
    </Parameter>
 
@@ -318,62 +353,117 @@
   </Data>
  </Plugin>
 
- <!-- GxChorus-Stereo -->
+ <!-- Calf Multi Chorus -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>GxChorus-Stereo</Name>
-   <URI>http://guitarix.sourceforge.net/plugins/gx_chorus_stereo#_chorus_stereo</URI>
+   <Name>Calf Multi Chorus</Name>
+   <URI>http://calf.sourceforge.net/plugins/MultiChorus</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
-   <Options>0x1</Options>
+   <Options>0x3f1</Options>
 
    <Parameter>
     <Index>0</Index>
-    <Name>Level</Name>
-    <Symbol>level</Symbol>
-    <Value>0.5</Value>
+    <Name>Min Delay</Name>
+    <Symbol>min_delay</Symbol>
+    <Value>5</Value>
    </Parameter>
 
    <Parameter>
     <Index>1</Index>
-    <Name>Delay</Name>
-    <Symbol>delay</Symbol>
-    <Value>0.0199999995529652</Value>
+    <Name>Mod Depth</Name>
+    <Symbol>mod_depth</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>20</MappedControlIndex>
+    <MappedMinimum>0.100000001490116</MappedMinimum>
+    <MappedMaximum>10</MappedMaximum>
+    <MidiCC>20</MidiCC>
+    <Value>0.913334667682648</Value>
    </Parameter>
 
    <Parameter>
     <Index>2</Index>
-    <Name>Depth</Name>
-    <Symbol>depth</Symbol>
+    <Name>Mod Rate</Name>
+    <Symbol>mod_rate</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>20</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>1</MappedMaximum>
-    <MidiCC>20</MidiCC>
-    <Value>1</Value>
+    <MappedControlIndex>21</MappedControlIndex>
+    <MappedMinimum>0.00999999977648258</MappedMinimum>
+    <MappedMaximum>20</MappedMaximum>
+    <MidiCC>21</MidiCC>
+    <Value>0.385065078735352</Value>
    </Parameter>
 
    <Parameter>
     <Index>3</Index>
-    <Name>Freq</Name>
-    <Symbol>freq</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>21</MappedControlIndex>
-    <MappedMinimum>0.100000001490116</MappedMinimum>
-    <MappedMaximum>10</MappedMaximum>
-    <MidiCC>21</MidiCC>
-    <Value>10</Value>
+    <Name>Stereo Phase</Name>
+    <Symbol>stereo</Symbol>
+    <Value>180</Value>
    </Parameter>
 
    <Parameter>
     <Index>4</Index>
-    <Name>BYPASS</Name>
-    <Symbol>BYPASS</Symbol>
+    <Name>Voices</Name>
+    <Symbol>voices</Symbol>
+    <Value>4</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>Inter-Voice Phase</Name>
+    <Symbol>vphase</Symbol>
+    <Value>64</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>Amount</Name>
+    <Symbol>amount</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>Dry Amount</Name>
+    <Symbol>dry</Symbol>
+    <Value>0.5</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>8</Index>
+    <Name>Center Frq 1</Name>
+    <Symbol>freq</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>9</Index>
+    <Name>Center Frq 2</Name>
+    <Symbol>freq2</Symbol>
+    <Value>5000</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>10</Index>
+    <Name>Q</Name>
+    <Symbol>q</Symbol>
+    <Value>0.125</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>11</Index>
+    <Name>Overlap</Name>
+    <Symbol>overlap</Symbol>
+    <Value>0.75</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>12</Index>
+    <Name>Active</Name>
+    <Symbol>on</Symbol>
     <MidiChannel>1</MidiChannel>
     <MappedControlIndex>93</MappedControlIndex>
     <MappedMinimum>0</MappedMinimum>
@@ -382,6 +472,27 @@
     <Value>0</Value>
    </Parameter>
 
+   <Parameter>
+    <Index>13</Index>
+    <Name>Input Gain</Name>
+    <Symbol>level_in</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>14</Index>
+    <Name>Output Gain</Name>
+    <Symbol>level_out</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>23</Index>
+    <Name>LFO</Name>
+    <Symbol>lfo</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
    <CustomData>
     <Type>http://kxstudio.sf.net/ns/carla/property</Type>
     <Key>CarlaSkinIsCompacted</Key>
@@ -390,54 +501,81 @@
   </Data>
  </Plugin>
 
- <!-- GxPhaser -->
+ <!-- Modulay -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>GxPhaser</Name>
-   <URI>http://guitarix.sourceforge.net/plugins/gx_phaser#_phaser</URI>
+   <Name>Modulay</Name>
+   <URI>https://github.com/ninodewit/SHIRO-Plugins/plugins/modulay</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
-   <Options>0x1</Options>
+   <Options>0x3</Options>
 
    <Parameter>
     <Index>0</Index>
-    <Name>Dry/Wet</Name>
-    <Symbol>dry_wet</Symbol>
+    <Name>repeats</Name>
+    <Symbol>repeats</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>95</MappedControlIndex>
+    <MappedControlIndex>26</MappedControlIndex>
     <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>100</MappedMaximum>
-    <MidiCC>95</MidiCC>
-    <Value>0</Value>
+    <MappedMaximum>110</MappedMaximum>
+    <MidiCC>26</MidiCC>
+    <Value>53.7007865905762</Value>
    </Parameter>
 
    <Parameter>
     <Index>1</Index>
-    <Name>LEVEL</Name>
-    <Symbol>level</Symbol>
+    <Name>mix</Name>
+    <Symbol>mix</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>22</MappedControlIndex>
-    <MappedMinimum>-60</MappedMinimum>
-    <MappedMaximum>10</MappedMaximum>
-    <MidiCC>22</MidiCC>
-    <Value>10</Value>
+    <MappedControlIndex>13</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>100</MappedMaximum>
+    <MidiCC>13</MidiCC>
+    <Value>0</Value>
    </Parameter>
 
    <Parameter>
     <Index>2</Index>
-    <Name>SPEED</Name>
-    <Symbol>speed</Symbol>
+    <Name>rate</Name>
+    <Symbol>rate</Symbol>
+    <Value>2.50099992752075</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>depth</Name>
+    <Symbol>depth</Symbol>
+    <Value>1.51258063316345</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>time</Name>
+    <Symbol>time</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>23</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>10</MappedMaximum>
-    <MidiCC>23</MidiCC>
-    <Value>10</Value>
+    <MappedControlIndex>27</MappedControlIndex>
+    <MappedMinimum>20</MappedMinimum>
+    <MappedMaximum>1000</MappedMaximum>
+    <MidiCC>27</MidiCC>
+    <Value>467.559051513672</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>morph</Name>
+    <Symbol>morph</Symbol>
+    <Value>50</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>tone</Name>
+    <Symbol>tone</Symbol>
+    <Value>3000</Value>
    </Parameter>
 
    <CustomData>
@@ -458,9 +596,8 @@
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
-   <Options>0x1</Options>
+   <Options>0x3</Options>
 
    <Parameter>
     <Index>0</Index>
@@ -471,7 +608,7 @@
     <MappedMinimum>0</MappedMinimum>
     <MappedMaximum>100</MappedMaximum>
     <MidiCC>24</MidiCC>
-    <Value>100</Value>
+    <Value>48.8188972473145</Value>
    </Parameter>
 
    <Parameter>
@@ -483,7 +620,7 @@
     <MappedMinimum>1</MappedMinimum>
     <MappedMaximum>100</MappedMaximum>
     <MidiCC>25</MidiCC>
-    <Value>100</Value>
+    <Value>46.2125968933105</Value>
    </Parameter>
 
    <Parameter>
@@ -523,7 +660,7 @@
     <Index>6</Index>
     <Name>bandwidth</Name>
     <Symbol>bandwidth</Symbol>
-    <Value>74.9700012207031</Value>
+    <Value>75</Value>
    </Parameter>
 
    <Parameter>
@@ -541,88 +678,56 @@
   </Data>
  </Plugin>
 
- <!-- GxEcho-Stereo -->
+ <!-- Galactic -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>GxEcho-Stereo</Name>
-   <URI>http://guitarix.sourceforge.net/plugins/gx_echo_stereo#_echo_stereo</URI>
+   <Name>Galactic</Name>
+   <URI>https://hannesbraun.net/ns/lv2/airwindows/galactic</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
    <Options>0x1</Options>
 
    <Parameter>
     <Index>0</Index>
-    <Name>Mode</Name>
-    <Symbol>mode</Symbol>
-    <Value>0</Value>
+    <Name>Replace</Name>
+    <Symbol>replace</Symbol>
+    <Value>0.5</Value>
    </Parameter>
 
    <Parameter>
     <Index>1</Index>
-    <Name>R Level</Name>
-    <Symbol>level_r</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>26</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>100</MappedMaximum>
-    <MidiCC>26</MidiCC>
-    <Value>100</Value>
+    <Name>Brightness</Name>
+    <Symbol>brightness</Symbol>
+    <Value>0.5</Value>
    </Parameter>
 
    <Parameter>
     <Index>2</Index>
-    <Name>R Time</Name>
-    <Symbol>timt_r</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>27</MappedControlIndex>
-    <MappedMinimum>1</MappedMinimum>
-    <MappedMaximum>2000</MappedMaximum>
-    <MidiCC>27</MidiCC>
-    <Value>2000</Value>
+    <Name>Detune</Name>
+    <Symbol>detune</Symbol>
+    <Value>0.5</Value>
    </Parameter>
 
    <Parameter>
     <Index>3</Index>
-    <Name>L Level</Name>
-    <Symbol>level_l</Symbol>
-    <Value>57.4803161621094</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>4</Index>
-    <Name>L Time</Name>
-    <Symbol>timt_l</Symbol>
-    <Value>100</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>5</Index>
-    <Name>LFO</Name>
-    <Symbol>lfo</Symbol>
-    <Value>0.200000002980232</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>6</Index>
-    <Name>Link (L+R)</Name>
-    <Symbol>link</Symbol>
+    <Name>Bigness</Name>
+    <Symbol>bigness</Symbol>
     <Value>1</Value>
    </Parameter>
 
    <Parameter>
-    <Index>7</Index>
-    <Name>BYPASS</Name>
-    <Symbol>BYPASS</Symbol>
+    <Index>4</Index>
+    <Name>Dry/Wet</Name>
+    <Symbol>drywet</Symbol>
     <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>13</MappedControlIndex>
+    <MappedControlIndex>91</MappedControlIndex>
     <MappedMinimum>0</MappedMinimum>
     <MappedMaximum>1</MappedMaximum>
-    <MidiCC>13</MidiCC>
+    <MidiCC>91</MidiCC>
     <Value>0</Value>
    </Parameter>
 
@@ -634,58 +739,71 @@
   </Data>
  </Plugin>
 
- <!-- GxReverb-Stereo -->
+ <!-- MDA Combo -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>GxReverb-Stereo</Name>
-   <URI>http://guitarix.sourceforge.net/plugins/gx_reverb_stereo#_reverb_stereo</URI>
+   <Name>MDA Combo</Name>
+   <URI>http://drobilla.net/plugins/mda/Combo</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
-   <Volume>1.27</Volume>
    <ControlChannel>1</ControlChannel>
    <Options>0x1</Options>
 
    <Parameter>
     <Index>0</Index>
-    <Name>Dry/Wet</Name>
-    <Symbol>dry_wet</Symbol>
-    <MidiChannel>1</MidiChannel>
-    <MappedControlIndex>91</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>100</MappedMaximum>
-    <MidiCC>91</MidiCC>
-    <Value>0</Value>
+    <Name>Model</Name>
+    <Symbol>model</Symbol>
+    <Value>1</Value>
    </Parameter>
 
    <Parameter>
     <Index>1</Index>
-    <Name>LFO</Name>
-    <Symbol>lfo</Symbol>
-    <Value>0.200000002980232</Value>
+    <Name>Drive</Name>
+    <Symbol>drive</Symbol>
+    <Value>0.5</Value>
    </Parameter>
 
    <Parameter>
     <Index>2</Index>
-    <Name>Roomsize</Name>
-    <Symbol>roomsize</Symbol>
+    <Name>Bias</Name>
+    <Symbol>bias</Symbol>
     <Value>0.5</Value>
    </Parameter>
 
    <Parameter>
     <Index>3</Index>
-    <Name>Damp</Name>
-    <Symbol>damp</Symbol>
-    <Value>0.200000002980232</Value>
+    <Name>Output</Name>
+    <Symbol>output</Symbol>
+    <MidiChannel>1</MidiChannel>
+    <MappedControlIndex>7</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>1</MappedMaximum>
+    <MidiCC>7</MidiCC>
+    <Value>1</Value>
    </Parameter>
 
    <Parameter>
     <Index>4</Index>
-    <Name>Mode</Name>
-    <Symbol>mode</Symbol>
+    <Name>Stereo</Name>
+    <Symbol>stereo</Symbol>
     <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>HPF Freq</Name>
+    <Symbol>hpf_freq</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>HPF Reso</Name>
+    <Symbol>hpf_reso</Symbol>
+    <Value>0.5</Value>
    </Parameter>
 
    <CustomData>
@@ -712,6 +830,14 @@
   <Connection>
    <Source>Null:out_1</Source>
    <Target>SonoBus:in_2</Target>
+  </Connection>
+  <Connection>
+   <Source>librespot:out_0</Source>
+   <Target>Built-in Audio Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>librespot:out_1</Source>
+   <Target>Built-in Audio Stereo:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>SonoBus:out_1</Source>
@@ -771,79 +897,67 @@
   </Connection>
   <Connection>
    <Source>Carla:Xentotune:output_1</Source>
-   <Target>Carla:GxAmplifier-X:in</Target>
+   <Target>Carla:TAP Tubewarmth:Input</Target>
   </Connection>
   <Connection>
    <Source>Carla:Xentotune:output_2</Source>
-   <Target>Carla:GxAmplifier-X:in</Target>
+   <Target>Carla:TAP Tubewarmth:Input</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxAmplifier-X:Out</Source>
+   <Source>Carla:TAP Tubewarmth:Output</Source>
    <Target>Carla:GxWahwah:In</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxAmplifier-X:Out</Source>
+   <Source>Carla:GxWahwah:Out</Source>
    <Target>Carla:GxTremolo:In</Target>
   </Connection>
   <Connection>
+   <Source>Carla:GxTremolo:Out</Source>
+   <Target>Carla:Calf Phaser:In L</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Calf Phaser:Out L</Source>
+   <Target>Carla:Calf Multi Chorus:In L</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Calf Multi Chorus:Out L</Source>
+   <Target>Carla:Modulay:Audio Input 1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:Modulay:Audio Output 1</Source>
+   <Target>Carla:Shiroverb:Audio Input 1</Target>
+  </Connection>
+  <Connection>
    <Source>Carla:Shiroverb:Audio Output 1</Source>
-   <Target>Carla:GxReverb-Stereo:In1</Target>
+   <Target>Carla:Galactic:In L</Target>
   </Connection>
   <Connection>
    <Source>Carla:Shiroverb:Audio Output 2</Source>
-   <Target>Carla:GxReverb-Stereo:In</Target>
+   <Target>Carla:Galactic:In R</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxWahwah:Out</Source>
-   <Target>Carla:GxChorus-Stereo:In</Target>
+   <Source>Carla:Galactic:Out L</Source>
+   <Target>Carla:MDA Combo:Left In</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxWahwah:Out</Source>
-   <Target>Carla:GxPhaser:In</Target>
+   <Source>Carla:Galactic:Out R</Source>
+   <Target>Carla:MDA Combo:Right In</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxReverb-Stereo:Out1</Source>
-   <Target>SonoBus:in_1</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxReverb-Stereo:Out1</Source>
+   <Source>Carla:MDA Combo:Left Out</Source>
    <Target>Built-in Audio Stereo:playback_FL</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxReverb-Stereo:Out1</Source>
+   <Source>Carla:MDA Combo:Left Out</Source>
+   <Target>SonoBus:in_1</Target>
+  </Connection>
+  <Connection>
+   <Source>Carla:MDA Combo:Right Out</Source>
    <Target>Built-in Audio Stereo:playback_FR</Target>
   </Connection>
   <Connection>
-   <Source>Carla:GxReverb-Stereo:Out</Source>
+   <Source>Carla:MDA Combo:Right Out</Source>
    <Target>SonoBus:in_2</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxEcho-Stereo:Out</Source>
-   <Target>Carla:GxReverb-Stereo:In1</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxEcho-Stereo:Out1</Source>
-   <Target>Carla:GxReverb-Stereo:In</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxPhaser:Out</Source>
-   <Target>Carla:Shiroverb:Audio Input 1</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxPhaser:Out</Source>
-   <Target>Carla:GxEcho-Stereo:In</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxChorus-Stereo:Out</Source>
-   <Target>Carla:Shiroverb:Audio Input 1</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxChorus-Stereo:Out</Source>
-   <Target>Carla:GxEcho-Stereo:In</Target>
-  </Connection>
-  <Connection>
-   <Source>Carla:GxChorus-Stereo:Out1</Source>
-   <Target>Carla:GxEcho-Stereo:In1</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
@@ -851,11 +965,7 @@
   </Connection>
   <Connection>
    <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:GxAmplifier-X:event-in</Target>
-  </Connection>
-  <Connection>
-   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:Shiroverb:event-in</Target>
+   <Target>Carla:TAP Tubewarmth:event-in</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
@@ -863,23 +973,31 @@
   </Connection>
   <Connection>
    <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:GxReverb-Stereo:event-in</Target>
-  </Connection>
-  <Connection>
-   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:GxEcho-Stereo:event-in</Target>
-  </Connection>
-  <Connection>
-   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:GxPhaser:event-in</Target>
-  </Connection>
-  <Connection>
-   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
-   <Target>Carla:GxChorus-Stereo:event-in</Target>
-  </Connection>
-  <Connection>
-   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
    <Target>Carla:GxTremolo:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Calf Phaser:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Calf Multi Chorus:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Modulay:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Shiroverb:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:Galactic:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:XentoTune Wrapper:(capture_0) from XentoTune Wrapper</Source>
+   <Target>Carla:MDA Combo:event-in</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
@@ -890,16 +1008,19 @@
    <Target>setBfree:midi_in</Target>
   </Connection>
   <Positions>
-   <Position x1="1497" y1="706" x2="1916" y2="788">
+   <Position x1="1677" y1="678" x2="2153" y2="678">
     <Name>Carla</Name>
    </Position>
-   <Position x1="1655" y1="557" x2="2108" y2="1212">
+   <Position x1="1655" y1="557" x2="2121" y2="1213">
     <Name>Built-in Audio Stereo</Name>
    </Position>
-   <Position x1="1566" y1="1299">
+   <Position x1="1681" y1="1214">
     <Name>Null</Name>
    </Position>
-   <Position x1="1980" y1="1224">
+   <Position x1="1923" y1="1439">
+    <Name>librespot</Name>
+   </Position>
+   <Position x1="1933" y1="1179">
     <Name>SonoBus</Name>
    </Position>
    <Position x1="1731" y1="1463">
@@ -911,7 +1032,7 @@
    <Position x1="1798" y1="1349">
     <Name>Surge XT</Name>
    </Position>
-   <Position x1="1098" y1="1079" x2="2179" y2="1315">
+   <Position x1="1053" y1="926" x2="2179" y2="1315">
     <Name>Midi-Bridge</Name>
    </Position>
   </Positions>

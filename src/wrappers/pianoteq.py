@@ -5,18 +5,20 @@ from midi_implementation.midi1 import control_change as cc
 
 # parameters
 headless = True
+version = "8 STAGE"
+preset_on_init = "NY Steinway D Classical"
+
+# definitions
 client_name = "Pianoteq Wrapper"
 commandline = [
     "/usr/bin/pw-jack",
-    "/usr/bin/Pianoteq*",
-    #"/home/pi/Pianoteq 8 STAGE/arm-64bit/Pianoteq 8 STAGE",
+    "/usr/bin/Pianoteq " + version,
     "--preset",
-    "NY Steinway D Classical",
+    preset_on_init,
 ]
 if headless:
     commandline.append("--headless")
 
-# definitions
 class Script:
     def __init__(self):
         self.bank = 0
