@@ -22,7 +22,7 @@ I use a Raspberry Pi 5 8GB RAM together with:
 
 (Get the Raspberry Pi with the fastest CPU. It is usually the latest generation.
 As for RAM, it needs at least 4GB.
-An alternative to HifiBerry is Blokas PiSound.
+Alternatives to HifiBerry include Zynthian and Blokas Pisound.
 As for SD cards, get a high-quality one from Sandisk, Samsung, or Raspberry Pi with 32GB to 64GB.)
 
 **Intuitive Instruments Exquis.**
