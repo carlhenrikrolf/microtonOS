@@ -3,17 +3,40 @@
 > [!warning]
 > These are like my opinions, man. Not some kind of universal theory of human aesthetical preferences in harmony.
 
-- Tension and release
+Most music of the world let several notes sound simultaneously.
+Singing in octaves is common.
+So is using a drone—a constant note played simultaneously as the melody.
+When I say *chord*, I mean something more complicated.
+Typically at least three notes playing simultaneously and several notes changing at the same time.
+There is plenty of theoretical tools for analysing chord progressions.
+However, they generalise poorly across different cultures and tunings.
+Therefore, I only analyse chord progression in terms of unstable and stable chords, or tension and release if you will.
 
 ## Equal
 
-- planing
-- constant structures
-- line clichés
+There are two ways of thinking of equal distances in pitch: in Hertz (Hz) and in cents (¢).
+The relationship between them is
+$$z\ \mathrm{cents} = 1200\log_2\left(\frac{x\ \mathrm{Hz}}{y\ \mathrm{Hz}}\right)$$
+so if a distance in cents is constant, then it is not in Hz and vice versa.
+The concept of ombak from Balinese music (in European organ music this corresponds to voix céleste and in accordion music to tremolo) illustrates the relationship.
+In *ombak* each note is doubled at slightly different frequences.
+The difference is constant in Hz causing beating.
+However, the musical scales are constant in terms of cents.
 
 <img src="../resources/beating.png" width="60%" />
 
-Constant beating across an "octave-on-average".
+Above, two oscillscopes have been superimposed.
+Each oscilloscope shows the waveform of a constant Hz pair.
+The difference between them is that the distance between average frequency of the two oscilloscopes is one octave.
+As an octave is a doubling of frequencies it is only constant in terms of cents.
+Apart from ombak, constant differences in Hz are uncommon although they could play a role in ancient Andean music and Australian aboriginal music.
+
+Equal distances in terms of cents is much more common and is used in chords in European, American, Melanesian, Georgian, and Bantu musics.
+One useful technique when notes are at an equal distance is *planing*.
+In planing, the distances between the notes in the chords is constant.
+However, the chord as a whole moves up and down.
+Another useful technique is *line clichés*.
+In a line cliché, one set of notes is constant (similar to a drone) whereas another set of notes move in equal steps up or down.
 
 ## Harmonic
 
@@ -21,11 +44,9 @@ Constant beating across an "octave-on-average".
 
 ## Pythagorean
 
+**12edo.**
+
 ![circle of fifths in 12edo](../resources/twelve5ths.svg)
-
-![circle of fifths in 19edo](../resources/nineteen5ths.svg)
-
-![circles of fifths in 15edo](../resources/fifteen5ths.svg)
 
 |style     |voices (in 12edo)|fifths (number of)|
 |----------|-----------------|------------------|
@@ -35,6 +56,13 @@ Constant beating across an "octave-on-average".
 |flamenco|2,3,4,5|1 to 6|
 |salsa, tango|8,9|2 to 3|
 |12-tone music|any|unlimited|
+
+**Other edos.**
+
+![circle of fifths in 19edo](../resources/nineteen5ths.svg)
+
+![circles of fifths in 15edo](../resources/fifteen5ths.svg)
+
 
 ## Repetition legitimises
 
