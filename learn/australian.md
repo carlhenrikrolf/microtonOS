@@ -3,14 +3,25 @@
 > [!warning]
 > My knowledge of Australian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.
 
-The traditional music of Australian aboriginals is predominantly vocal. Sometimes it is accompanied by a drone played on a didgeridoo.
+Australian aboriginal music is traditionally centered around singing in groups.
+Singing is mostly unison with the exception being singing in octaves.
+Accompaniment is percussive with clapping hands, thighs, and sticks.
+Boomerangs can also be used as instruments.
+The only tonal instrument is the didjeridu, which plays a drone, but it is not used by all aboriginal societies.
+There doesn't seem to be many words describing music theoretical concepts.
+Nonetheless, the notes are highly ordered.
+Making sense of this order as an outsider is very difficult and the scales below are bound to be inaccurate.
 
-<table>
-<tr><td>Hertz</td><td>151.0,154.0,157.5,<br />161,164,167.5,<br />...,<br />241.0,244.0,247.5</td></tr>
-<tr><td>cents</td><td>0,34,73<br />111,143,180,<br />...,<br />809,831,855</td></tr>
-</table>
 
-The scale above is from a small song from the Pitjantjatjara people.
+|       | 6ed3/2 | 10Hz steps |
+|-------|--------|------------|
+| cents | 0,117,234,<br />351,468,585,<br />702,819,939,1053,1170 | 0,111,215,<br />314,402,495<br />579,659,736,809 |
+| Hz    | 151,162,173,<br />185,198,212<br />226,242,259,277 | 151,161,171,<br />181,191,201,<br />211,221,231,241 |
+
+Many more notes separated by very small intervals are used, but the scales above include the more important notes.
+At least among the Pitjantjatjara, there does seem to be a 10Hz period between used notes.
+Intervals of 1 or 3 steps in 6ed3/2 seem particularly prominent.
+Apart from the tonic, melodies dwell on the fourth and the fifth above.
 
 ## References
 Udo Will, Catherine Ellis. 1996. *[A Re-Analyzed Australian Western Desert Song: Frequency Performance and Interval Structure](https://doi.org/10.2307/852059).* Ethnomusicology 40, no. 2: 187–222.

@@ -313,6 +313,10 @@ so are their splitting lines.
 
 ## Tunings
 
+I have tried to cover all parts of the world.[^world]
+
+[^world]: There are multiple cultures I have failed to acquire enough information about. Pre-colonial American cultures are particularly absent. It feels like it should be possible to find scales on flutes from archaelogical excavations—especially from the Maya, Aztec, and Anazasi cultures. Furthermore, there ought to be knowledge about scales in Inuit throat singing. In Africa, South Africa might hold a distinct musical culture from the interactions between the Khoisan and Bantu peoples in e.g. the Xhosa Kingdom. Furthermore, I have found very little information about tuning the tube zither from Madagascar apart from that it is roughly diatonic. Finally, Polynesian music is supposedly distinct from Melanesian, Indonesian, and Filipino musics.
+
 ⚫⚫
 **5edo (ombak).**
 Roughly 240¢ steps.
