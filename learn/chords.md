@@ -3,15 +3,23 @@
 > [!warning]
 > These are like my opinions, man. Not some kind of universal theory of human aesthetical preferences in harmony.
 
-**Tension and release.**
+- Tension and release
 
-**Harmonic.**
+## Equal
+
+- planing
+- constant structures
+- line clichés
+
+<img src="../resources/beating.png" width="60%" />
+
+Constant beating across an "octave-on-average".
+
+## Harmonic
 
 ![oscilloscopes](../resources/oscilloscopes.png)
 
-**Equal divisions.**
-
-**Pythagorean.**
+## Pythagorean
 
 ![circle of fifths in 12edo](../resources/twelve5ths.svg)
 
@@ -28,9 +36,8 @@
 |salsa, tango|8,9|2 to 3|
 |12-tone music|any|unlimited|
 
-**Unison.**
+## Repetition legitimises
 
-**Repetition legitimises.**
 Below, degree is the number of steps in an equal division. It does not matter precisely, but each degree is around 350¢/2=175¢. In other words, it's a kind of average between one and two semitones.
 
 | Degree | Pyth- | agorean                            | harm- | onic   |
