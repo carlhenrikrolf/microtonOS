@@ -9,15 +9,19 @@ the guitar-like ჩონგური (chonguri),
 the bagpipe გუდასტვირი (gudastviri), and 
 the flute სალამური (salamuri).
 Nonetheless, chanting is the most prominent part of Georgian music.
-Harmony is often in fourths and fifths.
 
-|        | 4ed3/2 | 20ed3/2 |
-|--------|--------|---------|
-|"major" | 1,2,3,4| 5,10,15,20 |
-|"minor" | (indistinguishable)|5,9,15,20 |
+|        | 4ed3/2 | 8ed4/3 | 20ed3/2 |
+|--------|--------|--------|---------|
+|"major" | 1,2,3,4| | 5(6),10,15,20 |
+|"minor" | | 3,5,8,11 | 5(6),9,15,20 |
 
-The scales are repeated on the perfect fith.
-In other words, the fifth is the equave.
+The scales are repeated on the perfect fifth, or, ins some cases and regions on the perfect fourth.
+In other words, the fifth or the fourth takes the equivalence function that the octave often has.
+Parentheses indicate notes that are sometimes used vertically (in a chord) but not horizontally (in a melodic line).
+
+> **Chords.**
+>
+> A common kind of triad in Georgian music is the sus4 chord.
 
 ## References
 

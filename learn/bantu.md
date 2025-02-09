@@ -23,8 +23,12 @@ Although subsaharan Africa is diverse, most countries in the region today have a
 
 Mwànjo means octave in Baganda rather than being a name of a scale or tuning.
 Uganda and Zimbabwe are taken as examples here, but 5edo and 7edo tunings can approximate many tunings of subsaharan Africa.
-For one, tuning tends to be highly unstandardised, so 7edo and 5edo prove useful median tunings.
-For another, harmony in parallel major thirds is common and easy to play on a xylophone tuned near 7edo or 5edo.
+Tuning tends to be highly unstandardised, so 7edo and 5edo prove useful median tunings.
+
+> **Chords**
+>
+> Harmony in parallel major thirds is common and easy to play on a xylophone tuned near 7edo or 5edo.
+
 It is difficult to speak of modes when all notes in the scale are at an equal distance, but could be done for some of the 6-tone and 5-tone subsets of 7edo.
 It can also be done for dambatsoko similarly to European or Indian scales.
 

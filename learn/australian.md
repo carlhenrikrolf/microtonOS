@@ -28,4 +28,4 @@ Udo Will, Catherine Ellis. 1996. *[A Re-Analyzed Australian Western Desert Song:
 
 Catherine Ellis. 1991. *[Exactitude d’intonation et précision de l’ensemble dans la musique de l’Australie centrale](https://web.archive.org/web/20241118214823/https://journals.openedition.org/ethnomusicologie/1592)*. Cahiers d’ethnomusicologie, 4: 207-226.
 
-Jan Lauridsen. 1983. [Musical scales in Australian aboriginal songs: Structure and social implications](https://nla.gov.au/nla.cat-vn3287519). University of Maryland College Park. 
+Jan Lauridsen. 1983. [Musical scales in Australian aboriginal songs:](https://nla.gov.au/nla.cat-vn3287519) [Structure and social implications](https://search.proquest.com/openview/ee66e6e49643b3790ba3cb1289fed562/1?pq-origsite=gscholar&cbl=18750&diss=y&casa_token=uum1mj1jRWwAAAAA:j_vc8WSDI63hOPBqlz2LIAZH0mCRg4i6qkah_g1A9Csdj1ZOcVfmA49ROfcdpOhcrIaMHB2DvTk). University of Maryland College Park. 

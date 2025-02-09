@@ -57,7 +57,7 @@ Below, degree is the number of steps in an equal division. It does not matter pr
 | 13     | +3    | 6,13                               | 13    | harm13 |
 | 14     | +5    | maj7                               | 15    | neu7   |
 | 15     | +7    | &flat;2,&flat;9,&sharp;8,&sharp;15 | 17    | harm15 |
-| 16     | -3    | m\*,min\*                                | 19    | -\*    |
+| 16     | -3    | m\*,min\*                          | 19    | -\*    |
 
 Note that susX replaces the major third with X, and symbols marked with \* also replace the major third. If a Pythagorean symbol is empty, it means that it's inherent. If a harmonic symbol is empty, it means that its not defined.
 

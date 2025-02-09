@@ -17,6 +17,12 @@ Common instruments include guitars (Spain and French-speaking Europe) and zither
 |Romanian minor|2,3,6, <br /> 7,9,10,12|
 |flamenco|1,3,4,5, <br /> 7,8,10,11,12|
 
+> **Chords**
+>
+> An integral chord progression to flamenco is the Andalusian cadence:
+> IVm(9),III(9),&flat;II7,Iadd&flat;9.
+> A noteable feature is that the Iadd&flat;9 chord is stable.
+
 ## References
 
 <details>

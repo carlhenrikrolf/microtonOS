@@ -26,3 +26,12 @@ The harmonic minor and Neapolitan minor scales are modulations associated with c
 |mixolydian | 4 |
 |minor (aeolian) | 5 |
 |locrian | 6 |
+
+> **Chords**
+>
+> Common chords include major triads, minor triads, and the 4-note dominant 7 chord.
+> Progressions often down in fifths and up in fourths.
+> The dominant chord is an unstable chord leading to the tonic chords.
+> Examples include the major IIm,V7,I progression and the minor IIm7&flat;5,V7,Im progression.
+> In minor, the minor scale usually modulates to the melodic or harmonic minor scale on the V7 chord.
+> The plagal cadences I,IV and Im,IVm are also common.
