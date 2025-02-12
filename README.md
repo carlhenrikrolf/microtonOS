@@ -11,6 +11,8 @@ At first glance, microtonOS is ticking all the boxes.
 It is screen-free, and, at its height, visual feedback is a somewhat culture-agnostic geometric representation of the tuning system.
 The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 midi controller + 1 Linux computer.
 
+<video controls src="resources/maqam_saba_in_alpha.mp4" title="Maqam Saba in 9ed3/2"><p>Maqam Saba in 9ed3/2</p></video>
+
 ## Components
 **Raspberry Pi.**
 I use a Raspberry Pi 5 8GB RAM together with:
