@@ -13,15 +13,30 @@ Nonetheless, the notes are highly ordered.
 Making sense of this order as an outsider is very difficult and the scales below are bound to be inaccurate.
 
 
-|       | 6ed3/2 | 10Hz steps |
-|-------|--------|------------|
-| cents | 0,117,234,<br />351,468,585,<br />702,819,939,1053,1170 | 0,111,215,<br />314,402,495<br />579,659,736,809 |
-| Hz    | 151,162,173,<br />185,198,212<br />226,242,259,277 | 151,161,171,<br />181,191,201,<br />211,221,231,241 |
+| rank | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|------|---|---|---|---|---|---|---|---|
+| 31edo| 3 | 2 | 0 | 31| 4 | 5 | 18| 9 |
+| ¢    | 116 | 77 | 0 | 1200 | 155 | 194 | 697 | 348 |
+
+Intervals of 3 or 2 steps in 31edo seem particularly prominent.
+Apart from the tonic, melodies dwell on the fourth and the fifth above.
+
+At least among the Pitjantjatjara, there does seem to be a 10Hz period between used notes.
+
+| Hz | cumulative (¢) | difference (¢) |
+|-------|-------|--------|
+| 151 | 0 |   |
+| 161 | 111 | 111 |
+| 171 | 215 | 104 |
+| 181 | 314 | 99 |
+| 191 | 407 | 93 |
+| 201 | 495 | 88 |
+| 211 | 579 | 84 |
+| 221 | 659 | 80 |
+| 231 | 736 | 77 |
+| 241 | 809 | 73 |
 
 Many more notes separated by very small intervals are used, but the scales above include the more important notes.
-At least among the Pitjantjatjara, there does seem to be a 10Hz period between used notes.
-Intervals of 1 or 3 steps in 6ed3/2 seem particularly prominent.
-Apart from the tonic, melodies dwell on the fourth and the fifth above.
 
 ## References
 Udo Will, Catherine Ellis. 1996. *[A Re-Analyzed Australian Western Desert Song: Frequency Performance and Interval Structure](https://doi.org/10.2307/852059).* Ethnomusicology 40, no. 2: 187–222.

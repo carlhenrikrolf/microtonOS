@@ -1,4 +1,4 @@
-# Georgian Classical Music
+# Georgian Traditional Music
 
 > [!warning]
 > My knowledge of Georgian music is limited, so mistakes are very likely. If you know something I don't, please raise an issue on Github.

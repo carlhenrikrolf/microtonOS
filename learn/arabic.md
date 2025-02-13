@@ -62,6 +62,7 @@ The latter, more extreme case can be illustrated with 9ed3/2, where the octave f
 |(maqam bastanikar)  <br /> مقام بَسته نِكار <!--x--> | 2,4,6 <br /> 8,9,13,14 <br /> 17,18,22,23 |
 
 Note that maqam bastanikar (which contains maqam saba within it) lacks octave equivalence in both senses.
+9ed3/2 can also approximate variants sikah baladi, hijaz gharib, and jiharkah (a variant of 'ajam).
 
 ## References
 Johnny Farraj, Sami Abu Shumeys. *Inside Arabic Music*.
