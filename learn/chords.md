@@ -72,7 +72,7 @@ Below, degree is the number of steps in an equal division. It does not matter pr
 | ------ | ----- | ---------------------------------- | ----- | ------ |
 | 1      | ±0    |                                    | 4     |        |
 | 2      | +2    | 2                                  |       |        |
-| 3      | +4    |                                    | 5     | ±\*    |
+| 3      | +4    |                                    | 5     | ±\*,aug\*\*    |
 | 4      | -1    | 4,11                               |       |        |
 | 5      | +1    |                                    | 6     |        |
 | 6      | -4    | &flat;6,&flat;13                   |       |        |
@@ -85,10 +85,24 @@ Below, degree is the number of steps in an equal division. It does not matter pr
 | 13     | +3    | 6,13                               | 13    | harm13 |
 | 14     | +5    | maj7                               | 15    | neu7   |
 | 15     | +7    | &flat;2,&flat;9,&sharp;8,&sharp;15 | 17    | harm15 |
-| 16     | -3    | m\*,min\*                          | 19    | -\*    |
+| 16     | -3    | m\*,min\*                          | 19    | -\*,dim\*\*    |
 
-Note that susX replaces the major third with X, and symbols marked with \* also replace the major third. If a Pythagorean symbol is empty, it means that it's inherent. If a harmonic symbol is empty, it means that its not defined.
+Note that susX replaces the major third with X, and symbols marked with \* also replace the major third. If a Pythagorean symbol is empty, it means that it's inherent.
+The symbols marked by \*\* iteratively stack major thirds and minor thirds respectively.
+In 12edo, 3-note and 4-note chords respectively are the only options but other tuning systems can use more notes.
+If a harmonic symbol is empty, it means that its not defined.
 
+As an example, consider the [demo song in 9ed3/2](https://github.com/user-attachments/assets/df7541df-ebf6-41b0-8a2d-45e2938c4093).
+
+
+<table>
+<tr><td>Adim<sup>9</sup></td><td>D-<sup>7</sup></td><td>G±neu<sup>7</sup>harm<sup>11</sup></td><td>A±harm<sup>7</sup></td></tr>
+<tr><td>A&#x1D1EA;-<sup>7</sup></td><td>G&flat;±neu<sup>7</sup></td><td>F&#x1D1EA;±neu<sup>7</sup></td><td></td>
+<tr><td>Adim<sup>9</sup></td><td>D-<sup>7</sup></td><td>G±neu<sup>11</sup></td><td>B&#x1D1E9;±E&#x1D1E9;±</td></tr>
+<tr><td>Adim<sup>9</sup></td><td>D-<sup>7</sup></td><td>G±neu<sup>7</sup>harm<sup>11</sup></td><td></td></tr>
+</table>
+
+If half-sharp &#x1D1E9; (sori) and half-flat &#x1D1EA; (koron) are not rendered to symbols similar to > and p respectively, then the affected chords should be read as Ap±harm<sup>7</sup>, Fp±neu<sup>7</sup>, B>±, and E>±. I have used different symbols for F&#x1D1EA;  and E&#x1D1E9; to emphasise that F&#x1D1EA;  is only 1170¢ below E&#x1D1E9;. Note that the Pythagorean major one step larger than the harmonic and the Pythagorean minor is one step smaller than the harmonic.
 
 
 
