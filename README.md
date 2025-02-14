@@ -241,7 +241,7 @@ I suggest to think of musically useful isomorphic layouts as belonging to one of
 Each category depends on three parameters:
 whether the layout is mirrored (flipped) in the left–right direction,
 whether it is flipped in the up–down position,
-and the value of the 'dilation'.
+and the value of the "dilation".
 The dilation is notated $d$ and defined separately for each category below.
 A suitable value is the size of the minor or neutral third.
 For a more jazzy sound (or the Studio Ghibli sound), try the major third or perfect fourth.
@@ -362,8 +362,8 @@ See also *15edo*.
 
 ⚫🔴
 **Hexany (uneven).**
-
-
+A 6-tone scale in just intonation.
+A combination product set used in [experimental musics](learn/experimental.md).
 
 ⚫🟠
 **43Hz steps A#=413Hz.**
@@ -372,17 +372,19 @@ Possibly used in [Ancient Andean music](learn/andean.md).
 Mapped to black keys plus the D-key.
 
 ⚫🟡
-**13ed3 (octaveless).**
+**13ed3.**
 146¢ steps.
 Also known as the equally tempered Bohlen–Pierce scale.
-Used in experimental music.
+Used in [experimental music](learn/experimental.md).
 Mapped to white keys.
-
 
 
 ⚫🟢
 **20Hz steps A=440Hz.**
-The harmonic series.
+The [harmonic series](learn/harmonic.md).
+An important concept in many musics.
+Used more literally in [Mongolian throat singing](learn/mongolian.md) and [Chinese guqin music](learn/chinese.md).
+Mapped to the white keys.
 
 ⚫🔵
 **9edo (ombak).**
@@ -394,19 +396,21 @@ The B, C, E, and F-keys can be used as accidentals.
 
 ⚫🟣
 **Dekany (uneven).**
+A 10-tone scale in just intonation.
+A combination product set used in [experimental music](learn/experimental.md).
 
 
 ⚫⚪
-**Hui 7–13 (11-note superset).**
+**11-note superset of hui 7–13 (uneven).**
 Series of notes $1\leq p/q\leq2$ for $p,q\in\mathbb{N}$.
-Coincides with the notes produced by guqin pinching technique, 按音 (an yin), on hui 7 and above.
+Coincides with the notes produced by pinching technique (an yin) on hui 7 and above in [Chinese guqin music](learn/chinese.md).
 In addition, it includes the unmarked 7/6, 7/5, and 7/4.
 The G#/Ab key is muted and A is the root.
 
 🔴⚫
 **11 harmonics (uneven).**
 Series of notes $1\leq p/2^{n} \leq2$ for $p,n\in\mathbb{N}$.
-The harmonic (otonal) series compressed into an octave.
+The [harmonic (otonal) series](learn/harmonic.md) reduced into an octave.
 Coincides with the notes produced by guqin flageolet technique, 泛音 (fan yin), or any flageolet techniques on any other instruments, e.g. guitar, for that matter.
 The D key is muted and F is the root.
 
@@ -414,7 +418,7 @@ The D key is muted and F is the root.
 🔴🔴
 **11 subharmonics (uneven).**
 Series of notes $1\leq2^{n}/q \leq2$ for $q,n\in\mathbb{N}$.
-The subhamronic (utonal) series compressed into an octave.
+The [subharmonic (utonal) series](learn/experimental.md) reduced into an octave.
 Used in experimental music.
 The G#/Ab key is muted and F is the root.
 
@@ -431,6 +435,7 @@ DEFAULT
 "Normal" tuning.
 Approximates the perfect fifth well.
 Was independently discovered in [China](learn/east_asian.md) and [Europe](learn/european.md).
+From China, it influencedd [Japanese music](learn/japanese.md).
 From Europe, it influenced [Romani music](learn/romani.md) and [American music](learn/american.md).
 It is good for approximating [Ethiopian secular music](learn/ethiopian.md), and is used to approximate most of the rest of the world's music despite not being optimal.
 Indeed, most contemporary music is in 12edo.
@@ -440,7 +445,7 @@ Indeed, most contemporary music is in 12edo.
 Approximates [Australian aboriginal music](learn/australian.md).
 
 🔴🔵
-**8ed3/2 (octaveless).**
+**8ed3/2.**
 88¢ steps.
 The 4ed3/2 subset is used in [Georgian traditional music](learn/georgian.md).
 This subset is mapped to white keys.
@@ -448,7 +453,8 @@ This subset is mapped to white keys.
 🔴🟣 
 **14edo.**
 86¢ steps.
-The 7-note subset approximates scales used by many cultures around the world such as in [Thai classical music](learn/thai.md), [Bantu traditional music](learn/bantu.md), for bala in [Malian classical music](learn/malian.md), and it was possibly used in [ancient Andean music](learn/andean.md).
+The 7-note subset approximates scales used by many cultures around the world such as in [Thai classical music](learn/thai.md), [Bantu traditional music](learn/bantu.md), [Melanesian traditional music](learn/melanesian.md) and, for bala, in [Malian classical music](learn/malian.md).
+It was possibly used in [ancient Andean music](learn/andean.md).
 
 🔴⚪ 
 **15edo.**
@@ -459,9 +465,9 @@ See also *5edo (ombak)*.
 
 
 🟠⚫ 
-**9ed3/2 (octaveless).**
+**9ed3/2.**
 78¢ steps.
-Approximates the Carlos alpha scale (experimental music).
+Approximates the Carlos alpha scale, which is [rich in harmonics](learn/harmonic.md).
 It completely misses the octave, but (or because of this) approximates maqam saba from [Arabic classical music](learn/arabic.md) very well.
 The notes are mapped such that maqam saba can be played from D above middle C the same way as maqam saba would be played in other tunings.
 
@@ -482,17 +488,15 @@ I approximate [Iranian classical music](learn/iranian.md) with 17edo.
 **17-note Pythagorean (uneven).**
 [Pythagorean tuning](learn/pythagorean.md) seems to have been developed independently in East Asia and the Middle East.
 The 17 notes have historically been a foundation for [Iranian](learn/iranian.md), [Arabic](learn/arabic.md), and [Turkish](learn/turkish.md) music.
-[Ancient greek music](learn/greek.md) used a 12-note subset, and so have [East-Asian classical music](learn/east_asian.md).
-
+[Ancient greek music](learn/greek.md) used a 12-note subset, and so have [Chinese](learn/chinese.md) and [Japanese](learn/japanese.md) classical musics.
 
 🟠🟢 
-**41edo (18-note subset).**
+**18-note subset of 41edo (uneven).**
 Multiples of 29¢ steps.
 Approximates the perfect fifth *very* well.
 Approximates [Malian classical music](learn/malian.md).
 The black keys plus C and F (i.e. like a Db major scale) approximates 7edo used to play the bala.
 The remaining keys can be used for various kora tunings.
-
 
 🟠🔵
 **19edo.**
@@ -500,33 +504,33 @@ The remaining keys can be used for various kora tunings.
 Approximates 1/3 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
 In particular, it approximates the European major and, especially, minor thirds well.
 
-
-
 🟠🟣 
-**48edo (19-note subset).**
+**19-note subset of 48edo (uneven).**
 Multiples of 25¢ steps.
-A 19-note subset of 48edo.
 Used in contemporary [Turkish music](learn/turkish.md).
 
 🟠⚪ 
-**8ed4/3 (octaveless).**
+**8ed4/3.**
 62¢ steps.
-Approximates the Carlos beta scale (experimental music).
+Approximates the Carlos beta scale, which is [rich in harmonics](learn/harmonic.md).
+Used in [Georgian traditional music](learn/georgian.md).
 Can be useful for approximating jins hijaz in [Arabic](learn/arabic.md) and [Iranian classical music](learn/iranian.md).
-
 
 🟡⚫ 
 **Eikosany (uneven).**
+A 20-note scale in just intonation.
+A combination product set used in [experimental music](learn/experimental.md).
 
 🟡🔴
 **22edo.**
 55¢ steps.
-Used in experimental music.
-I, however, use an 11-note subset to approximate the ararai scale of [Ethiopian Christian music](learn/ethiopian.md).
+Is [rich in harmonics](learn/harmonic.md).
+Is a decent approximation of an ['Are'are tuning](learn/melanesian.md).
+I approximate the ararai scale of [Ethiopian Christian music](learn/ethiopian.md).
 The ararai scale is mapped to the black keys.
 
 🟡🟠
-**53edo (22-note subset).**
+**22-note subset of 53edo (uneven).**
 Multiples of 23¢ steps.
 Approximates the perfect fifth *very* well.
 A 22-note subset of 53edo.
@@ -552,18 +556,20 @@ I have approximated [Iranian classical music](learn/iranian.md) with 17edo, but 
 **31edo.**
 39¢ steps.
 Approximates 1/4 meantone tuning used in [European classical music](learn/european.md) from the 1600s.
-Closely approximates the harmonic seventh (the seventh harmonic) used in some European music but completely lacking from 12edo.
+Closely approximates the [harmonic seventh](learn/harmonic.md) (the seventh harmonic) used in some European music but completely lacking from 12edo.
 
 🟡🟣 
-**Compressed 20ed3/2 (octaveless).**
+**Compressed 20ed3/2.**
 35¢ steps.
 34 steps in a compressed octave
-Approximates the Carlos gamma scale (experimental music).
+Approximates the Carlos gamma scale, which is [rich in harmonics](learn/harmonic.md).
 
 🟡⚪ 
-**Streched 20ed3/2 (octaveless).**
+**Streched 20ed3/2.**
 Same as before but mapped to 35 steps in a streched octave.
 It can approximate both the "minor" and the "major" scales in [Georgian traditional music](learn/georgian.md).
+
+[Chords](learn/chords.md) have traditionally only been important only in a few of the cultures mentioned above.
 
 ## Controls
 

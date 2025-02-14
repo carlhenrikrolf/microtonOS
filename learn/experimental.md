@@ -1,5 +1,8 @@
 # Experimental Music
 
+> [!warning]
+> I guess any person's knowledge of experimental musics will always be limited ...
+
 **12 tones.**
 Numerous more or less experimental scales have been proposed for 12edo.
 One feature of 12edo is that 12 is divisible by 2, 3, 4, and 6—many more options than other numbers of a similar size.
