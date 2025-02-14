@@ -319,8 +319,7 @@ so are their splitting lines.
 
 I have tried to cover tunings from all parts of the world, but you should certainly not take this as a complete collection.[^world]
 
-
-<table><tr><td>equal divisions of the octave<br />
+<table><tr><td>equal divisions of the octave (edos)<br />
 🟥🟧🟥🟧🟥🟥🟧🟥🟧🟥🟧🟥<br />
 other equal divisions<br />
 🟥🟪🟥🟪🟥🟥🟪🟥🟪🟥🟪🟥<br />
@@ -328,9 +327,25 @@ equal Hz steps<br />
 🟦🟪🟦🟪🟦🟦🟪🟦🟪🟦🟪🟦<br />
 ombak<br />
 🟦🟩🟦🟩🟦🟦🟩🟦🟩🟦🟩🟦<br />
-unequal<br />
+unequal (e.g. just intonation, subsets)<br />
 🟨🟩🟨🟩🟨🟨🟩🟨🟩🟨🟩🟨
 </td></tr></table>
+
+Above, there are five different classes of tunings.
+On the exquis, pads are assigned different colors depending on their corresponding keys on the keyboard.
+Some pads are not lit:
+
+- Standard (12 tones per octave).
+Pads corresponding to white keys are lit.
+Pads corresponding to black keys are dark.
+Only used for the default 12edo tuning.
+- Macrotonal (≤12 tones per octave).
+Pads corresponding to every other octave on the keyboard are lit.
+The other octaves are dark.
+Muted keys lack corresponding pads.
+- Microtonal (≥12 tones per octave).
+Pads corresponding to both white and black keys are lit.
+Pads corresponding to notes in between the keys are dark.
 
 
 Full details of the tunings can be found and edited in [src/mtsesp_master/presets/tunings.py](src/mtsesp_master/presets/tunings.py).

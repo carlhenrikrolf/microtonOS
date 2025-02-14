@@ -48,3 +48,5 @@ Wikipedia. *[Turkish Makam](https://en.wikipedia.org/w/index.php?title=Turkish_m
 </details>
 
 Wikipedia. *[Turkish Makam](https://en.wikipedia.org/w/index.php?title=Turkish_makam&oldid=1259657802)*.
+
+Lilypond. *[Turkish classical music](https://web.archive.org/web/2/https://lilypond.org/doc/v2.23/Documentation/notation/turkish-classical-music)*.

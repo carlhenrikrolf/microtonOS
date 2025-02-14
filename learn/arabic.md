@@ -104,3 +104,5 @@ Johnny Farraj, Filip Todorov. <i>MaqamWorld.com</i>.
 Joseph Monzo.
 *[The fretting of the Arab lute](https://web.archive.org/web/2/http://www.tonalsoft.com/monzo/arablute/arablute.aspx)*.
 Tonalsoft.
+
+Lilypond. *[Arabic music](https://web.archive.org/web/20250130171759/https://lilypond.org/doc/v2.23/Documentation/notation/arabic-music)*.

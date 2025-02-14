@@ -57,3 +57,5 @@ Ableton.
 - *[Dastgāh-e Rast-Panjgāh](https://web.archive.org/web/20240821220023/https://tuning.ableton.com/persian-radif/dastgah-e-rast-panjgah/)*
 
 </details>
+
+Lilypond. *[Persian classical music](https://web.archive.org/web/20250130170900/https://lilypond.org/doc/v2.23/Documentation/notation/persian-classical-music)*.

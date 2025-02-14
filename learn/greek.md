@@ -73,3 +73,5 @@ Wikipedia.
 tsalo.fi. *[Greek and Turkish scales](https://web.archive.org/web/20230610182643/http://www.tsalo.fi/Greek%20and%20Turkish%20scales.html)*.
 
 Alexander John Ellis. 1885. *[On the musical scales of various nations](https://books.google.com/books/about/On_the_Musical_Scales_of_Various_Nations.html?id=sNtDAAAAYAAJ)*. Journal of the Society of arts.
+
+Lilypond. *[Ancient notation](https://web.archive.org/web/20230804185700/https://lilypond.org/doc/v2.23/Documentation/notation/ancient-notation)*.
