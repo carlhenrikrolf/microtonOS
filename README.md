@@ -239,8 +239,8 @@ If you want to.
 ## Isomorphic Layouts
 I suggest to think of musically useful isomorphic layouts as belonging to one of four categories.
 Each category depends on three parameters:
-whether the layout is mirrored (flipped) in the left--right direction,
-whether it is flipped in the up--down position,
+whether the layout is mirrored (flipped) in the left–right direction,
+whether it is flipped in the up–down position,
 and the value of the 'dilation'.
 The dilation is notated $d$ and defined separately for each category below.
 A suitable value is the size of the minor or neutral third.
@@ -267,7 +267,7 @@ $d=2$ is the Park layout used in Shiverware's Musix Pro.
 ![Harmonic table](resources/harmonic_table.svg)
 
 ⚫🟠 **Wicki–Hayden.**
-$d=3$ is the Wicki--Hayden layout. For calculations, see below. The Wicki--Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
+$d=3$ is the Wicki--Hayden layout. For calculations, see below. The Wicki–Hayden layout is used in concertinas although it was originally designed for the bandoneón (popular in Argentine tango).
 The bandoneón typically uses a non-isomorphic layout that is different between the left and right hands as well as whether the instrument is squeezed or dragged. Life is short so we will ignore such complex layouts.
 
 ![Wicki--Hayden](resources/wicki-hayden_tilted.svg)
@@ -318,6 +318,21 @@ so are their splitting lines.
 ## Tunings
 
 I have tried to cover tunings from all parts of the world, but you should certainly not take this as a complete collection.[^world]
+
+
+<table><tr><td>equal divisions of the octave<br />
+🟥🟧🟥🟧🟥🟥🟧🟥🟧🟥🟧🟥<br />
+other equal divisions<br />
+🟥🟪🟥🟪🟥🟥🟪🟥🟪🟥🟪🟥<br />
+equal Hz steps<br />
+🟦🟪🟦🟪🟦🟦🟪🟦🟪🟦🟪🟦<br />
+ombak<br />
+🟦🟩🟦🟩🟦🟦🟩🟦🟩🟦🟩🟦<br />
+unequal<br />
+🟨🟩🟨🟩🟨🟨🟩🟨🟩🟨🟩🟨
+</td></tr></table>
+
+
 Full details of the tunings can be found and edited in [src/mtsesp_master/presets/tunings.py](src/mtsesp_master/presets/tunings.py).
 
 [^world]: There are multiple cultures I have failed to acquire enough information about. Pre-colonial American cultures are particularly absent. It feels like it should be possible to find scales on flutes from archaelogical excavations—especially from the Maya, Aztec, and Anazasi cultures. Furthermore, there ought to be knowledge about scales in Inuit throat singing. In Africa, southern parts might hold a distinct musical culture from the interactions between the Khoisan and Bantu peoples in e.g. the Xhosa Kingdom. Furthermore, I have found very little information about tuning the tube zither from Madagascar apart from that it is roughly diatonic. Finally, Polynesian music is supposedly distinct from other Austronesian music traditions.
@@ -560,7 +575,7 @@ Clicking knob C sets the dilation to the number of steps in one and a half tone 
 Clicking D creates a keyboard split.
 
 To switch between tuning presets, turn knob B.
-LEDs A and B show the number of the tuning, where 🔴🟠 is the default.
+LEDs A and B show the number of the tuning, where 🔴🟡 is the default.
 To shift the notes step-wise up or down, turn knob A.
 Clicking knob A resets the key switches on the Halberstadt keyboards.
 Clicking knob B shifts one of the Halberstadt keyboards up one step while keeping the other (in my case the Yamaha Reface CP) unchanged.
