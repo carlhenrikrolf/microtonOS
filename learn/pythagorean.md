@@ -29,7 +29,7 @@ The table below shows a 17-tone Pythagorean scale proposed by Medieval Iranian m
 Furthermore, you can see comparisons to different temperaments.
 
 
-| ratio          | factorisation         | 17edo | error <br /> (cents) | 24edo | error <br /> (cents) | 29edo | error <br /> (cents) | 53edo | error <br /> (cents) |
+| ratio          | factorisation         | 17edo |  error (¢) | 24edo |  error (¢) | 29edo |  error (¢) | 53edo |  error (¢) |
 | -------------- | --------------------- | ----- | -------------------- | ----- | -------------------- | ----- | -------------------- | ----- | -------------------- |
 | 1              | $1$                   | 0     | 0.00                 | 0     | 0.00                 | 0     | 0.00                 | 0     | 0.00                 |
 | 256/243        | $2^{8}\times3^{-5}$   | 1     | -19.64               | 2     | 9.78                 | 2     | -7.47                | 4     | 0.34                 |
