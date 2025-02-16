@@ -2,8 +2,11 @@ import jack
 import subprocess
 from utils import handle_terminations
 
+# paramters
 headless = True
+n_inputs = 5
 
+# definitions
 commandline = [
 	"/usr/bin/pw-jack",
 	"/usr/bin/sonobus",
@@ -16,8 +19,9 @@ if headless:
 	commandline.append("--headless")
 
 null = jack.Client("Null")
-null.outports.register("out_0")
-null.outports.register("out_1")
+for i in range(n_inputs):
+	null.outports.register("out_" + str(i))
+	null.inports.register("in_" + str(i))
 
 with null:
 	with subprocess.Popen(commandline) as process:

@@ -1,12 +1,16 @@
-# modules
+import jack
 import re
 import subprocess
 from midi_implementation.mpe import set_mpe_mode  # , set_pitchbend_sensitivity
 from utils import Inport, Outport, handle_terminations, warmup
 
+# parameters
+n_inputs = 1
+audio_name = "JACK.Built-in Audio Stereo"
+
+# definitions
 client_name = "Surge XT Wrapper"
 surge_path = ["/usr/bin/pw-jack", "/usr/bin/surge-xt-cli"]
-audio_name = "JACK.Built-in Audio Stereo"
 
 list_devices_command = [
     *surge_path,
@@ -34,7 +38,10 @@ def get_audio_id(name, kind=""):
     else:
         return None
 
-
+vocoder = "Vocoder"
+null = jack.Client(vocoder)
+for i in range(n_inputs):
+    null.outports.register("out_" + str(i))
 
 class Script:
     def __init__(self):
@@ -42,8 +49,7 @@ class Script:
         self.commandline = [
             *surge_path,
             "--audio-interface=" + get_audio_id(audio_name, "Output Audio Device"),
-            #"--audio-input-interface=" + get_audio_id(audio_name, "Input Audio Device"),
-            #"--audio-input-ports=2,3",
+            "--audio-input-interface=" + get_audio_id("JACK." + vocoder, "Input Audio Device"),
             "--midi-input=" + get_midi_id("from " + client_name),
             "--no-stdin",
         ]
@@ -64,7 +70,8 @@ class Script:
 
 
 warmup.client()
-to_surge_xt = Outport(client_name, verbose=False)
-script = Script()
-from_microtonOS = Inport(script.run, client_name, verbose=False)
-from_microtonOS.open()
+with null:
+    to_surge_xt = Outport(client_name, verbose=False)
+    script = Script()
+    from_microtonOS = Inport(script.run, client_name, verbose=False)
+    from_microtonOS.open()
