@@ -9,7 +9,7 @@ You can jam by yourself and discover different music cultures as well as experim
 Or, you can use one of the many connectivity options on the Raspberry Pi to add additional instruments played by friends.
 At first glance, microtonOS is ticking all the boxes.
 It is screen-free, and, at its height, visual feedback is a somewhat culture-agnostic geometric representation of the tuning system.
-The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 midi controller + 1 Linux computer.
+The microtonOS code can be readily adapted to work with a minimum hardware requirement of 1 MIDI controller + 1 Linux computer.
 Below is a brief demo of maqam saba in 9ed3/2 tuning on piano.
 
 https://github.com/user-attachments/assets/df7541df-ebf6-41b0-8a2d-45e2938c4093
@@ -47,8 +47,9 @@ I would suggest getting two small keyboards for two manuals rather than one big.
 I use a Gibson SG, but any guitar will be fine. Any kind of microphone works.
 For usage with the soundcard, it is advisable to change the gain settings.
 I use [+12 dB](https://www.hifiberry.com/docs/data-sheets/datasheet-dac-adc/).
-An electric guitar has too large impedance for the analogue input to the HifiBerry cards and many other soundcards.
-One solution is to use a Boss effects pedal in between.
+I plug the guitar directly into the audio input and it works fine.
+Note that the impedance (roughly the resistance) may be too large.
+If so, one solution could be to use a Boss effects pedal in between.
 The pedal needs power but it does not need to actively apply an effect.
 
 **Cables and adapters.**
@@ -353,7 +354,7 @@ Full details of the tunings can be found and edited in [src/mtsesp_master/preset
 [^world]: There are multiple cultures I have failed to acquire enough information about. Pre-colonial American cultures are particularly absent. It feels like it should be possible to find scales on flutes from archaelogical excavations—especially from the Maya, Aztec, and Anazasi cultures. Furthermore, there ought to be knowledge about scales in Inuit throat singing. In Africa, southern parts might hold a distinct musical culture from the interactions between the Khoisan and Bantu peoples in e.g. the Xhosa Kingdom. Furthermore, I have found very little information about tuning the tube zither from Madagascar apart from that it is roughly diatonic. Finally, Polynesian music is supposedly distinct from other Austronesian music traditions.
 
 ⚫⚫
-**5edo (ombak).**
+**5edo -10Hz ombak.**
 Roughly 240¢ steps.
 Approximates the sléndro scale in [Indonesian classical music](learn/indonesian.md).
 Alternating pengumbang ang pengisep notes, with pengisep in 5edo and pengumbang 10Hz lower.
@@ -366,7 +367,7 @@ A 6-tone scale in just intonation.
 A combination product set used in [experimental musics](learn/experimental.md).
 
 ⚫🟠
-**43Hz steps A#=413Hz.**
+**43Hz steps A&sharp;=413Hz.**
 Uneven in terms of cents but even in terms of Hz.
 Possibly used in [Ancient Andean music](learn/andean.md).
 Mapped to black keys plus the D-key.
@@ -387,7 +388,7 @@ Used more literally in [Mongolian throat singing](learn/mongolian.md) and [Chine
 Mapped to the white keys.
 
 ⚫🔵
-**9edo (ombak).**
+**9edo +8Hz ombak.**
 Roughly 133¢ steps.
 Approximates the pélog scales in [Indonesian classical music](learn/indonesian.md).
 Alternating pengumbang ang pengisep notes, with pengumbang in 9edo and pengisep 8Hz higher.
@@ -423,7 +424,7 @@ Used in experimental music.
 The G#/Ab key is muted and F is the root.
 
 🔴🟠
-**12edo (ombak).**
+**12edo ±3Hz ombak.**
 Approximates the pélog scales in [Balinese classical music](learn/indonesian.md).
 Alternating pengumbang ang pengisep notes, with pengumbang 3Hz lower than 12edo and pengisep 3Hz higher.
 Without ombak, it can also simulate an untuned piano.
