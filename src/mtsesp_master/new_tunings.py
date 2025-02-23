@@ -22,6 +22,12 @@ is_white_key = [
     True,
 ]
 
+ch = {"master": {0}}
+ch["isomorphic"] = {*range(0, 12)}
+ch["mpe"] = {*range(0, 13)}
+ch["halberstadt"] = {12, 13}
+ch["multituning"] = {13, 14}
+ch["manual2"] = {14, 15}
 
 def concat(terms, middle_note, note_range, cumulative):
     terms = np.array(terms) if len(np.array(terms).shape) == 1 else np.array([terms])
@@ -213,16 +219,13 @@ class Ombak(Default):
     white_keys = "blue"
     black_keys = "green"
 
-    def get_colors(self):
-        pass
-
     def get_frequencies(self):
         floor = int(self.root_note / 2)
         if self.stretch is None:
             root_note = self.root_note - self.octave * self.degrees_per_octave
             root_note -= floor
             result = convert(self.steps, self.unit, root_note, self.root_frequency, 2 * floor, range(floor, floor + 64), self.cumulative)
-        else:
+        else: # test this statement
             base = 2 ** ((1200 + self.stretch) / 1200)
             root_frequency = self.root_frequency * base ** self.octave
             result = convert(self.steps, self.unit, self.root_note, root_frequency, 2 * floor, range(floor, floor + 64, self.cumulative))
@@ -234,8 +237,26 @@ class Ombak(Default):
             else:
                 self.is_ignored[i] = False
         return result.tolist()
-        
-        
+    
+    def halberstadtify(self, outport, msg, highlight=None):
+        if hasattr(msg, "note"):
+            isomorphic_note = self.remap(msg.note)
+            if not self.ignore(isomorphic_note):
+                channel = ch["halberstadt"].difference(ch["multituning"])
+                # additionally, add other kind of channel
+                note_msg = msg.copy(note=isomorphic_note, channel=int(*channel))
+                self.thru(msg, outport, note_msg, highlight=highlight)
+                if self.pedal is True:
+                    note_msg2 = msg.copy(note=isomorphic_note - 1)
+                    self.thru(msg, outport, note_msg2, highlight=highlight)
+        else:
+            outport.send(msg)
+    
+    def manual2ify(self, outport, msg, highlight=None):
+        if hasattr(msg, "note"):
+            isomorphic_note = ...
+        else:
+            outport.send(msg)
 
     def footswitch(self):
         pass
