@@ -2,6 +2,20 @@
 Tuning templates
 """
 
+# TODO
+# - new classes
+#   - Default
+#   - EDO
+#   - Octaveless
+#   - EqualHertz
+#   - Uneven
+# - turn keyswitches off if no ()s
+# - CP default is altered in all that have more notes than 12 per octave
+# - XQ is not altered and coincides with lit pads
+# - odd octaves off depends on 12 per octave
+# - change equave to octave
+# - add transpose switches?
+
 from colour import Color
 import numpy as np
 
@@ -394,3 +408,6 @@ class Subset(Micro):
     white_keys = "midnightblue"
     black_keys = "cyan"
     split_keys = "black"
+
+
+

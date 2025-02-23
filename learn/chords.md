@@ -103,7 +103,7 @@ As an example, consider the [demo song in 9ed3/2](https://github.com/user-attach
 </table>
 
 If half-sharp &#x1D1E9; (sori) and half-flat &#x1D1EA; (koron) are not rendered to symbols similar to > and p respectively, then the affected chords should be read as Ap±harm<sup>7</sup>, Fp±neu<sup>7</sup>, B>±, and E>±.
-([Downloading GNU Unifont](https://www.unifoundry.com/pub/unifont/unifont-16.0.02/font-builds/unifont_upper-16.0.02.otf) provides rendering support.)
+(Dowloading and installing the [Google Noto Music](https://fonts.google.com/noto/specimen/Noto+Music) font provides rendering support.)
 I have used different symbols for F&#x1D1EA;  and E&#x1D1E9; to emphasise that F&#x1D1EA;  is only 1170¢ below E&#x1D1E9;. Note that the Pythagorean major one step larger than the harmonic and the Pythagorean minor is one step smaller than the harmonic.
 
 

@@ -1,14 +1,19 @@
 from colour import Color
 
+rainbow = ["black", "red", "darkorange", "yellow", "green", "blue", "magenta", "white"]
+
+
 def convert(color):
     return Color(color) if type(color) is str else color
+
 
 def negative(color):
     color = convert(color)
     result = Color()
-    result.rgb = [1-i for i in color.rgb]
+    result.rgb = [1 - i for i in color.rgb]
     return result
-    
+
+
 def set_luminance(color, coefficient, reference=None):
     color = convert(color)
     reference = convert(color if reference is None else reference)

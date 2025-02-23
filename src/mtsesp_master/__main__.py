@@ -2,6 +2,20 @@
 MTS-ESP Master.
 """
 
+# TODO
+# - find issue with init lights
+# - channels
+#   0. master
+#       - define global cc to go into master, e.g. pedals
+#       - make XD sustain to sostenuto if CP sustain is on (not on init)
+#   1--10. xq pads
+#   11. CP lowered
+#   12. CP
+#   13. CP mtsmpe multichannel
+#   14. XD mtsesp multichannel
+#   15. XD
+
+
 # imports
 import mtsespy as esp
 from midi_implementation.mpe import MPE, is_polyexpression

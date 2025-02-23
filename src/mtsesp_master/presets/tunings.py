@@ -2,6 +2,11 @@
 	Tuning presets.
 """
 
+# TODO
+# - add 2 new tunings, 20, 10 Hz
+# - remove junk comments
+# - add description
+
 from mtsesp_master.tunings import Default, Micro, Macro, Uneven, Subset, Ombak, Streched, Compressed
 
 init_tuning = 10
@@ -28,7 +33,7 @@ Uneven(name = 'Hexany',
     halberstadt = [0, None, 1, None, 2, None, 3, None, 4, None, 5, None, 6],
     root_note = 70,
     dilation = 1),
-Uneven(name = '43Hz steps A#=413',
+Uneven(name = '43Hz A#=413',
 	steps = 43.0,
 	unit = 'Hertz',
 	root_frequency = 413.0,
