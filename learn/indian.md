@@ -52,6 +52,45 @@ The exact choice of shrutis can vary somewhat. For example, raga darbari is a me
 
 Note that thaats bhairav and bharavi are different.
 
+<details>
+<summary>
+List of ragas.
+</summary>
+
+The list below is from [22shruti.com](https://web.archive.org/web/20250113154440/https://22shruti.com/research_topic_53.asp).
+The translation of the notation to 53edo is as follows:
+
+S=0,
+r1=4,
+r2=5,
+R1=8,
+R2=9,
+g1=17,
+g2=18,
+M1=22,
+M2=23,
+m1=26,
+m2=27,
+P=31,
+d1=35,
+d2=36,
+D1=39,
+D2=40,
+n1=44,
+n2=45,
+N1=48,
+N2=49
+
+Note that in many other sources, M and m are reversed.
+Furthermore, the numbers should not be confused with the numbering system in South Indian music.
+The scales of the raga are given under "swaras" ("raga scale" is only a subset)
+These tunings are not absolute.
+For example, marva raga (transliterated as marawa raga below) has the note m1=22 below, however, other sources treats it as m2=23 instead.
+
+![List of Ragas](https://web.archive.org/web/20250306223239if_/https://22shruti.com/wp-content/uploads/rationale_creation_of_ragas.jpg)
+
+</details>
+
 **Carnatic (Southern).**
 Carnatic refers to the state Karnataka in Southern India, but the area for Carnatic music extends to other states in Southern India, and the language used to teach Carnatic music is Telegu.
 The equivalent to thaat in Carnatic music is known as melakarta.
