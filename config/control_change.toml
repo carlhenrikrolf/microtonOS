@@ -1,0 +1,62 @@
+# Control change (continuous controller) mappings.
+# NOT YET INCORPORATED!
+
+# 0 is bank select msb
+[1]
+name = "modulation wheel"
+master = {"Surge XT" = "modulation wheel", "Reface CP" = "modulation", "Minilogue XD" = "y+"}
+[2]
+name = "breath controller"
+[3]
+[4]
+name = "foot controller"
+[5]
+name = "portamento time"
+# 6 is data entry msb
+[7]
+name = "volume"
+master = {"Reface CP" = "volume"}
+[8]
+name = "balance"
+[9]
+[10]
+name = "pan"
+[11]
+name = "expression"
+master = {"Surge XT" = ["expression","volume"], tuneBfree = "volume", "Reface CP" = "expression"}
+[64]
+name = "damper pedal"
+master = {"Reface CP" = "sustain"}
+[65]
+name = "portamento"
+[66]
+name = "sostenuto"
+master = {"Reface CP" = "sostenuto"}
+[67]
+name = "soft pedal"
+master = {"Reface CP" = "soft pedal"}
+
+["Minilogue XD"]
+"y+" = 1
+"y-" = 2
+"osc1mix | oct=-1" = 70
+"osc2mix | oct=-1" = 71
+"multimix" = 72
+"osc1mix | oct=0" = 73
+"osc2mix | oct=0" = 74
+"osc1mix | oct=1" = 75
+"osc2mix | oct=1" = 76
+"osc1mix | oct=2" = 77
+"osc2mix | oct=2" = 78
+
+["Reface CP"]
+type = nan
+drive = inf
+tremolo = {mix = inf, depth = inf, rate = inf}
+wah = {mix = inf, depth = inf, rate = inf}
+chorus = {mix = inf, depth = inf, speed = inf}
+phaser = {mix = inf, depth = inf, speed = inf}
+"d. delay" = {mix = inf, depth = inf, time = inf}
+"a. delay" = {mix = inf, depth = inf, time = inf}
+"reverb depth" = inf
+sustain = 64

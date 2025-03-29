@@ -1,0 +1,74 @@
+[prefix]
+pipewire = "/usr/bin/pw-jack "
+carla = "/home/pi/microtonOS/third_party/Carla/source/frontend/"
+
+[init]
+engine = 0
+bank = 0
+program = 0
+
+[[engine]]
+name = "Pianoteq"
+headless = true
+path = "/usr/bin/Pianoteq 8 STAGE"
+[[engine.bank]]
+name = "acoustic pianos"
+program = []
+[[engine.bank]]
+name = "electromechanical pianos"
+program = ["Rhodes Mk1", "Rhodes Mk2", "Wurlitzer", "Yamaha CP"]
+[[engine.bank]]
+name = "piano predecessors"
+program = []
+[[engine.bank]]
+name = "bells"
+program = []
+
+[[engine]]
+name = "tuneBfree"
+path.headless = "/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree"
+[[engine.bank]]
+name = "tonewheel organ"
+program = []
+[[engine.bank]]
+name = "square combo"
+program = []
+[[engine.bank]]
+name = "saw combo"
+program = []
+
+[[engine]]
+name = "Surge XT"
+path = {headless = "/usr/bin/surge_xt_cli", gui = "/usr/bin/Surge XT"}
+headless = true
+[[engine.bank]]
+name = "leads"
+program = []
+[[engine.bank]]
+name = "polysynths"
+program = []
+[[engine.bank]]
+name = "string machines"
+program = []
+[[engine.bank]]
+name = "wind synths"
+program = []
+[[engine.bank]]
+name = "experimental"
+program = []
+
+[[synth]]
+name = "Reface CP"
+usb = {in = "reface CP MIDI 1", out = "reface CP MIDI 1"}
+
+[[synth]]
+name = "Minilogue XD"
+usb = inf
+
+[XentoTune]
+path.carla = "carla-single-jack"
+headless = true
+
+[SonoBus]
+path = "/usr/bin/sonobus"
+headless = true
