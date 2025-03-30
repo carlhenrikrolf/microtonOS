@@ -1,11 +1,7 @@
-# Presets for the MTS-ESP master in microtonOS.
-# Consists of two arrays tuning and layout.
-# init.tuning is the initial tuning given by its position in the tuning array.
-# Likewise for init.layout.
-
-[init]
-tuning = 10
-layout = 0
+#########################################
+# Presets, tunings and layouts,         #
+# for the MTS-ESP master in microtonOS. #
+#########################################
 
 # Tuning presets.
 #
