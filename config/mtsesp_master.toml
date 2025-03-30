@@ -32,8 +32,7 @@ layout = 0
 #     The footswitch plays both members of the pairs simultaneously.
 #   - "uneven". white -> yellow, black -> green.
 #     For notes without keyswitches, the two manuals are tuned the same.
-#     For notes with keyswitches, manual 2 is tuned as if all keyswitches had been pressed (and released).
-#     Pressing the footswitch is the same as pressing (and releasing) all the keyswitches.
+#     By default, manual 2 is the same as 1 and the footswitch does nothing.
 #
 # - tonality finetunes the colour scheme further by turning some of the leds off.
 #   Mandatory.
@@ -56,12 +55,6 @@ layout = 0
 #   - frequency is a pitch in Hertz.
 #   - note is a midi note (0 to 127) to which the frequency is assigned.
 #
-# - ombak is a table only used for the "ombak" class.
-#   Default is {pengumbang = 0.0, pengisep = 0.0}
-#   Recommended values are < 15.0Hz.
-#   - pengisep is the frequency in Hertz by which even notes have been lowered.
-#   - pengumbang is the frequency in Hertz by which odd notes have been raised.
-#
 # - halberstadt is a table describing the tuning of piano/organ keys.
 #   Default is {mapping = [0,1,2,3,4,5,6,7,8,9,10,11,12], boundary = "c"}
 #   - boundary is a string, "c", "c#", ..., "b", representing the key at which the cycle for the mapping starts.
@@ -69,6 +62,8 @@ layout = 0
 #     The last element is the first element of the next cycle.
 #     Recommended length of the mapping is 13 elements.
 #     - An integer represents a number of tones in the tuning.
+#       Recommended integers are those causing the white keys or the black or both
+#       to correspond to a  "musically meaningful" scale.
 #     - A nan means that the korresponding key is silent and not mapped to any tone.
 #     - In a pair, the first element is the default.
 #       Pressing (and releasing) a keyswitch sets the corresponding key to the next value.
@@ -78,6 +73,27 @@ layout = 0
 # - dilation is the suggested dilation for isomorphic layouts.
 #   Default is 3.
 #   Recommended value is the number of tones to reach the minor third.
+#
+# - ombak is a table only used for the "ombak" class.
+#   Default is {pengumbang = 0.0, pengisep = 0.0}
+#   Recommended values are < 15.0Hz.
+#   - pengisep is the frequency in Hertz by which even notes have been lowered.
+#   - pengumbang is the frequency in Hertz by which odd notes have been raised.
+#
+# - uneven is a table only used for the "uneven" class.
+#   Default is {manual2 = nan, footswitch = nan},
+#   which means that manual 2 is the same as 1 and the footswitch does nothing.
+#   - manual 2 sets the mapping for manual 2 when the footswitch is off.
+#   - footswitch sets the mapping for manual2 when the footswitch is on.
+#   The mappings are in the same format as for "halberstadt".
+#   If an element is an array, then it must be the same length as the corresponding element in "halberstadt.mapping".
+#   The boundary equals "halberstadt.boundary"
+
+[[tuning]]
+name = "12edo"
+class = "edo"
+tonality = "standard"
+tones = {distance = 100, unit = "cents"}
 
 [[tuning]]
 name = "5 Drumonics"
@@ -189,21 +205,15 @@ halberstadt = {mapping = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24], bounda
 dilation = 6
 
 [[tuning]]
-name = "12edo"
-class = "edo"
-tonality = "standard"
-tones = {distance = 100, unit = "cents"}
-
-[[tuning]]
 name = "Wide 8edPhi"
 class = "octaveless"
-tonality = "micro"
+tonality = "standard"
 tones = {distance = 833.1, unit = "cents"}
 
 [[tuning]]
 name = "10Hz A=441Hz"
 class = "Hertz"
-tonality = "micro"
+tonality = "standard"
 tones = {distance = 10.0, unit = "Hertz"}
 
 [[tuning]]
@@ -260,6 +270,8 @@ tonality = "micro"
 tones.distance = {cycle = [90.2, 180.4, 203.9, 294.1, 384.4, 407.8, 498.0, 588.3, 678.5, 702.0, 792.2, 882.4, 905.9, 996.1, 1086.3, 1176.5, 1200.0], cumulative = true}
 tones.unit = "cents"
 halberstadt = {mapping = [0, [1,2], 3, 4, [6,5], 7, [8,9], 10, [11,12], 13, 14, [15,16], 17], boundary = "c"}
+uneven.manual2 = [0, 1, 3, 4, 5, 7, 8, 10, 11, 13, 14, 15, 17]
+uneven.footswitch = [0, 2, 3, 4, 6, 7, 9, 10, 12, 13, 14, 16, 17]
 dilation = 4
 
 [[tuning]]
@@ -277,6 +289,8 @@ tonality = "micro"
 tones.distance = {cycle = [175.6, 204.9, 234.1, 322.0, 351.2, 380.5, 409.8, 497.6, 614.6, 702.4, 848.8, 878.0, 907.3, 936.6, 1024.4, 1082.9, 1112.2, 1200.0], cumulative = true}
 tones.unit = "cents"
 halberstadt = {mapping = [0, 1, [2,3], 5, [6,7,4], 8, 9, 10, 11, [13,14,12], 15, [16,17], 18], boundary = "f"}
+uneven.manual2 = [0, 1, 2, 5, [4,6,4], 8, 9, 10, 11, [12,13,12], 15, 16, 18]
+uneven.footswitch = [0, 1, 3, 5, [7,7,6], 8, 9, 10, 11, [14,14,13], 15, 17, 18]
 dilation = 5
 
 [[tuning]]
@@ -294,6 +308,8 @@ tonality = "micro"
 tones.distance = {cycle = [75.0, 100.0, 200.0, 300.0, 325.0, 375.0, 400.0, 500.0, 575.0, 600.0, 700.0, 775.0, 800.0, 900.0, 1000.0, 1025.0, 1075.0, 1100.0, 1200.0], cumulative = true}
 tones.unit = "cents"
 halberstadt = {mapping = [0, [2,1], 3, [4,5], [6,7], 8, [10,9], 11, [13,12], 14, [15,16], [17,18], 19], boundary = "c"}
+uneven.manual2 = [0, 1, 3, 4, 6, 8, 9, 11, 12, 14, 15, 17, 19]
+uneven.footswitch = [0, 2, 3, 5, 7, 8, 10, 11, 13, 14, 16, 18, 19]
 dilation = 4
 
 # [[tuning]]
@@ -321,7 +337,8 @@ tonality = "micro"
 tones.distance = {cycle = [90.6, 113.2, 181.1, 203.8, 294.3, 317.0, 384.9, 407.5, 498.1, 588.7, 611.3, 679.2, 701.9, 792.5, 815.1, 883.0, 905.7, 996.2, 1018.9, 1086.8, 1109.4, 1200.0], cumulative = true}
 tones.unit = "cents"
 halberstadt = {mapping = [0, [1,2], [3,4], [5,6], [7,8], 9, [10,11], [13,12], [14,15], [17,16], [18,19], [20,21], 22], boundary = "c"}
-uneven = {manual2 = [0, 1, 3, 5, 7, 9, 10, 12, 14, 16, 18, 20, 22], footswitch = [0, 2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 21, 22]}
+uneven.manual2 = [0, 1, 3, 5, 7, 9, 10, 12, 14, 16, 18, 20, 22]
+uneven.footswitch = [0, 2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 21, 22]
 dilation = 6
 
 [[tuning]]
