@@ -17,3 +17,7 @@
 	path = third_party/ripplerx
 	url = https://github.com/tiagolr/ripplerx.git
 	ignore = dirty
+[submodule "third_party/aeolus_plugin"]
+	path = third_party/aeolus_plugin
+	url = https://github.com/Archie3d/aeolus_plugin.git
+	ignore = dirty
