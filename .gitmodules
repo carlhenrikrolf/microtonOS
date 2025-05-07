@@ -13,3 +13,7 @@
 	path = third_party/xentotune
 	url = https://github.com/narenratan/xentotune.git
 	ignore = dirty
+[submodule "third_party/ripplerx"]
+	path = third_party/ripplerx
+	url = https://github.com/tiagolr/ripplerx.git
+	ignore = dirty

@@ -86,20 +86,14 @@ npm -v # Should print "10.9.2".
 run with
 ```bash
 node /path/to/open_stage_control
-````
-
-
-
-**Build Sfizz**
-```bash
-cd ~
-git clone https://github.com/sfztools/sfizz.git
-cd sfizz
-cmake .
-make
-```
-Run Sfizz:
-```bash
-pw-jack ~/sfizz/library/bin/sfizz_jack
 ```
 
+**Rippler X**
+
+```bash
+# linux
+sudo apt update
+sudo apt-get install libx11-dev libfreetype-dev libfontconfig1-dev libasound2-dev libxrandr-dev libxinerama-dev libxcursor-dev
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -S . -B ./build
+cmake --build ./build --config Release
+```
