@@ -218,7 +218,7 @@ exquis = Exquis()
 exquis_v1_2_0 = Exquis()
 
 
-class Exquis_v2_0_0:
+class Exquis200:
 
 	# exquis receives
 	mpe_poly = 7
@@ -284,4 +284,108 @@ class Exquis_v2_0_0:
 			return sysex
 		else:
 			outport.send(sysex)
+
+
+class Exquis213:
+
+	prefix = [*manufacturer_id, 0x7F]
+
+	setup_developer_mode = 0x00
+
+	# Below requires develoment mode to be active
+	scale_list = 0x01
+	color_palette = 0x02
+	refresh = 0x03
+	led_color = 0x04
+	tempo = 0x05
+	root_note = 0x06
+	scale_number = 0x07
+	custom_scale = 0x08
+	snapshot = 0x09
+
+	# Below can be added to setup developer mode
+	pads = 0x01
+	encoders = 0x02
+	slider = 0x03
+	up_down = 0x08
+	settings_sound = 0x10
+	misc_buttons = 0x20
+	all_buttons = pads + encoders + slider + up_down + settings_sound + misc_buttons
+
+
+	def developer_mode(self,
+		action,
+		pads=True,
+		encoders=True,
+		slider=True,
+		up=True,
+		down=True,
+		settings=True,
+		sound=True,
+		misc=True,
+	):
+		"""Enter or exit developer mode."""
+		assert action in ["enter", "exit"]
+		mode = 0
+		if action == "enter":
+			if pads:
+				mode += self.pads
+			if encoders:
+				mode += self.encoders
+			if slider:
+				mode += self.slider
+			if up or down:
+				mode += self.up_down
+			if settings or sound:
+				mode += self.settings_sound
+			if misc:
+				mode += self.misc_buttons
+		data = [*self.prefix, self.setup_developer_mode, mode]
+		msg = mido.Message("sysex", data)
+		return msg
+
+def use_scales(self, number):
+	"""Specify the number of scales to be selectable in the setting menu."""
+	if number in range(0,256):
+		data = [*self.prefix, self.scale_list, number // 128, number % 128]
+	else:
+		data = [*self.prefix, self.scale_list]
+	msg = mido.Message("sysex", data)
+	return msg
+
+def get_color_palette(self, msg=None, index=None):
+	"""Request the entire color palette or a specific index. Analyse response"""
+	assert index in range(0,128)
+	data = [*self.prefix, self.color_palette]
+	prefix_len = len(data)
+	if msg is None:
+		if index is None:
+			return mido.Message("sysex", data)
+		else:
+			data.append(index)
+			return mido.Message("sysex", data)
+	elif msg.type == "sysex" and msg.data[:prefix_len] == data:
+		entire_palette = len(msg.data) == prefix_len + 128*3
+		single_color = len(msg.data) == prefix_len + 3
+		if entire_palette:
+			palette = []*128
+			for n, i in enumerate(range(prefix_len, prefix_len + 3*128, 3)):
+				color = Color()
+				color.rgb = [j/128.0 for j in msg.data[i:i+3]]
+				palette[n] = color
+		elif single_color:
+			palette = Color()
+			palette.rgb = [j/128.0 for j in msg.data[prefix_len:]]
+		else:
+			return None
+		return palette
+	else:
+		return None
+	
+def set_color_palette(self):
+	...
+	
+
+
+
 

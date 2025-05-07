@@ -25,6 +25,24 @@ is_white_key = [
     True,
 ]
 
+def key_to_int(key):
+    names = [
+        ["c", "C"],
+        ["c#", "C#", "db", "Db"],
+        ["d", "D"],
+        ["d#", "D#", "eb", "Eb"],
+        ["e", "E", "fb", "Fb"],
+        ["f", "F"],
+        ["f#", "F#", "gb", "Gb"],
+        ["g", "G"],
+        ["g#", "G#", "ab", "Ab"],
+        ["a", "A"],
+        ["a#", "A#", "bb", "Bb"],
+        ["b", "B", "cb", "Cb"],
+    ]
+    for i, name in enumerate(names):
+        if key in name:
+            return i
 
 def concat(terms, middle_note, note_range, cumulative):
     terms = np.array(terms) if len(np.array(terms).shape) == 1 else np.array([terms])
@@ -283,8 +301,13 @@ class BaseTuning:
                 return colors
         return None
     
-class BaseEqual(BaseTuning):
     
+
+
+class Edo(BaseTuning):
+    white_keys = "red"
+    black_keys = "orange"
+
     def manual2ify():
         pass
 
@@ -310,15 +333,11 @@ class BaseEqual(BaseTuning):
                 return colors
         return None
 
-class Edo(BaseEqual):
-    white_keys = "red"
-    black_keys = "orange"
-
-class Octaveless(BaseEqual):
+class Octaveless(Edo):
     white_keys = "red"
     black_keys = "magenta"
 
-class Hertz(BaseEqual):
+class Hertz(Edo):
     white_keys = "blue"
     black_keys = "magenta"
 
@@ -396,6 +415,8 @@ for i, preset in enumerate(presets):
             tunings[i] = Ombak(preset)
         case "uneven":
             tunings[i] = Uneven(preset)
+        case _:
+            raise ValueError("Unknown tuning class: " + preset['class'])
 
 
 
