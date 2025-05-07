@@ -1,0 +1,1826 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Libre and modular OSC / MIDI controller">
+      
+      
+      
+      
+        <link rel="prev" href="../../getting-started/running-with-node/">
+      
+      
+        <link rel="next" href="../change-property-with-osc/">
+      
+      
+      <link rel="icon" href="../../../img/logo_nobadge.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>First Steps with Open Stage Control - Open Stage Control</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+    <link rel="stylesheet" href="/fonts/fontawesome.min.css">
+    <link rel="stylesheet" href="/fonts/fa-solid.css">
+  <link rel="stylesheet" href="/fonts/roboto.css">
+  <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+    <script>
+        // hack mkdocs-material to bypass github stars/forks fetching
+        sessionStorage.setItem('-655102438', '[]')
+    </script>
+
+    
+      <link rel="stylesheet" href="../../../extra/styles.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Indigo" data-md-color-accent="Indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#first-steps-with-open-stage-control" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Open Stage Control" class="md-header__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Stage Control
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              First Steps with Open Stage Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../download/" class="md-tabs__link">
+          
+  
+  Download
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../getting-started/introduction/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-tabs__link">
+          
+  
+  Bug Tracker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://openstagecontrol.discourse.group" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Open Stage Control" class="md-nav__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    Open Stage Control
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Download
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download the latest release
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/server-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-from-sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running from sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-with-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running with node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-launcher" class="md-nav__link">
+    The Launcher
+  </a>
+  
+    <nav class="md-nav" aria-label="The Launcher">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addresses-and-ports" class="md-nav__link">
+    Addresses and ports
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-the-server" class="md-nav__link">
+    Starting the server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-client" class="md-nav__link">
+    The client
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiving-the-data" class="md-nav__link">
+    Receiving the data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-interface" class="md-nav__link">
+    Deploying the interface
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../change-property-with-osc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change a widget property with an osc message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User interface
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            User interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/launcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Widgets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Widgets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/general-mechanics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General mechanics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/properties-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Properties reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/advanced-syntaxes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/scripting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/fragments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fragments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/canvas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MIDI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            MIDI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Custom module
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/custom-module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/managing-big-modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing big modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/css-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../remote-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bug Tracker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://openstagecontrol.discourse.group" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community forums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-launcher" class="md-nav__link">
+    The Launcher
+  </a>
+  
+    <nav class="md-nav" aria-label="The Launcher">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addresses-and-ports" class="md-nav__link">
+    Addresses and ports
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-the-server" class="md-nav__link">
+    Starting the server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-client" class="md-nav__link">
+    The client
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiving-the-data" class="md-nav__link">
+    Receiving the data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-interface" class="md-nav__link">
+    Deploying the interface
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="first-steps-with-open-stage-control">First Steps with Open Stage Control<a class="headerlink" href="#first-steps-with-open-stage-control" title="Permanent link">#</a></h1>
+<p><em>Contributed by H. James Harkins, Feb. 2023</em></p>
+<p>Let's walk through the basic steps to build a simple interface in Open Stage Control, send information to another app, and deploy the interface to remote (even mobile) devices.</p>
+<p>Before beginning, you should already have installed Open Stage Control -- see the <a href="../../getting-started/introduction/">Introduction</a>.</p>
+<p>Also: This document provides sample patches for SuperCollider, Pure Data and Max/MSP, to receive control data from the Open Stage Control interface. If you do not have any of these tools, I suggest to install <a href="https://puredata.info/downloads/pure-data">Pure Data</a> because it has the smallest footprint.</p>
+<h2 id="the-launcher">The Launcher<a class="headerlink" href="#the-launcher" title="Permanent link">#</a></h2>
+<p>Use your system's application launcher, open the Open Stage Control app. Here, you can configure options for the interface server.</p>
+<p>For now, go to the first box ("send") and type in <code>127.0.0.1:57120</code>. This will tell the server to send Open Sound Control messages to the same machine where the server is running, on port 57120.</p>
+<p>NOTE: For your own applications, you can use any port that is not in use. For this example, I chose 57120 because it is SuperCollider's default UDP port (and I set the Pure Data and Max patches to use the same port, to simplify.)</p>
+<p>You don't need to set any other options at this time.</p>
+<h3 id="addresses-and-ports">Addresses and ports<a class="headerlink" href="#addresses-and-ports" title="Permanent link">#</a></h3>
+<p>Many users approaching Open Sound Control for the first time get confused about ports. You need to be aware of the FROM and TO addresses. The "send" field in the Launcher should reference the address TO which messages should be sent. In this demo, we are assuming that Open Stage Control and the target app are running on the same machine. So the TO address is localhost: <code>127.0.0.1</code>. The "send" box should use the port <em>on which the target app is receiving messages</em>. This is typically under control of the target app: 1/ SuperCollider opens 57120 by default; 2/ Pd's [netreceive] object, and Max's [udpreceive], both require the TO port as an argument. So the TO port is your choice, as long as they match.</p>
+<p>Open Stage Control sends messages FROM the IP address of the machine where Open Stage Control is running, and from port 8080 (or localhost = <code>127.0.0.1</code> if on the same machine). Thus, if the receiving app will filter incoming messages based on address, the filtering address should be the FROM address, port 8080. The target app can also update Open Stage Control's display by sending messages back to exactly this address. So you will see later, in the demo patches, that messages are sent to <code>127.0.0.1:8080</code> so that the user's interaction with the target app appears in Open Stage Control as well.</p>
+<h2 id="starting-the-server">Starting the server<a class="headerlink" href="#starting-the-server" title="Permanent link">#</a></h2>
+<p>Click the "play" button near the top left of the window. You should see status messages in the launcher window such as:</p>
+<div class="highlight"><pre><span></span><code>(INFO) Server started, app available at
+    http://127.0.0.1:8080
+    http://your.ip.ad.dress:8080
+</code></pre></div>
+<p>And a new, mostly empty, window will open. This new, larger window is the <em>client</em>.</p>
+<h2 id="the-client">The client<a class="headerlink" href="#the-client" title="Permanent link">#</a></h2>
+<p>The client allows you to edit and perform your interface.</p>
+<p>The interface design is called a <em>session</em>. To create a new session, go to the "three-dots" menu at the top left, and choose Session &gt; New session.</p>
+<p>Two new panels are displayed: a project browser, and an object inspector (to set properties). The empty space in the middle is the editor, where you will build the interface.</p>
+<p>Let's start with a toggle button. Right-click in the empty editor panel in the middle, and navigate to Add widget &gt; Basics &gt; button. For this demo, we don't need to change anything else: the button defaults to toggle behavior, and the display text is not important for now (although you can change it in the inspector, if you want).</p>
+<p>And let's add one more control, to the right of this: Right-click, Add widget &gt; Sliders &gt; fader.</p>
+<p><img alt="" src="two-widgets.png" /></p>
+<p>When a widget is selected, you can move it by dragging the top-left handle, and resize it by dragging the bottom-right handle. Let's use these handles to position the fader to the right of the button, and stretch it to be horizontal instead of vertical.</p>
+<p><img alt="" src="resized-fader.png" /></p>
+<p>Notice, however, that the fader's value handle is still vertical. To fix this, look in the Inspector at the right, expand "Fader style," and check the "horizontal" checkbox.</p>
+<p><img alt="" src="fader-style.png" /></p>
+<p><img alt="" src="horizontal-fader.png" /></p>
+<p>By the way: I suggest to keep the widgets closer to the top left, so that they are still visible on a phone screen (later).</p>
+<p>When designing an interface for production, you would change other object properties as well. In particular, the Open Sound Control addresses <code>/button_1</code> and <code>/fader_1</code> are not very descriptive. You would probably want to assign different command paths, in the "osc" tab. As this is just an introduction, we won't do that now.</p>
+<h2 id="receiving-the-data">Receiving the data<a class="headerlink" href="#receiving-the-data" title="Permanent link">#</a></h2>
+<p>At this time, the interface can already be used: three-dots menu &gt; Editor &gt; "Enabled" (click to disable the editor). (The controls will respond also when the editor is enabled, but you have to click an extra time to select the widget before changing its value.)</p>
+<p>To see the effect, launch one of the following apps and open the given patch. The Open Stage Control button should open and close the envelope, and the fader should control frequency. The patches also send control data from their own GUIs back to Open Stage Control, so all of the controls should be synced in both directions.</p>
+<p>NOTE: In Pure Data and Max, the default slider/fader range is 0-127, integers. Open Stage Control uses the range 0.0 - 1.0 by default. If you just create a slider and connect it, you won't see much action. In the example patches, the slider's properties have been modified to take a 0.0 - 1.0 floating-point range, matching the data from Open Stage Control.</p>
+<p>NOTE: Because all of the patches bind to the same UDP port, you can open only one at a time. You could, if you like, change the port number in one patch, and add that port by specifying multiple "send" targets in the Launcher, e.g. <code>127.0.0.1:57120 127.0.0.1:7374</code>.</p>
+<p>NOTE: These patches are provided as a courtesy to get you started more quickly. Maintaining, extending or developing them is outside the scope of the Open Stage Control community.</p>
+<div class="admonition example">
+<p class="admonition-title">Choose your app</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Pure Data</label><label for="__tabbed_1_2">Max/MSP</label><label for="__tabbed_1_3">SuperCollider</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Copy the code below, and save it into a text file <code>osc-first-steps.pd</code>. Then open it in Pure Data.</p>
+<div class="highlight"><pre><span></span><code>#N canvas 436 127 562 502 12;
+#X obj 86 51 loadbang;
+#X msg 86 76 \; pd dsp 1;
+#X obj 253 51 netreceive -u -b 57120;
+#X obj 253 76 oscparse;
+#X obj 253 101 list trim;
+#X obj 253 126 route fader_1 button_1;
+#X msg 253 190 4 \$1;
+#X obj 253 215 pow;
+#X obj 253 240 * 200;
+#X obj 253 265 lop~ 3;
+#X msg 328 265 \$1 100;
+#X obj 328 304 line~;
+#X obj 279 356 *~;
+#X obj 279 381 *~ 0.1;
+#X obj 266 424 dac~;
+#X text 38 139 Open Stage Control \; &quot;First Steps&quot; tutorial \; hjh
+2023;
+#X obj 253 304 osc~ 200;
+#X obj 328 159 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000
+#000000 0 1;
+#X obj 256 159 hsl 60 15 0 1 0 0 empty empty empty -2 -8 0 10 #fcfcfc
+#000000 #000000 0 1;
+#X obj 70 251 unpack f s;
+#X obj 70 325 oscformat;
+#X msg 137 283 set \$1;
+#X obj 70 424 netsend -u -b;
+#X obj 93 356 loadbang;
+#X msg 93 381 connect 127.0.0.1 8080;
+#X obj 70 226 r sendback;
+#X msg 379 200 \; sendback \$1 button_1;
+#X msg 379 233 \; sendback \$1 fader_1;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 18 0;
+#X connect 5 1 17 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 16 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 1;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 0 14 1;
+#X connect 16 0 12 0;
+#X connect 17 0 10 0;
+#X connect 17 0 26 0;
+#X connect 18 0 6 0;
+#X connect 18 0 27 0;
+#X connect 19 0 20 0;
+#X connect 19 1 21 0;
+#X connect 20 0 22 0;
+#X connect 21 0 20 0;
+#X connect 23 0 24 0;
+#X connect 24 0 22 0;
+#X connect 25 0 19 0;
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Copy the text below. In Max, choose File &gt; New from clipboard.</p>
+<div class="highlight"><pre><span></span><code>----------begin_max5_patcher----------
+949.3oc0XkraaCCD8rCP9GHDxo.GWRJpEWzaEnW6gdrInfVlwgoxjBRTYEMe
+6khTx0HgVlwP1MFAwBZnjl2algyBe9zSFELS9.qJ.7YvOAiF8rVxHirFIi5D
+LJXI8grbZk4ACVxppnKXAiaWTwdPYV3SWSmyJ+EBbFZ0h74lkjyt8BDdkzBp
+J6FtXwuJYYJq1wwjIvw.LJt4RRh4F7DH3ptWRTujKxYJCJvqIUVq5Di5Dako
+drfY+7AAfqLK8mSOo4p9x3AfwypUJoXiTNtWFSBaHIJB1bIM5iDiEr603+sD
+tddQESLGfvZGj9ODHElBc5s8f5gnTqEHdKbG4l6vcleYxkKYB0aI32KXBvOT
+ZuM3qRgpTlCtL3a7xJkVJqn5x.fpVIK4zbvEfat8F.FhCW8cx4BVlrVX9XgN
+LK3DerKv0BLHoGNyRUNWuC1k6DG0GtsHEAM9wXCGvvsC6qykTkF3E0pdnC5e
+JtjtjozoXXB5rbSbNruv+t0p3OYjhlr6lFkbwhblSSCoOSCBkLIZksAS5988
+4R2Qa.uIP7pgeWxWt3BPVNO62.kDXABfVOmKcZe5MuOJzj3iDEYLSsUAfGtX
+d1SyoYu3D3vdi4mNIQiXhcKKIp622W5a3fmh97W.57xNSIOsO9jfab.gSmZH
+xfW+shuPPy2G0jN2oyCk5AYiwFZNs4liCx1TfwMeS7HKTaAWBb27t3sQ3wff
+YTwh8RuVmgzIQc2pQrGTGaqQEAOFZyJ6wr7M3lIauNbqWd3o5+ivZz14KNM7
+XNpNxcPMzCh21gX3wPL845p5vItnZpGL0NVHYvGRxzB5dwyR1vLgIdzHc693
+ihQBKj26hl9LufceaX3GNm5l3ZoVULvpy4X03+tL.djn11rKJhrECPnaCP3l
+8yia+e+bD.Zdv32w.QIHryjWgdTjxFBfR1sQ+eOw31uroFyqOpKC7ZV3UVhJ
+YcYV2Wr6vq.qgw4rJEWPUboX8mx9Pa1l6s9Zl21C88JTIKaFeu+wJ7GBDefP
+7dDAwGVadpWpCNX5KwG8EMXpyqHpzAScdE8fiFT8g1p9HCl9B8gejCbBgjMr
+aDcvxGfh2iPn4DL7HnB9w.Bn8TZQjeIplNXwdHuxTYfEZXTneY9SFNFR7lgC
+jBQdovgK+AB5kBcWMssCJZQwcrxp1WwpKcSi2JMg1ois2yE16ssnETxti28J
+1SpNfVp6IToaHrtz.wfGha6VNXoTuQQTy61t1v1FUa5KUP0SaUPs7xz+5omn
+ef+B9C+QQC
+-----------end_max5_patcher-----------
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Copy/paste the code below into a new code document. Run the entire block to start. It will clean up when you close the GUI window.</p>
+<div class="highlight"><pre><span></span><code>// OSC response part
+(
+var addr = NetAddr(&quot;127.0.0.1&quot;, 8080);  // FROM address
+var freqRange = ControlSpec(200.0, 800.0, \exp);
+var button, slider;
+
+OSCdef(\button, { |msg|
+    defer { button.value = msg[1] };
+    if(x.notNil) { x.set(\gate, msg[1]) };
+}, &#39;/button_1&#39;, addr);
+
+OSCdef(\slider, { |msg|
+    defer { slider.value = msg[1] };
+    if(x.notNil) { x.set(\freq, freqRange.map(msg[1])) };
+}, &#39;/fader_1&#39;, addr);
+
+w = Window(&quot;Open Stage Control&quot;, Rect(800, 200, 400, 100)).front;
+w.layout = HLayout(
+    button = Button(),
+    slider = Slider().orientation_(\horizontal)
+);
+w.alwaysOnTop = true;  // may not take effect in all window managers
+
+button.states = [[&quot;off&quot;], [&quot;playing&quot;, Color.black, Color(0.7, 1, 0.7)]];
+button.action = { |view|
+    if(x.notNil) { x.set(\gate, view.value) };
+    addr.sendMsg(&#39;/button_1&#39;, view.value);
+};
+
+slider.action = { |view|
+    if(x.notNil) { x.set(\freq, freqRange.map(view.value)) };
+    addr.sendMsg(&#39;/fader_1&#39;, view.value);
+};
+
+w.onClose = {
+    if(x.notNil) { x.free };
+    OSCdef(\button).free;
+    OSCdef(\slider).free;
+};
+
+// audio part
+// if this fails (if you have an issue with audio devices),
+// you won&#39;t hear anything but the onscreen GUIs
+// will reflect changes from Open Stage Control
+s.waitForBoot {
+    x = { |freq = 200, amp = 0.1, gate = 0|
+        var eg = EnvGen.kr(Env.asr(0.1, 1, 0.1), gate);
+        (SinOsc.ar(Lag.kr(freq, 0.1)) * amp * eg).dup
+    }.play;
+};
+)
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="deploying-the-interface">Deploying the interface<a class="headerlink" href="#deploying-the-interface" title="Permanent link">#</a></h2>
+<p>The whole point of Open Stage Control is to make the interface available on other devices, especially mobile devices.</p>
+<p>The interface will not be visible to other clients, however, until you save it to disk: three-dots menu &gt; Session &gt; Save, and give the file a name such as <code>open-stage-demo</code> (you don't need to type the <code>.json</code> extension).</p>
+<p>Now -- remember those status messages in the launcher window? On another device (computer, phone or tablet), go to the <code>http://192.168.xxx.yyy:8080</code> address. The device should be on the same (W)LAN. (If there is another remote address, it may or may not work, depending on your network.) Supported browsers are Firefox v. 75 and higher, or Chromium/Chrome v. 60 and higher.</p>
+<p>This should open an empty client window, similar to the one you saw before.</p>
+<p>From here, you can open the session that you just saved: three-dots menu <em>in the webpage</em> &gt; Session &gt; Open Recent (yes, this is synced from the server!). This should display the controls created in that session, and the controls should function the same as in the other client window.</p>
+<p>And that is... it! Basic usage is as simple as that.</p>
+<p>For convenience, if there is a session you know that you will use often, and you don't want to load it in the webpage by hand every time, you can choose the file under "load" in the initial Launcher window. This is also useful for public deployments with audience participation, where you don't want audience members to have to load manually.</p>
+<p>When not using Open Stage Control, you can also stop the server from the launcher window (stop button, top-left).</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyleft © Jean-Emmanuel Doucet @ <a href='http://ammd.net'>AMMD</a> (<a href='https://github.com/jean-emmanuel/open-stage-control/blob/master/LICENSE'>GNU/GPLv3</a>)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../extra/scripts.js"></script>
+      
+    
+  </body>
+</html>

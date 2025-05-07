@@ -1,0 +1,1823 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Libre and modular OSC / MIDI controller">
+      
+      
+      
+      
+        <link rel="prev" href="../properties-reference/">
+      
+      
+        <link rel="next" href="../scripting/">
+      
+      
+      <link rel="icon" href="../../../img/logo_nobadge.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Advanced syntaxes - Open Stage Control</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+    <link rel="stylesheet" href="/fonts/fontawesome.min.css">
+    <link rel="stylesheet" href="/fonts/fa-solid.css">
+  <link rel="stylesheet" href="/fonts/roboto.css">
+  <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+    <script>
+        // hack mkdocs-material to bypass github stars/forks fetching
+        sessionStorage.setItem('-655102438', '[]')
+    </script>
+
+    
+      <link rel="stylesheet" href="../../../extra/styles.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Indigo" data-md-color-accent="Indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#advanced-syntaxes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Open Stage Control" class="md-header__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Stage Control
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Advanced syntaxes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../download/" class="md-tabs__link">
+          
+  
+  Download
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../getting-started/introduction/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-tabs__link">
+          
+  
+  Bug Tracker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://openstagecontrol.discourse.group" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Open Stage Control" class="md-nav__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    Open Stage Control
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Download
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download the latest release
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/server-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-from-sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running from sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-with-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running with node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/change-property-with-osc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change a widget property with an osc message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User interface
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            User interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/launcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Widgets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Widgets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-mechanics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General mechanics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../properties-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Properties reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance-idproperty" class="md-nav__link">
+    Inheritance: @{id.property}
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance: @{id.property}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-properties" class="md-nav__link">
+    Dynamic properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circular-references-cases" class="md-nav__link">
+    Circular references cases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-properties" class="md-nav__link">
+    Object properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesting" class="md-nav__link">
+    Nesting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#osc-listeners-oscaddress-default-usepreargs" class="md-nav__link">
+    OSC listeners: OSC{address, default, usePreArgs}
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-variables-varvariablename-default" class="md-nav__link">
+    Custom variables: VAR{variableName, default}
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-imports-importfile_name" class="md-nav__link">
+    File imports: IMPORT{file_name}
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-js-code" class="md-nav__link">
+    Javascript: JS{ &lt;code&gt; }
+  </a>
+  
+    <nav class="md-nav" aria-label="Javascript: JS{ <code> }">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-variables" class="md-nav__link">
+    Available variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-in-advanced-syntaxes" class="md-nav__link">
+    Using in advanced syntaxes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-code" class="md-nav__link">
+    Javascript: #{ &lt;code&gt; }
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fragments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fragments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../canvas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MIDI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            MIDI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Custom module
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/custom-module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/managing-big-modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing big modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/css-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../remote-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bug Tracker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://openstagecontrol.discourse.group" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community forums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance-idproperty" class="md-nav__link">
+    Inheritance: @{id.property}
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance: @{id.property}">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-properties" class="md-nav__link">
+    Dynamic properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circular-references-cases" class="md-nav__link">
+    Circular references cases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-properties" class="md-nav__link">
+    Object properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesting" class="md-nav__link">
+    Nesting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#osc-listeners-oscaddress-default-usepreargs" class="md-nav__link">
+    OSC listeners: OSC{address, default, usePreArgs}
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-variables-varvariablename-default" class="md-nav__link">
+    Custom variables: VAR{variableName, default}
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-imports-importfile_name" class="md-nav__link">
+    File imports: IMPORT{file_name}
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-js-code" class="md-nav__link">
+    Javascript: JS{ &lt;code&gt; }
+  </a>
+  
+    <nav class="md-nav" aria-label="Javascript: JS{ <code> }">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-variables" class="md-nav__link">
+    Available variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-in-advanced-syntaxes" class="md-nav__link">
+    Using in advanced syntaxes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-code" class="md-nav__link">
+    Javascript: #{ &lt;code&gt; }
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="advanced-syntaxes">Advanced syntaxes<a class="headerlink" href="#advanced-syntaxes" title="Permanent link">#</a></h1>
+<p>Advanced syntaxes are special blocks of code that can be written in the widgets properties to customize the widgets and how they behave. These blocks end up replaced with the value they hold before the widgets evaluate the properties they're in.</p>
+<h2 id="inheritance-idproperty">Inheritance: <code>@{id.property}</code><a class="headerlink" href="#inheritance-idproperty" title="Permanent link">#</a></h2>
+<p>The inheritance syntax returns either a widget's value or one of its properties. When using this syntax, value or property changes will be applied automatically.</p>
+<ul>
+<li><code>id</code>: target widget's <code>id</code>. A widget can fetch its own properties or its direct parent's by using the keywords <code>this</code> or <code>parent</code> instead of <code>id</code>. When <code>this</code> or <code>parent</code> can be used, using the target widget's <code>id</code> instead won't work.</li>
+<li><code>property</code>: target widget's property name. If omitted (along with the dot), the widget's value will be returned (<code>@{widgetId}</code> is the same as <code>@{widgetId.value}</code>). <code>value</code> always resolves to the target widget's current value, not its <code>value</code> property.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Unique identifier</p>
+<p>Each widget has a unique random identifier that can be retrieved with the property name <code>uuid</code> (e.g. <code>@{this.uuid}</code>, <code>@{parent.uuid}</code>).</p>
+</div>
+<h4 id="dynamic-properties">Dynamic properties<a class="headerlink" href="#dynamic-properties" title="Permanent link">#</a></h4>
+<p>Some properties, when changed, trigger a complete widget recreation that ends any ongoing user interaction. Also, updating these properties continuously (e.g. when linked to a slider's dynamic value) can be very cpu expensive.</p>
+<p>Some properties have much cheaper update routines and can be considered as <code>dynamic</code>, as in performance safe. These properties are marked in the documentation with a <i class="fas fa-bolt" title="dynamic"></i>.</p>
+<h4 id="circular-references-cases">Circular references cases<a class="headerlink" href="#circular-references-cases" title="Permanent link">#</a></h4>
+<ul>
+<li>container widgets can inherit their children's properties only to define <code>dynamic</code> properties</li>
+<li>widgets can inherit their own <code>value</code><i class="dynamic-prop-icon" title="dynamic"></i> property only to define <code>dynamic</code> properties</li>
+</ul>
+<h4 id="object-properties">Object properties<a class="headerlink" href="#object-properties" title="Permanent link">#</a></h4>
+<p>If the retrieved property is an object (<code>{}</code>), a subset can be retrieved directly by appending a dot and a key (array index or object key) : <code>@{parent.variables.key}</code></p>
+<h4 id="nesting">Nesting<a class="headerlink" href="#nesting" title="Permanent link">#</a></h4>
+<p>The inheritance syntax supports 1-level nesting for defining the target widget's id dynamically : <code>@{fader_@{toggle_1}}</code></p>
+<h2 id="osc-listeners-oscaddress-default-usepreargs">OSC listeners: <code>OSC{address, default, usePreArgs}</code><a class="headerlink" href="#osc-listeners-oscaddress-default-usepreargs" title="Permanent link">#</a></h2>
+<p>The OSC listener syntax returns the value received on specified address (or the <code>default</code> value if none has been received yet).</p>
+<ul>
+<li><code>address</code>: osc address to listen to; if the leading slash (<code>/</code>) is omitted, the address will be prefixed with the widget's <code>address</code> property</li>
+<li><code>default</code> (optional): default value returned before any message is received. Must be a primitive value, not an object or an array.</li>
+<li><code>usePreArgs</code> (optional): by default, osc listeners inherit the widget's <code>preArgs</code> (these must be matched for the osc messages to be processed). Set to <code>false</code> bypass them.</li>
+</ul>
+<p>Options can contain <code>@{}</code> blocks.</p>
+<div class="admonition note">
+<p class="admonition-title">Receiving MIDI</p>
+<p>Midi messages will be processed only if the receiver's widget includes the emitting MIDI device in its targets.  </p>
+</div>
+<details class="example">
+<summary>Array/Object default value</summary>
+<div class="highlight"><pre><span></span><code><span class="nx">JS</span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">OSC</span><span class="p">{</span><span class="nx">address</span><span class="p">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;key a&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;key b&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h2 id="custom-variables-varvariablename-default">Custom variables: <code>VAR{variableName, default}</code><a class="headerlink" href="#custom-variables-varvariablename-default" title="Permanent link">#</a></h2>
+<p>This syntax creates a custom variable in the widget that can be read and modified from any widget's script property (see <a href="../scripting/#getvarid-name">scripting</a>). Changes made to this variable using <code>setVar()</code> in scripts will be applied automatically where <code>VAR{}</code> is used.`</p>
+<h2 id="file-imports-importfile_name">File imports: <code>IMPORT{file_name}</code><a class="headerlink" href="#file-imports-importfile_name" title="Permanent link">#</a></h2>
+<p>This allows loading the content of an external file in a property. If used in a <code>JS{}</code> of <code>#{}</code> block, it will be seen as a string variable containing the raw content of the file. Changes made to the file be applied automatically.</p>
+<p>File paths are resolved in this order:</p>
+<ul>
+<li>in the session's directory</li>
+<li>in theme's directory</li>
+<li>in the server's <code>remote-root</code> directory if the option is set</li>
+<li>as absolute paths</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><a href="../fragments/">Fragments</a> and session files already loaded with fragment widgets should not be imported using this syntax.</p>
+</div>
+<h2 id="javascript-js-code">Javascript: <code>JS{ &lt;code&gt; }</code><a class="headerlink" href="#javascript-js-code" title="Permanent link">#</a></h2>
+<p>This syntax allows defining a property using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Javascript</a>. The code will be compiled as a function and executed in a restricted context.</p>
+<ul>
+<li>if no <code>return</code> statement is found, the formula will return an empty string</li>
+<li>javascript <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Strict_mode">strict mode</a> is always enabled</li>
+<li><code>setTimeout</code> and <code>setInterval</code> functions are not available</li>
+</ul>
+<p>A property <em>cannot</em> contain multiple <code>JS{}</code> blocks</p>
+<h4 id="available-variables">Available variables<a class="headerlink" href="#available-variables" title="Permanent link">#</a></h4>
+<ul>
+<li><code>console</code>: javascript console</li>
+<li><code>locals</code>: object for storing/reading arbitrary values. Changing its properties <em>does not</em> trigger any synchronisation even if the value is used somewhere else.</li>
+<li><code>globals</code>: same as <code>locals</code> but shared between all widgets, contains a few useful variables:<ul>
+<li><code>screen</code>: client screen informations (<code>{width, height, orientation}</code>)</li>
+<li><code>env</code>: client options (ie: url query options),</li>
+<li><code>ip</code>: client's ip address,</li>
+<li><code>url</code>: server url,</li>
+<li><code>platform</code>: operating system as seen by the client</li>
+<li><code>session</code>: session file path</li>
+<li><code>clipboard</code>: instance of navigator <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard">Clipboard</a></li>
+</ul>
+</li>
+</ul>
+<p>Parsing errors can be read in the console (<span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-k">K</kbd></span>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Modifying values in <code>locals</code> or <code>globals</code> <strong>does not</strong> trigger anything if they are used somewhere else.</p>
+</div>
+<h4 id="using-in-advanced-syntaxes">Using in advanced syntaxes<a class="headerlink" href="#using-in-advanced-syntaxes" title="Permanent link">#</a></h4>
+<p>In this context, <code>@{}</code>, <code>VAR{}</code> and <code>OSC{}</code> syntaxes are seen as variables. When they change, the whole block will be evaluated again.</p>
+<div class="admonition danger">
+<p class="admonition-title">Do not mutate</p>
+<p>When these syntaxes return objects or arrays, mutating said objects will affect the underlying variables in memory and may lead to unexpected behavior.</p>
+<p>The <code>@{}</code> syntax, when used for anything else than the widget's value, will always return a copy of the property and is not affected by this.</p>
+</div>
+<h2 id="javascript-code">Javascript: <code>#{ &lt;code&gt; }</code><a class="headerlink" href="#javascript-code" title="Permanent link">#</a></h2>
+<p>This is a shorthand for the <code>JS{}</code> syntax, the only difference being that <code>&lt;code&gt;</code> is automatically prepended with a <code>return</code> statement.</p>
+<p>A property <em>can</em> contain multiple <code>#{}</code> blocks.</p>
+<div class="admonition note">
+<p class="admonition-title">Compilation order</p>
+<p><code>#{}</code> blocks are compiled after <code>JS{}</code> blocks</p>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyleft © Jean-Emmanuel Doucet @ <a href='http://ammd.net'>AMMD</a> (<a href='https://github.com/jean-emmanuel/open-stage-control/blob/master/LICENSE'>GNU/GPLv3</a>)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../extra/scripts.js"></script>
+      
+    
+  </body>
+</html>

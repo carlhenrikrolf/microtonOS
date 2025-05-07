@@ -1,0 +1,2365 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Libre and modular OSC / MIDI controller">
+      
+      
+      
+      
+        <link rel="prev" href="../advanced-syntaxes/">
+      
+      
+        <link rel="next" href="../fragments/">
+      
+      
+      <link rel="icon" href="../../../img/logo_nobadge.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Scripting - Open Stage Control</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+    <link rel="stylesheet" href="/fonts/fontawesome.min.css">
+    <link rel="stylesheet" href="/fonts/fa-solid.css">
+  <link rel="stylesheet" href="/fonts/roboto.css">
+  <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+    <script>
+        // hack mkdocs-material to bypass github stars/forks fetching
+        sessionStorage.setItem('-655102438', '[]')
+    </script>
+
+    
+      <link rel="stylesheet" href="../../../extra/styles.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Indigo" data-md-color-accent="Indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scripting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Open Stage Control" class="md-header__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Stage Control
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scripting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../download/" class="md-tabs__link">
+          
+  
+  Download
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../getting-started/introduction/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-tabs__link">
+          
+  
+  Bug Tracker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://openstagecontrol.discourse.group" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Open Stage Control" class="md-nav__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    Open Stage Control
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Download
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download the latest release
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/server-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-from-sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running from sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-with-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running with node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/change-property-with-osc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change a widget property with an osc message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User interface
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            User interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/launcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Widgets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Widgets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-mechanics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General mechanics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../properties-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Properties reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-syntaxes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    Events
+  </a>
+  
+    <nav class="md-nav" aria-label="Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oncreate" class="md-nav__link">
+    onCreate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvalue" class="md-nav__link">
+    onValue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ontouch" class="md-nav__link">
+    onTouch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondraw" class="md-nav__link">
+    onDraw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onkeyboard" class="md-nav__link">
+    onKeyboard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onpreload" class="md-nav__link">
+    onPreload
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-variables" class="md-nav__link">
+    Available variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Available variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getid" class="md-nav__link">
+    get(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setid-value-options" class="md-nav__link">
+    set(id, value, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getvarid-name" class="md-nav__link">
+    getVar(id, name)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setvarid-name-value" class="md-nav__link">
+    setVar(id, name, value)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sendtarget-address-args" class="md-nav__link">
+    send(target, address, ...args)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpropid-name" class="md-nav__link">
+    getProp(id, name)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getindexid" class="md-nav__link">
+    getIndex(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatepropid-name" class="md-nav__link">
+    updateProp(id, name)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatecanvasid" class="md-nav__link">
+    updateCanvas(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpgeturl-callback" class="md-nav__link">
+    httpGet(url, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stategetid" class="md-nav__link">
+    stateGet(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statesetstate-options" class="md-nav__link">
+    stateSet(state, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settimeoutid-callback-delay-setintervalid-callback-delay" class="md-nav__link">
+    setTimeout(id, callback, delay) / setInterval(id, callback, delay)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleartimeoutid-clearintervalid" class="md-nav__link">
+    clearTimeout(id) / clearInterval(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setfocusid" class="md-nav__link">
+    setFocus(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unfocus" class="md-nav__link">
+    unfocus()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setfocusablefocusable" class="md-nav__link">
+    setFocusable(focusable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getscrollid" class="md-nav__link">
+    getScroll(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setscrollid-x-y" class="md-nav__link">
+    setScroll(id, x, y)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toolbari1-i2" class="md-nav__link">
+    toolbar(i1, i2, ...)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openurlurl" class="md-nav__link">
+    openUrl(url)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runasid-callback" class="md-nav__link">
+    runAs(id, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reloadkeepstate" class="md-nav__link">
+    reload(keepState)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getnavigator" class="md-nav__link">
+    getNavigator()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#browsefileoptions-callback" class="md-nav__link">
+    browseFile(options, callback)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fragments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fragments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../canvas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MIDI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            MIDI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Custom module
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/custom-module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/managing-big-modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing big modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/css-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../remote-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bug Tracker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://openstagecontrol.discourse.group" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community forums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    Events
+  </a>
+  
+    <nav class="md-nav" aria-label="Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oncreate" class="md-nav__link">
+    onCreate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvalue" class="md-nav__link">
+    onValue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ontouch" class="md-nav__link">
+    onTouch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondraw" class="md-nav__link">
+    onDraw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onkeyboard" class="md-nav__link">
+    onKeyboard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onpreload" class="md-nav__link">
+    onPreload
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-variables" class="md-nav__link">
+    Available variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Available variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getid" class="md-nav__link">
+    get(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setid-value-options" class="md-nav__link">
+    set(id, value, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getvarid-name" class="md-nav__link">
+    getVar(id, name)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setvarid-name-value" class="md-nav__link">
+    setVar(id, name, value)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sendtarget-address-args" class="md-nav__link">
+    send(target, address, ...args)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpropid-name" class="md-nav__link">
+    getProp(id, name)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getindexid" class="md-nav__link">
+    getIndex(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatepropid-name" class="md-nav__link">
+    updateProp(id, name)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatecanvasid" class="md-nav__link">
+    updateCanvas(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpgeturl-callback" class="md-nav__link">
+    httpGet(url, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stategetid" class="md-nav__link">
+    stateGet(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statesetstate-options" class="md-nav__link">
+    stateSet(state, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    storage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settimeoutid-callback-delay-setintervalid-callback-delay" class="md-nav__link">
+    setTimeout(id, callback, delay) / setInterval(id, callback, delay)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleartimeoutid-clearintervalid" class="md-nav__link">
+    clearTimeout(id) / clearInterval(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setfocusid" class="md-nav__link">
+    setFocus(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unfocus" class="md-nav__link">
+    unfocus()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setfocusablefocusable" class="md-nav__link">
+    setFocusable(focusable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getscrollid" class="md-nav__link">
+    getScroll(id)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setscrollid-x-y" class="md-nav__link">
+    setScroll(id, x, y)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toolbari1-i2" class="md-nav__link">
+    toolbar(i1, i2, ...)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openurlurl" class="md-nav__link">
+    openUrl(url)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runasid-callback" class="md-nav__link">
+    runAs(id, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reloadkeepstate" class="md-nav__link">
+    reload(keepState)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getnavigator" class="md-nav__link">
+    getNavigator()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#browsefileoptions-callback" class="md-nav__link">
+    browseFile(options, callback)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="scripting">Scripting<a class="headerlink" href="#scripting" title="Permanent link">#</a></h1>
+<p>Widgets can run <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Javascript</a> scripts upon specific events. These scripts are written in special properties under the scripting category.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advanced syntaxes</p>
+<p>Most <a href="../advanced-syntaxes/">advanced syntaxes</a> should be avoided as much as possible in scripting properties:</p>
+<ul>
+<li><code>@{}</code>: use <code>get()</code> and <code>getProp()</code> instead</li>
+<li><code>OSC{}</code>: use <code>get()</code> instead (using another widget as receiver)</li>
+<li><code>VAR{}</code>: use <code>getVar()</code>instead</li>
+<li><code>JS{}</code> and <code>#{}</code> are useless (scripting properties are already interpreted as javascript code) unless you want to generate code procedurally</li>
+</ul>
+<p>The editor will always fail to recognize these syntaxes as they don't comply with the javacript language specification, even if the resulting code is valid.</p>
+</div>
+<h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">#</a></h2>
+<h3 id="oncreate"><code>onCreate</code><a class="headerlink" href="#oncreate" title="Permanent link">#</a></h3>
+<p>This script is called when the widget is created. If the widget has children, it will be executed after the children are created.</p>
+<div class="admonition warning">
+<p class="admonition-title">Modifying parent container</p>
+<p>Modifying a non-dynamic property on a parent container from this script <strong>will not work</strong>.</p>
+</div>
+<p>The following variables are available in this context:</p>
+<ul>
+<li><code>value</code>: widget's value    </li>
+</ul>
+<h3 id="onvalue"><code>onValue</code><a class="headerlink" href="#onvalue" title="Permanent link">#</a></h3>
+<p>This script is called when the widget's value updates and when it receives a value.</p>
+<p>The following variables are available in this context:</p>
+<ul>
+<li><code>id</code> (<code>string</code>): id of the widget that's responsible for the value update</li>
+<li><code>value</code>: widget's value</li>
+<li><code>touch</code>: see <a href="#touch-state">Touch state</a></li>
+</ul>
+<details class="infos">
+<summary>Keyboard &amp; Matrix</summary>
+<p>In keyboards and matrices, <code>id</code> is the id of the child widget that triggered the event, and <code>value</code> is an array containing the children's values.
+The touched widget's value can be retrieved with:
+<div class="highlight"><pre><span></span><code><span class="nx">value</span><span class="p">[</span><span class="nx">getIndex</span><span class="p">(</span><span class="nx">id</span><span class="p">)]</span>
+</code></pre></div></p>
+</details>
+<details class="infos">
+<summary>Touch state (deprecated)</summary>
+<p><em>This feature is deprecated, use <code>onTouch</code> instead</em></p>
+<p>When some widgets are touched or released, a special value event can be caught to trigger custom actions.</p>
+<p>If the variable <code>touch</code> is not <code>undefined</code>, this means it holds the widget's current touch state:</p>
+<ul>
+<li><code>0/1</code> for the widget's touch state (<code>fader</code>, <code>knob</code> and <code>xy</code>, <code>range</code> and <code>multixy</code>)</li>
+<li><code>[i, 0/1]</code> if the widget is multi touch (<code>range</code> and <code>multixy</code>). In this case <code>i</code> is the touched handle's index, starting with <code>0</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">touch</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// send multi touch state</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">touch</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;/touch_address&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">touch</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">touch</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span>
+<span class="w">    </span><span class="c1">// send global touch state</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;/touch_address&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">touch</span><span class="p">)</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// do something with the value ?</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>To avoid unwanted script executions, touch state events will only be caught if the script contains the word <code>touch</code> and if <code>onTouch</code> is empty.</p>
+</details>
+<h3 id="ontouch"><code>onTouch</code><a class="headerlink" href="#ontouch" title="Permanent link">#</a></h3>
+<p>This script is executed when the widget is touched, and when it is released.</p>
+<p>This script has access to the same variables and functions as the <code>script</code> property (except the event-specific ones), plus the following:</p>
+<ul>
+<li><code>value</code>: widget value</li>
+<li><code>event</code>: object containing the following:<ul>
+<li><code>type</code>: <code>"start"</code> or <code>"stop"</code></li>
+<li><code>handle</code>: <code>undefined</code> if the event concerns the widget, <code>integer</code> if it concerns one of it's handles (<code>multixy</code> and <code>range</code> widgets only)</li>
+</ul>
+</li>
+</ul>
+<p><a href="../canvas/">Canvas</a> and containers expose more informations in their <code>onTouch</code> script.</p>
+<details class="infos">
+<summary>Containers onTouch</summary>
+<p>Containers (root, panel, etc) can monitor touch events happening inside them, it works like with <a href="../canvas/#ontouch">Canvas</a>, with a few differences:</p>
+<ul>
+<li><code>event.firstTarget</code> will return the id of the first touched widget</li>
+<li>setting <code>event.preventDefault</code> to <code>true</code> will prevent the event from reaching widgets in the container ('start' and 'move' events only)</li>
+<li>setting <code>event.allowScroll</code> to <code>true</code> will allow touch scrolling where it would normally be prevented ('start' event only)</li>
+<li>setting <code>event.inertia</code> will affect 'move' events (works like widget <code>sensitivity</code> in reverse (1 = normal, 10 = slow move))</li>
+<li><code>width</code> and <code>height</code> are undefined</li>
+</ul>
+<p>Containers with <code>traversing</code> enabled change how touch events are emitted:</p>
+<ul>
+<li>a new 'stop' event is emitted whenever the pointer exits a touchable widget while pressed.</li>
+<li>a new 'start' event is emitted whenever the pointer enters a touchable widget while pressed.</li>
+</ul>
+</details>
+<h3 id="ondraw"><code>onDraw</code><a class="headerlink" href="#ondraw" title="Permanent link">#</a></h3>
+<p>See <a href="../canvas/">canvas</a>.</p>
+<h3 id="onkeyboard"><code>onKeyboard</code><a class="headerlink" href="#onkeyboard" title="Permanent link">#</a></h3>
+<p><em>Script widget only</em></p>
+<p>This script is executed when the key(s) defined in the widget's <code>keyBinding</code> property are pressed.</p>
+<p>The following variables are available in this context:</p>
+<ul>
+<li><code>type</code> (<code>string</code>): <code>keydown</code> or <code>keyup</code></li>
+<li><code>key</code> (<code>string</code>): key name,</li>
+<li><code>code</code> (<code>number</code>): key code</li>
+<li><code>ctrl</code> (<code>boolean)</code>: <code>true</code> if ctrl key is pressed</li>
+<li><code>shift</code> (<code>boolean</code>): <code>true</code> if shift key is pressed</li>
+<li><code>alt</code> (<code>boolean</code>): <code>true</code> if alt key is pressed</li>
+<li><code>meta</code> (<code>boolean</code>): <code>true</code> if meta key is pressed</li>
+</ul>
+<h3 id="onpreload"><code>onPreload</code><a class="headerlink" href="#onpreload" title="Permanent link">#</a></h3>
+<p>This script is specific to the root widget, it's called before any other widget is created and can be used to create global variables / functions accessible in other scripts.</p>
+<h2 id="available-variables">Available variables<a class="headerlink" href="#available-variables" title="Permanent link">#</a></h2>
+<p>The following variables and functions are accessible in this context.</p>
+<ul>
+<li><code>console</code>: javascript console</li>
+<li><code>locals</code>: object for storing/reading arbitrary values. Changing its properties <em>does not</em> trigger any synchronisation even if the value is used somewhere else.</li>
+<li><code>globals</code>: same as <code>locals</code> but shared between all widgets, contains a few useful variables:<ul>
+<li><code>screen</code>: client screen informations (<code>{width, height, orientation}</code>)</li>
+<li><code>env</code>: client options (ie: url query options),</li>
+<li><code>ip</code>: client's ip address,</li>
+<li><code>url</code>: server url,</li>
+<li><code>platform</code>: operating system as seen by the client</li>
+<li><code>session</code>: session file path</li>
+<li><code>clipboard</code>: instance of navigator <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard">Clipboard</a></li>
+</ul>
+</li>
+<li><code>Image</code>: javascript's <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image">Image</a> constructor</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">this</p>
+<p>Unlike in most javascript contexts, the special keyword <code>this</code> doesn't point to an object but instead returns the string <code>"this"</code>.</p>
+</div>
+<hr />
+<h4 id="getid"><code>get(id)</code><a class="headerlink" href="#getid" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string.</li>
+</ul>
+<p>Returns the value of the first matching widget. If the returned value is an object, a copy is returned to allow safe mutation.</p>
+<hr />
+<h4 id="setid-value-options"><code>set(id, value, options)</code><a class="headerlink" href="#setid-value-options" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string. Can be <code>"this"</code> to target the host widget, or <code>"parent"</code> to target the parent widget. <code>id</code> may contains wildcards ('*').</li>
+<li><code>value</code>: new value for the widget.</li>
+<li><code>options</code> (optional): <code>object</code>, accepts the following items:<ul>
+<li><code>sync: false</code>: prevents widgets from triggering synchronization and scripts</li>
+<li><code>script: false</code>: prevents scripts but not synchronization</li>
+<li><code>send: false</code>: prevents widgets from sending osc messages</li>
+<li><code>external: true</code>: simulates a value coming from an osc/midi message (implies <code>sync: false</code> automatically)</li>
+</ul>
+</li>
+</ul>
+<p>Sets the value of the first matching widget. If <code>ìd</code> contains wildcards, affects all matching widgets <strong>except</strong> the emitting widget.</p>
+<p>If the event that triggered the script's execution was initiated by a user interaction, this will make the widget send its value as well (unless <code>options</code> is set to <code>{send: false}</code>).</p>
+<hr />
+<h4 id="getvarid-name"><code>getVar(id, name)</code><a class="headerlink" href="#getvarid-name" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string.</li>
+<li><code>name</code>: variable name as a string.</li>
+</ul>
+<p>Returns the value of a widget's custom variable. If the returned value is an object, a copy is returned to allow safe mutation.</p>
+<hr />
+<h4 id="setvarid-name-value"><code>setVar(id, name, value)</code><a class="headerlink" href="#setvarid-name-value" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string. Can be <code>"this"</code> to target the host widget, or <code>"parent"</code> to target the parent widget. <code>id</code> may contains wildcards ('*').</li>
+<li><code>name</code>: variable name as a string.</li>
+<li><code>value</code>: new value for the variable.</li>
+</ul>
+<p>Sets the value of a widget's custom variable (see <a href="../advanced-syntaxes/##ustom-variables-varvariablename-default">advanced syntaxes</a>). If <code>ìd</code> contains wildcards, affects all matching widgets.</p>
+<hr />
+<h4 id="sendtarget-address-args"><code>send(target, address, ...args)</code><a class="headerlink" href="#sendtarget-address-args" title="Permanent link">#</a></h4>
+<ul>
+<li><code>target</code> (optional): <code>"ip:port"</code> or <code>"midi:device_name"</code> string. If omitted, the widget's target (or the server's defaults) will be used.</li>
+<li><code>address</code>: osc address, must start with a <code>/</code></li>
+<li><code>args</code>: values or <code>{type: "OSC_TYPE_LETTER", value: VALUE}</code> objects</li>
+</ul>
+<p>Sends an osc message.</p>
+<p>If the event that triggered the script's execution was not initiated by a user interaction, this function will have no effect.</p>
+<p>This function ignores the widget's <code>bypass</code> and <code>ignoreDefaults</code> properties.</p>
+<details class="infos">
+<summary>Examples</summary>
+<div class="highlight"><pre><span></span><code><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;127.0.0.1:4444&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;/address&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
+<span class="nx">send</span><span class="p">(</span><span class="s1">&#39;127.0.0.1:4444&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;/address&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<span class="nx">send</span><span class="p">(</span><span class="s1">&#39;/address&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="c1">// uses the widget&#39;s target</span>
+<span class="nx">send</span><span class="p">(</span><span class="s1">&#39;/address&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">})</span><span class="w"> </span><span class="c1">// sends 1 as an integer</span>
+</code></pre></div>
+</details>
+<hr />
+<h4 id="getpropid-name"><code>getProp(id, name)</code><a class="headerlink" href="#getpropid-name" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string. Can be <code>"this"</code> to target the host widget, or <code>"parent"</code> to target the parent widget.</li>
+<li><code>name</code>: property name.</li>
+</ul>
+<p>Returns the property called <code>"name"</code> of the first matching widget. If the returned value is an object, a copy is returned to allow safe mutation.</p>
+<hr />
+<h4 id="getindexid"><code>getIndex(id)</code><a class="headerlink" href="#getindexid" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code> (optional): widget <code>id</code> as a string. Defaults to <code>"this"</code>.</li>
+</ul>
+<p>Returns the widget's index in its container.</p>
+<hr />
+<h4 id="updatepropid-name"><code>updateProp(id, name)</code><a class="headerlink" href="#updatepropid-name" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string. Can be <code>"this"</code> to target the host widget, or <code>"parent"</code> to target the parent widget.</li>
+<li><code>name</code>: property name.</li>
+</ul>
+<p>Forces a widget to check if one of its properties has changed and update itself if needed.</p>
+<hr />
+<h4 id="updatecanvasid"><code>updateCanvas(id)</code><a class="headerlink" href="#updatecanvasid" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string. Can be <code>"this"</code> to target the host widget.</li>
+</ul>
+<p>Forces a canvas widget redraw.</p>
+<hr />
+<h4 id="httpgeturl-callback"><code>httpGet(url, callback)</code><a class="headerlink" href="#httpgeturl-callback" title="Permanent link">#</a></h4>
+<ul>
+<li><code>url</code>: url of the resource to fetch (local url only)</li>
+<li><code>callback</code>: function executed when/if the http request succeeds, with the response text as argument</li>
+</ul>
+<hr />
+<h4 id="stategetid"><code>stateGet(id)</code><a class="headerlink" href="#stategetid" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string, or array of <code>id</code> strings. Can be <code>"this"</code> to target the host widget, or <code>"parent"</code> to target the parent widget.</li>
+</ul>
+<p>Returns a state object (<code>id:value</code>) for matching widget and all their children.</p>
+<hr />
+<h4 id="statesetstate-options"><code>stateSet(state, options)</code><a class="headerlink" href="#statesetstate-options" title="Permanent link">#</a></h4>
+<p>Loads a state object. If the event that triggered the script's execution was initiated by a user interaction, this will make the updated widgets send their value as well.</p>
+<ul>
+<li><code>options</code> (optional): <code>object</code>, accepts the following items:<ul>
+<li><code>send: false</code>: prevents widgets from sending osc messages</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h4 id="storage"><code>storage</code><a class="headerlink" href="#storage" title="Permanent link">#</a></h4>
+<p>Global <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a> instance, allows storing data that persists upon refresh/relaunch.</p>
+<hr />
+<h4 id="settimeoutid-callback-delay-setintervalid-callback-delay"><code>setTimeout(id, callback, delay)</code> / <code>setInterval(id, callback, delay)</code><a class="headerlink" href="#settimeoutid-callback-delay-setintervalid-callback-delay" title="Permanent link">#</a></h4>
+<p>These work like almost their native equivalent, with an extra (optional) <code>id</code> argument.</p>
+<ul>
+<li><code>id</code> (optional): unique identifier, if omitted, defaults to <code>undefined</code>. If a timeout with the same id is already running, it is cleared before the new one is created (even if <code>undefined</code>). <code>id</code>s are scoped to the widget's context: two timeouts with the same <code>id</code> in two different widgets can run concurrently</li>
+<li><code>callback</code>: function to be executed</li>
+<li><code>delay</code>: delay before execution is ms</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout">https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval">https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval</a></li>
+</ul>
+<p>Usage note:</p>
+<p>If no concurrent timeout / interval is needed, calling <code>setTimeout</code>, <code>setInterval</code>, <code>clearTimeout</code> and <code>clearInterval</code> with no <code>ìd</code> argument will do.</p>
+<hr />
+<h4 id="cleartimeoutid-clearintervalid"><code>clearTimeout(id)</code> / <code>clearInterval(id)</code><a class="headerlink" href="#cleartimeoutid-clearintervalid" title="Permanent link">#</a></h4>
+<p>Clears timeout with matching <code>id</code>.</p>
+<p>Reference:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout">https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearTimeout</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval">https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval</a></li>
+</ul>
+<hr />
+<h4 id="setfocusid"><code>setFocus(id)</code><a class="headerlink" href="#setfocusid" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code> (optional): widget <code>id</code> as a string</li>
+</ul>
+<p>Gives focus to a widget (ie input widget).</p>
+<p><em>Built-in client only</em>: tells the operating system to give the focus to the client window</p>
+<hr />
+<h4 id="unfocus"><code>unfocus()</code><a class="headerlink" href="#unfocus" title="Permanent link">#</a></h4>
+<p><em>Built-in client only</em>: tells the operating system to give the focus to the window that was focused before.</p>
+<hr />
+<h4 id="setfocusablefocusable"><code>setFocusable(focusable)</code><a class="headerlink" href="#setfocusablefocusable" title="Permanent link">#</a></h4>
+<ul>
+<li><code>focusable</code>: <code>0</code> or <code>1</code></li>
+</ul>
+<p><em>Built-in client only</em>: define whether the client window can be focused or not. Text inputs cannot be interacted with when the window is not focusable.</p>
+<hr />
+<h4 id="getscrollid"><code>getScroll(id)</code><a class="headerlink" href="#getscrollid" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string.</li>
+</ul>
+<p>Returns the scroll position of a container as a <code>[x, y]</code> array.</p>
+<p><strong>Deprecated</strong></p>
+<p>Scrollable panels expose their scroll position normalized between 0 and 1 with their value.</p>
+<hr />
+<h4 id="setscrollid-x-y"><code>setScroll(id, x, y)</code><a class="headerlink" href="#setscrollid-x-y" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string. Can be <code>"this"</code> to target the host widget, or <code>"parent"</code> to target the parent widget.</li>
+<li><code>x</code>: horizontal scroll, <code>undefined</code> to use current value</li>
+<li><code>y</code>: vertical scroll, <code>undefined</code> to use current value</li>
+</ul>
+<p>Sets the scroll state of a container.</p>
+<p><strong>Deprecated</strong></p>
+<p>Scrollable panels expose their scroll position normalized between 0 and 1 with their value.</p>
+<hr />
+<h4 id="toolbari1-i2"><code>toolbar(i1, i2, ...)</code><a class="headerlink" href="#toolbari1-i2" title="Permanent link">#</a></h4>
+<ul>
+<li><code>iX</code>: menu entry index</li>
+</ul>
+<p>Triggers toolbar action at specified index.</p>
+<div class="admonition example">
+<p class="admonition-title">Examples</p>
+<ul>
+<li><code>toolbar(0, 0)</code> -&gt; Open a new session</li>
+<li><code>toolbar(4)</code> -&gt; Toggle full screen</li>
+</ul>
+<p>Actions will only be triggered if initiated with a user interaction. Fullscreen cannot be toggled with a simulated interaction (i.e. using <code>/SET</code>)</p>
+</div>
+<hr />
+<h4 id="openurlurl"><code>openUrl(url)</code><a class="headerlink" href="#openurlurl" title="Permanent link">#</a></h4>
+<ul>
+<li><code>url</code>: http(s) url</li>
+</ul>
+<p><em>Built-in client only</em>: opens url with the system's default browser
+<em>External client only</em>: opens url in a new tab</p>
+<p>If the event that triggered the script's execution was not initiated by a user interaction, this function will have no effect.</p>
+<hr />
+<h4 id="runasid-callback"><code>runAs(id, callback)</code><a class="headerlink" href="#runasid-callback" title="Permanent link">#</a></h4>
+<ul>
+<li><code>id</code>: widget <code>id</code> as a string.</li>
+<li><code>callback</code>: function to be executed</li>
+</ul>
+<p>Run <code>callback</code> function as if executed by another that widget matches specified id. This will not change the value of any local variable but <code>"this"</code> and <code>"parent"</code> arguments (accepted by functions such as <code>set()</code>) will be interpreted differently. Timeouts and intervals will be created and cleared in the target widget's scope.</p>
+<hr />
+<h4 id="reloadkeepstate"><code>reload(keepState)</code><a class="headerlink" href="#reloadkeepstate" title="Permanent link">#</a></h4>
+<ul>
+<li><code>keepState</code> (optional): <code>true</code> by default, set to false to discard the client's state.</li>
+</ul>
+<p>Reload the client application. Cannot be called from the <code>onCreate</code> property.</p>
+<p>If the event that triggered the script's execution was not initiated by a user interaction, this function will have no effect.</p>
+<hr />
+<h4 id="getnavigator"><code>getNavigator()</code><a class="headerlink" href="#getnavigator" title="Permanent link">#</a></h4>
+<p>Returns the instance of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator">Navigator</a>.</p>
+<hr />
+<h4 id="browsefileoptions-callback"><code>browseFile(options, callback)</code><a class="headerlink" href="#browsefileoptions-callback" title="Permanent link">#</a></h4>
+<p>Opens the file file browser and pass selected file to a callback function (does not create nor read files by itself).</p>
+<ul>
+<li><code>options</code>: object with the following keys:<ul>
+<li><code>extension</code>: allowed extension (default: "*")</li>
+<li><code>directory</code>: starting directory for browser (default: user's home)</li>
+<li><code>allowDir</code>: allow choosing a directory instead of a file (default: false)</li>
+<li><code>mode</code>: "save" or "open"</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyleft © Jean-Emmanuel Doucet @ <a href='http://ammd.net'>AMMD</a> (<a href='https://github.com/jean-emmanuel/open-stage-control/blob/master/LICENSE'>GNU/GPLv3</a>)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../extra/scripts.js"></script>
+      
+    
+  </body>
+</html>

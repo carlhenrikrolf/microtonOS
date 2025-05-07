@@ -1,0 +1,1822 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Libre and modular OSC / MIDI controller">
+      
+      
+      
+      
+        <link rel="prev" href="../fragments/">
+      
+      
+        <link rel="next" href="../../midi/midi-configuration/">
+      
+      
+      <link rel="icon" href="../../../img/logo_nobadge.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Canvas widget - Open Stage Control</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+    <link rel="stylesheet" href="/fonts/fontawesome.min.css">
+    <link rel="stylesheet" href="/fonts/fa-solid.css">
+  <link rel="stylesheet" href="/fonts/roboto.css">
+  <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+    <script>
+        // hack mkdocs-material to bypass github stars/forks fetching
+        sessionStorage.setItem('-655102438', '[]')
+    </script>
+
+    
+      <link rel="stylesheet" href="../../../extra/styles.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Indigo" data-md-color-accent="Indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#canvas-widget" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Open Stage Control" class="md-header__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Stage Control
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Canvas widget
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../download/" class="md-tabs__link">
+          
+  
+  Download
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../getting-started/introduction/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-tabs__link">
+          
+  
+  Bug Tracker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://openstagecontrol.discourse.group" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Open Stage Control" class="md-nav__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    Open Stage Control
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Download
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download the latest release
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/server-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-from-sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running from sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-with-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running with node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/change-property-with-osc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change a widget property with an osc message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User interface
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            User interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/launcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interface/editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Widgets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Widgets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-mechanics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General mechanics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../properties-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Properties reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-syntaxes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fragments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fragments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#canvas-properties" class="md-nav__link">
+    Canvas properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Canvas properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valuelength" class="md-nav__link">
+    valueLength
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoclear" class="md-nav__link">
+    autoClear
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous" class="md-nav__link">
+    continuous
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ontouch" class="md-nav__link">
+    onTouch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondraw" class="md-nav__link">
+    onDraw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onresize" class="md-nav__link">
+    onResize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-xy-pad" class="md-nav__link">
+    Example: XY pad
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-multi-slider" class="md-nav__link">
+    Example: multi slider
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MIDI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            MIDI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Custom module
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/custom-module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/managing-big-modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing big modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/css-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../remote-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bug Tracker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://openstagecontrol.discourse.group" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community forums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#canvas-properties" class="md-nav__link">
+    Canvas properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Canvas properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valuelength" class="md-nav__link">
+    valueLength
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoclear" class="md-nav__link">
+    autoClear
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous" class="md-nav__link">
+    continuous
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ontouch" class="md-nav__link">
+    onTouch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondraw" class="md-nav__link">
+    onDraw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onresize" class="md-nav__link">
+    onResize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-xy-pad" class="md-nav__link">
+    Example: XY pad
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-multi-slider" class="md-nav__link">
+    Example: multi slider
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="canvas-widget">Canvas widget<a class="headerlink" href="#canvas-widget" title="Permanent link">#</a></h1>
+<p>The canvas widget allows creating custom widgets with user-defined drawings and touch reactions.</p>
+<p>It has two special properties, <code>touch</code> and <code>draw</code>, that work like the <code>script</code> property : they are used to defined scripts that will be executed when specific events occurs.</p>
+<p>This widget requires a good understanding of the javascript <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas API</a> and of the javascript programming language in general.</p>
+<h2 id="canvas-properties">Canvas properties<a class="headerlink" href="#canvas-properties" title="Permanent link">#</a></h2>
+<h3 id="valuelength"><code>valueLength</code><a class="headerlink" href="#valuelength" title="Permanent link">#</a></h3>
+<p>This property must be set to the number of values held by the widget : 1 for a simple slider, 2 for an XY pad, etc. Attempts to set the widget's value with a different number of values will be ignored.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="c1">// works if valueLength == 1</span>
+<span class="nx">set</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">])</span><span class="w"> </span><span class="c1">// works if valueLength == 2</span>
+</code></pre></div>
+<h3 id="autoclear"><code>autoClear</code><a class="headerlink" href="#autoclear" title="Permanent link">#</a></h3>
+<p>This is a convenience option that clears the canvas context and calls <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath"><code>beginPath</code></a> before each drawing. When this property is set to <code>false</code>, the canvas must be cleared manually.</p>
+<h3 id="continuous"><code>continuous</code><a class="headerlink" href="#continuous" title="Permanent link">#</a></h3>
+<p>If this property is enabled, the widget will be redrawn at a fixed rate even if not interacted with (see <a href="#onDraw"><code>onDraw</code></a>).</p>
+<h3 id="ontouch"><code>onTouch</code><a class="headerlink" href="#ontouch" title="Permanent link">#</a></h3>
+<p>This script is executed when the widget is touched, when it is released, and during the movement of the pointer while the widget is touched.</p>
+<p>This script has access to the same variables and functions as the <code>script</code> property (except the event-specific ones), plus the following:</p>
+<ul>
+<li><code>value</code>: widget value</li>
+<li><code>width</code>: canvas width in pixels</li>
+<li><code>height</code>: canvas height in pixels</li>
+<li><code>event</code>: object containing the following:<ul>
+<li><code>type</code>: <code>"start"</code>, <code>"move"</code> or <code>"stop"</code></li>
+<li><code>target</code>: id of the widget under the pointer, <code>"this"</code> if it's the canvas widget itself, <code>null</code> if no widget is under the pointer</li>
+<li><code>targetName</code>: name attribute of the html element under the pointer</li>
+<li><code>targetTagName</code>: tag name of the html element under the pointer</li>
+<li><code>offsetX</code>, <code>offsetY</code>: touch coordinates in pixels, relative to the html element under the pointer</li>
+<li><code>movementX</code>, <code>movementY</code>: movement of the pointer in pixels since the last event</li>
+<li><code>pageX</code>, <code>pageY</code>: touch coordinates in pixels, relative to the page</li>
+<li><code>pointerId</code>: unique identifier used to differentiate fingers in multitouch situation</li>
+<li><code>altKey</code>, <code>ctrlKey</code>, <code>shiftKey</code>: keyboard modifier states</li>
+<li><code>force</code>: amount of pressure applied to the touch surface between <code>0</code> and <code>1</code> (see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Touch/force">Touch.force</a>). Equals <code>0</code> if the API is not supported or if no pressure information is found.</li>
+<li><code>radiusX</code>, <code>radiusY</code>, <code>rotationAngle</code>: see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Touch/rotationAngle">Touch.rotationAngle</a></li>
+<li>(iOS only) <code>altitudeAngle</code>, <code>azimuthAngle</code>: see <a href="https://w3c.github.io/touch-events/#dom-touch-altitudeangle">Touch.altitudeAngle</a></li>
+<li>(iOS only) <code>touchType</code>: "direct" or "stylus"</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Extra html elements</p>
+<p>Elements added using the <code>html</code> property can be touched as well, <code>event.targetName</code> can be used to determine which element is touched.</p>
+</div>
+<h3 id="ondraw"><code>onDraw</code><a class="headerlink" href="#ondraw" title="Permanent link">#</a></h3>
+<p>This script is executed when the widget should be redrawn, which is when it's touched and when it receives a value.</p>
+<p>This script has access to the same variables and functions as the <code>script</code> property (except the event-specific ones), plus the following:</p>
+<ul>
+<li><code>value</code>: widget value</li>
+<li><code>width</code>: canvas width in pixels</li>
+<li><code>height</code>: canvas height in pixels</li>
+<li><code>ctx</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">canvas rendering context</a> of the widget</li>
+<li><code>cssVars</code>: object containing the computed value of some of the widget's style properties such as <code>colorWidget</code>, <code>alphaFill</code>, <code>padding</code>, etc</li>
+</ul>
+<h3 id="onresize"><code>onResize</code><a class="headerlink" href="#onresize" title="Permanent link">#</a></h3>
+<p>This script is executed when the widget has resized, before it is redrawn.</p>
+<p>This script has access to the same variables and functions as the <code>script</code> property (except the event-specific ones), plus the following:</p>
+<ul>
+<li><code>value</code>: widget value</li>
+<li><code>width</code>: canvas width in pixels</li>
+<li><code>height</code>: canvas height in pixels</li>
+<li><code>cssVars</code>: object containing the computed value of some of the widget's style properties such as <code>colorWidget</code>, <code>alphaFill</code>, <code>padding</code>, etc</li>
+</ul>
+<h2 id="example-xy-pad">Example: XY pad<a class="headerlink" href="#example-xy-pad" title="Permanent link">#</a></h2>
+<p>Let's create a simple xy pad, with a value made of two numbers between 0 and 1. We set <code>valueLength</code> to <code>2</code> to make sure the widget only accepts incoming messages with two values (x and y).</p>
+<p>First, we use the <code>onTouch</code> property to store the touch coordinates in the <code>locals</code> object. We also call <code>set()</code> to store these in the widget's value (this way, the widget can send messages and sync with other widgets).</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// onTouch</span>
+
+<span class="c1">// store normalized coordinates</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetX</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">width</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetY</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">height</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// when the pointer is moving, increment coordinates</span>
+<span class="w">    </span><span class="c1">// because offsetX and offsetY may not be relevant</span>
+<span class="w">    </span><span class="c1">// if the pointer hovers a different widgets</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">movementX</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">width</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">movementY</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">height</span>
+<span class="p">}</span>
+
+<span class="c1">// update widget value and send</span>
+<span class="nx">set</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">locals</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">locals</span><span class="p">.</span><span class="nx">y</span><span class="p">])</span>
+</code></pre></div>
+<p>Then, we use the <code>onDraw</code> property to draw a circle at the touch coordinates.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// onDraw</span>
+
+<span class="c1">// draw circle at touch coordinates</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">value</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">height</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+<span class="c1">// use colorFill property as stroke color</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">strokeStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cssVars</span><span class="p">.</span><span class="nx">colorFill</span>
+<span class="c1">// draw stroke</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">()</span>
+</code></pre></div>
+<p>Finally, we use the <code>onValue</code> property to apply limits to the values.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// onValue</span>
+
+<span class="c1">// apply limits</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">[</span><span class="mf">0</span><span class="p">])),</span>
+<span class="w">    </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">[</span><span class="mf">1</span><span class="p">]))</span>
+
+<span class="c1">// re-update widget value without retriggering script or sending message</span>
+<span class="nx">set</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="nx">sync</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">send</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">})</span>
+
+<span class="c1">// the widget will automatically send its value if</span>
+<span class="c1">// this script was triggered by a user interaction</span>
+<span class="c1">// no need to call send() here but we could, for example</span>
+<span class="c1">// if we want to split the value in to multiple messages</span>
+</code></pre></div>
+<h2 id="example-multi-slider">Example: multi slider<a class="headerlink" href="#example-multi-slider" title="Permanent link">#</a></h2>
+<p>Let's build a row of 20-sliders with a single widget. We first set <code>valueLength</code> to... 20 !</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// onTouch</span>
+
+<span class="c1">// store normalized coordinates</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetX</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">width</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">offsetY</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">height</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// when the pointer is moving, increment coordinates</span>
+<span class="w">    </span><span class="c1">// because offsetX and offsetY may not be relevant</span>
+<span class="w">    </span><span class="c1">// if the pointer hovers a different widgets</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">movementX</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">width</span>
+<span class="w">    </span><span class="nx">locals</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">movementY</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">height</span>
+<span class="p">}</span>
+
+
+<span class="c1">// which slider are we touching ?</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">locals</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="nx">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mf">1</span><span class="p">))</span>
+
+<span class="c1">// update value at slider&#39;s index</span>
+<span class="c1">// 1 - locals.y because y axis is from top to bottom in js canvas</span>
+<span class="nx">value</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">locals</span><span class="p">.</span><span class="nx">y</span>
+
+<span class="c1">// update widget value and send</span>
+<span class="nx">set</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// onDraw</span>
+
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cssVars</span><span class="p">.</span><span class="nx">colorFill</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">globalAlpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cssVars</span><span class="p">.</span><span class="nx">alphaFillOn</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">sliderWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">value</span><span class="p">){</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">rect</span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="p">,</span><span class="w"> </span><span class="nx">sliderWidth</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">height</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// onValue</span>
+
+<span class="c1">// apply limits</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span>
+<span class="p">}</span>
+
+<span class="c1">// re-update widget value without retriggering script or sending message</span>
+<span class="nx">set</span><span class="p">(</span><span class="s2">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">sync</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">send</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">})</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyleft © Jean-Emmanuel Doucet @ <a href='http://ammd.net'>AMMD</a> (<a href='https://github.com/jean-emmanuel/open-stage-control/blob/master/LICENSE'>GNU/GPLv3</a>)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../extra/scripts.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,5830 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Libre and modular OSC / MIDI controller">
+      
+      
+      
+      
+        <link rel="prev" href="../credits/">
+      
+      
+      
+      <link rel="icon" href="../../img/logo_nobadge.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Changelog - Open Stage Control</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+    <link rel="stylesheet" href="/fonts/fontawesome.min.css">
+    <link rel="stylesheet" href="/fonts/fa-solid.css">
+  <link rel="stylesheet" href="/fonts/roboto.css">
+  <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+    <script>
+        // hack mkdocs-material to bypass github stars/forks fetching
+        sessionStorage.setItem('-655102438', '[]')
+    </script>
+
+    
+      <link rel="stylesheet" href="../../extra/styles.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Indigo" data-md-color-accent="Indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Open Stage Control" class="md-header__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Stage Control
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../download/" class="md-tabs__link">
+          
+  
+  Download
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting-started/introduction/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-tabs__link">
+          
+  
+  Bug Tracker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://openstagecontrol.discourse.group" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Open Stage Control" class="md-nav__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    Open Stage Control
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Download
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download the latest release
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/server-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/running-from-sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running from sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/running-with-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running with node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/first-steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/change-property-with-osc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change a widget property with an osc message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User interface
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            User interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-interface/launcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-interface/client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-interface/editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Widgets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Widgets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../widgets/general-mechanics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General mechanics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../widgets/properties-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Properties reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../widgets/advanced-syntaxes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../widgets/scripting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../widgets/fragments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fragments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../widgets/canvas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MIDI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            MIDI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../midi/midi-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../midi/midi-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Custom module
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-module/custom-module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-module/managing-big-modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing big modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-module/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization/css-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1291-1292" class="md-nav__link">
+    1.29.1 / 1.29.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1290" class="md-nav__link">
+    1.29.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1285" class="md-nav__link">
+    1.28.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1284" class="md-nav__link">
+    1.28.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1283" class="md-nav__link">
+    1.28.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1282" class="md-nav__link">
+    1.28.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1281" class="md-nav__link">
+    1.28.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1280" class="md-nav__link">
+    1.28.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1275" class="md-nav__link">
+    1.27.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1274" class="md-nav__link">
+    1.27.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1273" class="md-nav__link">
+    1.27.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1272" class="md-nav__link">
+    1.27.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1271" class="md-nav__link">
+    1.27.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1270" class="md-nav__link">
+    1.27.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1262" class="md-nav__link">
+    1.26.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1261" class="md-nav__link">
+    1.26.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1260" class="md-nav__link">
+    1.26.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1257" class="md-nav__link">
+    1.25.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1256" class="md-nav__link">
+    1.25.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1255" class="md-nav__link">
+    1.25.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1254" class="md-nav__link">
+    1.25.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1253" class="md-nav__link">
+    1.25.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1252" class="md-nav__link">
+    1.25.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1251" class="md-nav__link">
+    1.25.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1250" class="md-nav__link">
+    1.25.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1242" class="md-nav__link">
+    1.24.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1241" class="md-nav__link">
+    1.24.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1240" class="md-nav__link">
+    1.24.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1230" class="md-nav__link">
+    1.23.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1220" class="md-nav__link">
+    1.22.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1210" class="md-nav__link">
+    1.21.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1200" class="md-nav__link">
+    1.20.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1192" class="md-nav__link">
+    1.19.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1191" class="md-nav__link">
+    1.19.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1190" class="md-nav__link">
+    1.19.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1183" class="md-nav__link">
+    1.18.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1182" class="md-nav__link">
+    1.18.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1181" class="md-nav__link">
+    1.18.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1180" class="md-nav__link">
+    1.18.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1170" class="md-nav__link">
+    1.17.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1166" class="md-nav__link">
+    1.16.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1164" class="md-nav__link">
+    1.16.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1163" class="md-nav__link">
+    1.16.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1162" class="md-nav__link">
+    1.16.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1161" class="md-nav__link">
+    1.16.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1160" class="md-nav__link">
+    1.16.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1158" class="md-nav__link">
+    1.15.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1157" class="md-nav__link">
+    1.15.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1156" class="md-nav__link">
+    1.15.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1155" class="md-nav__link">
+    1.15.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1154" class="md-nav__link">
+    1.15.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1153" class="md-nav__link">
+    1.15.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1152" class="md-nav__link">
+    1.15.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1151" class="md-nav__link">
+    1.15.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1150" class="md-nav__link">
+    1.15.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1146" class="md-nav__link">
+    1.14.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1145" class="md-nav__link">
+    1.14.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1144" class="md-nav__link">
+    1.14.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1143" class="md-nav__link">
+    1.14.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1142" class="md-nav__link">
+    1.14.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1140-1141" class="md-nav__link">
+    1.14.0, 1.14.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1132" class="md-nav__link">
+    1.13.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1131" class="md-nav__link">
+    1.13.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1130" class="md-nav__link">
+    1.13.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1120" class="md-nav__link">
+    1.12.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1111" class="md-nav__link">
+    1.11.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1110" class="md-nav__link">
+    1.11.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1103" class="md-nav__link">
+    1.10.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1102" class="md-nav__link">
+    1.10.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1100" class="md-nav__link">
+    1.10.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1914" class="md-nav__link">
+    1.9.14
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1913" class="md-nav__link">
+    1.9.13
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1912" class="md-nav__link">
+    1.9.12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1911" class="md-nav__link">
+    1.9.11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1910" class="md-nav__link">
+    1.9.10
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#199" class="md-nav__link">
+    1.9.9
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#198" class="md-nav__link">
+    1.9.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#197" class="md-nav__link">
+    1.9.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#196" class="md-nav__link">
+    1.9.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#195" class="md-nav__link">
+    1.9.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#194" class="md-nav__link">
+    1.9.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#193" class="md-nav__link">
+    1.9.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#192" class="md-nav__link">
+    1.9.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#191" class="md-nav__link">
+    1.9.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#190" class="md-nav__link">
+    1.9.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1815" class="md-nav__link">
+    1.8.15
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1814" class="md-nav__link">
+    1.8.14
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1813" class="md-nav__link">
+    1.8.13
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1812" class="md-nav__link">
+    1.8.12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1811" class="md-nav__link">
+    1.8.11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1810" class="md-nav__link">
+    1.8.10
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#189" class="md-nav__link">
+    1.8.9
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#188" class="md-nav__link">
+    1.8.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#187" class="md-nav__link">
+    1.8.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#186" class="md-nav__link">
+    1.8.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#185" class="md-nav__link">
+    1.8.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#184" class="md-nav__link">
+    1.8.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#183" class="md-nav__link">
+    1.8.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#182" class="md-nav__link">
+    1.8.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#181" class="md-nav__link">
+    1.8.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#180" class="md-nav__link">
+    1.8.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#178" class="md-nav__link">
+    1.7.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#177" class="md-nav__link">
+    1.7.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#176" class="md-nav__link">
+    1.7.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#175" class="md-nav__link">
+    1.7.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#174" class="md-nav__link">
+    1.7.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#173" class="md-nav__link">
+    1.7.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#172" class="md-nav__link">
+    1.7.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#171" class="md-nav__link">
+    1.7.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#170" class="md-nav__link">
+    1.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    1.6.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    1.6.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#160" class="md-nav__link">
+    1.6.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#154" class="md-nav__link">
+    1.5.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#153" class="md-nav__link">
+    1.5.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#152" class="md-nav__link">
+    1.5.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    1.5.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#150" class="md-nav__link">
+    1.5.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    1.4.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#140" class="md-nav__link">
+    1.4.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130" class="md-nav__link">
+    1.3.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    1.2.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#120" class="md-nav__link">
+    1.2.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110" class="md-nav__link">
+    1.1.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    1.0.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    1.0.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    1.0.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    1.0.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#100" class="md-nav__link">
+    1.0.0
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bug Tracker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://openstagecontrol.discourse.group" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community forums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1291-1292" class="md-nav__link">
+    1.29.1 / 1.29.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1290" class="md-nav__link">
+    1.29.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1285" class="md-nav__link">
+    1.28.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1284" class="md-nav__link">
+    1.28.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1283" class="md-nav__link">
+    1.28.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1282" class="md-nav__link">
+    1.28.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1281" class="md-nav__link">
+    1.28.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1280" class="md-nav__link">
+    1.28.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1275" class="md-nav__link">
+    1.27.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1274" class="md-nav__link">
+    1.27.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1273" class="md-nav__link">
+    1.27.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1272" class="md-nav__link">
+    1.27.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1271" class="md-nav__link">
+    1.27.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1270" class="md-nav__link">
+    1.27.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1262" class="md-nav__link">
+    1.26.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1261" class="md-nav__link">
+    1.26.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1260" class="md-nav__link">
+    1.26.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1257" class="md-nav__link">
+    1.25.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1256" class="md-nav__link">
+    1.25.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1255" class="md-nav__link">
+    1.25.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1254" class="md-nav__link">
+    1.25.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1253" class="md-nav__link">
+    1.25.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1252" class="md-nav__link">
+    1.25.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1251" class="md-nav__link">
+    1.25.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1250" class="md-nav__link">
+    1.25.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1242" class="md-nav__link">
+    1.24.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1241" class="md-nav__link">
+    1.24.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1240" class="md-nav__link">
+    1.24.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1230" class="md-nav__link">
+    1.23.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1220" class="md-nav__link">
+    1.22.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1210" class="md-nav__link">
+    1.21.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1200" class="md-nav__link">
+    1.20.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1192" class="md-nav__link">
+    1.19.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1191" class="md-nav__link">
+    1.19.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1190" class="md-nav__link">
+    1.19.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1183" class="md-nav__link">
+    1.18.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1182" class="md-nav__link">
+    1.18.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1181" class="md-nav__link">
+    1.18.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1180" class="md-nav__link">
+    1.18.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1170" class="md-nav__link">
+    1.17.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1166" class="md-nav__link">
+    1.16.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1164" class="md-nav__link">
+    1.16.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1163" class="md-nav__link">
+    1.16.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1162" class="md-nav__link">
+    1.16.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1161" class="md-nav__link">
+    1.16.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1160" class="md-nav__link">
+    1.16.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1158" class="md-nav__link">
+    1.15.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1157" class="md-nav__link">
+    1.15.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1156" class="md-nav__link">
+    1.15.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1155" class="md-nav__link">
+    1.15.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1154" class="md-nav__link">
+    1.15.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1153" class="md-nav__link">
+    1.15.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1152" class="md-nav__link">
+    1.15.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1151" class="md-nav__link">
+    1.15.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1150" class="md-nav__link">
+    1.15.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1146" class="md-nav__link">
+    1.14.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1145" class="md-nav__link">
+    1.14.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1144" class="md-nav__link">
+    1.14.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1143" class="md-nav__link">
+    1.14.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1142" class="md-nav__link">
+    1.14.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1140-1141" class="md-nav__link">
+    1.14.0, 1.14.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1132" class="md-nav__link">
+    1.13.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1131" class="md-nav__link">
+    1.13.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1130" class="md-nav__link">
+    1.13.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1120" class="md-nav__link">
+    1.12.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1111" class="md-nav__link">
+    1.11.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1110" class="md-nav__link">
+    1.11.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1103" class="md-nav__link">
+    1.10.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1102" class="md-nav__link">
+    1.10.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1100" class="md-nav__link">
+    1.10.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1914" class="md-nav__link">
+    1.9.14
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1913" class="md-nav__link">
+    1.9.13
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1912" class="md-nav__link">
+    1.9.12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1911" class="md-nav__link">
+    1.9.11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1910" class="md-nav__link">
+    1.9.10
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#199" class="md-nav__link">
+    1.9.9
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#198" class="md-nav__link">
+    1.9.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#197" class="md-nav__link">
+    1.9.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#196" class="md-nav__link">
+    1.9.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#195" class="md-nav__link">
+    1.9.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#194" class="md-nav__link">
+    1.9.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#193" class="md-nav__link">
+    1.9.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#192" class="md-nav__link">
+    1.9.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#191" class="md-nav__link">
+    1.9.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#190" class="md-nav__link">
+    1.9.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1815" class="md-nav__link">
+    1.8.15
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1814" class="md-nav__link">
+    1.8.14
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1813" class="md-nav__link">
+    1.8.13
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1812" class="md-nav__link">
+    1.8.12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1811" class="md-nav__link">
+    1.8.11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1810" class="md-nav__link">
+    1.8.10
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#189" class="md-nav__link">
+    1.8.9
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#188" class="md-nav__link">
+    1.8.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#187" class="md-nav__link">
+    1.8.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#186" class="md-nav__link">
+    1.8.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#185" class="md-nav__link">
+    1.8.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#184" class="md-nav__link">
+    1.8.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#183" class="md-nav__link">
+    1.8.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#182" class="md-nav__link">
+    1.8.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#181" class="md-nav__link">
+    1.8.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#180" class="md-nav__link">
+    1.8.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#178" class="md-nav__link">
+    1.7.8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#177" class="md-nav__link">
+    1.7.7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#176" class="md-nav__link">
+    1.7.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#175" class="md-nav__link">
+    1.7.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#174" class="md-nav__link">
+    1.7.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#173" class="md-nav__link">
+    1.7.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#172" class="md-nav__link">
+    1.7.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#171" class="md-nav__link">
+    1.7.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#170" class="md-nav__link">
+    1.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    1.6.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    1.6.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#160" class="md-nav__link">
+    1.6.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#154" class="md-nav__link">
+    1.5.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#153" class="md-nav__link">
+    1.5.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#152" class="md-nav__link">
+    1.5.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    1.5.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#150" class="md-nav__link">
+    1.5.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    1.4.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#140" class="md-nav__link">
+    1.4.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130" class="md-nav__link">
+    1.3.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    1.2.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#120" class="md-nav__link">
+    1.2.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110" class="md-nav__link">
+    1.1.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    1.0.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    1.0.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    1.0.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    1.0.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#100" class="md-nav__link">
+    1.0.0
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">#</a></h1>
+<h2 id="1291-1292">1.29.1 / 1.29.2<a class="headerlink" href="#1291-1292" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>scripting: <code>setFocus</code> not working on iOS</li>
+<li>fader/range: drawing error with <code>pips</code> enabled</li>
+</ul>
+</li>
+</ul>
+<h2 id="1290">1.29.0<a class="headerlink" href="#1290" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>file browser: drive listing failing on recent windows</li>
+<li>root: <code>hideMenu</code> not working when <code>--read-only</code> is set</li>
+<li>combining <code>--read-only</code> and <code>--fullscreen</code> now disables <code>F11</code> on built-in client</li>
+<li>regression breaking <code>pips</code> for range widget</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>add <code>onTouch</code> to all container widgets</li>
+<li>allow starting a traversing gesture outside a touchable widget</li>
+<li>fader: make <code>knobSize</code> dynamic</li>
+</ul>
+</li>
+</ul>
+<h2 id="1285">1.28.5<a class="headerlink" href="#1285" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>multixy: error when <code>points</code> is <code>0</code> (or empty array) (again)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1284">1.28.4<a class="headerlink" href="#1284" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>multixy: error when <code>points</code> is <code>0</code> (or empty array)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1283">1.28.3<a class="headerlink" href="#1283" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>multixy: correclty handle incoming feedback values and simultaneous touch releases</li>
+</ul>
+</li>
+</ul>
+<h2 id="1282">1.28.2<a class="headerlink" href="#1282" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>regression in feedback handling (unfixes multixy simultaneous spring issue temporarily)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1281">1.28.1<a class="headerlink" href="#1281" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>eq: <code>highpass</code> filter not working as expected with <code>poles</code> set</li>
+<li>fader: <code>touchZone</code> not applied to <code>doubleTap</code> events</li>
+<li>fader: <code>touchZone</code> not affecting mousewheel interactions</li>
+<li>fader: regression causing issues with <code>onTouch</code> scripts</li>
+</ul>
+</li>
+</ul>
+<h2 id="1280">1.28.0<a class="headerlink" href="#1280" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>ui: global zoom (CmdOrCtrl + scroll / + / - / 0) issues and conflits with native browser zoom;</li>
+<li>ui: limit ctrl + scroll zoom speed</li>
+<li>broken cli when <code>ELECTRON_RUN_AS_NODE</code> is set</li>
+<li>inspector: input bug when a code editor was focused using the tab key</li>
+<li>inspector: prevent editing non-editable widgets (e.g matrix items) when clicking on their ids in error logs</li>
+<li>multixy: simultaneous touch releases not working correctly when <code>spring</code> is set and feedback values are received shortly after being sent</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>fader: add <code>touchZone</code> property to allow restricting interaction to a part of the widget</li>
+<li>eq: add support for n-poles lowpass and highpass filters with the filter's <code>poles</code> property</li>
+<li>eq: adapt sampling frequency to the x-axis range</li>
+<li>xy/multixy: add <code>auto</code> choice to <code>axisLock</code> (locks on the first moved axis)</li>
+<li>file: <code>extension</code> can now be an array of strings</li>
+<li>plot/eq: smoother curves</li>
+<li>sliders/pads: <code>doubleTap</code> can now be <code>"script"</code>, in which case <code>onTouch</code> will be called with <code>event.type</code> set to <code>doubleTap</code></li>
+<li>xy: add <code>label</code> property</li>
+<li>multixy: add <code>padsAttr</code> property for per-pad customization</li>
+<li>panel: <code>tabsPosition</code> can now be <code>hidden</code></li>
+<li>pads: support percents in <code>pointSize</code></li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li><code>console.log</code> now always print the id of the widget that called it</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>inspector: tab key navigation now works, property categories can be fold/unfold with enter/space when focused</li>
+<li>inspector: <code>F2</code> now focuses the <code>html</code> property in the inpector if <code>label</code> is not present</li>
+<li>tree: add <code>mod + f</code> to focus the search input</li>
+</ul>
+</li>
+</ul>
+<h2 id="1275">1.27.5<a class="headerlink" href="#1275" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>patchbay: layout issue</li>
+<li>widget: regression causing error when emptying the css property and leaving only class declarations</li>
+<li>modal: incorrect position in scrolled containers when <code>relative</code> is <code>true</code></li>
+<li>menu: incorrect position in scrlled containers depending on menu's alignment</li>
+<li>button: <code>locals.touchCoords</code> not updated upon release and incorrect when <code>doubleTap</code> is set</li>
+</ul>
+</li>
+</ul>
+<h2 id="1274">1.27.4<a class="headerlink" href="#1274" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>fader: pips drawing issue causing small a position offset or errors with some browsers</li>
+<li>script: setFocus not working with textarea widgets</li>
+</ul>
+</li>
+</ul>
+<h2 id="1273">1.27.3<a class="headerlink" href="#1273" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>regression causing circular loop errors upon certain editions</li>
+<li>fader: glitch with large <code>lineWidth</code> values in default design mode</li>
+</ul>
+</li>
+</ul>
+<h2 id="1272">1.27.2<a class="headerlink" href="#1272" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>multixy: <code>default</code> not applied when points are named</li>
+<li>clone: avoid some unnecessary property checks</li>
+<li>clone: prevent missing editions in target properties (e.g. VAR{} renamed with the same return value)</li>
+</ul>
+</li>
+<li>
+<p>client</p>
+<ul>
+<li>show 3-dots menu in read-only mode with access to allowed items (e.g fullscreen)</li>
+<li>hide console in read-only mode</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>matrix: don't implicitely override children's <code>label</code>, do it explicitely in <code>props</code>' default</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li><code>receive()</code> and <code>send()</code> now accept <code>host</code> and <code>port</code> to be provided as a single string argument joined by a colon</li>
+</ul>
+</li>
+</ul>
+<h2 id="1271">1.27.1<a class="headerlink" href="#1271" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>server: <code>fullscreen</code> option not working when <code>read-only</code> is set</li>
+<li>led and text widgets not client-syncing  </li>
+<li>patchbay: <code>address</code> not working properly when set to <code>auto</code></li>
+<li>patchbay: <code>ignoreDefaults</code> not working properly</li>
+<li>editor: missing position indicator in color picker pad</li>
+<li>file browser: fallback to home directory when last visited directory is not accessible</li>
+</ul>
+</li>
+<li>
+<p>mobile</p>
+<ul>
+<li>apply root's (or themes) background color the the browser's topbar when possible</li>
+</ul>
+</li>
+</ul>
+<h2 id="1270">1.27.0<a class="headerlink" href="#1270" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>app address / qr code not updating when network changes</li>
+<li>issue after theme auto reload (broken grid, colors not updated)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>pads: expose css variable <code>--point-size</code></li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>provide error backtraces in module.exports functions</li>
+<li>add <code>reload()</code> callback to provide finer control over the module's lifecycle</li>
+<li>add <code>stop()</code> callback (runs when the server stops)</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>add /SESSION/CREATE command</li>
+</ul>
+</li>
+<li>
+<p>client</p>
+<ul>
+<li>file browser now remembers the last displayed directory</li>
+<li>allow dismissing notifications by clicking on them</li>
+<li>allow toggling notifications globally from main menu</li>
+<li>add <code>notifications</code> client option</li>
+</ul>
+</li>
+</ul>
+<h2 id="1262">1.26.2<a class="headerlink" href="#1262" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>user resources not loading when using an external browser</li>
+<li>advanced syntaxes resolution order issue</li>
+</ul>
+</li>
+<li>
+<p>advanced syntaxes</p>
+<ul>
+<li>display an error in the console in some unsupported advanced syntaxes use cases</li>
+</ul>
+</li>
+</ul>
+<h2 id="1261">1.26.1<a class="headerlink" href="#1261" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>mac: unable to show launcher windows when starting minimized</li>
+</ul>
+</li>
+</ul>
+<h2 id="1260">1.26.0<a class="headerlink" href="#1260" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>scripting: <code>getProp()</code> now correctly returns a copy of the property if it is an object</li>
+<li>prevent infinite loop when loading widgets with complex inter-dependencies</li>
+<li>modal: layout issue on iOS 15+</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>dropdown: allow resubmitting the same value</li>
+<li>switch: allow resubmitting the same value</li>
+<li>plot: missing <code>logScaleX</code> and <code>logScaleY</code> properties</li>
+<li>xy/multixy: add <code>axisLock</code> property; allow locking one the axis by holding <code>Shift</code> while dragging if <code>axisLock</code> is not set, bypasses it otherwise.</li>
+<li>knob/fader/range: add <code>colorKnob</code> property</li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>on Mac, start hidden if <code>Start minimized</code> is set</li>
+<li>allow dropping files into file fields</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>expose <code>tcpServer</code> to allow monitoring the state of tcp connections</li>
+</ul>
+</li>
+</ul>
+<h2 id="1257">1.25.7<a class="headerlink" href="#1257" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>rare issue that made the last widget(s) in a container disappear when other widgets in the same container had a specific property dependency pattern</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li><code>/EDIT*</code> commands sent by a custom module are not affected by the server's <code>read-only</code> option anymore  </li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>input: allow using a number in <code>numeric</code> to specify stepping value for mousewheel interaction</li>
+<li>root: add <code>onPreload</code> scripting property</li>
+</ul>
+</li>
+</ul>
+<h2 id="1256">1.25.6<a class="headerlink" href="#1256" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>sliders: error when <code>steps</code> is an array</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li><code>stateSet</code>: add optional <code>{send: false}</code> flag</li>
+</ul>
+</li>
+</ul>
+<h2 id="1255">1.25.5<a class="headerlink" href="#1255" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>code editor: issue when middle clicking in the editor on linux</li>
+<li>code editor: modern js operators such as <code>**</code> not recognized</li>
+<li>sliders: prevent error when <code>steps</code> is not a number, add <code>auto</code> mode for using ranges values as steps (it did not work before)</li>
+<li>pads, range: value not initialized as an array, causing errors in some cases</li>
+<li>modal: popup not closing when <code>doubleTap</code> is true</li>
+</ul>
+</li>
+</ul>
+<h2 id="1254">1.25.4<a class="headerlink" href="#1254" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>custom module: <code>receive()</code> not passing boolean arguments properly</li>
+<li>fix <code>--authentication</code> on iOS clients</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>display current widget value in the <code>value</code> property's help modal</li>
+</ul>
+</li>
+</ul>
+<h2 id="1253">1.25.3<a class="headerlink" href="#1253" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>input: rendering issues with big font sizes</li>
+<li>panel: tab rendering issue when initialized with a non-numeric value</li>
+<li>panel: minor style issue in tab navigation bar</li>
+<li>scripting: scripting functions not working inside <code>browseFile()</code> callback</li>
+<li>scripting: using <code>external: true</code> in <code>set()</code> should prevent affected widget from sending any message</li>
+<li>button: inconsistent value in <code>push</code> mode with <code>decoupled</code> enabled when setting value from script</li>
+</ul>
+</li>
+</ul>
+<h2 id="1252">1.25.2<a class="headerlink" href="#1252" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>textarea: escape key not restoring previous value</li>
+<li>scripting: <code>setFocus(id)</code> not affecting textarea widgets</li>
+<li>led, text, variable: value not synchronized between different clients</li>
+<li>error when running from sources on Mac</li>
+</ul>
+</li>
+</ul>
+<h2 id="1251">1.25.1<a class="headerlink" href="#1251" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>regression in inter-widget sync mechanism</li>
+<li>regression breaking <code>set()</code> function in scripts</li>
+<li>textarea: display nothing instead of "null" when receing no value, null or an empty string</li>
+</ul>
+</li>
+</ul>
+<h2 id="1250">1.25.0<a class="headerlink" href="#1250" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>multixy: doubleTap not working on touch devices</li>
+<li>button: <code>x</code> and <code>y</code> variables not passed to <code>onValue</code> when <code>doubleTap</code> is true on touch devices  </li>
+<li>advanced syntax: update issue with clones using their own value in their properties</li>
+<li>client: minor keyboard shortcut issues</li>
+<li>panel: mitigate client synchronization issue with scrollbars</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>menu: add a background to menu items to help distinguish them</li>
+<li>menu: merge different interaction modes into a single <code>mode</code> property</li>
+<li>menu: add <code>swipe</code> mode</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li><code>/STATE/SET</code>: add optional argument to prevent widgets from sending their value</li>
+</ul>
+</li>
+</ul>
+<h2 id="1242">1.24.2<a class="headerlink" href="#1242" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>editor: regression breaking widget context menu actions under "Position" submenu</li>
+<li>touch devices: touchend event not fired on elements removed/detached during touchstart/touchmove callbacks (caused issues when switching tabs using a button inside a tab)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1241">1.24.1<a class="headerlink" href="#1241" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>launcher: <code>Ctrl+M</code> keyboard shortcut not working</li>
+<li>widgets: regression incurring a small delay before resolving a property that depends on a widget's own value</li>
+<li>server: <code>--client-size</code> and <code>--client-position</code> options not parsed correctly</li>
+</ul>
+</li>
+<li>
+<p>advanced syntaxes</p>
+<ul>
+<li>support <code>@{}</code> inside <code>IMPORT{}</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="1240">1.24.0<a class="headerlink" href="#1240" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>widgets: circular value feedback issues</li>
+<li>editor: <code>ctrl + e</code> not working when hit multiple times without releasing <code>ctrl</code></li>
+<li>mobile: "prevent sleep" feature not working</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>patchbay: add <code>in</code>, <code>out</code> and <code>both</code> modes to <code>exclusive</code> property</li>
+<li>panel: replace <code>verticalTabs</code> property with <code>tabsPosition</code> (supports 4 directions)</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>add optional <code>errorCallback</code> argument to<code>loadJSON</code> and <code>saveJSON</code></li>
+</ul>
+</li>
+<li>
+<p>server</p>
+<ul>
+<li>print multiple qrcodes if multiple network interfaces are available and prevent printing a qrcode for the localhost address</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>add linux rpm packages</li>
+</ul>
+</li>
+</ul>
+<h2 id="1230">1.23.0<a class="headerlink" href="#1230" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>linkId not working between two encoder widgets</li>
+<li>fader: <code>gradient</code> breakpoints not positioned correctly</li>
+<li>canvas: <code>onDraw()</code> called twice when calling <code>updateCanvas()</code></li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>optional rpn/nrpn parsing as single messages</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>keyboard: incoming values different than the <code>off</code> property are now interpreted as <code>on</code></li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>when focusing the label property with <code>F2</code>, select all text in the text area</li>
+<li>preserve scroll position in code editor when validating</li>
+<li>display the id of selected widget in the inspector's header</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>expose file browser (from the file widget) as a scripting function</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>don't restrict file extension in <code>loadJSON()</code> and <code>saveJSON</code> functions</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>add polish locales (@ Manz4rk)</li>
+<li>add css classes to some notification popups to allow targetting them with css themes</li>
+</ul>
+</li>
+</ul>
+<h2 id="1220">1.22.0<a class="headerlink" href="#1220" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>keyboard widget: <code>linkId</code> not working (unable to link 2 keyboard widgets)</li>
+<li>slides: issues with ranges containing decimal keys</li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>add menu options to show the qr code again</li>
+<li>mac: change "List MIDI devices" keyboard shortcut to <code>Ctrl+m</code></li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>image: add support for special value "qrcode"</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>add german locales (@ Magnus Reichel)</li>
+<li>package file names changed to follow debian's convention</li>
+<li>add a cli option to disable the qr code (<code>--no-qrcode</code>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1210">1.21.0<a class="headerlink" href="#1210" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>custom module: fix autoreload on nested submodules</li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>print a qrcode when the server starts to help connecting mobile devices</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>horizontal scrolling issues with maximized code editor</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>switch/menu/dropdown: add a syntax that supports duplicate labels in <code>values</code> property</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>expose <code>global</code> object that persists accross module reloads.</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>onCreate: expose <code>value</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="1200">1.20.0<a class="headerlink" href="#1200" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>scripting: prevent some functions to be marked as undefined</li>
+<li>advanced syntaxes: ignores quotes around file path in <code>IMPORT{}</code></li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>add <code>Start minimized</code> menu option</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>change noFocus client option behavior: the default client window now doesn't take the focus at all, even when a text input is clicked.</li>
+<li>colorize debug messages for sent and received osc/midi messages</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>add <code>setFocusable()</code> function to change the focusability of the window on the fly (allows reenabling focus temporarily to interact with a text widget using a dedicated toggle button for example)</li>
+<li>add <code>reload()</code> function</li>
+<li>expose Navigator object with <code>getNavigator()</code></li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>fragment: add <code>fallback</code> property</li>
+</ul>
+</li>
+</ul>
+<h2 id="1192">1.19.2<a class="headerlink" href="#1192" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>regression breaking touch move events on desktop touchscreens</li>
+</ul>
+</li>
+</ul>
+<h2 id="1191">1.19.1<a class="headerlink" href="#1191" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>editor zoom: adjust root widget size when zooming out</li>
+</ul>
+</li>
+</ul>
+<h2 id="1190">1.19.0<a class="headerlink" href="#1190" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>editor</p>
+<ul>
+<li>add keyboard shortcut "h" to hide selection and widget drag / resize handles while pressed</li>
+<li>inspector: add some shortcut buttons in the header</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>add folder widget (flat container that doesn't affect layout)</li>
+<li>input: add <code>maxLength</code> property</li>
+<li>multixy: allow setting its own value from onValue script while touched</li>
+</ul>
+</li>
+<li>
+<p>ui</p>
+<ul>
+<li>add a virtual onscreen keyboard for desktop clients (can be enabled from the clients main menu)</li>
+<li>change local zoom (alt+scroll) behavior so that it only affect widgets and add scrollbars to navigate while zooming instead of following the mouse</li>
+</ul>
+</li>
+<li>
+<p>server</p>
+<ul>
+<li>client-options: add <code>virtualKeyboard</code> option to enable virtual keyboard by default (desktop clients only)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1183">1.18.3<a class="headerlink" href="#1183" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>button: regression in push mode (<code>on</code> value not passed to <code>onValue</code> script when triggered from another widget)</li>
+<li>button: decoupled push mode returning wrong value when activated from a widget script</li>
+</ul>
+</li>
+</ul>
+<h2 id="1182">1.18.2<a class="headerlink" href="#1182" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>canvas: <code>onTouch</code> not triggered on iOS when when <code>event.force</code>, <code>event.altitudeAngle</code> or <code>event.azimuthAngle</code> changes</li>
+<li>switch: interaction issue when value labels contain icons</li>
+<li>ios: attempt to fix rendering glitch when waking up after sleep</li>
+</ul>
+</li>
+</ul>
+<h2 id="1181">1.18.1<a class="headerlink" href="#1181" title="Permanent link">#</a></h2>
+<ul>
+<li>widgets<ul>
+<li>button: add <code>decoupled</code> property, compatible with all button modes</li>
+<li>button: remove <code>decoupled</code> mode</li>
+</ul>
+</li>
+</ul>
+<h2 id="1180">1.18.0<a class="headerlink" href="#1180" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>client script source map not loading (helps providing useful error messages)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>button: add <code>decoupled</code> mode (toggle mode that only updates its state when it receives a value from osc/midi messages)</li>
+<li>button: add client option <code>altTraversing</code> to allow one-way response to traversing gestures for toggle buttons</li>
+<li>canvas: iOS: trigger <code>onTouch</code> when <code>event.force</code>, <code>event.altitudeAngle</code> or <code>event.azimuthAngle</code> updates</li>
+<li>knob: add <code>snap-alt</code> mode (snap mode that allows jumping between range.min and range.max)</li>
+<li>all: add <code>borderRadius</code> property</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>add <code>updateCanvas()</code> function (forces a canvas widget to redraw)</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li><code>/NOTIFY</code>: if multiple arguments are provided, interpret the first one as the icon's name for the client notification</li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>on Mac, name virtual ports after the device name to avoid confusion</li>
+</ul>
+</li>
+<li>
+<p>server</p>
+<ul>
+<li>client-options: add <code>clientSync</code> option to allow disabling client synchronization</li>
+<li>client-options: add <code>altTraversing</code> option</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>add <code>F2</code> keyboard shortcut to bring label property input into view if selected widget has one</li>
+</ul>
+</li>
+</ul>
+<h2 id="1170">1.17.0<a class="headerlink" href="#1170" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: error when ctrl+clicking on a root's child</li>
+<li>range: multitouch interaction issue</li>
+</ul>
+</li>
+<li>
+<p>widget</p>
+<ul>
+<li>knob / encoder: <code>sensitivity</code> and ctrl+drag gesture preserve <code>circular</code> mode behavior</li>
+<li>knob / encoder: <code>snap</code> mode now works like <code>circular</code> mode except for the touch start event (value can't jump from start to end anymore)</li>
+<li>patchbay: add <code>exclusive</code> option</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>allow interacting with a widget without selecting it by using the middle mouse button or by holding shift+win (shift+cmd on mac).</li>
+</ul>
+</li>
+</ul>
+<h2 id="1166">1.16.6<a class="headerlink" href="#1166" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>visibility property update issues</li>
+</ul>
+</li>
+</ul>
+<h2 id="1164">1.16.4<a class="headerlink" href="#1164" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>modal: display issue when a modal receives the same value multiple times</li>
+<li>patchbay: <code>outputs</code> property not handling object value properly</li>
+<li>server: resolution conflict between app files and user files</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>patchbay: trigger <code>onValue</code> script when a connection changes</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>windows: allow accessing other drives than the default one (list drives when the file browser reaches the filesystem's root)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1163">1.16.3<a class="headerlink" href="#1163" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>custom module: submodules not loading their own submodules with relative paths properly</li>
+<li>custom module: issue with circular submodule requires</li>
+<li>server: harmless error message when importing css files from the main theme file</li>
+<li>server: allow using folder names "client" and "assets" for user files (eg for images used in a session)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>canvas: add <code>onResize</code> script property</li>
+<li>scripting: expose javascript's <code>Image</code> constructor</li>
+</ul>
+</li>
+</ul>
+<h2 id="1162">1.16.2<a class="headerlink" href="#1162" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>widget visibility not updated properly when set as a non-boolean value</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>tabs: detach hidden tabs from the DOM (reduces lag caused by heavy tabs)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1161">1.16.1<a class="headerlink" href="#1161" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>eq widgets not properly converted when importing v0 sessions</li>
+<li>image paths with url queries not loaded properly</li>
+<li>@{} syntax not returning truncated value according to the widget's precision property (fixed for primitive values only, object values are still returned as is)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1160">1.16.0<a class="headerlink" href="#1160" title="Permanent link">#</a></h2>
+<ul>
+<li>advanced syntaxes<ul>
+<li><code>@{}</code> and <code>VAR{}</code> that return objects / arrays do not return a copy of their value anymore as it may introduce a significant overhead when used extensively. Mutating these objects in <code>#{}</code> and <code>JS{}</code> scripts will now affect the actual values and should be avoided at all cost.</li>
+</ul>
+</li>
+<li>widgets<ul>
+<li><code>comments</code> property flagged as dynamic</li>
+<li>multixy: add <code>doubleTap</code> property</li>
+</ul>
+</li>
+</ul>
+<h2 id="1158">1.15.8<a class="headerlink" href="#1158" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>range: value update issue (internal touch state not updated properly)</li>
+<li>scripting: send(): ignore <code>ignoreDefaults</code> property</li>
+<li>script: onKeyboard script not cleaned upon edition / removal</li>
+<li>editor: some variables not appearing as defined in <code>onKeyboard</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="1157">1.15.7<a class="headerlink" href="#1157" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>matrix: property resolution issue with object/array items in <code>props</code></li>
+<li>bypass client option <code>nofocus=1</code> when the editor is enabled</li>
+<li>menu/dropdown: display label when value is undefined</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>updated midi bridge: provide more information when loading fails; may fix some compatibility issue on windows</li>
+</ul>
+</li>
+</ul>
+<h2 id="1156">1.15.6<a class="headerlink" href="#1156" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>ios: prevent server error related to the use of cookies</li>
+<li>scripting: <code>getVar()</code> now returns a copy of the variable to prevent mutations on saved object</li>
+</ul>
+</li>
+</ul>
+<h2 id="1155">1.15.5<a class="headerlink" href="#1155" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>matrix: advanced property issue in <code>props</code> property (bis)</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>inspector: add solo mode with <code>alt+click</code> for category panels</li>
+</ul>
+</li>
+</ul>
+<h2 id="1154">1.15.4<a class="headerlink" href="#1154" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>matrix: advanced property issue in <code>props</code> property</li>
+</ul>
+</li>
+</ul>
+<h2 id="1153">1.15.3<a class="headerlink" href="#1153" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>interaction issue ("deadzone") on touch screens</li>
+<li>main menu not hidden when <code>read-only</code> is set</li>
+<li>osc messages containing unicode characters not encoded correctly</li>
+</ul>
+</li>
+</ul>
+<h2 id="1152">1.15.2<a class="headerlink" href="#1152" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>modal: scroll state not restored when the modal container is recreated</li>
+<li>server: allow spaces and accentuated characters in client id</li>
+</ul>
+</li>
+</ul>
+<h2 id="1151">1.15.1<a class="headerlink" href="#1151" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>prevent flickering on canvas based widgets when they are recreated</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>added code editor for <code>html</code> and <code>css</code> properties</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>add <code>/RELOAD</code> command</li>
+</ul>
+</li>
+</ul>
+<h2 id="1150">1.15.0<a class="headerlink" href="#1150" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: prevent accessing non-editable widgets with right arrow</li>
+<li>multixy: regression causing interaction issue</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>add <code>lock</code> property to all widgets</li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>add <code>Autostart</code> menu option</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>update FontAwesome icon font to version 6</li>
+</ul>
+</li>
+</ul>
+<h2 id="1146">1.14.6<a class="headerlink" href="#1146" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>inspector: script editor: cursor alignment issue in indented lines  </li>
+<li>clone: prevent freeze and print an error when attempting to create a circular clone</li>
+<li>modal: regression on android that prevents focusing input widgets in modals</li>
+</ul>
+</li>
+</ul>
+<h2 id="1145">1.14.5<a class="headerlink" href="#1145" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>session loading error with some malformed property cases</li>
+</ul>
+</li>
+</ul>
+<h2 id="1144">1.14.4<a class="headerlink" href="#1144" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>broken console interpreter since v1.14.0</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>button: add <code>momentary</code> mode for sending messages with no value; prevent button from getting stuck when <code>on</code> and <code>off</code> are equal in <code>momentary</code> and <code>tap</code> modes</li>
+</ul>
+</li>
+<li>
+<p>inspector</p>
+<ul>
+<li>color picker: inline picker widget (no longer in a modal); show color changes on the fly</li>
+<li>code editor: validate input with <code>cmd+enter</code> instead of <code>ctrl+enter</code> on Mac</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li><code>screen.height</code> and <code>screen.width</code> always returns the current screen dimensions</li>
+<li>added <code>screen.orientation</code> global variable</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>some performance improvements</li>
+</ul>
+</li>
+</ul>
+<h2 id="1143">1.14.3<a class="headerlink" href="#1143" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>osc receivers (<code>OSC{}</code> syntax) now apply the same rule as widgets regarding midi messages (only receive if the message's origin matches one of the host widget's midi targets)</li>
+<li>modal: rendering issue on iOS</li>
+<li>button: <code>locals.touchCoords</code> not updated since v1.14.0</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>clone/fragment: remove scripting properties as they are supposed to be overridden in <code>props</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="1142">1.14.2<a class="headerlink" href="#1142" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>context-menu: double click issue in submenus on small touch screens</li>
+<li>clone/fragment: broken onDraw / onTouch scripts if cloned widget is a canvas   </li>
+</ul>
+</li>
+</ul>
+<h2 id="1140-1141">1.14.0, 1.14.1<a class="headerlink" href="#1140-1141" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>misc: sending typed arguments (<code>{type, value}</code> objects) should override the widget's <code>typeTags</code> definition</li>
+<li>multixy: errors when <code>ephemeral</code> is <code>true</code></li>
+<li>scripting: <code>setVar</code> not affecting all widgets when multiple widgets match provided id</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>renamed <code>script</code> property to <code>onValue</code>, <code>draw</code> to <code>onDraw</code>, <code>touch</code> to <code>onTouch</code></li>
+<li>added <code>onCreate</code> script property to all widgets</li>
+<li>added <code>onTouch</code> script to widgets that supported the touch state variable in scripts (now deprecated)</li>
+<li>script: added <code>onKeyboard</code> property, removed <code>event</code> property</li>
+<li>canvas: expose additional touch event informations (<code>radiusX</code>, <code>radiusY</code>, <code>rotationAngle</code> and iOS-only  <code>altitudeAngle</code>, <code>azimuthAngle</code> and <code>touchType</code>)</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>special keyword <code>this</code> now returns the string <code>"this"</code></li>
+</ul>
+</li>
+<li>
+<p>advanced syntaxes</p>
+<ul>
+<li>added <code>IMPORT{file}</code> syntax to allow loading external files in properties</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>add fullscreen mode for properties with code editor enabled</li>
+</ul>
+</li>
+</ul>
+<h2 id="1132">1.13.2<a class="headerlink" href="#1132" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: keep relative sizes and positions when resizing multiple widgets at a time</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>canvas: expose touch pressure (as <code>event.force</code>) in the <code>touch</code> script.</li>
+<li>canvas: expose touch events for extra elements added with the <code>html</code> property</li>
+</ul>
+</li>
+</ul>
+<h2 id="1131">1.13.1<a class="headerlink" href="#1131" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>editor: data loss when leaving the editor's focus with no modifications  </li>
+</ul>
+</li>
+</ul>
+<h2 id="1130">1.13.0<a class="headerlink" href="#1130" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>scripting: <code>storage.getItem()</code> not returning anything</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>new code editor for <code>script</code>, <code>touch</code>, <code>draw</code> and <code>props</code> properties with syntax highlighting, line numbers, etc</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li><code>set()</code>: add an option to prevent target widget's script  </li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>root: add <code>hideMenu</code> property</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>minor cosmetic changes</li>
+</ul>
+</li>
+</ul>
+<h2 id="1120">1.12.0<a class="headerlink" href="#1120" title="Permanent link">#</a></h2>
+<ul>
+<li>widgets<ul>
+<li>new <strong>canvas</strong> widget (under <code>pads</code>): allows creating custom widgets</li>
+<li>button: expose normalized touch coordinates in scripts as <code>locals.touchCoords</code></li>
+<li>print a warning in the console when using advanced syntaxes in the script property</li>
+</ul>
+</li>
+</ul>
+<h2 id="1111">1.11.1<a class="headerlink" href="#1111" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>client options specified in server config not working unless lowercased</li>
+<li>make disconnection detection less aggressive (don't display notification if reconnection succeeds quickly)</li>
+<li>panel: initial scroll state issue</li>
+</ul>
+</li>
+</ul>
+<h2 id="1110">1.11.0<a class="headerlink" href="#1110" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>menu: interaction issue on iOS</li>
+<li>script: prevent script functions from being called in the wrong scope (ie when leaked using the <code>globals</code> object) and print an explicit error</li>
+<li>containers: prevent errors with some color formats in colorWidget</li>
+<li>theme: relative url not resolved correctly</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>when a panel contains widgets and has <code>scroll</code> set to <code>true</code>, its value will be used to represent the scroll position for x-axis and y-axis between 0 and 1.</li>
+</ul>
+</li>
+</ul>
+<h2 id="1103">1.10.3<a class="headerlink" href="#1103" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>config not persistent on windows</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>read-only mode now hides and disables the main menu</li>
+</ul>
+</li>
+</ul>
+<h2 id="1102">1.10.2<a class="headerlink" href="#1102" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>certificate expiration issue</li>
+<li>regression breaking colors in canvas-based widgets</li>
+</ul>
+</li>
+</ul>
+<h2 id="1100">1.10.0<a class="headerlink" href="#1100" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>sliders: ignore key order in <code>range</code></li>
+<li>sliders: handle mousewheel increment when starting from a value between two steps with <code>steps</code> property defined</li>
+<li>inspector: allow scrolling in the help modal</li>
+<li>console: fix command history behavior and increase history size</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>encoder: expose angle in script (as <code>locals.angle</code>)</li>
+<li>new textarea widget (multi line input)</li>
+<li>expose the computed dimensions of canvas-based widgets in <code>css</code> (as <code>--widget-width</code> and <code>--widget-height</code>) and <code>script</code> (as <code>locals.width</code> and <code>locals.height</code>)</li>
+</ul>
+</li>
+<li>
+<p>client</p>
+<ul>
+<li>add <code>Save backup</code> menu action (saves a backup copy of current session with an incremented suffix appended to the file name)</li>
+</ul>
+</li>
+</ul>
+<h2 id="1914">1.9.14<a class="headerlink" href="#1914" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>modal: remove <code>html</code> property</li>
+<li>matrix: nested property inheritance (eg. <code>@{id_@{id_x}}</code>) not working in <code>props</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="1913">1.9.13<a class="headerlink" href="#1913" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>nested property inheritance (eg. <code>@{id_@{id_x}}</code>) not updating properly</li>
+<li>canvas based widgets not updating when hidden</li>
+</ul>
+</li>
+</ul>
+<h2 id="1912">1.9.12<a class="headerlink" href="#1912" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>client options: options ignored if not lowercased</li>
+<li>sliders: prevent errors for some edge-case <code>range</code> values</li>
+</ul>
+</li>
+</ul>
+<h2 id="1911">1.9.11<a class="headerlink" href="#1911" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>range: value not properly updated with set()</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>(built-in client only) add <code>nofocus</code> client option to prevent the client window from taking focus unless a text input or a dropdown is clicked.</li>
+</ul>
+</li>
+</ul>
+<h2 id="1910">1.9.10<a class="headerlink" href="#1910" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>matrix: regression from 1.9.8 (broken nested @{} syntax in props property)</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>midi: detect missing binary (eg when deleted by antivirus) and print a message</li>
+</ul>
+</li>
+</ul>
+<h2 id="199">1.9.9<a class="headerlink" href="#199" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>matrix: regression from 1.9.8</li>
+</ul>
+</li>
+</ul>
+<h2 id="198">1.9.8<a class="headerlink" href="#198" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>matrix: update children when <code>props</code> is modified even when the result for <code>$ = 0</code> doesn't change</li>
+<li>fragments: fragment widgets empty when reloading</li>
+<li>panel: scrollbar issue on iOS 13+</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>expose <code>console.clear()</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="197">1.9.7<a class="headerlink" href="#197" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>issue when resizing widget using keyboard shortcuts</li>
+<li>advanced syntaxes (VAR{}): avoid storing default value as string if it can be parsed as a javascript primitive (boolean, number, etc)</li>
+<li>advanced syntaxes (VAR{}): ignore quotes around variable name</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>change keyboard shortcuts for moving widgets (now <code>mod + arrows</code>) and navigating in widgets (now <code>arrows</code>) to feel more natural with the project tree view.</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>script: bypass keyboard shortcuts already used by the editor if it is enabled</li>
+<li>matrix: removed ambiguous <code>start</code> property</li>
+<li>matrix: advanced syntax blocks can be passed to children without being resolved at the matrix\' scope by adding an underscore before the opening bracket</li>
+<li>text: add <code>soft</code> mode for the <code>wrap</code> property</li>
+<li>input: improve <code>numeric</code> mode on iOS</li>
+</ul>
+</li>
+</ul>
+<h2 id="196">1.9.6<a class="headerlink" href="#196" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>advanced syntaxes: <code>VAR{}</code> not updating when the default value is edited</li>
+<li>editor: fix "Bring to front" and "Send to back" context menu actions</li>
+</ul>
+</li>
+<li>
+<p>ui</p>
+</li>
+<li>
+<p>add keyboard shortcuts <code>mod + "+"</code> and <code>mod + "-"</code> to control zoom level</p>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>input: add <code>numeric</code> property (allows numeric values only and displays numeric keyboard on mobile devices)</li>
+<li>button: add <code>soft</code> mode for the <code>wrap</code> property</li>
+<li>switch: add <code>wrap</code> property</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>display dropdown and checkbox for boolean properties with extra choices</li>
+</ul>
+</li>
+</ul>
+<h2 id="195">1.9.5<a class="headerlink" href="#195" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>advanced syntaxes: various issues and regressions</li>
+<li>editor: preserve advanced syntaxes in <code>left</code> and <code>top</code> when pasting a widget</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>tree: update widget visibility when it changes dynamically</li>
+</ul>
+</li>
+</ul>
+<h2 id="194">1.9.4<a class="headerlink" href="#194" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>prevent error with empty <code>OSC{}</code> blocks</li>
+<li>regression breaking advanced syntax blocks containing nested brackets</li>
+</ul>
+</li>
+<li>
+<p>advanced syntaxes</p>
+<ul>
+<li>new syntax for creating and using custom variables in properties: <code>VAR{name, default}</code></li>
+<li><code>JS{}</code> blocks don't require 2 brackets anymore (<code>JS{{}}</code> still works)</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>add <code>getVar()</code> and <code>setVar()</code> for reading and modifying custom variables. This allows modifying properties directly from scripts (if they contain <code>VAR{}</code> blocks).</li>
+<li>expose session path as <code>globals.session</code></li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>make tree item blink when hitting "Show in tree"</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>add <code>/SCRIPT</code> command to run scripts remotely</li>
+</ul>
+</li>
+</ul>
+<h2 id="193">1.9.3<a class="headerlink" href="#193" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>scripting: set() not working from a slider to a pad</li>
+<li>tabs not sending messages / triggering scripts when clicked in editing mode</li>
+<li>prevent hang with some syntax errors in advanced syntaxes</li>
+<li>don't show project tree if minimized when creating a new widget (1.9.2 regression)</li>
+<li>fix "ID + 1" paste for widgets with numeric ids</li>
+<li>dropdown: reset the underlying dropdown when the widget's value is undefined</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>tree: allow specifying multiple type filters</li>
+<li>tree: add "Show in session" context menu action</li>
+</ul>
+</li>
+</ul>
+<h2 id="192">1.9.2<a class="headerlink" href="#192" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>visualizer: remove <code>bars</code> and <code>dots</code> option</li>
+<li>plot: fix <code>bars</code> option</li>
+<li>project tree: clear filter input when loading a session</li>
+<li>server: fix serving files from paths containing accents</li>
+<li>editor: keep editor open when loading a session</li>
+<li>menu: prevent clipping in container on iOS</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>image: add pre defined values for <code>size</code>, <code>position</code> and <code>repeat</code> properties</li>
+<li>text: add vertical alignment choices to <code>align</code></li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>tree: add icons before widget ids depending on the category</li>
+<li>tree: activate tab when selecting it in the project tree</li>
+<li>tree: allow dragging widgets from a container to another</li>
+<li>tree: expand container when a new widget is created inside it</li>
+<li>tree: add support for filtering widgets by type (by typing <code>type:fader</code> for example)</li>
+<li>smarter shift+drag selection: allow selecting widgets in the area when the event started on the parent container</li>
+<li>select newly created widgets/tab except when copy-pasting</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>add <code>/STATE/SEND</code> command</li>
+</ul>
+</li>
+</ul>
+<h2 id="191">1.9.1<a class="headerlink" href="#191" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>button: allow writing strings like <code>"1.0"</code> in <code>label</code> without removing the decimals</li>
+<li>editor: use css variable <code>--grid-width</code> at startup and after disabling &amp; enabling the grid</li>
+<li>launcher: regression preventing server halt when built-in client is closed manually beforehand</li>
+<li>scripting: prevent crash (built-in client only) when using the variable <code>navigator</code></li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>menu/switch/dropdown: reset value to <code>undefined</code> when receiving a value that's not defined in <code>values</code></li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>expose instance of navigator <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard">Clipboard</a> as <code>globals.clipboard</code></li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>allow sending note off with velocity</li>
+<li>add option for receiving note off with velocity</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>v0-&gt;v1 session conversion: remove <code>JS{{}}</code> in script property</li>
+</ul>
+</li>
+</ul>
+<h2 id="190">1.9.0<a class="headerlink" href="#190" title="Permanent link">#</a></h2>
+<p><strong>Warning</strong> Sessions saved with this version will not open in older versions (sessions saved with older version will open in this version).  </p>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>remote-root option not applied on resources loaded by the client app (css images, etc)</li>
+<li>input: display issue when resizing the window</li>
+<li>launcher: cancel stopping the server when there are unsaved changes in the built-in client</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>context menu: add <code>export</code> action to export a widget as a fragment file</li>
+<li>show project tree if minimized when clicking on "Show in tree"</li>
+</ul>
+</li>
+<li>
+<p>widget</p>
+<ul>
+<li><strong>new</strong> <code>fragment</code> widgets (under <code>containers</code>): embedded session or fragment file with overridable properties.</li>
+<li>add <code>comments</code> property to all widgets</li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>add <code>Always on top</code> menu toggle</li>
+</ul>
+</li>
+</ul>
+<h2 id="1815">1.8.15<a class="headerlink" href="#1815" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: error when duplicating widget while if the clipboard is empty</li>
+<li>ui: local zoom move issue when not in fullscreen</li>
+<li>custom module: <code>clearInterval()</code> not working</li>
+<li>regression breaking style attribute in html property</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>faster local zoom  </li>
+</ul>
+</li>
+</ul>
+<h2 id="1814">1.8.14<a class="headerlink" href="#1814" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li><code>alt+shift+c</code> not working when pressed before dragging</li>
+<li>incremental pasting issue with address property</li>
+<li>generate scrollbars for panels on iOS 13+</li>
+<li>fix scrolling on chrome for iOS 13+</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>add <code>mod+d</code> and <code>mod+shift+d</code> for duplicating widgets</li>
+<li>use a temporary clipboard when duplicating widgets</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>inspector: move <code>script</code> property to <code>scripting</code> category</li>
+<li>ui: minor style tweaks</li>
+</ul>
+</li>
+</ul>
+<h2 id="1813">1.8.13<a class="headerlink" href="#1813" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>widgets</p>
+<ul>
+<li>file: show save icon when mode is set to save</li>
+<li>file: center icon when hidePath is set to true</li>
+<li>sliders/pads: apply <code>spring</code> property dynamically</li>
+</ul>
+</li>
+<li>
+<p>ui</p>
+<ul>
+<li>add <code>alt</code>+<code>wheel</code> for local zoom centered on cursor</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>add <code>alt+c+drag</code> and <code>alt+shift+c+drag</code> for duplicating dragged widgets</li>
+</ul>
+</li>
+</ul>
+<h2 id="1812">1.8.12<a class="headerlink" href="#1812" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes:</p>
+<ul>
+<li>project tree: filter input position issue when scrolling</li>
+<li>sliders/pads: apply <code>spring</code> property dynamically</li>
+</ul>
+</li>
+<li>
+<p>project tree</p>
+<ul>
+<li>select range of contiguous widgets with shift + click</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>plot: remove unused <code>filters</code> property; fix description for <code>rangeX</code> and <code>rangeY</code></li>
+<li>console: focus input when the console opens</li>
+</ul>
+</li>
+</ul>
+<h2 id="1811">1.8.11<a class="headerlink" href="#1811" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>switch: widget not reacting at first touch when traversing is enabled on parent</li>
+<li>sliders: disable mousewheel when <code>spring</code> is enabled</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>script: add <code>once</code> event mode</li>
+<li>encoder: remove <code>spring</code> property</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>expose <code>process</code> global</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>add <code>openUrl</code> function</li>
+</ul>
+</li>
+</ul>
+<h2 id="1810">1.8.10<a class="headerlink" href="#1810" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>modal: issues with children's visibility</li>
+<li>console: allow multiple arguments in console.log()</li>
+</ul>
+</li>
+<li>
+<p>ui</p>
+<ul>
+<li>launcher: add many keyboard shortcuts</li>
+<li>client: add keyboard shortcuts for clearing the console</li>
+</ul>
+</li>
+<li>
+<p>scripting</p>
+<ul>
+<li>add <code>setFocus</code> function to focus an input widget programmatically</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>add <code>usePercents</code> client option</li>
+</ul>
+</li>
+</ul>
+<h2 id="189">1.8.9<a class="headerlink" href="#189" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>script: issue when using the <code>options</code> argument in <code>set()</code> (options leaked to subsequent set() calls in the script)</li>
+<li>multixy: <code>decimals</code> property not applied</li>
+<li>multixy: spring behavior not working until all points are released  </li>
+<li>custom module: prevent require() from reading submodules files each time and instead return the object in memory</li>
+</ul>
+</li>
+</ul>
+<h2 id="188">1.8.8<a class="headerlink" href="#188" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>launcher</p>
+<ul>
+<li>add file browser button for the <code>theme</code> option and fix parsing path containing spaces if only one theme is set</li>
+</ul>
+</li>
+<li>
+<p>windows</p>
+<ul>
+<li>remove <code>ctrl+w</code> shortcut for closing a window (use <code>alt+f4</code> instead)</li>
+</ul>
+</li>
+</ul>
+<h2 id="187">1.8.7<a class="headerlink" href="#187" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>midi</p>
+<ul>
+<li>add active sensing messages support (received as sysex)</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>restore <code>/TABS</code> command (for opening tabs by ids)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>encoder: expose rotation speed in script (as <code>locals.speed</code>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="186">1.8.6<a class="headerlink" href="#186" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>range: per-fader touch event not emitted properly</li>
+<li>rgb: fix <code>spring</code> property</li>
+<li>rgb: touch event not emitted</li>
+</ul>
+</li>
+</ul>
+<h2 id="185">1.8.5<a class="headerlink" href="#185" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>midi: debug messages displayed as errors</li>
+<li>launcher: broken context menu</li>
+</ul>
+</li>
+</ul>
+<h2 id="184">1.8.4<a class="headerlink" href="#184" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>input: prevent focus when selecting the widget for edition</li>
+<li>input: submit content when leaving focus, not only when hitting <code>enter</code> or <code>tab</code> (<code>esc</code> still cancels)</li>
+<li>midi: prevent midi bridge from stopping when an error occurs; provide meaningful errors when connection fails</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>inspector: hitting ctrl+s while editing a property will submit the change before saving</li>
+</ul>
+</li>
+<li>
+<p>ui</p>
+<ul>
+<li>hide the console toggle button when the bottom panel is minimized and the editor is disabled</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>file: add <code>mode</code> property, for choosing between <code>open</code> and <code>save</code> modes</li>
+<li>switch: add <code>flip</code> mode</li>
+</ul>
+</li>
+</ul>
+<h2 id="183">1.8.3<a class="headerlink" href="#183" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>keyboard: allow note numbers up to 127</li>
+<li>server: return http 404 error when a user-requested resource is not found instead of keeping a pending request</li>
+<li>modal: <code>visible</code> property not applied correctly</li>
+</ul>
+</li>
+<li>
+<p>project tree</p>
+<ul>
+<li>add an input for filtering displayed widget by id</li>
+</ul>
+</li>
+</ul>
+<h2 id="182">1.8.2<a class="headerlink" href="#182" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>menu: allow manual line breaks ("<code>\n</code>") in labels / values</li>
+<li>custom module: parsing issue when sending widget data using <code>receive()</code> (<code>type</code> attribute erroneously parsed as an osc typetag)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>html property: allow "href" attribute on "a" elements</li>
+</ul>
+</li>
+</ul>
+<h2 id="181">1.8.1<a class="headerlink" href="#181" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>script: stops triggering osc messages under some circumstances</li>
+</ul>
+</li>
+</ul>
+<h2 id="180">1.8.0<a class="headerlink" href="#180" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>project tree: layout issue with deeply nested widgets</li>
+<li>ios 10.3 regression</li>
+<li>file browser: layout issue with long paths</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>add <code>nativeRequire</code> function (allows loading native node modules or locally installed modules)</li>
+</ul>
+</li>
+</ul>
+<h2 id="178">1.7.8<a class="headerlink" href="#178" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>canvas-based widgets not drawn when placed in a modal while having a conditional visibility set</li>
+<li>text: missing <code>decimals</code> property</li>
+<li>clone: fix usage of osc listener syntax (acts as if clone has an <code>address</code> property set to <code>auto</code>)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>clone: make <code>props</code> property dynamic (avoid full widget rebuild when possible)</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>increase client console history size and allow changing it with client url options</li>
+</ul>
+</li>
+</ul>
+<h2 id="177">1.7.7<a class="headerlink" href="#177" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>startup regression</li>
+</ul>
+</li>
+</ul>
+<h2 id="176">1.7.6<a class="headerlink" href="#176" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>(harmless) error raised when starting the server from the launcher with <code>debug</code> set to <code>true</code></li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>display/save color picked values with css rgba notation instead of hexadecimal</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>modal: add <code>ignoreTabs</code> option (allows overflowing tab ancestors)</li>
+<li>menu: add <code>ignoreTabs</code> option</li>
+</ul>
+</li>
+</ul>
+<h2 id="175">1.7.5<a class="headerlink" href="#175" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>ios: cloned menu not displayed correctly</li>
+<li>engine: downgrade to fix startup issue on windows</li>
+</ul>
+</li>
+</ul>
+<h2 id="174">1.7.4<a class="headerlink" href="#174" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>editor: cloned <code>dropdown</code> and <code>input</code> widgets not opening when selected</li>
+<li>widgets: prevent value-stateless widgets (tap buttons, clone, scripts, html and svg) from sending a value for cross-client synchronization (leads to unexpected script execution) and exclude them from state saves</li>
+<li>input: apply <code>decimals</code> number before checking the value against the <code>validation</code> expression</li>
+<li>range: <code>steps</code> and <code>dashed</code> property not working; remove <code>origin</code> property</li>
+<li>config conflicts between launcher and server (affecting at least session history)</li>
+</ul>
+</li>
+</ul>
+<h2 id="173">1.7.3<a class="headerlink" href="#173" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>custom module / theme: prevent reloading the module while the file is being written to</li>
+<li>server: if a theme is used, attempt to resolve image urls against the theme file's location</li>
+<li>modal/button: prevent error when <code>label</code> is updated</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>encoder: add  <code>ticks</code> property back</li>
+</ul>
+</li>
+</ul>
+<h2 id="172">1.7.2<a class="headerlink" href="#172" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>midi: mtc parsing error</li>
+<li>custom module: hot reload cache issue on windows</li>
+</ul>
+</li>
+</ul>
+<h2 id="171">1.7.1<a class="headerlink" href="#171" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>regression causing server errors</li>
+</ul>
+</li>
+</ul>
+<h2 id="170">1.7.0<a class="headerlink" href="#170" title="Permanent link">#</a></h2>
+<p><strong>Important change</strong></p>
+<p>Prebuilt binaries are now supplied only for 64bit Linux/MacOs/Windows. Other platforms should use the <code>node</code> package or build it from sources.</p>
+<p><strong>MIDI support</strong></p>
+<p>As of this version, packages except the <code>node</code> package are bundled with a midi binary that will be used whenever midi's <code>path</code> option is not set. It is no longer necessary to install <code>python</code> and <code>python-rtmidi</code>.</p>
+<p><strong>Changelog</strong></p>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: missing context menu (copy, paste) in inspector inputs</li>
+<li>widgets: osc listeners not resolving "auto" address</li>
+<li>cli: <code>ELECTRON_RUN_AS_NODE</code> headless mode not working without <code>--no-gui</code> option</li>
+<li>ios: clone widget not laid out properly in horizontal panels</li>
+<li>ui: missing vertical scrollbar when root's height overflows the workspace</li>
+<li>server: provide readable error when a file requested by the client file is not found  </li>
+<li>tab: content not drawn when changing visible property</li>
+<li>matrix: addresses not generated property when matrix' address is <code>auto</code></li>
+</ul>
+</li>
+<li>
+<p>ui</p>
+<ul>
+<li>add console bottom panel with a simple script interpreter</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>keyboard: add <code>velocity</code> property (allows mapping the touch coordinates between <code>off</code> (top) and <code>on</code> (bottom))</li>
+<li>input: add <code>validation</code> property (allows defining a regular expression that the value must match)</li>
+<li>modal: add <code>relative</code> position property</li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>accept sending sysex strings without spaces between the bytes</li>
+<li>load prebuilt midi binary on 64bit linux/windows/osx</li>
+<li>add support for midi time code messages</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>sessions converted from v0 will use the widget's html property to display the former label property</li>
+</ul>
+</li>
+</ul>
+<h2 id="162">1.6.2<a class="headerlink" href="#162" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>matrix: issues when changing non-dynamic properties (content not properly removed)</li>
+<li>input: apply default value when receiving an empty value or no value at all</li>
+</ul>
+</li>
+</ul>
+<h2 id="161">1.6.1<a class="headerlink" href="#161" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>keyboard: prevent <code>script</code> property from being copied to each key</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>keyboard: make <code>on</code> and <code>off</code> properties dynamic</li>
+<li>script: add <code>getIndex</code> function</li>
+<li>matrix/keyboard: <code>id</code> variable in script is now the <code>id</code> of the child widget that triggered the event</li>
+</ul>
+</li>
+</ul>
+<h2 id="160">1.6.0<a class="headerlink" href="#160" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>range: error when setting <code>default</code> property</li>
+<li>range: fix <code>doubleTap</code> property</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>all: add <code>html</code> property to allow inserting custom content in widgets (label, value, etc) and style it with the <code>css</code> property.</li>
+</ul>
+</li>
+<li>
+<p>scripting:</p>
+<ul>
+<li><code>send()</code>: ignore the widget's <code>bypass</code> property (allows bypassing default messages and define custom ones)</li>
+<li><code>set()</code>: add supports for wildcards in the id parameter</li>
+<li><code>set()</code>: add a 3<sup>rd</sup> optional parameter for preventing further script executions and/or osc messages from being sent</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li>automatically reload custom module when the file is modified</li>
+<li>add support for loading submodules with <code>require()</code></li>
+</ul>
+</li>
+<li>
+<p>theme</p>
+<ul>
+<li>automatically reload theme when the file is modified</li>
+</ul>
+</li>
+</ul>
+<h2 id="154">1.5.4<a class="headerlink" href="#154" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>ssl: generate unique certificates (with random serial numbers) to avoid reuse errors. Certificates generated with older versions of o-s-c will be updated automatically.</li>
+<li><code>~/</code> path prefix not recognized when using remote control commands like <code>/SESSION/SAVE</code></li>
+<li><code>~/</code> path prefix not recognized in <code>remote-root</code> option</li>
+<li>editor: paste ID+1: midi-related addresses should not be incremented</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>add <code>/STATE/OPEN</code> and <code>/STATE/SAVE</code> commands</li>
+<li>ignore unsaved changes when loading a session with <code>/SESSION/OPEN</code></li>
+<li>resolve relative file paths against <code>remote-root</code> setting  </li>
+</ul>
+</li>
+</ul>
+<h2 id="153">1.5.3<a class="headerlink" href="#153" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>editor: error when <code>preArgs</code> and <code>address</code> are modified at the same time (affects <code>/EDIT</code> command and matrix/clone widgets)</li>
+</ul>
+</li>
+</ul>
+<h2 id="152">1.5.2<a class="headerlink" href="#152" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>launcher: midi device names containing multiple spaces not parsed correctly</li>
+<li>fullscreen: lack of support not detected on some ios devices</li>
+<li>multixy: labels not hidden when <code>ephemeral</code> is <code>true</code></li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>add <code>/SESSION/OPEN</code> and <code>/SESSION/SAVE</code> commands</li>
+</ul>
+</li>
+</ul>
+<h2 id="151">1.5.1<a class="headerlink" href="#151" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>widgets: touch state scripts not triggering some synchronization mechanism</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>encoder: remove <code>steps</code>, <code>ticks</code> and <code>origin</code> properties</li>
+<li>encoder: make <code>sensitivity</code> work with values below 1</li>
+</ul>
+</li>
+</ul>
+<h2 id="150">1.5.0<a class="headerlink" href="#150" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>image: broken value validation</li>
+<li>menu/dropdown: use correct z-index</li>
+<li>dropdown: prevent dropdown from opening when selecting the widget for edition</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>holding <code>alt</code> extends the north-west handle to the widget's size to ease dragging</li>
+<li>widget properties reordered (e.g. style-related properties, even widget-specific, are now under the "style" category)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>remove <code>colorBg</code> for all widgets except containers</li>
+<li>widgets background color is now transparent by default (can be overridden with css)</li>
+<li>keyboard: added <code>colorBlack</code> and <code>colorWhite</code> properties to customize key colors</li>
+<li>dropdown/menu: add <code>label</code> property (with support easy key/value display)</li>
+<li>dropdown/menu: add <code>icon</code> toggle property</li>
+<li>modal: add <code>popupPadding</code> property to control the button's and the container's padding independently</li>
+</ul>
+</li>
+</ul>
+<h2 id="141">1.4.1<a class="headerlink" href="#141" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>multixy/range: prevent some extra touch state events;`</li>
+</ul>
+</li>
+</ul>
+<h2 id="140">1.4.0<a class="headerlink" href="#140" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>project tree: error when dropping a widget at its initial position</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>validate property change when clicking on a widget</li>
+<li>cancel property change when hitting escape</li>
+<li>add menu and keyboard shortcuts to reorder widgets</li>
+<li>add keyboard shortcut to show widget in project tree</li>
+<li>selected widget is not showed on top of the others anymore</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>expose widgets unique identifiers with property name "uuid"</li>
+<li>xy/multixy: add <code>ephemeral</code> property</li>
+<li>fader/knob/xy/range/multixy: remove <code>touchAddress</code> property</li>
+<li>fader/knob/xy/range/multixy: expose touch state in <code>script</code> property (<code>touchAddress</code> usages will be converted automatically)</li>
+</ul>
+</li>
+</ul>
+<h2 id="130">1.3.0<a class="headerlink" href="#130" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: hide impossible actions from context-menu (eg adding widgets in tab containers)  </li>
+<li>editor: error when selecting a tab/root widget while a property field contains unsubmitted changes</li>
+<li>panel: layout issue with tabs &amp; lineWidth property</li>
+<li>input: extend focusable area</li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>remove variable args in sysex messages (dynamic properties and scripting can be used to this effect)</li>
+<li>add support for sending sysex bytes as integers</li>
+<li>allow sending any system message (eg MIDI time code)</li>
+<li>add support for receiving MIDI time code messages (as raw sysex) (requires adding the <code>mtc</code> flag to the midi configuration)</li>
+</ul>
+</li>
+</ul>
+<h2 id="121">1.2.1<a class="headerlink" href="#121" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>scripting</p>
+<ul>
+<li>expose toolbar menu actions</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>optimise small changes made with /EDIT</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>button: add <code>wrap</code> and <code>vertical</code> properties</li>
+<li>root: add <code>width</code> and <code>height</code> properties (helps building mobile layouts)</li>
+</ul>
+</li>
+</ul>
+<h2 id="120">1.2.0<a class="headerlink" href="#120" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>editor: id not incremented when pasting multiple widgets with id+1</li>
+</ul>
+</li>
+<li>
+<p>main</p>
+<ul>
+<li>remove support for extra args in the <code>custom-module</code> option (fixes some path issues)</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>all: add <code>lineWidth</code> style property</li>
+<li>knob: add <code>solid</code> &amp; <code>line</code> designs</li>
+<li>fader: add <code>knobSize</code> property</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>preserve percentages in position/size</li>
+<li>add 'Relative units (%)' option to use percents automatically on new widgets</li>
+</ul>
+</li>
+</ul>
+<h2 id="110">1.1.0<a class="headerlink" href="#110" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>iOS 14+ scrolling issue</li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>add support for channel pressure and key pressure messages</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>svg: remove support for non-standard <code>%x</code> and <code>%y</code> units; fixed layout update when resized;</li>
+<li>knob: add support for custom dash/gap size in <code>dashed</code> property</li>
+</ul>
+</li>
+</ul>
+<h2 id="104">1.0.4<a class="headerlink" href="#104" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>script: broken <code>storage.getItem</code> and <code>storage.removeItem</code></li>
+<li>regression breaking <code>remote-root</code> option when starting with the launcher</li>
+</ul>
+</li>
+</ul>
+<h2 id="103">1.0.3<a class="headerlink" href="#103" title="Permanent link">#</a></h2>
+<ul>
+<li>
+<p>bug fixes</p>
+<ul>
+<li>modal: layout issue on iOS</li>
+</ul>
+</li>
+<li>
+<p>widgets</p>
+<ul>
+<li>panels: added <code>contain</code> property to allow scrolling in vertical/horizontal layouts</li>
+</ul>
+</li>
+<li>
+<p>midi</p>
+<ul>
+<li>add support for named ports in midi configuration</li>
+</ul>
+</li>
+</ul>
+<h2 id="102">1.0.2<a class="headerlink" href="#102" title="Permanent link">#</a></h2>
+<ul>
+<li>bug fixes<ul>
+<li>broken scrolling on iPhone iOS 13</li>
+<li>window geometry issue  </li>
+</ul>
+</li>
+</ul>
+<h2 id="101">1.0.1<a class="headerlink" href="#101" title="Permanent link">#</a></h2>
+<ul>
+<li>UI<ul>
+<li>windows' dimensions and position are now saved upon closing and restored at startup</li>
+</ul>
+</li>
+</ul>
+<h2 id="100">1.0.0<a class="headerlink" href="#100" title="Permanent link">#</a></h2>
+<p><em>This list is not exhaustive</em></p>
+<ul>
+<li>
+<p>compatibility</p>
+<ul>
+<li>dropped support for iOS 9</li>
+<li>firefox (75+) support</li>
+</ul>
+</li>
+<li>
+<p>UI</p>
+<ul>
+<li>overhaul design reworked</li>
+<li>foldable sidepanels</li>
+<li>removed lobby</li>
+<li>added toolbar menu</li>
+<li>display loading (spinner) in a notification instead of a modal</li>
+<li>mod + w to close window</li>
+<li>context-menu now use click event to trigger actions, not mousedown/touchstart</li>
+<li>no more uppercase text by default</li>
+</ul>
+</li>
+<li>
+<p>themes</p>
+<ul>
+<li>built-in themes removed except <code>orange</code></li>
+</ul>
+</li>
+<li>
+<p>translations</p>
+<ul>
+<li>incomplete russian translation removed</li>
+</ul>
+</li>
+<li>
+<p>editor</p>
+<ul>
+<li>project tree</li>
+<li>dropdown for properties with multiple choices</li>
+<li>color picker</li>
+<li>preview numeric values for style-related properties set to auto</li>
+<li>context menu: added "show in tree" action</li>
+<li>context menu: removed "edit parent" action</li>
+<li>allow copying tabs (to tab containers only)</li>
+<li>shared clipboard across all clients</li>
+<li>prevent interaction with widgets when <code>shift</code> or <code>ctrl</code> is held</li>
+<li>ensure @{} bindings are always updated upon edition</li>
+</ul>
+</li>
+<li>
+<p>widget changes</p>
+<ul>
+<li>all: removed <code>label</code> option except for buttons, tabs and modals (one should use <code>text</code> widgets if needed)</li>
+<li>all: removed support for <code>null</code> and <code>"self"</code> targets</li>
+<li>all: added <code>ignoreDefaults</code> property (allows ignoring the server's default targets)</li>
+<li>all: <code>precision</code> property to <code>decimals</code>, don't set osc integer typetag when 0</li>
+<li>all: added <code>typeTags</code> property</li>
+<li>all: multiple style properties to control visibility, colors, alphas and padding</li>
+<li>all: added <code>interaction</code> (=&gt; css <code>pointer-events: none;</code>)</li>
+<li>all: added <code>expand</code> (=&gt; css <code>flex: 1;</code>)</li>
+<li>all:  prevent html tags in label</li>
+<li>pads: removed <code>split</code> property -&gt; use custom-module or script instead</li>
+<li>root: can contain widgets or tabs</li>
+<li>panels: added <code>layout</code>, <code>justify</code> and <code>gridTemplate</code> to help managing layouts (especially responsive ones)</li>
+<li>panels: added <code>verticalTabs</code> property</li>
+<li>panels: added <code>traversing</code> property, allow restricting <code>traversing</code> to a specific widget type</li>
+<li>fader: removed <code>input</code></li>
+<li>fader: removed <code>meter</code></li>
+<li>fader: added <code>gradient</code></li>
+<li>fader: added <code>round</code> design style</li>
+<li>fader: support setting dash size and gap size in <code>dashed</code> property</li>
+<li>switch: added <code>layout</code> (including grid)</li>
+<li>switch: added <code>click</code> mode</li>
+<li>plot/eq: removed <code>smooth</code></li>
+<li>plots/sliders/pads: reversed <code>logScale</code> behavior to match standard implementations; can be either <code>false</code> (disabled), <code>true</code> (logarithmic scale) or <code>number</code> (manual log scale, negative for exponential scale)</li>
+<li>visualizer: added <code>framerate</code> property</li>
+<li>visualizer: added <code>freeze</code> property</li>
+<li>menu: always centered menu</li>
+<li>modal: modals can't overflow parent tab boundaries</li>
+<li>input: removed <code>vertical</code></li>
+<li>pads, range: when <code>touchAddress</code> is set, one message per touched point is sent, in addition to the former touch state message</li>
+<li>eq: removed <code>logScaleX</code> property, always draw logarithmic frequency response</li>
+<li>eq: logarithmic x-axis scale fixed</li>
+<li>eq: filters are now defined with the <code>filters</code> property, leaving the <code>value</code> to its default purpose</li>
+<li>eq: added <code>rangeX</code></li>
+<li>html: allow <code>class</code>, <code>title</code> and <code>style</code> attributes</li>
+<li>dropdown: close menu when receiving a value</li>
+<li>dropdown: removed empty 1<sup>st</sup> option</li>
+<li>switch: removed <code>showValues</code> (inconsistent with menu/dropdown, feature covered by <code>values</code> property)</li>
+<li>frame: allow loading non local urls</li>
+</ul>
+</li>
+<li>
+<p>widget removals</p>
+<ul>
+<li><code>push</code>, <code>toggle</code>: merged into <code>button</code></li>
+<li><code>strip</code>: features now covered by <code>panel</code></li>
+<li><code>meter</code>: duplicate of <code>fader</code> with <code>design</code> to <code>compact</code> and <code>interaction</code> to <code>false</code></li>
+<li><code>switcher</code>, <code>state</code>, <code>crossfader</code>: removed =&gt; state management functions added to the <code>script</code> widget</li>
+<li><code>keys</code>: merged with <code>script</code></li>
+<li><code>gyroscope</code>: not compatible since chrome 74 unless o-s-c goes HTTPS</li>
+</ul>
+</li>
+<li>
+<p>remote control</p>
+<ul>
+<li>removed /TABS</li>
+<li>added /NOTIFY</li>
+</ul>
+</li>
+<li>
+<p>scripting (general)</p>
+<ul>
+<li>removed MathJS language</li>
+<li>reuse #{} syntax as as shorthand for JS{{}} (one liner, implicit return)</li>
+<li>added <code>locals</code> variable, a variable store scoped to the widget</li>
+<li>renamed <code>global</code> to <code>globals</code></li>
+<li>expose environment variables in <code>globals</code>: <code>url</code>, <code>env</code> (query parameters), <code>platform</code>, <code>screen</code> (width/height)</li>
+</ul>
+</li>
+<li>
+<p>script widget</p>
+<ul>
+<li>always hidden except in project tree</li>
+<li><code>script</code> property must not be wrapped in a JS{{}} block anymore</li>
+<li>added <code>stateGet</code> and <code>stateSet</code> functions</li>
+<li>added <code>storage</code> object, proxy to the document's localStorage object (allows storing data that persist after refresh/close (cleared with the browser's cache)</li>
+<li>added <code>setTimeout</code>, <code>clearTimeout</code>, <code>setInterval</code>, <code>clearInterval</code> function proxies with an extra <code>id</code> argument (they clear automatically when called multiple times and upon widget removal. <code>id</code> is scoped to the widget)</li>
+</ul>
+</li>
+<li>
+<p>state</p>
+<ul>
+<li>quickstate (store/recall from menu) is now stored in the clients cache and persists after refresh/close (cleared with the browser's cache)</li>
+</ul>
+</li>
+<li>
+<p>custom module</p>
+<ul>
+<li><code>settings.read(name)</code>: <code>name</code> is now the long name of command-line options (not a camelCased one)</li>
+<li><code>receive()</code>: optional last argument to pass extra options such as <code>clientId</code></li>
+<li>client id persist upon page refresh and can be set manually with the client url option <code>id</code></li>
+</ul>
+</li>
+<li>
+<p>launcher</p>
+<ul>
+<li>config save/load</li>
+<li>allow starting/stopping server without rebooting</li>
+<li>syntax check on <code>--midi</code> option</li>
+</ul>
+</li>
+<li>
+<p>server</p>
+<ul>
+<li>renamed <code>--url-options</code> to <code>--client-options</code> and make them apply even in remote browsers (can be overridden with url queries)</li>
+<li>removed <code>--blank</code>, <code>--gui-only</code>, <code>--examples</code></li>
+<li>hide <code>--disable-gpu</code> (cli-only)</li>
+<li>added cli-only <code>--cache-dir</code> and <code>--config-file</code></li>
+<li>added <code>--authentication</code> option</li>
+<li>added <code>--use-ssl</code> option</li>
+</ul>
+</li>
+<li>
+<p>misc</p>
+<ul>
+<li>canvas: better visibility checks to avoid unnecessary draw calls</li>
+<li>visualizer: perf improvement (avoid data processing when not visible), all visualizers hook on the same loop to avoid concurrent timeouts</li>
+<li>button: in 'tap' mode (formerly push with <code>noRelease</code>), never send/sync <code>off</code> value, automatically reset to <code>off</code> when receiving <code>on</code></li>
+<li>more detached DOM for lighter nested canvas widgets (ie multixy)</li>
+<li>unified (kind of) dom html structure for widgets, known css tricks will require adjustments.</li>
+<li>cache and config files are now stored in a folder named <code>open-stage-control</code> (located in the system's default location for config file). The <code>.open-stage-control</code> is no longer used.</li>
+<li>added support for icons rotate/flip transform suffixes (example: <code>^cog.spin</code>, <code>^play.rotate-horizontal</code>)</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyleft © Jean-Emmanuel Doucet @ <a href='http://ammd.net'>AMMD</a> (<a href='https://github.com/jean-emmanuel/open-stage-control/blob/master/LICENSE'>GNU/GPLv3</a>)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../extra/scripts.js"></script>
+      
+    
+  </body>
+</html>

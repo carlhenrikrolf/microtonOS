@@ -1,0 +1,1998 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Libre and modular OSC / MIDI controller">
+      
+      
+      
+      
+        <link rel="prev" href="../client/">
+      
+      
+        <link rel="next" href="../../widgets/general-mechanics/">
+      
+      
+      <link rel="icon" href="../../../img/logo_nobadge.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.2.7">
+    
+    
+      
+        <title>Editor - Open Stage Control</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+    <link rel="stylesheet" href="/fonts/fontawesome.min.css">
+    <link rel="stylesheet" href="/fonts/fa-solid.css">
+  <link rel="stylesheet" href="/fonts/roboto.css">
+  <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+    <script>
+        // hack mkdocs-material to bypass github stars/forks fetching
+        sessionStorage.setItem('-655102438', '[]')
+    </script>
+
+    
+      <link rel="stylesheet" href="../../../extra/styles.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Indigo" data-md-color-accent="Indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#widget-selection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Open Stage Control" class="md-header__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Stage Control
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Editor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../download/" class="md-tabs__link">
+          
+  
+  Download
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../getting-started/introduction/" class="md-tabs__link">
+          
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-tabs__link">
+          
+  
+  Bug Tracker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="https://openstagecontrol.discourse.group" class="md-tabs__link">
+          
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Open Stage Control" class="md-nav__button md-logo" aria-label="Open Stage Control" data-md-component="logo">
+      
+  <img src="../../../img/logo_nobadge.png" alt="logo">
+
+    </a>
+    Open Stage Control
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jean-emmanuel/open-stage-control" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    open-stage-control
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Download
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download the latest release
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/server-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-from-sources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running from sources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/running-with-node/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running with node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    First Steps with Open Stage Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/change-property-with-osc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Change a widget property with an osc message
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User interface
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            User interface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../launcher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Launcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Editor
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#widget-selection" class="md-nav__link">
+    Widget selection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#menu" class="md-nav__link">
+    Menu
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspector" class="md-nav__link">
+    Inspector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-tree" class="md-nav__link">
+    Project tree
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#widget-resizing-dragging" class="md-nav__link">
+    Widget resizing / dragging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-widgets-editing" class="md-nav__link">
+    Multi-widgets editing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyboard-shortcuts" class="md-nav__link">
+    Keyboard shortcuts
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Widgets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Widgets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/general-mechanics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    General mechanics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/properties-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Properties reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/advanced-syntaxes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced syntaxes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/scripting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scripting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/fragments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fragments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../widgets/canvas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canvas widget
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MIDI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            MIDI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../midi/midi-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MIDI messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Custom module
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/custom-module/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom module
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/managing-big-modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing big modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-module/examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Customization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Customization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customization/css-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../client-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Client options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../remote-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remote control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bug Tracker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/jean-emmanuel/open-stage-control/issues" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bug Tracker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://openstagecontrol.discourse.group" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community forums
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#widget-selection" class="md-nav__link">
+    Widget selection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#menu" class="md-nav__link">
+    Menu
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspector" class="md-nav__link">
+    Inspector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-tree" class="md-nav__link">
+    Project tree
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#widget-resizing-dragging" class="md-nav__link">
+    Widget resizing / dragging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-widgets-editing" class="md-nav__link">
+    Multi-widgets editing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keyboard-shortcuts" class="md-nav__link">
+    Keyboard shortcuts
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Editor</h1>
+
+<h2 id="widget-selection">Widget selection<a class="headerlink" href="#widget-selection" title="Permanent link">#</a></h2>
+<p>Clicking on a widget, on a tab label or on an item in the project tree selects the widgets for editing:</p>
+<ul>
+<li>All its editable properties are shown in the inspector panel</li>
+<li>The corresponding item in the project tree is highlighted</li>
+<li>A selection outline is drawn around the widget</li>
+<li>Dragging / Resizing handles are added to the widget</li>
+</ul>
+<p><img alt="" src="../../../img/screenshots/editor.png" /></p>
+<p>To interact with a widget directly without selecting it, either use the middle mouse button or hold <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-windows">Win</kbd></span> (<span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-command">Cmd</kbd></span> on Mac).</p>
+<h2 id="menu">Menu<a class="headerlink" href="#menu" title="Permanent link">#</a></h2>
+<p>Right clicking on a widget displays a menu with the following actions</p>
+<ul>
+<li><code>Show in tree</code>: show widget in project tree (hidden when clicking in the project tree)</li>
+<li><code>Position</code>:<ul>
+<li><code>Send to back</code>: Send selected widget to back (first of siblings)</li>
+<li><code>Send farther</code>: Send selected widget farther</li>
+<li><code>Bring closer</code>: Bring selected widget closer</li>
+<li><code>Bring to front</code>: Bring selected widget to front (last of siblings)</li>
+</ul>
+</li>
+<li><code>Copy</code>: copy widget's data</li>
+<li><code>Cut</code>: copy widget's data and delete selected widget</li>
+<li><code>Paste</code>: paste copied widget in selected container<ul>
+<li><code>Paste</code>: paste the widget as is</li>
+<li><code>ID + 1</code> : increments the id of the copied widget (and all its children) before pasting</li>
+<li><code>Clone</code> : create a clone widget targetting the copied widget</li>
+</ul>
+</li>
+<li><code>Add widget</code>: create a new widget in selected container</li>
+<li><code>Add tab</code>: create a new tab in selected container</li>
+<li><code>Export</code>: export as fragment file</li>
+<li><code>Delete</code>: delete selected tab or widget</li>
+</ul>
+<h2 id="inspector">Inspector<a class="headerlink" href="#inspector" title="Permanent link">#</a></h2>
+<p>Selected widget's properties are displayed and can be modified in the inspector. The <a href="../../widgets/properties-reference/">properties reference</a> lists the available properties for each widget type.</p>
+<ul>
+<li>Property fields are all multiline (press <code>shift + enter</code> for new line).</li>
+<li>Properties are written in JSON, with some flexibility brought by the <a href="https://github.com/json5/json5">JSON5</a> format. For example, double quotes around object keys are not mandatory.</li>
+<li>Clicking on a property name spawns a help modal window</li>
+<li>Properties are divided into multiple categories that can be toggled with a click. <span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd>Click</kbd></span> on a category closes the other categories before toggling selected category.</li>
+</ul>
+<p>Some properties (for example <code>onValue</code>) have a special code editor with syntax highlighting and many keyboard shortcuts (available by clicking on the "Help" button). In these properties, pressing <code>enter</code> will not submit pending changes but instead insert a new line at the cursor position (as you would expect in a regular editor). To submit pending changes, press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-enter">Enter</kbd></span> (or ++cmd+enter== on Mac) or click outside the editor.</p>
+<p>Widgets can be locked for edition by enabling their <code>lock</code> property. When locked, a widget can't be modified by the editor but it remains possible to delete it or to move it from a container to another in the project tree.</p>
+<h2 id="project-tree">Project tree<a class="headerlink" href="#project-tree" title="Permanent link">#</a></h2>
+<p>The project tree displays the whole widget structure of the session. Widgets can be reordered or moved to another container with drag-and-drop.</p>
+<p>The "Filter" input allows filtering displayed widgets by their <code>id</code>. It's also possible to only display a single type of widget by typing <code>type:fader</code> for example.</p>
+<p>Invisible widgets are displayed with a lower opacity and their name in italic. Locked widgets are displayed with a lock icon after their name.  </p>
+<h2 id="widget-resizing-dragging">Widget resizing / dragging<a class="headerlink" href="#widget-resizing-dragging" title="Permanent link">#</a></h2>
+<p>Selected widget can be resized using its south, south-east and east handles. It can be dragged with its north-west handle (holding <span class="keys"><kbd class="key-alt">Alt</kbd></span> extends this handle to the widget's size to ease dragging). If the widget's position/size was written in percents, the editor will try to keep using percents.</p>
+<p>When the grid is enabled, widget resizing / dragging snaps to a 10 pixel wide grid.</p>
+<h2 id="multi-widgets-editing">Multi-widgets editing<a class="headerlink" href="#multi-widgets-editing" title="Permanent link">#</a></h2>
+<p>Multiple widgets can be edited at once.</p>
+<ul>
+<li>The inspector will only display properties that are shared by all selected widgets</li>
+<li>Selection can only contain sibling widgets (same direct parent)</li>
+<li>Context-menu actions and properties changes apply to all selected widgets</li>
+<li>Resizing / Dragging will affect all selected widgets, relatively the selection's size and position</li>
+</ul>
+<h2 id="keyboard-shortcuts">Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">#</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / Windows</label><label for="__tabbed_1_2">Mac</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-g">G</kbd></span></td>
+<td>Toggle grid.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-t">T</kbd></span></td>
+<td>Toggle session tree.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-i">I</kbd></span></td>
+<td>Toggle inspector.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Click</kbd></span></td>
+<td>Widget selection.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd>Click</kbd></span></td>
+<td>Multi-widget selection. Widgets can be toggled from selection by clicking on them individually.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd>Click</kbd><span>+</span><kbd>Drag</kbd></span></td>
+<td>Draw a selection rectangle and attempt to select widgets in it. If <span class="keys"><kbd class="key-control">Ctrl</kbd></span> is pressed too, current selection is kept and will be merged with the new one if possible.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span></td>
+<td> Undo</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-y">Y</kbd></span> <br/><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-z">Z</kbd></span></td>
+<td> Redo</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-delete">Del</kbd></span></td>
+<td> Delete selected widgets</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span></td>
+<td> Copy selected widgets</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-x">X</kbd></span></td>
+<td> Cut selected widgets</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-v">V</kbd></span></td>
+<td> Paste clipboard in selected widget</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></td>
+<td> Paste and increment id</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Duplicate selected widget</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Duplicate selected widget and increment id</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-c">C</kbd><span>+</span><kbd>Drag</kbd></span></td>
+<td> Paste selection to position</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-c">C</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd>Drag</kbd></span></td>
+<td> Paste selection to dragged position and increment id</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-arrow-up">Up</kbd></span> <br/><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-arrow-down">Down</kbd></span> <br/><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-arrow-left">Left</kbd></span> <br/><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-arrow-right">Right</kbd></span></td>
+<td> Move selected widgets (1 grid unit, hold <span class="keys"><kbd class="key-shift">Shift</kbd></span> for 5 grid units)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-up">Up</kbd></span> <br/><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-down">Down</kbd></span> <br/><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-left">Left</kbd></span> <br/><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-right">Right</kbd></span></td>
+<td>Resize selected widgets (1 grid unit, hold <span class="keys"><kbd class="key-shift">Shift</kbd></span> for 5 grid units)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-a">A</kbd></span></td>
+<td>Select current widget's siblings and itself</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-a">A</kbd></span></td>
+<td>Cancel current widget selection</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-up">Up</kbd></span></td>
+<td>Select current widget's previous sibling</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-down">Down</kbd></span></td>
+<td>Select current widget's next sibling</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-left">Left</kbd></span></td>
+<td>Select current widget's parent</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-right">Right</kbd></span></td>
+<td>Select current widget's first child</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-t">T</kbd></span></td>
+<td>Show selected widget(s) in the project tree</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-y">Y</kbd></span></td>
+<td>Show selected widget(s) in the session</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-f">F</kbd></span></td>
+<td>Focus search input in project tree</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Home</kbd></span></td>
+<td>Send selected widget to back</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Page Up</kbd></span></td>
+<td>Send selected widget farther</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Page Down</kbd></span></td>
+<td>Bring selected widget closer</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>End</kbd></span></td>
+<td>Bring selected widget to front</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>F2</kbd></span></td>
+<td>Bring "label" property input into view if selected widget has one</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-h">H</kbd></span></td>
+<td>Hide selection area and widget resize / drag handles while pressed</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd>Mousewheel</kbd></span></td>
+<td>change editor zoom</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-0">0</kbd></span></td>
+<td>reset zoom</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-g">G</kbd></span></td>
+<td>Toggle grid.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-t">T</kbd></span></td>
+<td>Toggle session tree.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-i">I</kbd></span></td>
+<td>Toggle inspector.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Click</kbd></span></td>
+<td>Widget selection.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd>Click</kbd></span></td>
+<td>Multi-widget selection. Widgets can be toggled from selection by clicking on them individually.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd>Click</kbd><span>+</span><kbd>Drag</kbd></span></td>
+<td>Draw a selection rectangle and attempt to select widgets in it. If <span class="keys"><kbd class="key-command">Cmd</kbd></span> is pressed too, current selection is kept and will be merged with the new one if possible.</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-z">Z</kbd></span></td>
+<td> Undo</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-y">Y</kbd></span> <br/><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-z">Z</kbd></span></td>
+<td> Redo</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-backspace">Backspace</kbd></span></td>
+<td> Delete selected widgets</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-c">C</kbd></span></td>
+<td> Copy selected widgets</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-x">X</kbd></span></td>
+<td> Cut selected widgets</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-v">V</kbd></span></td>
+<td> Paste clipboard in selected widget</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-v">V</kbd></span></td>
+<td> Paste and increment id</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Duplicate selected widget</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-d">D</kbd></span></td>
+<td>Duplicate selected widget and increment id</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-c">C</kbd><span>+</span><kbd>Drag</kbd></span></td>
+<td> Paste selection to position</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-c">C</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd>Drag</kbd></span></td>
+<td> Paste selection to dragged position and increment id</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-arrow-up">Up</kbd></span> <br/><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-arrow-down">Down</kbd></span> <br/><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-arrow-left">Left</kbd></span> <br/><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-arrow-right">Right</kbd></span></td>
+<td> Move selected widgets (1 grid unit, hold <span class="keys"><kbd class="key-shift">Shift</kbd></span> for 5 grid units)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-up">Up</kbd></span> <br/><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-down">Down</kbd></span> <br/><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-left">Left</kbd></span> <br/><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd class="key-arrow-right">Right</kbd></span></td>
+<td>Resize selected widgets (1 grid unit, hold <span class="keys"><kbd class="key-shift">Shift</kbd></span> for 5 grid units)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-a">A</kbd></span></td>
+<td>Select current widget's siblings and itself</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-a">A</kbd></span></td>
+<td>Cancel current widget selection</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-up">Up</kbd></span></td>
+<td>Select current widget's previous sibling</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-down">Down</kbd></span></td>
+<td>Select current widget's next sibling</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-left">Left</kbd></span></td>
+<td>Select current widget's parent</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-arrow-right">Right</kbd></span></td>
+<td>Select current widget's first child</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-t">T</kbd></span></td>
+<td>Show selected widget in the project tree</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-y">Y</kbd></span></td>
+<td>Show selected widget(s) in the session</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-f">F</kbd></span></td>
+<td>Focus search input in project tree</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Home</kbd></span></td>
+<td>Send selected widget to back</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Page Up</kbd></span></td>
+<td>Send selected widget farther</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>Page Down</kbd></span></td>
+<td>Bring selected widget closer</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>End</kbd></span></td>
+<td>Bring selected widget to front</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd>F2</kbd></span></td>
+<td>Bring "label" property input into view if selected widget has one</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-h">H</kbd></span></td>
+<td>Hide selection area and widget resize / drag handles while pressed</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-alt">Alt</kbd><span>+</span><kbd>Mousewheel</kbd></span></td>
+<td>change editor zoom</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-command">Cmd</kbd><span>+</span><kbd class="key-0">0</kbd></span></td>
+<td>reset zoom</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyleft © Jean-Emmanuel Doucet @ <a href='http://ammd.net'>AMMD</a> (<a href='https://github.com/jean-emmanuel/open-stage-control/blob/master/LICENSE'>GNU/GPLv3</a>)
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant"], "search": "../../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="../../../extra/scripts.js"></script>
+      
+    
+  </body>
+</html>
