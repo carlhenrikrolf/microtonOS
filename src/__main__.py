@@ -2,7 +2,7 @@
 microtonOS.
 """
 
-from default import microtonOS
+from exquis import microtonOS
 
 client_name = "microtonOS"
 
