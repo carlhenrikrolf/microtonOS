@@ -1,17 +1,14 @@
 from pythonosc.udp_client import SimpleUDPClient
-import subprocess
 import psutil
 
-ip = subprocess.check_output(["hostname", "--all-ip-addresses"])
-ip = ip.decode()
-port = 8080
+from utils import load_config
 
-all_ip = "192.168.50.132"
-ip = "127.0.0.1"
-
-osc_client = SimpleUDPClient(all_ip, 8080)
+config = load_config(__file__, "../config/microtonOS.toml")
+port = config["Open Stage Control"]["port"]
+loopback_ip = "127.0.0.1"
+osc_client = SimpleUDPClient(loopback_ip, port)
 while True:
     cpu = psutil.cpu_percent(interval=1)
     cpu /= 100
-    osc_client.send_message("/root/instrument/cc", str(cpu))
+    osc_client.send_message("/cpu", cpu)
     print(cpu)

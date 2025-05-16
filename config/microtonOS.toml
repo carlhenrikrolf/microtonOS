@@ -1,6 +1,6 @@
 "pw-jack" = {path = "/usr/bin/pw-jack"}
 "node.js" = {path = "/home/pi/.nvm/versions/node/v22.14.0/bin/node"}
-"Open Stage Control" = {path = "/home/pi/microtonOS/third_party/open-stage-control_1.29.2_node/", config="/home/pi/microtonOS/config/open-stage-control.json"}
+"Open Stage Control" = {path = "/home/pi/microtonOS/third_party/open-stage-control_1.29.2_node/", config="/home/pi/microtonOS/config/open-stage-control.json", port=8080, ssl=false}
 SonoBus = {path = "/usr/bin/sonobus", headless = true}
 Exquis = {usb.in = nan, usb.out = nan}
 
