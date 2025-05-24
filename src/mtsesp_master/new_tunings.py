@@ -4,10 +4,10 @@ Tuning templates
 
 # external libraries
 import numpy as np
-from pythonosc.udp_client import SimpleUDPClient
 
 # internal libraries
 from utils import load_config
+from display import display
 
 # configurations
 config = {
@@ -290,16 +290,13 @@ class BaseTuning:
 
         # misc initialisations
         self.equave = 0
-        self.osc_client = SimpleUDPClient(
-            "127.0.0.1", config["microtonOS"]["Open Stage Control"]["port"]
-        )
 
     def tuning(self, mts, **kwargs):
         """Activate the tuning.
-        'mts' is an MTS-ESP master from the mtsepy library.
+        'mts' is an MTS-ESP master from the mtsespy library.
         'equave' is an optional argument."""
         self.equave = kwargs.get("equave", self.equave)
-        self.osc_client.send_message("/tuning", self.name)
+        display("/tuning/name", self.name)
         mts.set_scale_name(self.name)
         # calculate frequencies
         # set frequencies in mts
