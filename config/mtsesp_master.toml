@@ -28,7 +28,9 @@
 #     The footswitch plays both members of the pairs simultaneously.
 #   - "uneven". white -> yellow, black -> green.
 #     For notes without keyswitches, the two manuals are tuned the same.
-#     By default, manual 2 is the same as 1 and the footswitch does nothing.
+#     By default, manual 2 is the same as 1.
+#     The footswitch swaps the positions of the manuals.
+#     A suggestion is to invert the ordering in the keyswitch tuples on manual 2.
 #
 # - tonality finetunes the colour scheme further by turning some of the leds off.
 #   Mandatory.

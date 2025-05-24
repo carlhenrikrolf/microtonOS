@@ -2,14 +2,23 @@
 Tuning templates
 """
 
-from colour import Color
+# external libraries
 import numpy as np
-import tomllib as toml
+from pythonosc.udp_client import SimpleUDPClient
+
+# internal libraries
+from utils import load_config
+
+# configurations
+config = {
+    "microtonOS": load_config(__file__, "../../config/microtonOS.toml"),
+    "mtsesp_master": load_config(__file__, "../../config/mtsesp_master.toml"),
+}
 
 # Lib
 #####
 
-tone_to_int = ["c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b"]
+# tone_to_int = ["c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b"]
 is_white_key = [
     True,
     False,
@@ -24,6 +33,7 @@ is_white_key = [
     False,
     True,
 ]
+
 
 def key_to_int(key):
     names = [
@@ -43,6 +53,7 @@ def key_to_int(key):
     for i, name in enumerate(names):
         if key in name:
             return i
+
 
 def concat(terms, middle_note, note_range, cumulative):
     terms = np.array(terms) if len(np.array(terms).shape) == 1 else np.array([terms])
@@ -81,7 +92,7 @@ def ombakify(pengumbang, pengisep, half):
 ###########
 
 
-class BaseTuning:
+class OldBaseTuning:
     non_keys = "white"
 
     def __init__(
@@ -252,9 +263,52 @@ class BaseTuning:
                 elif self.pedal is not None:
                     self.pedal = False
         return None
-    
+
+
+###################################
+
 
 class BaseTuning:
+    """Common functionality across all classes"""
+
+    def __init__(self, **kwargs):
+        """Parses all settings for all classes.
+        Not all classes use all variables"""
+
+        # parsing, replacing with defaults if necessary
+        self.name = kwargs.get("name", "Unnamed Tuning")
+        self.tonality = kwargs.get("tonality", "standard")
+        self.tones = kwargs.get("tones", {"distance": 100, "unit": "cents"})
+        self.root = kwargs.get("root", {"note": 69, "frequency": 440.0})
+        self.halberstadt = kwargs.get(
+            "halberstadt",
+            {"mapping": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "boundary": "c"},
+        )
+        self.dilation = kwargs.get("dilation", 3)
+        self.ombak = kwargs.get("ombak", {"pengumbang": 0.0, "pengisep": 0.0})
+        self.uneven = kwargs.get("uneven", {"manual2": None, "footswitch": None})
+
+        # misc initialisations
+        self.equave = 0
+        self.osc_client = SimpleUDPClient(
+            "127.0.0.1", config["microtonOS"]["Open Stage Control"]["port"]
+        )
+
+    def tuning(self, mts, **kwargs):
+        """Activate the tuning.
+        'mts' is an MTS-ESP master from the mtsepy library.
+        'equave' is an optional argument."""
+        self.equave = kwargs.get("equave", self.equave)
+        self.osc_client.send_message("/tuning", self.name)
+        mts.set_scale_name(self.name)
+        # calculate frequencies
+        # set frequencies in mts
+        # reset pedal
+        # calculate colors
+        # return colors
+
+    #################################
+
     def macro_color(self):
         colors = [Color(self.odd_keys)] * 128
         diff = 128 / self.degrees_per_equave * self.keys_per_equave
@@ -274,7 +328,6 @@ class BaseTuning:
                             else self.even_black_keys
                         )
         return colors
-    
 
     def halberstadtify(self, outport, msg, manual=1, highlight=None):
         if hasattr(msg, "note"):
@@ -300,8 +353,6 @@ class BaseTuning:
                 colors = self.get_colors()
                 return colors
         return None
-    
-    
 
 
 class Edo(BaseTuning):
@@ -333,18 +384,21 @@ class Edo(BaseTuning):
                 return colors
         return None
 
+
 class Octaveless(Edo):
     white_keys = "red"
     black_keys = "magenta"
+
 
 class Hertz(Edo):
     white_keys = "blue"
     black_keys = "magenta"
 
+
 class Ombak(BaseTuning):
     white_keys = "blue"
     black_keys = "green"
-    
+
     def get_frequencies(self):
         result = np.array(self.steps)
         floor = int(self.root_note / 2)
@@ -391,42 +445,24 @@ class Ombak(BaseTuning):
             outport.send(msg)
 
 
-
-
 class Uneven(BaseTuning):
     white_keys = "yellow"
     black_keys = "green"
 
 
-
-
-with open("../../config/mtsesp_master.toml") as file:
-    presets = toml.load(file)["tuning"]
+presets = config["mtsesp_master"]["tuning"]
 tunings = [None] * len(presets)
 for i, preset in enumerate(presets):
     match preset["class"]:
         case "edo":
-            tunings[i] = Edo(preset)
+            tunings[i] = Edo(**preset)
         case "octaveless":
-            tunings[i] = Octaveless(preset)
+            tunings[i] = Octaveless(**preset)
         case "Hertz":
-            tunings[i] = Hertz(preset)
+            tunings[i] = Hertz(**preset)
         case "ombak":
-            tunings[i] = Ombak(preset)
+            tunings[i] = Ombak(**preset)
         case "uneven":
-            tunings[i] = Uneven(preset)
+            tunings[i] = Uneven(**preset)
         case _:
-            raise ValueError("Unknown tuning class: " + preset['class'])
-
-
-
-
-
-
-
-
-
-
-
-
-
+            raise ValueError("Unknown tuning class: " + preset["class"])

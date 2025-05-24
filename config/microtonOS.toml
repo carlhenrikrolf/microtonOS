@@ -1,8 +1,25 @@
+############################
+# microtonOS configuration #
+############################
+
+# This file contains general microtonOS configurations.
+# For configurations specific to tunings and layouts, see mtsesp_master.toml.
+# For configurations concerning the midi implementation, see control_change.toml.
+
 "pw-jack" = {path = "/usr/bin/pw-jack"}
 "node.js" = {path = "/home/pi/.nvm/versions/node/v22.14.0/bin/node"}
 "Open Stage Control" = {path = "/home/pi/microtonOS/third_party/open-stage-control_1.29.2_node/", config="/home/pi/microtonOS/config/open-stage-control.json", port=8080, ssl=false}
 SonoBus = {path = "/usr/bin/sonobus", headless = true}
 Exquis = {usb.in = nan, usb.out = nan}
+
+###############
+# Instruments #
+###############
+
+# Ordered according to engine, bank, and program.
+# Each engine corresponds to one software instrument.
+# The distinction between banks and programs is software-dependent
+# and to some extent arbitrary.
 
 [[engine]]
 name = "Pianoteq"
@@ -169,3 +186,21 @@ headless = true
 [[audio]]
 name = "Vocoder"
 
+#################
+# Color Palette #
+#################
+
+# Defines the color palette in use.
+# Colors are defined through rgb.
+# Values should be floats between 0.0 and 1.0.
+# They need not correspond to their labels
+
+[palette]
+black = [0.0, 0.0, 0.0]
+white = [1.0, 1.0, 1.0]
+red = [1.0, 1.0, 1.0]
+orange = [1.0 ,0.5, 0.0]
+yellow = [1.0, 1.0, 0.0]
+green = [0.0, 1.0, 0.0]
+blue = [0.0, 0.0, 1.0]
+magenta = [1.0, 0.0, 1.0]
