@@ -1,3 +1,8 @@
+> [!warning]
+> This part of the project is currently put on ice.
+> Not all of the information below is consistent with the implementation in the code.
+> Nonetheless, it may be helpful as a reference.
+
 ![Rig](resources/rig.jpeg)
 
 # microtonOS
