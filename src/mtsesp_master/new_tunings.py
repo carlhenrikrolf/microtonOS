@@ -3,6 +3,7 @@ Tuning templates
 """
 
 # external libraries
+from frozendict import frozendict
 import numpy as np
 
 # internal libraries
@@ -92,185 +93,183 @@ def ombakify(pengumbang, pengisep, half):
 ###########
 
 
-class OldBaseTuning:
-    non_keys = "white"
+# class OldBaseTuning:
+#     non_keys = "white"
 
-    def __init__(
-        self,
-        name="12edo",
-        steps=2 ** (1 / 12),
-        unit="ratios",
-        cumulative=True,
-        root_note=69,
-        root_frequency=440.0,
-        equave=0,
-        pengumbang=None,
-        pengisep=None,
-        halberstadt=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        boundary_tone="c",
-        dilation=3,
-        comment="",
-        **kwargs,
-    ):
-        self.name = name if type(name) is str else "Unnamed"
-        self.steps = steps
-        assert unit in ["ratios", "cents", "Hertz"]
-        self.unit = unit
-        self.cumulative = cumulative
-        self.root_note = root_note
-        self.root_frequency = root_frequency
-        self.equave = equave
-        self.pengumbang = pengumbang
-        self.pengisep = pengisep
-        self.halberstadt = halberstadt
-        self.boundary_tone = boundary_tone
-        self.dilation = dilation
-        self.comment = comment
+#     def __init__(
+#         self,
+#         name="12edo",
+#         steps=2 ** (1 / 12),
+#         unit="ratios",
+#         cumulative=True,
+#         root_note=69,
+#         root_frequency=440.0,
+#         equave=0,
+#         pengumbang=None,
+#         pengisep=None,
+#         halberstadt=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+#         boundary_tone="c",
+#         dilation=3,
+#         comment="",
+#         **kwargs,
+#     ):
+#         self.name = name if type(name) is str else "Unnamed"
+#         self.steps = steps
+#         assert unit in ["ratios", "cents", "Hertz"]
+#         self.unit = unit
+#         self.cumulative = cumulative
+#         self.root_note = root_note
+#         self.root_frequency = root_frequency
+#         self.equave = equave
+#         self.pengumbang = pengumbang
+#         self.pengisep = pengisep
+#         self.halberstadt = halberstadt
+#         self.boundary_tone = boundary_tone
+#         self.dilation = dilation
+#         self.comment = comment
 
-        self.keys_per_equave = len(self.halberstadt) - 1
-        self.switches = [0] * self.keys_per_equave
-        self.is_switch = [
-            True if hasattr(degree, "__len__") else False for degree in self.halberstadt
-        ]
-        self.init_halberstadt = [
-            degree[0] if self.is_switch[i] else degree
-            for i, degree in enumerate(self.halberstadt)
-        ]
-        self.degrees_per_equave = self.init_halberstadt[-1] - self.init_halberstadt[0]
-        self.middle_key = 60 + tone_to_int.index(self.boundary_tone)
-        self.root_degree = self.init_halberstadt[self.root_note - self.middle_key]
-        self.middle_note = self.root_note - self.root_degree
-        self.pedal = None
-        self.is_ignored = [False] * 128
-        self.backup = [[set() for _ in range(16)] for _ in range(128)]
+#         self.keys_per_equave = len(self.halberstadt) - 1
+#         self.switches = [0] * self.keys_per_equave
+#         self.is_switch = [
+#             True if hasattr(degree, "__len__") else False for degree in self.halberstadt
+#         ]
+#         self.init_halberstadt = [
+#             degree[0] if self.is_switch[i] else degree
+#             for i, degree in enumerate(self.halberstadt)
+#         ]
+#         self.degrees_per_equave = self.init_halberstadt[-1] - self.init_halberstadt[0]
+#         self.middle_key = 60 + tone_to_int.index(self.boundary_tone)
+#         self.root_degree = self.init_halberstadt[self.root_note - self.middle_key]
+#         self.middle_note = self.root_note - self.root_degree
+#         self.pedal = None
+#         self.is_ignored = [False] * 128
+#         self.backup = [[set() for _ in range(16)] for _ in range(128)]
 
-    def remap(self, note):
-        note -= self.middle_key
-        tone = note % self.keys_per_equave
-        octave = note // self.keys_per_equave
-        degree = (
-            self.halberstadt[tone][self.switches[tone]]
-            if self.is_switch[tone]
-            else self.halberstadt[tone]
-        )
-        if degree is not None:
-            new_note = octave * self.degrees_per_equave + degree
-            new_note += self.middle_note
-            if new_note in range(0, 128):
-                return new_note
-        return None
+#     def remap(self, note):
+#         note -= self.middle_key
+#         tone = note % self.keys_per_equave
+#         octave = note // self.keys_per_equave
+#         degree = (
+#             self.halberstadt[tone][self.switches[tone]]
+#             if self.is_switch[tone]
+#             else self.halberstadt[tone]
+#         )
+#         if degree is not None:
+#             new_note = octave * self.degrees_per_equave + degree
+#             new_note += self.middle_note
+#             if new_note in range(0, 128):
+#                 return new_note
+#         return None
 
-    def get_frequencies(self):
-        result = np.array(self.steps)
-        root_note = self.root_note - self.equave * self.degrees_per_equave
-        if self.unit == "ratios":
-            result = 1200 * np.log2(result)
-        result = concat(result, self.middle_note, range(0, 128), self.cumulative)
-        if self.unit == "Hertz":
-            result -= result[root_note]
-            result += self.root_frequency
-        else:
-            result = 2 ** (result / 1200)
-            result /= result[root_note]
-            result *= self.root_frequency
-        for i, frequency in enumerate(result):
-            if frequency <= 0:
-                result[i] = 440.0
-                self.is_ignored[i] = True
-            else:
-                self.is_ignored[i] = False
-        return result.tolist()
+#     def get_frequencies(self):
+#         result = np.array(self.steps)
+#         root_note = self.root_note - self.equave * self.degrees_per_equave
+#         if self.unit == "ratios":
+#             result = 1200 * np.log2(result)
+#         result = concat(result, self.middle_note, range(0, 128), self.cumulative)
+#         if self.unit == "Hertz":
+#             result -= result[root_note]
+#             result += self.root_frequency
+#         else:
+#             result = 2 ** (result / 1200)
+#             result /= result[root_note]
+#             result *= self.root_frequency
+#         for i, frequency in enumerate(result):
+#             if frequency <= 0:
+#                 result[i] = 440.0
+#                 self.is_ignored[i] = True
+#             else:
+#                 self.is_ignored[i] = False
+#         return result.tolist()
 
-    def get_colors(self):
-        colors = [Color(self.split_keys)] * 128
-        diff = 128 / self.degrees_per_equave * self.keys_per_equave
-        diff = int(diff) + 1
-        for halberstadt_key in range(self.middle_key - diff, self.middle_key + diff):
-            isomorphic_note = self.remap(halberstadt_key)
-            if isomorphic_note is not None:
-                if self.is_ignored[isomorphic_note]:
-                    colors[isomorphic_note] = Color(self.non_keys)
-                else:
-                    # halberstadt_equave = halberstadt_key // self.keys_per_equave
-                    degree = halberstadt_key % self.keys_per_equave
-                    colors[isomorphic_note] = Color(
-                        self.white_keys
-                        if is_white_key[degree % 12]
-                        else self.black_keys
-                    )
-        return colors
+#     def get_colors(self):
+#         colors = [Color(self.split_keys)] * 128
+#         diff = 128 / self.degrees_per_equave * self.keys_per_equave
+#         diff = int(diff) + 1
+#         for halberstadt_key in range(self.middle_key - diff, self.middle_key + diff):
+#             isomorphic_note = self.remap(halberstadt_key)
+#             if isomorphic_note is not None:
+#                 if self.is_ignored[isomorphic_note]:
+#                     colors[isomorphic_note] = Color(self.non_keys)
+#                 else:
+#                     # halberstadt_equave = halberstadt_key // self.keys_per_equave
+#                     degree = halberstadt_key % self.keys_per_equave
+#                     colors[isomorphic_note] = Color(
+#                         self.white_keys
+#                         if is_white_key[degree % 12]
+#                         else self.black_keys
+#                     )
+#         return colors
 
-    def tuning(self, mts, equave=None):
-        if equave is not None:
-            self.equave = equave
-        frequencies = self.get_frequencies()
-        mts.set_note_tunings(frequencies)
-        mts.set_scale_name(self.name)
-        self.pedal = None
-        colors = self.get_colors()
-        return colors
+#     def tuning(self, mts, equave=None):
+#         if equave is not None:
+#             self.equave = equave
+#         frequencies = self.get_frequencies()
+#         mts.set_note_tunings(frequencies)
+#         mts.set_scale_name(self.name)
+#         self.pedal = None
+#         colors = self.get_colors()
+#         return colors
 
-    def ignore(self, note_msg):
-        if hasattr(note_msg, "note"):
-            return self.is_ignored[note_msg.note]
-        elif type(note_msg) is int:
-            return self.is_ignored[note_msg] if note_msg in range(0, 128) else True
-        elif note_msg is None:
-            return True
-        return False
+#     def ignore(self, note_msg):
+#         if hasattr(note_msg, "note"):
+#             return self.is_ignored[note_msg.note]
+#         elif type(note_msg) is int:
+#             return self.is_ignored[note_msg] if note_msg in range(0, 128) else True
+#         elif note_msg is None:
+#             return True
+#         return False
 
-    def thru(self, old_msg, outport, msg, highlight=None):
-        if old_msg.type == msg.type in ["note_on", "note_off"]:
-            if msg.type == "note_on" and msg.velocity > 0:
-                self.backup[old_msg.note][old_msg.channel].add((msg.note, msg.channel))
-                outport.send(msg)
-                if highlight is not None:
-                    highlight(outport, msg)
-            else:
-                for note, channel in self.backup[old_msg.note][old_msg.channel]:
-                    new_msg = msg.copy(note=note, channel=channel)
-                    outport.send(new_msg)
-                    if highlight is not None:
-                        highlight(outport, new_msg)
-                self.backup[old_msg.note][old_msg.channel] = set()
+#     def thru(self, old_msg, outport, msg, highlight=None):
+#         if old_msg.type == msg.type in ["note_on", "note_off"]:
+#             if msg.type == "note_on" and msg.velocity > 0:
+#                 self.backup[old_msg.note][old_msg.channel].add((msg.note, msg.channel))
+#                 outport.send(msg)
+#                 if highlight is not None:
+#                     highlight(outport, msg)
+#             else:
+#                 for note, channel in self.backup[old_msg.note][old_msg.channel]:
+#                     new_msg = msg.copy(note=note, channel=channel)
+#                     outport.send(new_msg)
+#                     if highlight is not None:
+#                         highlight(outport, new_msg)
+#                 self.backup[old_msg.note][old_msg.channel] = set()
 
-    def halberstadtify(self, outport, msg, manual=None, highlight=None):
-        if hasattr(msg, "note"):
-            isomorphic_note = self.remap(msg.note)
-            if not self.ignore(isomorphic_note):
-                new_msg = msg.copy(note=isomorphic_note)
-                self.thru(msg, outport, new_msg, highlight=highlight)
-        else:
-            outport.send(msg)
+#     def halberstadtify(self, outport, msg, manual=None, highlight=None):
+#         if hasattr(msg, "note"):
+#             isomorphic_note = self.remap(msg.note)
+#             if not self.ignore(isomorphic_note):
+#                 new_msg = msg.copy(note=isomorphic_note)
+#                 self.thru(msg, outport, new_msg, highlight=highlight)
+#         else:
+#             outport.send(msg)
 
-    def reset(self):
-        for i in range(self.keys_per_equave):
-            self.switches[i] = 0
-        self.pedal = None
-        colors = self.get_colors()
-        return colors
+#     def reset(self):
+#         for i in range(self.keys_per_equave):
+#             self.switches[i] = 0
+#         self.pedal = None
+#         colors = self.get_colors()
+#         return colors
 
-    def keyswitches(self, outport, msg, manual=1, highlight=None):
-        _ = self.halberstadtify(outport, msg, manual=manual, highlight=highlight)
-        return None
+#     def keyswitches(self, outport, msg, manual=1, highlight=None):
+#         _ = self.halberstadtify(outport, msg, manual=manual, highlight=highlight)
+#         return None
 
-    def footswitch(self, msg):
-        if msg.type == "control_change":
-            new_pedal = True if msg.value >= 64 else False
-            if new_pedal != self.pedal:
-                if new_pedal is True:
-                    self.pedal = True
-                elif self.pedal is not None:
-                    self.pedal = False
-        return None
+#     def footswitch(self, msg):
+#         if msg.type == "control_change":
+#             new_pedal = True if msg.value >= 64 else False
+#             if new_pedal != self.pedal:
+#                 if new_pedal is True:
+#                     self.pedal = True
+#                 elif self.pedal is not None:
+#                     self.pedal = False
+#         return None
 
 
 ###################################
 
 
 class BaseTuning:
-    """Common functionality across all classes"""
-
     def __init__(self, **kwargs):
         """Parses all settings for all classes.
         Not all classes use all variables"""
@@ -278,24 +277,27 @@ class BaseTuning:
         # parsing, replacing with defaults if necessary
         self.name = kwargs.get("name", "Unnamed Tuning")
         self.tonality = kwargs.get("tonality", "standard")
-        self.tones = kwargs.get("tones", {"distance": 100, "unit": "cents"})
-        self.root = kwargs.get("root", {"note": 69, "frequency": 440.0})
+        self.tones = kwargs.get("tones", {"distance": 100, "unit": "cents"}.copy())
+        self.root = kwargs.get("root", {"note": 69, "frequency": 440.0}.copy())
         self.halberstadt = kwargs.get(
             "halberstadt",
-            {"mapping": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "boundary": "c"},
+            {
+                "mapping": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                "boundary": "c",
+            }.copy(),
         )
         self.dilation = kwargs.get("dilation", 3)
-        self.ombak = kwargs.get("ombak", {"pengumbang": 0.0, "pengisep": 0.0})
-        self.uneven = kwargs.get("uneven", {"manual2": None, "footswitch": None})
+        self.ombak = kwargs.get("ombak", {"pengumbang": 0.0, "pengisep": 0.0}.copy())
+        self.uneven = kwargs.get("uneven", {"manual2": None, "footswitch": None}.copy())
 
         # misc initialisations
         self.equave = 0
 
-    def tuning(self, mts, **kwargs):
+    def tuning(self, mts, equave=None):
         """Activate the tuning.
         'mts' is an MTS-ESP master from the mtsespy library.
         'equave' is an optional argument."""
-        self.equave = kwargs.get("equave", self.equave)
+        self.equave = self.equave if equave is None else equave
         display("/tuning/name", self.name)
         mts.set_scale_name(self.name)
         # calculate frequencies
@@ -304,52 +306,33 @@ class BaseTuning:
         # calculate colors
         # return colors
 
-    #################################
-
-    def macro_color(self):
-        colors = [Color(self.odd_keys)] * 128
-        diff = 128 / self.degrees_per_equave * self.keys_per_equave
-        diff = int(diff) + 1
-        for halberstadt_key in range(self.middle_key - diff, self.middle_key + diff):
-            isomorphic_note = self.remap(halberstadt_key)
-            if isomorphic_note is not None:
-                if self.is_ignored[isomorphic_note]:
-                    colors[isomorphic_note] = Color(self.non_keys)
-                else:
-                    halberstadt_equave = halberstadt_key // self.keys_per_equave
-                    if halberstadt_equave % 2 == 0:
-                        degree = halberstadt_key % self.keys_per_equave
-                        colors[isomorphic_note] = Color(
-                            self.even_white_keys
-                            if is_white_key[degree % 12]
-                            else self.even_black_keys
-                        )
-        return colors
-
-    def halberstadtify(self, outport, msg, manual=1, highlight=None):
-        if hasattr(msg, "note"):
-            isomorphic_note = self.remap(msg.note)
-            if not self.ignore(isomorphic_note):
-                if manual == 1:
-                    new_msg = msg.copy(note=isomorphic_note)
-                    self.thru(msg, outport, new_msg, highlight=highlight)
-                else:
-                    new_msg = msg.copy(note=isomorphic_note - 1)
-                    self.thru(msg, outport, new_msg, highlight=highlight)
+    def get_frequencies(self):
+        steps = (
+            self.tones["distance"]["cycle"]
+            if type(self.tones["distance"]) is dict
+            else self.tones["distance"]
+        )
+        result = np.array(steps)
+        degrees_per_equave = (
+            self.halberstadt["mapping"][-1] - self.halberstadt["mapping"][0]
+        )
+        root_note = self.root["note"] - self.equave * degrees_per_equave
+        cumulative = (
+            self.tones["distance"]["cumulative"]
+            if type(self.tones["distance"]) is dict
+            else True
+        )
+        result = concat(result, self.middle_note, range(0, 128), cumulative)
+        if self.tones["unit"] == "Hertz":
+            result -= result[root_note]
+            result += self.root["frequency"]
         else:
-            outport.send(msg)
+            result = 2 ** (result / 1200)
+            result /= result[root_note]
+            result *= self.root["frequency"]
+        return result.tolist()
 
-    def keyswitches(self, outport, msg, manual=1, highlight=None):
-        if msg.type == "note_on":
-            key = (
-                msg.note - tone_to_int.index(self.boundary_tone)
-            ) % self.keys_per_equave  # maybe adjust this to get 1-to-1?
-            if self.is_switch[key] and msg.velocity > 0:
-                self.switches[key] += 1
-                self.switches[key] %= len(self.halberstadt[key])
-                colors = self.get_colors()
-                return colors
-        return None
+    #################################
 
 
 class Edo(BaseTuning):

@@ -7,6 +7,7 @@ channels 0 to 7 have keyswitches
 channels 8 to 15 have notes lowered by 15 - (8 to 15) steps respectively
 channels 8 to 15 shift the mapping
 for uneven, 0=1=...=7 and 8=9=...=15.
+(Note that channel 15 is also a default channel.)
 
 
 ## Internal

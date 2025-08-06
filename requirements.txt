@@ -10,4 +10,5 @@ PyQt5_sip>=12.16.1
 PyQt5>=5.15.11 --config-settings="--confirm-licence="
 python-osc>=1.9.3
 psutil>=7.0.0
+frozendict>=2.4.6
 

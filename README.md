@@ -1,3 +1,7 @@
+> [!warning]
+> This branch is undergoing a major overhaul.
+> For something more akin to a stable branch see exquis1_2_0.s.
+
 ![Rig](resources/rig.jpeg)
 
 # microtonOS
