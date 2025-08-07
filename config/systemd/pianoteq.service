@@ -1,8 +1,7 @@
 [Unit]
 Description=Start Pianoteq as a subprocess to its wrapper
 After=graphical.target
-Requires=qjackctl.service
-Requires=mtsesp_master.service
+Requires=qjackctl.services
 
 [Service]
 User=pi

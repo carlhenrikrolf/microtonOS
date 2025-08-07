@@ -2,8 +2,6 @@
 microtonOS.
 """
 
-from exquis import microtonOS
+from exquis2_1_0 import microtonOS
 
-client_name = "microtonOS"
-
-microtonOS(client_name)
+microtonOS()

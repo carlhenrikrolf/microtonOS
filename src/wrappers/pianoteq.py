@@ -4,7 +4,7 @@ from utils import Outport, Inport, handle_terminations, warmup
 from midi_implementation.midi1 import control_change as cc
 
 # parameters
-headless = True
+headless = False
 version = "8 STAGE"
 preset_on_init = "NY Steinway D Classical"
 

@@ -1,7 +1,6 @@
 [Unit]
 Description=Start the microtonOS hub
-After=graphical.target
-Requires=mtsesp_master.service
+After=graphical.targets
 
 [Service]
 User=pi
