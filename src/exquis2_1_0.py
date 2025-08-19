@@ -13,14 +13,10 @@ def microtonOS():
             pass
 
         def upper(self, msg):
-            if hasattr(msg, "channel"):
-                msg.channel = 1
             to_lower.send(msg)
             to_pianoteq.send(msg)
 
         def lower(self, msg):
-            if hasattr(msg, "channel"):
-                msg.channel = 2
             to_upper.send(msg)
             to_pianoteq.send(msg)
 

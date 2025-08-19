@@ -10,7 +10,8 @@
 "node.js" = {path = "/home/pi/.nvm/versions/node/v22.14.0/bin/node"}
 "Open Stage Control" = {path = "/home/pi/microtonOS/third_party/open-stage-control_1.29.2_node/", config="/home/pi/microtonOS/config/open-stage-control.json", port=8080, ssl=false}
 SonoBus = {path = "/usr/bin/sonobus", headless = true}
-Exquis = {usb.in = nan, usb.out = nan}
+"Reface CP" = {channel = 0}
+"Minilogue XD" = {channel = 0}
 
 ###############
 # Instruments #
@@ -20,6 +21,7 @@ Exquis = {usb.in = nan, usb.out = nan}
 # Each engine corresponds to one software instrument.
 # The distinction between banks and programs is software-dependent
 # and to some extent arbitrary.
+# For the moment, only Pianoteq is supported.
 
 [[engine]]
 name = "Pianoteq"
@@ -55,136 +57,6 @@ name = "Bells"
 program = [
     "Church Bells original",
     "Tubular Bells original"]
-
-[[engine]]
-name = "tuneBfree"
-path.headless = "/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree"
-[[engine.bank]]
-name = "Tonewheel"
-config = {bank = "/home/pi/microtonOS/config/tuneBfree.cfg", program = "/home/pi/microtonOS/config/tuneBfree.pgm"}
-program = [
-    "Jimmy Smith",
-    "Charles Earland",
-    "Squabbling",
-    "Pure Percussion",
-    "Full Organ",
-    "Bossa/Reggae",
-    "Unison",
-    "Octaves",
-    "Fifths",
-    "Fourths",
-    "Thirds"]
-[[engine.bank]]
-name = "Square"
-config = {bank = "/home/pi/microtonOS/config/tuneSQUAREfree.cfg", program = "/home/pi/microtonOS/config/tuneBfree.pgm"}
-program = [
-    "Jimmy Smith",
-    "Charles Earland",
-    "Squabbling",
-    "Pure Percussion",
-    "Full Organ",
-    "Bossa/Reggae",
-    "Unison",
-    "Octaves",
-    "Fifths",
-    "Fourths",
-    "Thirds"]
-[[engine.bank]]
-name = "Sawtooth"
-config = {bank = "/home/pi/microtonOS/config/tuneSAWfree.cfg", program = "/home/pi/microtonOS/config/tuneBfree.pgm"}
-program = [
-    "Jimmy Smith",
-    "Charles Earland",
-    "Squabbling",
-    "Pure Percussion",
-    "Full Organ",
-    "Bossa/Reggae",
-    "Unison",
-    "Octaves",
-    "Fifths",
-    "Fourths",
-    "Thirds"]
-
-[[engine]]
-name = "Surge XT"
-path = {headless = "/usr/bin/surge_xt_cli", gui = "/usr/bin/Surge XT"}
-headless = true
-config = "/home/pi/microtonOS/config/Surge XT/"
-[[engine.bank]]
-name = "Lead"
-program = [
-    "Analogue Foundation",
-    "Clean Shit",
-    "Cray",
-    "Deep End",
-    "Mellow",
-    "Moogy Saw",
-    "Sub 4",
-    "Triple"]
-[[engine.bank]]
-name = "Polysynth"
-program = [
-    "1804",
-    "Analog Pad",
-    "CS-80",
-    "Drone Bee",
-    "Filter Sweep",
-    "Juno-60 Strings",
-    "Jupiter-8",
-    "Korg Triton",
-    "MKS-70 Warm Pad",
-    "Oberheim Dreams",
-    "Polymoog",
-    "Primes",
-    "Prophet VS",
-    "Super Jupiter"]
-[[engine.bank]]
-name = "String Machine"
-program = [
-    "Bowed String",
-    "Chamber Strings",
-    "String Machine 4",
-    "String Machine 5",
-    "String Machine 6",
-    "String Machine 8",
-    "Super Thick Strings"]
-[[engine.bank]]
-name = "Wind Synth"
-program = [
-    "Baritonosaurus Saxus",
-    "Brassy",
-    "Clarinet",
-    "Recorder"]
-[[engine.bank]]
-name = "Experimental"
-program = [
-    "Brain Stem",
-    "Computers In Space",
-    "Mystic",
-    "Ocean Shimmer"]
-
-[[synth]]
-name = "Reface CP"
-usb = {in = ["reface CP MIDI 1"], out = ["reface CP MIDI 1"]}
-
-[[synth]]
-name = "Minilogue XD"
-usb = inf
-
-[[audio]]
-name = "Thru"
-path = "/home/pi/microtonOS/third_party/Carla/source/frontend/carla-single-jack"
-config = "/home/pi/microtonOS/config/thru.carxp"
-headless = true
-
-[[audio]]
-name = "XentoTune"
-path = "/home/pi/microtonOS/third_party/Carla/source/frontend/carla-single-jack"
-config = "/home/pi/microtonOS/config/xentotune.carxp"
-headless = true
-
-[[audio]]
-name = "Vocoder"
 
 #################
 # Color Palette #
