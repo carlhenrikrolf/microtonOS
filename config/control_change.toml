@@ -7,58 +7,73 @@
 
 # Internal channel 0
 [[channel]]
+device = "Internal"
 
 # Internal channel 1
 [[channel]]
 device = "Reface CP"
 [channel.transmitted]
-sustain = 64
+64 = {Pianoteq = "sustain pedal"}
 
 # Internal channel 2
 [[channel]]
 device = "Minilogue XD"
 [channel.transmitted]
-"CV in 1" = 118
-"CV in 2" = 119
+118 = {} # CV in 1
+119 = {} # CV in 2
 [channel.received]
-"CV in 2" = [{control = 64, channel = 1}]
+"CV in 1" = []
+"CV in 2" = [{control = 64, channel = 0}] # change to ch 1 later
 
 
 # Internal channel 3
 [[channel]]
+device = "Unused"
 
 # Internal channel 4
 [[channel]]
+device = "Unused"
 
 # Internal channel 5
 [[channel]]
+device = "Unused"
 
 # Internal channel 6
 [[channel]]
+device = "Unused"
 
 # Internal channel 7
 [[channel]]
+device = "Unused"
 
 # Internal channel 8
 [[channel]]
+device = "Unused"
 
 # Internal channel 9
 [[channel]]
+device = "Unused"
 
 # Internal channel 10
 [[channel]]
+device = "Unused"
 
 # Internal channel 11
 [[channel]]
+device = "Unused"
 
 # Internal channel 12
 [[channel]]
+device = "Unused"
 
 # Internal channel 13
 [[channel]]
+device = "Unused"
 
 # Internal channel 14
 [[channel]]
+device = "Unused"
 
 # Internal channel 15
 [[channel]]
+device = "Unused"

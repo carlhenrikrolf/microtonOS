@@ -31,11 +31,11 @@ class Script:
         ignore = ignore or cc.is_in(msg, cc.bank_select)
         if not ignore:
             if msg.type == "control_change":
-                if any(x.items() <= msg.items() for x in received["CV in 1"]):
+                if any(x.items() <= msg.dict().items() for x in received["CV in 1"]):
                     msg = xd.CVin1(
                         bimodal=False, value=msg.value, channel=external_channel
                     )
-                if any(x.items() <= msg.items() for x in received["CV in 2"]):
+                if any(x.items() <= msg.dict().items() for x in received["CV in 2"]):
                     msg = xd.CVin2(
                         bimodal=False, value=msg.value, channel=external_channel
                     )

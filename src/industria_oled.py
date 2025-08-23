@@ -72,5 +72,5 @@ class Display:
 
 
 # display = Display()
-# display.show("sustain", "45")
+# display.show("hej bengt", "")
 # display.run()
