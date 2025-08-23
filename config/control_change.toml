@@ -8,6 +8,8 @@
 # Internal channel 0
 [[channel]]
 device = "Internal"
+[channel.transmitted]
+64 = {Pianoteq = "sustain pedal"} # should be in reface channel
 
 # Internal channel 1
 [[channel]]

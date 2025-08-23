@@ -1,24 +1,53 @@
+# external libraries
 from colour import Color
 import time
 
+# internal libraries
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
-from utils import Inport, Outport, make_threads
+from utils import Inport, Outport, make_threads, load_config
+
+config = {
+    "microtonOS": load_config(__file__, "../config/microtonOS.toml"),
+    "control_change": load_config(__file__, "../config/control_change.toml"),
+}
+print(config["control_change"]["channel"][0]["transmitted"]["64"]["Pianoteq"])
 
 
-def microtonOS():
+def microtonOS(Display):
     client_name = "microtonOS"
+    display = Display()
 
     class Script:
         def exquis(self, msg):
             pass
 
         def upper(self, msg):
+            self.show_cc(msg)
             to_lower.send(msg)
             to_pianoteq.send(msg)
 
         def lower(self, msg):
+            self.show_cc(msg)
             to_upper.send(msg)
             to_pianoteq.send(msg)
+
+        def show_cc(self, msg):
+            if msg.type == "control_change":
+                control = str(msg.control)
+                print(control)
+                if (
+                    control
+                    in config["control_change"]["channel"][msg.channel]["transmitted"]
+                ):
+                    config["control_change"]["channel"][msg.channel]["transmitted"][
+                        control
+                    ]["Pianoteq"]
+                    display.show(
+                        config["control_change"]["channel"][msg.channel]["transmitted"][
+                            control
+                        ]["Pianoteq"],
+                        msg.value,
+                    )
 
         def active_sensing(self):
             while True:
@@ -43,5 +72,11 @@ def microtonOS():
     from_lower = Inport(script.lower, client_name, name="Lower")
 
     make_threads(
-        [from_exquis.open, from_upper.open, from_lower.open, script.active_sensing]
+        [
+            from_exquis.open,
+            from_upper.open,
+            from_lower.open,
+            script.active_sensing,
+            display.run,
+        ]
     )
