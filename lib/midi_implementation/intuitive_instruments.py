@@ -189,7 +189,7 @@ class Exquis2_1_0:
         data = [*self.prefix, self.tempo]
         if msg is None:
             return mido.Message("sysex", data=data)
-        elif msg.type == "sysex" and msg.data[: len(data)] == data:
+        elif msg.type == "sysex" and msg.data[: len(data)] == tuple(data):
             msb = msg.data[len(data)]
             lsb = msg.data[len(data) + 1]
             bpm = msb * 128 + lsb
@@ -274,6 +274,20 @@ class Exquis2_1_0:
         """Set a snapshot of all the settings."""
         data = [*self.prefix, self.snapshot, *snapshot]
         return mido.Message("sysex", data=data)
+
+    def is_pressed(self, msg, button):
+        if msg.is_cc(button):
+            if msg.channel == 15:
+                if msg.value == 127:
+                    return True
+        return False
+
+    def is_released(self, msg, button):
+        if msg.is_cc(button):
+            if msg.channel == 15:
+                if msg.value == 0:
+                    return True
+        return False
 
 
 exquis2_1_0 = Exquis2_1_0()

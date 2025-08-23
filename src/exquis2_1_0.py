@@ -10,16 +10,64 @@ config = {
     "microtonOS": load_config(__file__, "../config/microtonOS.toml"),
     "control_change": load_config(__file__, "../config/control_change.toml"),
 }
-print(config["control_change"]["channel"][0]["transmitted"]["64"]["Pianoteq"])
 
 
 def microtonOS(Display):
     client_name = "microtonOS"
     display = Display()
 
+    class Exquis:
+        ack_rate = 0.3  # seconds
+
+        def __init__(self):
+            self.ack = 0.0
+            self.page = self.start_page
+
+        def active_sensing(self):
+            while True:
+                now = time.time()
+                diff = now - self.ack
+                ack = xq.get_tempo()
+                to_exquis.send(ack)
+                if diff > 2 * self.ack_rate:
+                    self.page()
+                time.sleep(self.ack_rate)
+
+        def start_page(self, msg=None):
+            if msg is None:
+                developer_mode = xq.developer_mode("enter")
+                to_exquis.send(developer_mode)
+                all_black = [Color("black")] * 128
+                for led in xq.encoder_knob:
+                    all_black[led] = Color("red")
+                led_colors = xq.set_led_colors(all_black)
+                to_exquis.send(led_colors)
+                display.show("")
+            elif xq.is_pressed(msg, xq.sound):
+                self.page = self.instrument_page
+                self.page()
+
+        def instrument_page(self, msg=None):
+            if msg is None:
+                developer_mode = xq.developer_mode("enter")
+                to_exquis.send(developer_mode)
+                all_black = [Color("black")] * 128
+                for led, bank in enumerate(config["microtonOS"]["engine"][0]["bank"]):
+                    all_black[led] = Color("red")
+                led_colors = xq.set_led_colors(all_black)
+                to_exquis.send(led_colors)
+                display.show("instrument")
+            elif xq.is_pressed(msg, xq.sound):
+                self.page = self.start_page
+                self.page()
+
     class Script:
         def exquis(self, msg):
-            pass
+            exquis.ack = time.time()
+            exquis.page(msg)
+            tempo = xq.get_tempo(msg)
+            if tempo is None:
+                print(msg)
 
         def upper(self, msg):
             self.show_cc(msg)
@@ -49,16 +97,7 @@ def microtonOS(Display):
                         msg.value,
                     )
 
-        def active_sensing(self):
-            while True:
-                developer_mode = xq.developer_mode("enter")
-                to_exquis.send(developer_mode)
-                all_black = [Color("black")] * 128
-                for led in xq.encoder_knob:
-                    all_black[led] = Color("red")
-                led_colors = xq.set_led_colors(all_black)
-                to_exquis.send(led_colors)
-                time.sleep(0.3)
+    exquis = Exquis()
 
     to_exquis = Outport(client_name, name="Exquis")
     to_upper = Outport(client_name, name="Upper")
@@ -76,7 +115,7 @@ def microtonOS(Display):
             from_exquis.open,
             from_upper.open,
             from_lower.open,
-            script.active_sensing,
+            exquis.active_sensing,
             display.run,
         ]
     )
