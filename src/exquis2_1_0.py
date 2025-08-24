@@ -45,6 +45,7 @@ def microtonOS(Display):
     class StartPage:
         def __init__(self):
             self.routing = [True] * 4
+            set_gain(level=1.0, muted=not self.routing[0])
 
         def update(self, msg=None):
             if msg is None:
@@ -110,7 +111,10 @@ def microtonOS(Display):
                     colors[led] = white if pgm == self.pgm else red
                 led_colors = xq.set_led_colors(colors)
                 to_exquis.send(led_colors)
-                display.show("instrument")
+                pgm_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
+                    "program"
+                ][self.pgm]
+                display.show(pgm_name)
             elif msg.type == "note_on" and msg.velocity > 0 and msg.channel == 15:
                 if msg.note in self.bank_leds:
                     self.bank = msg.note
@@ -133,6 +137,17 @@ def microtonOS(Display):
                         "program"
                     ][self.pgm]
                     display.show(pgm_name)
+                    pc = [
+                        mido.Message(
+                            "control_change", control=cc.bank_select[0], value=self.bank
+                        ),
+                        mido.Message(
+                            "control_change", control=cc.bank_select[1], value=0
+                        ),
+                        mido.Message("program_change", program=self.pgm),
+                    ]
+                    for out in pc:
+                        to_pianoteq.send(out)
 
             elif xq.is_pressed(msg, xq.sound):
                 self.bank = self.prev_bank
@@ -143,15 +158,6 @@ def microtonOS(Display):
                 self.pgm_leds = range(22, 22 + n_pgms)
                 script.page = start_page
                 script.page.update()
-                pc = [
-                    mido.Message(
-                        "control_change", control=cc.bank_select[0], value=self.bank
-                    ),
-                    mido.Message("control_change", control=cc.bank_select[1], value=0),
-                    mido.Message("program_change", program=self.pgm),
-                ]
-                for out in pc:
-                    to_pianoteq.send(out)
 
     class ActiveSensing:
         ack_rate = 0.3  # seconds
@@ -176,20 +182,22 @@ def microtonOS(Display):
         def exquis(self, msg):
             active_sensing.ack = time.time()
             script.page.update(msg)
-            tempo = xq.get_tempo(msg)
-            if tempo is None:
-                print(msg)
+            # tempo = xq.get_tempo(msg)
+            # if tempo is None:
+            #     print(msg)
 
         def upper(self, msg):
             if start_page.routing[3]:
-                to_lower.send(msg)
+                if start_page.routing[2]:
+                    to_lower.send(msg)
                 if start_page.routing[1]:
                     to_pianoteq.send(msg)
                     show_cc(msg)
 
         def lower(self, msg):
             if start_page.routing[2]:
-                to_upper.send(msg)
+                if start_page.routing[3]:
+                    to_upper.send(msg)
                 if start_page.routing[1]:
                     to_pianoteq.send(msg)
                     show_cc(msg)

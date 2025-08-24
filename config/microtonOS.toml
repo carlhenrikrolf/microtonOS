@@ -42,8 +42,8 @@ name = "electric"
 program = [
     "Rhodes MKI",
     "Rhodes MKII",
-    "Wurlitzer 2",
-    "Wurlitzer 1",
+    "Wurlitzer 200",
+    "Wurlitzer 100",
     "Yamaha CP-80"]
 [[engine.bank]]
 name = "historical"
