@@ -19,16 +19,17 @@ commandline = [
 if headless:
     commandline.append("--headless")
 
+
 class Script:
     def __init__(self):
         self.bank = 0
 
     def run(self, msg):
         if msg.is_cc(cc.bank_select[0]):
-            self.bank = msg.value if msg.value < 17 else 0
+            self.bank = msg.value if msg.value < 11 else 0
         else:
             if msg.type == "program_change":
-                msg.program = min([127, 17 * self.bank + msg.program])
+                msg.program = min([127, 11 * self.bank + msg.program])
             outport.send(msg)
 
 

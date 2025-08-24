@@ -1,8 +1,10 @@
 # external libraries
+import mido
 import time
 
 # internal libraries
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
+from midi_implementation.midi1 import control_change as cc
 from utils import Inport, Outport, make_threads, load_config, set_gain
 
 config = {
@@ -78,10 +80,23 @@ def microtonOS(Display):
             elif xq.is_pressed(msg, xq.sound):
                 script.page = instrument_page
                 script.page.update()
+                all_notes_off = mido.Message("control_change", control=cc.all_notes_off)
+                to_pianoteq.send(all_notes_off)
 
     class InstrumentPage:
         def __init__(self):
-            """Initialize InstrumentPage. Add attributes if needed in future."""
+            self.bank = 0
+            self.prev_bank = 0
+            self.pgm = 0
+            self.prev_pgm = 0
+            n_banks = len(config["microtonOS"]["engine"][0]["bank"])
+            n_banks = 11 if n_banks > 11 else n_banks
+            self.bank_leds = range(0, n_banks)
+            n_pgms = len(
+                config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
+            )
+            n_pgms = 11 if n_pgms > 11 else n_pgms
+            self.pgm_leds = range(22, 22 + n_pgms)
 
         def update(self, msg=None):
             if msg is None:
@@ -89,14 +104,54 @@ def microtonOS(Display):
                 to_exquis.send(developer_mode)
                 colors = [black] * 128
                 colors[xq.sound] = red
-                for led, bank in enumerate(config["microtonOS"]["engine"][0]["bank"]):
-                    colors[led] = red
+                for bank, led in enumerate(self.bank_leds):
+                    colors[led] = white if bank == self.bank else red
+                for pgm, led in enumerate(self.pgm_leds):
+                    colors[led] = white if pgm == self.pgm else red
                 led_colors = xq.set_led_colors(colors)
                 to_exquis.send(led_colors)
                 display.show("instrument")
+            elif msg.type == "note_on" and msg.velocity > 0 and msg.channel == 15:
+                if msg.note in self.bank_leds:
+                    self.bank = msg.note
+                    n_pgms = len(
+                        config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
+                    )
+                    self.pgm_leds = range(22, 22 + n_pgms)
+                    self.pgm = -1
+                    script.page.update()
+                    bank_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
+                        "name"
+                    ]
+                    display.show(bank_name)
+                elif msg.note in self.pgm_leds:
+                    self.pgm = msg.note - 22
+                    self.prev_bank = self.bank
+                    self.prev_pgm = self.pgm
+                    script.page.update()
+                    pgm_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
+                        "program"
+                    ][self.pgm]
+                    display.show(pgm_name)
+
             elif xq.is_pressed(msg, xq.sound):
+                self.bank = self.prev_bank
+                self.pgm = self.prev_pgm
+                n_pgms = len(
+                    config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
+                )
+                self.pgm_leds = range(22, 22 + n_pgms)
                 script.page = start_page
                 script.page.update()
+                pc = [
+                    mido.Message(
+                        "control_change", control=cc.bank_select[0], value=self.bank
+                    ),
+                    mido.Message("control_change", control=cc.bank_select[1], value=0),
+                    mido.Message("program_change", program=self.pgm),
+                ]
+                for out in pc:
+                    to_pianoteq.send(out)
 
     class ActiveSensing:
         ack_rate = 0.3  # seconds

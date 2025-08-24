@@ -29,34 +29,34 @@ headless = true
 path = "/usr/bin/Pianoteq 8 STAGE"
 config = "/home/pi/microtonOS/config/pianoteq.ptm"
 [[engine.bank]]
-name = "Acoustic"
+name = "acoustic"
 program = [
-    "NY Steinway Model D",
-    "HB Steinway Model D",
+    "NY Steinway D",
+    "HB Steinway D",
     "J. Schantz", "J.E. Schmidt",
     "A. Walter", "D. Schoffstoss",
-    "C. Graf", "Erard Close Mic",
-    "Pleyel Close Mic"]
+    "C. Graf", "Erard",
+    "Pleyel"]
 [[engine.bank]]
-name = "Electromechanical"
+name = "electric"
 program = [
-    "MKI Basic",
-    "MKII Basic Stereo",
-    "W2 Basic Stereo",
-    "W1 Basic Mono",
-    "CP-80 Tremolo"]
+    "Rhodes MKI",
+    "Rhodes MKII",
+    "Wurlitzer 2",
+    "Wurlitzer 1",
+    "Yamaha CP-80"]
 [[engine.bank]]
-name = "Historical"
+name = "historical"
 program = [
-    "Cimbalom basic",
-    "Neupert Clavichord single",
-    "F.E. Blanchet Harpsichord",
-    "C. Grimaldi Harpsichord A"]
+    "cimbalom",
+    "Neupert clavichord",
+    "F.E. Blanchet harpsichord",
+    "C. Grimaldi harpsichord"]
 [[engine.bank]]
 name = "Bells"
 program = [
-    "Church Bells original",
-    "Tubular Bells original"]
+    "church bells",
+    "tubular bells"]
 
 #################
 # Color Palette #
