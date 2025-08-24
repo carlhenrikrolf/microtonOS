@@ -148,12 +148,14 @@ class Exquis2_1_0:
         assert start_index in range(0, 128)
         assert len(colors) <= 128 - start_index
         data = [*self.prefix, self.color_palette, start_index]
-        translate = lambda x: round(x * 127)
         for color in colors:
-            r, g, b = color.rgb
-            data.append(translate(r))
-            data.append(translate(g))
-            data.append(translate(b))
+            if type(color) is tuple:
+                r, g, b = color
+            elif type(color) is Color:
+                r, g, b = color.rgb
+            data.append(round(r * 127))
+            data.append(round(g * 127))
+            data.append(round(b * 127))
         return mido.Message("sysex", data=data)
 
     def get_refresh(self, msg=None):
@@ -178,7 +180,10 @@ class Exquis2_1_0:
         assert len(colors) == len(fx)
         data = [*self.prefix, self.led_color, start_index]
         for color, fx in zip(colors, fx):
-            r, g, b = color.rgb
+            if type(color) is tuple:
+                r, g, b = color
+            elif type(color) is Color:
+                r, g, b = color.rgb
             data.append(round(r * 127))
             data.append(round(g * 127))
             data.append(round(b * 127))

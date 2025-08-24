@@ -69,8 +69,3 @@ class Display:
                 with canvas(device) as draw:
                     pass
             time.sleep(0.03)
-
-
-# display = Display()
-# display.show("hej bengt", "")
-# display.run()
