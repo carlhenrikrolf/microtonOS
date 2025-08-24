@@ -25,27 +25,26 @@ def microtonOS(Display):
     client_name = "microtonOS"
     display = Display()
 
-    class Exquis:
-        ack_rate = 0.3  # seconds
+    def show_cc(msg):
+        if msg.type == "control_change":
+            control = str(msg.control)
+            transmitted = config["control_change"]["channel"][msg.channel][
+                "transmitted"
+            ]
+            if control in transmitted:
+                Pianoteq = config["control_change"]["channel"][msg.channel][
+                    "transmitted"
+                ][control]["Pianoteq"]
+                display.show(
+                    Pianoteq,
+                    msg.value,
+                )
 
+    class StartPage:
         def __init__(self):
-            self.ack = 0.0
-            self.page = self.start_page
+            self.routing = [True] * 4
 
-            # start page
-            self.routing = [True, True, True, True]
-
-        def active_sensing(self):
-            while True:
-                now = time.time()
-                diff = now - self.ack
-                ack = xq.get_tempo()
-                to_exquis.send(ack)
-                if diff > 2 * self.ack_rate:
-                    self.page()
-                time.sleep(self.ack_rate)
-
-        def start_page(self, msg=None):
+        def update(self, msg=None):
             if msg is None:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
@@ -58,29 +57,33 @@ def microtonOS(Display):
             elif xq.is_pressed(msg, xq.encoder_button[0]):
                 self.routing[0] = not self.routing[0]
                 set_gain(level=1.0, muted=not self.routing[0])
-                self.page()
+                script.page.update()
                 display.show("mic", value="on" if self.routing[0] else "off")
             elif xq.is_pressed(msg, xq.encoder_button[1]):
                 self.routing[1] = not self.routing[1]
-                self.page()
+                script.page.update()
                 display.show("MIDI", value="receive" if self.routing[1] else "bypass")
             elif xq.is_pressed(msg, xq.encoder_button[2]):
                 self.routing[2] = not self.routing[2]
-                self.page()
+                script.page.update()
                 display.show(
                     "lower manual", value="global" if self.routing[2] else "local"
                 )
             elif xq.is_pressed(msg, xq.encoder_button[3]):
                 self.routing[3] = not self.routing[3]
-                self.page()
+                script.page.update()
                 display.show(
                     "upper manual", value="global" if self.routing[3] else "local"
                 )
             elif xq.is_pressed(msg, xq.sound):
-                self.page = self.instrument_page
-                self.page()
+                script.page = instrument_page
+                script.page.update()
 
-        def instrument_page(self, msg=None):
+    class InstrumentPage:
+        def __init__(self):
+            """Initialize InstrumentPage. Add attributes if needed in future."""
+
+        def update(self, msg=None):
             if msg is None:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
@@ -92,53 +95,58 @@ def microtonOS(Display):
                 to_exquis.send(led_colors)
                 display.show("instrument")
             elif xq.is_pressed(msg, xq.sound):
-                self.page = self.start_page
-                self.page()
+                script.page = start_page
+                script.page.update()
+
+    class ActiveSensing:
+        ack_rate = 0.3  # seconds
+
+        def __init__(self):
+            self.ack = 0.0
+
+        def run(self):
+            while True:
+                now = time.time()
+                diff = now - self.ack
+                ack = xq.get_tempo()
+                to_exquis.send(ack)
+                if diff > 2 * self.ack_rate:
+                    script.page.update()
+                time.sleep(self.ack_rate)
 
     class Script:
+        def __init__(self):
+            self.page = start_page
+
         def exquis(self, msg):
-            exquis.ack = time.time()
-            exquis.page(msg)
+            active_sensing.ack = time.time()
+            script.page.update(msg)
             tempo = xq.get_tempo(msg)
             if tempo is None:
                 print(msg)
 
         def upper(self, msg):
-            if exquis.routing[3]:
+            if start_page.routing[3]:
                 to_lower.send(msg)
-                if exquis.routing[1]:
+                if start_page.routing[1]:
                     to_pianoteq.send(msg)
-                    self.show_cc(msg)
+                    show_cc(msg)
 
         def lower(self, msg):
-            if exquis.routing[2]:
+            if start_page.routing[2]:
                 to_upper.send(msg)
-                if exquis.routing[1]:
+                if start_page.routing[1]:
                     to_pianoteq.send(msg)
-                    self.show_cc(msg)
-
-        def show_cc(self, msg):
-            if msg.type == "control_change":
-                control = str(msg.control)
-                transmitted = config["control_change"]["channel"][msg.channel][
-                    "transmitted"
-                ]
-                if control in transmitted:
-                    Pianoteq = config["control_change"]["channel"][msg.channel][
-                        "transmitted"
-                    ][control]["Pianoteq"]
-                    display.show(
-                        Pianoteq,
-                        msg.value,
-                    )
-
-    exquis = Exquis()
+                    show_cc(msg)
 
     to_exquis = Outport(client_name, name="Exquis")
     to_upper = Outport(client_name, name="Upper")
     to_lower = Outport(client_name, name="Lower")
     to_pianoteq = Outport(client_name, name="Pianoteq")
 
+    start_page = StartPage()
+    instrument_page = InstrumentPage()
+    active_sensing = ActiveSensing()
     script = Script()
 
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
@@ -150,7 +158,7 @@ def microtonOS(Display):
             from_exquis.open,
             from_upper.open,
             from_lower.open,
-            exquis.active_sensing,
+            active_sensing.run,
             display.run,
         ]
     )
