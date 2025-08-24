@@ -63,7 +63,7 @@ def microtonOS(Display):
             elif xq.is_pressed(msg, xq.encoder_button[1]):
                 self.routing[1] = not self.routing[1]
                 self.page()
-                display.show("receive MIDI", value="on" if self.routing[1] else "off")
+                display.show("MIDI", value="receive" if self.routing[1] else "bypass")
             elif xq.is_pressed(msg, xq.encoder_button[2]):
                 self.routing[2] = not self.routing[2]
                 self.page()
@@ -104,18 +104,18 @@ def microtonOS(Display):
                 print(msg)
 
         def upper(self, msg):
-            if exquis.routing[2]:
+            if exquis.routing[3]:
                 to_lower.send(msg)
-            if exquis.routing[1]:
-                to_pianoteq.send(msg)
-                self.show_cc(msg)
+                if exquis.routing[1]:
+                    to_pianoteq.send(msg)
+                    self.show_cc(msg)
 
         def lower(self, msg):
-            if exquis.routing[3]:
+            if exquis.routing[2]:
                 to_upper.send(msg)
-            if exquis.routing[1]:
-                to_pianoteq.send(msg)
-                self.show_cc(msg)
+                if exquis.routing[1]:
+                    to_pianoteq.send(msg)
+                    self.show_cc(msg)
 
         def show_cc(self, msg):
             if msg.type == "control_change":
