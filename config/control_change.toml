@@ -7,15 +7,18 @@
 
 # Internal channel 0
 [[channel]]
-device = "Internal"
+device = "Self"
 [channel.transmitted]
-64 = {Pianoteq = "sustain pedal"} # should be in reface channel
+64 = {Pianoteq = "sustain/CV"} # should be in reface channel
+4 = {Pianoteq = "Leslie/CV"}
+36 = {Pianoteq = "Leslie/CV"}
+
 
 # Internal channel 1
 [[channel]]
 device = "Reface CP"
 [channel.transmitted]
-64 = {Pianoteq = "sustain pedal"}
+64 = {Pianoteq = "sustain/CV"}
 
 # Internal channel 2
 [[channel]]

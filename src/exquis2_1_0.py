@@ -82,7 +82,7 @@ def microtonOS(Display):
                 script.page = instrument_page
                 script.page.update()
                 all_notes_off = mido.Message("control_change", control=cc.all_notes_off)
-                to_pianoteq.send(all_notes_off)
+                to_virtual.send(all_notes_off)
 
     class InstrumentPage:
         def __init__(self):
@@ -147,7 +147,7 @@ def microtonOS(Display):
                         mido.Message("program_change", program=self.pgm),
                     ]
                     for out in pc:
-                        to_pianoteq.send(out)
+                        to_virtual.send(out)
 
             elif xq.is_pressed(msg, xq.sound):
                 self.bank = self.prev_bank
@@ -186,26 +186,37 @@ def microtonOS(Display):
             # if tempo is None:
             #     print(msg)
 
-        def upper(self, msg):
-            if start_page.routing[3]:
-                if start_page.routing[2]:
-                    to_lower.send(msg)
-                if start_page.routing[1]:
-                    to_pianoteq.send(msg)
-                    show_cc(msg)
+        def master(self, msg):
+            to_virtual.send(msg)
+            to_lower.send(msg)
+            to_upper.send(msg)
+            show_cc(msg)
 
         def lower(self, msg):
             if start_page.routing[2]:
                 if start_page.routing[3]:
                     to_upper.send(msg)
                 if start_page.routing[1]:
-                    to_pianoteq.send(msg)
+                    to_virtual.send(msg)
                     show_cc(msg)
 
+        def upper(self, msg):
+            if start_page.routing[3]:
+                if start_page.routing[2]:
+                    to_lower.send(msg)
+                if start_page.routing[1]:
+                    to_virtual.send(msg)
+                    show_cc(msg)
+
+        def clock(self, msg):
+            to_exquis.send(msg)
+            to_clock.send(msg)
+
     to_exquis = Outport(client_name, name="Exquis")
-    to_upper = Outport(client_name, name="Upper")
+    to_virtual = Outport(client_name, name="Virtual")
     to_lower = Outport(client_name, name="Lower")
-    to_pianoteq = Outport(client_name, name="Pianoteq")
+    to_upper = Outport(client_name, name="Upper")
+    to_clock = Outport(client_name, name="Clock")
 
     start_page = StartPage()
     instrument_page = InstrumentPage()
@@ -213,14 +224,18 @@ def microtonOS(Display):
     script = Script()
 
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
+    from_master = Inport(script.master, client_name, name="Master")
     from_upper = Inport(script.upper, client_name, name="Upper")
     from_lower = Inport(script.lower, client_name, name="Lower")
+    from_clock = Inport(script.clock, client_name, name="Clock")
 
     make_threads(
         [
             from_exquis.open,
+            from_master.open,
             from_upper.open,
             from_lower.open,
+            from_clock.open,
             active_sensing.run,
             display.run,
         ]
