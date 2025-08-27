@@ -4,6 +4,16 @@ from colour import Color
 manufacturer_id = [0x00, 0x21, 0x7E]
 
 
+def append_color(data, color):
+    if type(color) is tuple:
+        r, g, b = color
+    elif type(color) is Color:
+        r, g, b = color.rgb
+    data.append(round(r * 127))
+    data.append(round(g * 127))
+    data.append(round(b * 127))
+
+
 class Exquis2_1_0:
     """Exquis firmware 2.1.0.
     I Haven't tested it.
@@ -149,13 +159,7 @@ class Exquis2_1_0:
         assert len(colors) <= 128 - start_index
         data = [*self.prefix, self.color_palette, start_index]
         for color in colors:
-            if type(color) is tuple:
-                r, g, b = color
-            elif type(color) is Color:
-                r, g, b = color.rgb
-            data.append(round(r * 127))
-            data.append(round(g * 127))
-            data.append(round(b * 127))
+            append_color(data, color)
         return mido.Message("sysex", data=data)
 
     def get_refresh(self, msg=None):
@@ -180,13 +184,7 @@ class Exquis2_1_0:
         assert len(colors) == len(fx)
         data = [*self.prefix, self.led_color, start_index]
         for color, fx in zip(colors, fx):
-            if type(color) is tuple:
-                r, g, b = color
-            elif type(color) is Color:
-                r, g, b = color.rgb
-            data.append(round(r * 127))
-            data.append(round(g * 127))
-            data.append(round(b * 127))
+            append_color(data, color)
             data.append(fx)
         return mido.Message("sysex", data=data)
 
@@ -279,6 +277,26 @@ class Exquis2_1_0:
         """Set a snapshot of all the settings."""
         data = [*self.prefix, self.snapshot, *snapshot]
         return mido.Message("sysex", data=data)
+
+    def settings_to_snapshot(notes, colors):
+        assert len(notes) == len(colors) == 61
+        data = [
+            0x00,
+            0x01,
+            0x00,  # pitchbend range?
+            0x0E,  # number of MPE channels?
+            0x00,
+            0x00,
+            0x01,
+            0x01,
+            0x00,
+            0x00,
+            0x00,
+        ]
+        for note, color in zip(notes, colors):
+            data.append(note)
+            append_color(data, color)
+        return data
 
     def is_pressed(self, msg, button):
         if msg.is_cc(button):
