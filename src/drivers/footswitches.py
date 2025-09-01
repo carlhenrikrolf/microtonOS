@@ -1,59 +1,37 @@
 from gpiozero import Button
-from gpiozero.pins.rpigpio import RPiGPIOFactory  # Changed from lgpio
+
 import mido
 import signal
 
 from utils import Outport
+from midi_implementation.midi1 import control_change as cc
 
 client_name = "Footswitches"
-tip_gpio = 23
-ring_gpio = 22
-bounce_time = 0.01
+bounce_time = 0.001
 
-plug_cc = mido.Message("control_change", control=4)
-latch_cc = mido.Message("control_change", control=36)
-
-
-pin_factory = RPiGPIOFactory()  # Changed from LGPIOFactory
-tip = Button(tip_gpio, bounce_time=bounce_time, pin_factory=pin_factory)
-ring = Button(ring_gpio, bounce_time=bounce_time, pin_factory=pin_factory)
-
-
-class Switch:
-    def __init__(self):
-        self.is_plugged = ring.is_pressed
-        self.is_latched = False
-        self.update()
-        out.send(plug_cc)
-        out.send(latch_cc)
-
-    def update(self):
-        plug_cc.value = 127 if self.is_plugged else 0
-        latch_cc.value = 127 if self.is_latched else 64
-
-    def latch(self):
-        self.is_latched = not self.is_latched
-        self.update()
-        if self.is_plugged:
-            out.send(latch_cc)
-
-    def plug(self):
-        self.is_plugged = True
-        self.update()
-        out.send(plug_cc)
-
-    def unplug(self):
-        self.is_plugged = False
-        self.update()
-        out.send(plug_cc)
-
+inner_ring = Button(20, bounce_time=bounce_time)
+inner_tip = Button(21, bounce_time=bounce_time)
+outer_ring = Button(22, bounce_time=bounce_time)
+outer_tip = Button(23, bounce_time=bounce_time)
 
 out = Outport(client_name)
 
-switch = Switch()
 
-tip.when_pressed = switch.latch
-ring.when_pressed = switch.plug
-ring.when_released = switch.unplug
+def soft_pedal(is_pressed):
+    value = 127 if is_pressed else 0
+    msg = mido.Message("control_change", control=cc.soft_pedal, value=value)  # cc 67
+    out.send(msg)
+
+
+def sostenuto(is_pressed):
+    value = 127 if is_pressed else 0
+    msg = mido.Message("control_change", control=cc.sostenuto, value=value)  # cc 66
+    out.send(msg)
+
+
+outer_tip.when_pressed = lambda: soft_pedal(True)
+outer_tip.when_released = lambda: soft_pedal(False)
+inner_tip.when_pressed = lambda: sostenuto(True)
+inner_tip.when_released = lambda: sostenuto(False)
 
 signal.pause()

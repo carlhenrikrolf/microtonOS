@@ -1,6 +1,9 @@
 <!DOCTYPE patchbay>
 <patchbay version="0.9.9" name="qjackctl">
  <output-sockets>
+  <socket client="Carla\ Wrapper" type="alsa-midi" exclusive="off" name="Carla Wrapper">
+   <plug>from\ Carla\ Wrapper</plug>
+  </socket>
   <socket client="WIDI\ Master" type="alsa-midi" exclusive="on" name="WIDI Master">
    <plug>WIDI\ Master\ Bluetooth</plug>
   </socket>
@@ -35,8 +38,8 @@
   <socket client="microtonOS" type="alsa-midi" exclusive="on" name="microtonOS to Exquis">
    <plug>Exquis\ from\ microtonOS</plug>
   </socket>
-  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="microtonOS to Virtual">
-   <plug>Virtual\ from\ microtonOS</plug>
+  <socket client="microtonOS" type="alsa-midi" exclusive="off" name="microtonOS to Internal">
+   <plug>Internal\ from\ microtonOS</plug>
   </socket>
   <socket client="Footswitches" type="alsa-midi" exclusive="off" name="Footswitches">
    <plug>from\ Footswitches</plug>
@@ -70,6 +73,9 @@
   </socket>
  </output-sockets>
  <input-sockets>
+  <socket client="Carla\ Wrapper" type="alsa-midi" exclusive="off" name="Carla Wrapper">
+   <plug>to\ Carla\ Wrapper</plug>
+  </socket>
   <socket client="WIDI\ Master" type="alsa-midi" exclusive="on" name="WIDI Master">
    <plug>WIDI\ Master\ Bluetooth</plug>
   </socket>
@@ -121,15 +127,15 @@
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
-  <socket client="Notepad\-8FX\ Analog\ Stereo" forward="Soundcard" type="jack-audio" exclusive="off" name="Notepad-8FX">
+  <socket client="Notepad\-8FX\ Analog\ Stereo" type="jack-audio" exclusive="off" name="Notepad-8FX" forward="Soundcard">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
-  <socket client="Soundcore\ Life\ Q30" forward="Soundcard" type="jack-audio" exclusive="on" name="Soundcore Life Q30">
+  <socket client="Soundcore\ Life\ Q30" type="jack-audio" exclusive="on" name="Soundcore Life Q30" forward="Soundcard">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
-  <socket client="BES_BLE" forward="Soundcard" type="jack-audio" exclusive="on" name="BES BLE">
+  <socket client="BES_BLE" type="jack-audio" exclusive="on" name="BES BLE" forward="Soundcard">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
@@ -144,12 +150,13 @@
   <cable input="microtonOS to Minilogue XD Driver" type="alsa-midi" output="microtonOS to Upper"/>
   <cable input="Reface CP" type="alsa-midi" output="microtonOS to Lower"/>
   <cable input="Exquis" type="alsa-midi" output="microtonOS to Exquis"/>
-  <cable input="Pianoteq Wrapper" type="alsa-midi" output="microtonOS to Virtual"/>
-  <cable input="macOS" type="alsa-midi" output="microtonOS to Virtual"/>
+  <cable input="Pianoteq Wrapper" type="alsa-midi" output="microtonOS to Internal"/>
+  <cable input="macOS" type="alsa-midi" output="microtonOS to Internal"/>
+  <cable input="Carla Wrapper" type="alsa-midi" output="microtonOS to Internal"/>
+  <cable input="Master to microtonOS" type="alsa-midi" output="Footswitches"/>
   <cable input="Exquis to microtonOS" type="alsa-midi" output="Exquis"/>
   <cable input="Soundcard" type="jack-audio" output="Pianoteq"/>
   <cable input="Soundcard" type="jack-audio" output="Librespot"/>
-  <cable input="Master to microtonOS" type="alsa-midi" output="Footswitches"/>
  </cables>
 </patchbay>
 

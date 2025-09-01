@@ -82,7 +82,7 @@ def microtonOS(Display):
                 script.page = instrument_page
                 script.page.update()
                 all_notes_off = mido.Message("control_change", control=cc.all_notes_off)
-                to_virtual.send(all_notes_off)
+                to_internal.send(all_notes_off)
 
     class InstrumentPage:
         def __init__(self):
@@ -147,7 +147,7 @@ def microtonOS(Display):
                         mido.Message("program_change", program=self.pgm),
                     ]
                     for out in pc:
-                        to_virtual.send(out)
+                        to_internal.send(out)
 
             elif xq.is_pressed(msg, xq.sound):
                 self.bank = self.prev_bank
@@ -187,7 +187,7 @@ def microtonOS(Display):
             #     print(msg)
 
         def master(self, msg):
-            to_virtual.send(msg)
+            to_internal.send(msg)
             to_lower.send(msg)
             to_upper.send(msg)
             show_cc(msg)
@@ -197,7 +197,7 @@ def microtonOS(Display):
                 if start_page.routing[3]:
                     to_upper.send(msg)
                 if start_page.routing[1]:
-                    to_virtual.send(msg)
+                    to_internal.send(msg)
                     show_cc(msg)
 
         def upper(self, msg):
@@ -205,7 +205,7 @@ def microtonOS(Display):
                 if start_page.routing[2]:
                     to_lower.send(msg)
                 if start_page.routing[1]:
-                    to_virtual.send(msg)
+                    to_internal.send(msg)
                     show_cc(msg)
 
         def clock(self, msg):
@@ -213,7 +213,8 @@ def microtonOS(Display):
             to_clock.send(msg)
 
     to_exquis = Outport(client_name, name="Exquis")
-    to_virtual = Outport(client_name, name="Virtual")
+    to_internal = Outport(client_name, name="Internal")
+    # to_external = Outport(client_name, name="External")
     to_lower = Outport(client_name, name="Lower")
     to_upper = Outport(client_name, name="Upper")
     to_clock = Outport(client_name, name="Clock")

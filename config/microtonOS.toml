@@ -25,9 +25,11 @@ SonoBus = {path = "/usr/bin/sonobus", headless = true}
 
 [[engine]]
 name = "Pianoteq"
-headless = true
+headless = false
 path = "/usr/bin/Pianoteq 8 STAGE"
-config = "/home/pi/microtonOS/config/pianoteq.ptm"
+preset = "NY Steinway D Classical"
+midimapping = "pianoteq"
+files = "/home/pi/microtonOS/config/pianoteq.ptm"
 [[engine.bank]]
 name = "acoustic"
 program = [

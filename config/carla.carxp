@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE CARLA-PROJECT>
+<CARLA-PROJECT VERSION='2.6'>
+ <EngineSettings>
+  <ForceStereo>false</ForceStereo>
+  <PreferPluginBridges>true</PreferPluginBridges>
+  <PreferUiBridges>false</PreferUiBridges>
+  <UIsAlwaysOnTop>false</UIsAlwaysOnTop>
+  <MaxParameters>200</MaxParameters>
+  <UIBridgesTimeout>4000</UIBridgesTimeout>
+ </EngineSettings>
+
+ <Transport>
+  <BeatsPerMinute>120</BeatsPerMinute>
+ </Transport>
+
+ <!-- x42 Whirl - Rotary Speaker -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>x42 Whirl - Rotary Speaker</Name>
+   <URI>http://gareus.org/oss/lv2/b_whirl#extended</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x3</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Enable</Name>
+    <Symbol>enable</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>Motors Ac/Dc</Name>
+    <Symbol>rt_speed</Symbol>
+    <Value>4</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>Horn Level</Name>
+    <Symbol>hornlvl</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>Drum Level</Name>
+    <Symbol>drumlvl</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>Drum Stereo Width</Name>
+    <Symbol>drumwidth</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>Horn Speed Slow</Name>
+    <Symbol>hornrpmslow</Symbol>
+    <Value>40.3199996948242</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>Horn Speed Fast</Name>
+    <Symbol>hornrpmfast</Symbol>
+    <Value>423.359985351562</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>Horn Acceleration</Name>
+    <Symbol>hornaccel</Symbol>
+    <Value>0.160999998450279</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>8</Index>
+    <Name>Horn Deceleration</Name>
+    <Symbol>horndecel</Symbol>
+    <Value>0.321000009775162</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>9</Index>
+    <Name>Horn Brake Position</Name>
+    <Symbol>hornbrakepos</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>10</Index>
+    <Name>Horn Filter-1 Type</Name>
+    <Symbol>filtatype</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>11</Index>
+    <Name>Horn Filter-1 Frequency</Name>
+    <Symbol>filtafreq</Symbol>
+    <Value>4500</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>12</Index>
+    <Name>Horn Filter-1 Quality</Name>
+    <Symbol>filtaq</Symbol>
+    <Value>2.74559998512268</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>13</Index>
+    <Name>Horn Filter-1 Gain</Name>
+    <Symbol>filtagain</Symbol>
+    <Value>-30</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>14</Index>
+    <Name>Horn Filter-2 Type</Name>
+    <Symbol>filtbtype</Symbol>
+    <Value>7</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>15</Index>
+    <Name>Horn Filter-2 Frequency</Name>
+    <Symbol>filtbfreq</Symbol>
+    <Value>300</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>16</Index>
+    <Name>Horn Filter-2 Quality</Name>
+    <Symbol>filtbq</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>17</Index>
+    <Name>Horn Filter-2 Gain</Name>
+    <Symbol>filtbgain</Symbol>
+    <Value>-30</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>18</Index>
+    <Name>Drum Speed Slow</Name>
+    <Symbol>drumrpmslow</Symbol>
+    <Value>36</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>19</Index>
+    <Name>Drum Speed Fast</Name>
+    <Symbol>drumrpmfast</Symbol>
+    <Value>357.299987792969</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>20</Index>
+    <Name>Drum Acceleration</Name>
+    <Symbol>drumaccel</Symbol>
+    <Value>4.1269998550415</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>21</Index>
+    <Name>Drum Deceleration</Name>
+    <Symbol>drumdecel</Symbol>
+    <Value>1.37100005149841</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>22</Index>
+    <Name>Drum Brake Position</Name>
+    <Symbol>drumbrake</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>23</Index>
+    <Name>Drum Filter Type</Name>
+    <Symbol>filtdtype</Symbol>
+    <Value>8</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>24</Index>
+    <Name>Drum Filter Frequency</Name>
+    <Symbol>filtdfreq</Symbol>
+    <Value>811.969482421875</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>25</Index>
+    <Name>Drum Filter Quality</Name>
+    <Symbol>filtdq</Symbol>
+    <Value>1.60160005092621</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>26</Index>
+    <Name>Drum Filter Gain</Name>
+    <Symbol>filtdgain</Symbol>
+    <Value>-38.9291000366211</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>27</Index>
+    <Name>Horn Signal Leakage</Name>
+    <Symbol>hornleak</Symbol>
+    <Value>-16.4699993133545</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>28</Index>
+    <Name>Horn Radius</Name>
+    <Symbol>hornradius</Symbol>
+    <Value>19.2000007629395</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>29</Index>
+    <Name>Drum Radius</Name>
+    <Symbol>drumradius</Symbol>
+    <Value>22</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>30</Index>
+    <Name>Horn X-Axis Offset</Name>
+    <Symbol>hornxoff</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>31</Index>
+    <Name>Horn Z-Axis Offset</Name>
+    <Symbol>hornzoff</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>32</Index>
+    <Name>Microphone Distance</Name>
+    <Symbol>micdist</Symbol>
+    <Value>42</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>38</Index>
+    <Name>Link Speed Control</Name>
+    <Symbol>link</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>39</Index>
+    <Name>Microphone Angle</Name>
+    <Symbol>micangle</Symbol>
+    <Value>180</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>40</Index>
+    <Name>Horn Stereo Width</Name>
+    <Symbol>hornwidth</Symbol>
+    <Value>1</Value>
+   </Parameter>
+  </Data>
+ </Plugin>
+
+ <ExternalPatchbay>
+  <Connection>
+   <Source>librespot:out_0</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>librespot:out_1</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_1</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_2</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
+   <Target>Pianoteq:midi_in</Target>
+  </Connection>
+  <Positions>
+   <Position x1="1695" y1="1103">
+    <Name>Carla</Name>
+   </Position>
+   <Position x1="1345" y1="1266" x2="2107" y2="1274">
+    <Name>Audio Adapter (Unitek Y-247A) Mono</Name>
+   </Position>
+   <Position x1="1683" y1="1295">
+    <Name>librespot</Name>
+   </Position>
+   <Position x1="1513" y1="1197">
+    <Name>Pianoteq</Name>
+   </Position>
+   <Position x1="1891" y1="1433" x2="2009" y2="1289">
+    <Name>Audio Adapter (Unitek Y-247A) Analog Stereo</Name>
+   </Position>
+   <Position x1="1314" y1="1424" x2="1858" y2="1595">
+    <Name>Midi-Bridge</Name>
+   </Position>
+  </Positions>
+ </ExternalPatchbay>
+</CARLA-PROJECT>

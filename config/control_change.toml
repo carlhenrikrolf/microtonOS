@@ -10,8 +10,8 @@
 device = "Self"
 [channel.transmitted]
 64 = {Pianoteq = "sustain/CV"} # should be in reface channel
-4 = {Pianoteq = "Leslie/CV"}
-36 = {Pianoteq = "Leslie/CV"}
+66 = {Pianoteq = "sostenuto/CV"}
+67 = {Pianoteq = "una corda/CV"}
 
 
 # Internal channel 1

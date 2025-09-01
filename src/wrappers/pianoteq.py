@@ -1,23 +1,38 @@
-# modules
+# external modules
 import subprocess
-from utils import Outport, Inport, handle_terminations, warmup
+
+# internal modules
+from utils import Outport, Inport, handle_terminations, load_config
 from midi_implementation.midi1 import control_change as cc
 
-# parameters
-headless = False
-version = "8 STAGE"
-preset_on_init = "NY Steinway D Classical"
+# configurations
+config = {
+    "microtonOS": load_config(__file__, "../../config/microtonOS.toml"),
+}
+pw_jack = config["microtonOS"]["pw-jack"]["path"]
+for i, engine in enumerate(config["microtonOS"]["engine"]):
+    if engine["name"] == "Pianoteq":
+        break
+headless = engine["headless"]
+path = engine["path"]
+preset = engine["preset"]
+midimapping = engine["midimapping"]
+files = engine["files"]
 
 # definitions
 client_name = "Pianoteq Wrapper"
 commandline = [
-    "/usr/bin/pw-jack",
-    "/usr/bin/Pianoteq " + version,
+    pw_jack,
+    path,
     "--preset",
-    preset_on_init,
+    preset,
+    "--midimapping",
+    midimapping,
 ]
 if headless:
     commandline.append("--headless")
+commandline.append("--open")
+commandline.append(files)
 
 
 class Script:
@@ -34,7 +49,6 @@ class Script:
 
 
 # run script
-warmup.client()
 process = subprocess.Popen(commandline)
 handle_terminations(process)
 outport = Outport(client_name, verbose=False)
