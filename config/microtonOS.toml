@@ -27,17 +27,18 @@ SonoBus = {path = "/usr/bin/sonobus", headless = true}
 name = "Pianoteq"
 headless = false
 path = "/usr/bin/Pianoteq 8 STAGE"
-preset = "NY Steinway D Classical"
-midimapping = "pianoteq"
-files = "/home/pi/microtonOS/config/pianoteq.ptm"
+preset = "NY Steinway D Classical" # the name of the preset to load on startup
+midimapping = "midimapping" # the name of the midimapping to use, add the .ptm file under files
+files = ["/home/pi/microtonOS/config/Pianoteq/midimapping.ptm"] # files to load
+directories = ["/home/pi/microtonOS/config/Pianoteq/My Presets/"] # directories where all .fxp, .mfxp, .ptm, .scl, and .kbm files are loaded
 [[engine.bank]]
 name = "acoustic"
 program = [
     "NY Steinway D",
     "HB Steinway D",
-    "J. Schantz", "J.E. Schmidt",
-    "A. Walter", "D. Schoffstoss",
-    "C. Graf", "Erard",
+    "J Schantz", "JE Schmidt",
+    "A Walter", "D Schöffstoss",
+    "C Graf", "Érard",
     "Pleyel"]
 [[engine.bank]]
 name = "electric"
@@ -52,8 +53,8 @@ name = "historical"
 program = [
     "cimbalom",
     "Neupert clavichord",
-    "F.E. Blanchet harpsichord",
-    "C. Grimaldi harpsichord"]
+    "FE Blanchet harpsichord",
+    "C Grimaldi harpsichord"]
 [[engine.bank]]
 name = "Bells"
 program = [

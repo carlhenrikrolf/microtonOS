@@ -1,5 +1,6 @@
 # external modules
 import subprocess
+import os
 
 # internal modules
 from utils import Outport, Inport, handle_terminations, load_config
@@ -17,7 +18,14 @@ headless = engine["headless"]
 path = engine["path"]
 preset = engine["preset"]
 midimapping = engine["midimapping"]
-files = engine["files"]
+files = " ".join(engine["files"])
+extensions = (".fxp", ".mfxp", ".ptm", ".scl", ".kbm")
+for dir in engine["directories"]:
+    for ext in extensions:
+        ls = os.listdir(dir)
+        contents = " ".join([dir + file for file in ls if file.endswith(extensions)])
+        files = " ".join([files, contents])
+
 
 # definitions
 client_name = "Pianoteq Wrapper"
