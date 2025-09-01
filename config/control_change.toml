@@ -9,7 +9,6 @@
 [[channel]]
 device = "Self"
 [channel.transmitted]
-64 = {Pianoteq = "sustain/CV"} # should be in reface channel
 66 = {Pianoteq = "sostenuto/CV"}
 67 = {Pianoteq = "una corda/CV"}
 
@@ -18,7 +17,36 @@ device = "Self"
 [[channel]]
 device = "Reface CP"
 [channel.transmitted]
+3 = {Pianoteq = "tremolo depth"}
+9 = {Pianoteq = "tremolo rate"}
+12 = {Pianoteq = "delay"}
+13 = {Pianoteq = "flanger"}
+14 = {Pianoteq = "wah depth"}
+15 = {Pianoteq = "wah rate"}
+20 = {Pianoteq = "chorus depth"}
+21 = {Pianoteq = "chorus rate"}
+22 = {Pianoteq = "phaser intensity"}
+23 = {Pianoteq = "phaser rate"}
+24 = {Pianoteq = "delay feedback"}
+25 = {Pianoteq = "delay time"}
+26 = {Pianoteq = "flanger depth"}
+27 = {Pianoteq = "flanger delay"}
 64 = {Pianoteq = "sustain/CV"}
+70 = {Pianoteq = "wah"}
+91 = {Pianoteq = "reverb duration"}
+92 = {Pianoteq = "tremolo"}
+93 = {Pianoteq = "chorus"}
+95 = {Pianoteq = "phaser"}
+
+
+[channel.received]
+sustain = []
+sostenuto = [{control = 66, channel = 0}]
+"soft pedal" = [{control = 67, channel = 0}]
+modwheel = [{control = 1, channel = 2}]
+expression = []
+volume = []
+"local control" = [{control = 122, channel = 0}]
 
 # Internal channel 2
 [[channel]]
@@ -28,7 +56,7 @@ device = "Minilogue XD"
 119 = {} # CV in 2
 [channel.received]
 "CV in 1" = []
-"CV in 2" = [{control = 64, channel = 0}] # change to ch 1 later
+"CV in 2" = [{control = 64, channel = 1}]
 
 
 # Internal channel 3
