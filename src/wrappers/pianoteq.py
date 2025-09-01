@@ -18,13 +18,14 @@ headless = engine["headless"]
 path = engine["path"]
 preset = engine["preset"]
 midimapping = engine["midimapping"]
-files = " ".join(engine["files"])
+files = list(engine["files"])
 extensions = (".fxp", ".mfxp", ".ptm", ".scl", ".kbm")
 for dir in engine["directories"]:
     for ext in extensions:
         ls = os.listdir(dir)
-        contents = " ".join([dir + file for file in ls if file.endswith(extensions)])
-        files = " ".join([files, contents])
+        for file in ls:
+            if file.endswith(extensions):
+                files.append(dir + file)
 
 
 # definitions
@@ -32,15 +33,21 @@ client_name = "Pianoteq Wrapper"
 commandline = [
     pw_jack,
     path,
-    "--preset",
+    "--fxp" if preset.endswith(".fxp") else "--preset",
     preset,
     "--midimapping",
     midimapping,
 ]
 if headless:
     commandline.append("--headless")
-commandline.append("--open")
-commandline.append(files)
+if len(files) > 0:
+    commandline.append("--open")
+for file in files:
+    commandline.append(file)
+if len(files) > 0 and preset.endswith(".fxp"):
+    commandline.append(
+        preset
+    )  # --preset or --fxp options are not active after other .fxp files are loaded
 
 
 class Script:

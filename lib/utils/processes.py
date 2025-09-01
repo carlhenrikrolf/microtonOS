@@ -1,24 +1,26 @@
-import mtsespy as esp
+# import mtsespy as esp
 import signal
 import sys
-import time
+
+# import time
 import threading
 
-class Warmup:
-    message = "microtonOS is warming up ..."
+# class Warmup:
+#     message = "microtonOS is warming up ..."
 
-    def master(self):
-        if esp.has_ipc() and not esp.can_register_master():
-            esp.reinitialize()
+#     def master(self):
+#         if esp.has_ipc() and not esp.can_register_master():
+#             esp.reinitialize()
 
-    def client(self):
-        for _ in range(60):
-            if esp.can_register_master():
-                time.sleep(1)
-            else:
-                break
-                
-warmup = Warmup()
+#     def client(self):
+#         for _ in range(60):
+#             if esp.can_register_master():
+#                 time.sleep(1)
+#             else:
+#                 break
+
+# warmup = Warmup()
+
 
 def make_threads(functions, args=None):
     n = len(functions)
@@ -42,4 +44,3 @@ def handle_terminations(processes):
         sys.exit(0)
 
     signal.signal(signal.SIGTERM, signal_handler)
-

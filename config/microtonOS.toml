@@ -27,7 +27,7 @@ SonoBus = {path = "/usr/bin/sonobus", headless = true}
 name = "Pianoteq"
 headless = false
 path = "/usr/bin/Pianoteq 8 STAGE"
-preset = "NY Steinway D Classical" # the name of the preset to load on startup
+preset = "/home/pi/microtonOS/config/Pianoteq/My Presets/NY Steinway D.fxp" # the name of the preset to load on startup or the path if fxp file
 midimapping = "midimapping" # the name of the midimapping to use, add the .ptm file under files
 files = ["/home/pi/microtonOS/config/Pianoteq/midimapping.ptm"] # files to load
 directories = ["/home/pi/microtonOS/config/Pianoteq/My Presets/"] # directories where all .fxp, .mfxp, .ptm, .scl, and .kbm files are loaded
