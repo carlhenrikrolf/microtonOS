@@ -16,6 +16,7 @@ device = "Self"
 # Internal channel 1
 [[channel]]
 device = "Reface CP"
+[channel.bilateral]
 [channel.transmitted]
 3 = {Pianoteq = "tremolo depth"}
 9 = {Pianoteq = "tremolo rate"}
@@ -37,8 +38,6 @@ device = "Reface CP"
 92 = {Pianoteq = "tremolo"}
 93 = {Pianoteq = "chorus"}
 95 = {Pianoteq = "phaser"}
-
-
 [channel.received]
 sustain = []
 sostenuto = [{control = 66, channel = 0}]
@@ -51,12 +50,19 @@ volume = []
 # Internal channel 2
 [[channel]]
 device = "Minilogue XD"
+[channel.bilateral]
+"CVin1" = 118
+"CVin2" = 119
 [channel.transmitted]
-118 = {} # CV in 1
-119 = {} # CV in 2
+118 = {}
+119 = {}
 [channel.received]
-"CV in 1" = []
-"CV in 2" = [{control = 64, channel = 1}]
+"CVin1" = []
+"CVin2" = []
+"CVin1+" = [{control = 66, channel = 0}]
+"CVin2+" = [{control = 64, channel = 1}]
+"CVin1-" = [{control = 67, channel = 0}]
+"CVin2-" = []
 
 
 # Internal channel 3

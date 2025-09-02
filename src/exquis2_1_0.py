@@ -209,7 +209,7 @@ def microtonOS(Display):
                     show_cc(msg)
 
         def clock(self, msg):
-            to_exquis.send(msg)
+            # to_exquis.send(msg) # clock will freeze developer mode in exquis
             to_clock.send(msg)
 
     to_exquis = Outport(client_name, name="Exquis")

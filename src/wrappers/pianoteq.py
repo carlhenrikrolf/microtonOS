@@ -11,7 +11,7 @@ config = {
     "microtonOS": load_config(__file__, "../../config/microtonOS.toml"),
 }
 pw_jack = config["microtonOS"]["pw-jack"]["path"]
-for i, engine in enumerate(config["microtonOS"]["engine"]):
+for index, engine in enumerate(config["microtonOS"]["engine"]):
     if engine["name"] == "Pianoteq":
         break
 headless = engine["headless"]
@@ -52,12 +52,15 @@ if len(files) > 0 and preset.endswith(".fxp"):
 
 class Script:
     def __init__(self):
+        self.is_on = index == 0
         self.bank = 0
 
     def run(self, msg):
         if msg.is_cc(cc.bank_select[0]):
             self.bank = msg.value if msg.value < 11 else 0
-        else:
+        elif msg.is_cc(cc.bank_select[1]):
+            self.is_on = msg.value == index
+        elif self.is_on:
             if msg.type == "program_change":
                 msg.program = min([127, 11 * self.bank + msg.program])
             outport.send(msg)

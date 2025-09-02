@@ -24,20 +24,39 @@ class Script:
     def minilogue_xd(self, msg):
         if msg.type == "control_change":
             msg.channel = internal_channel
-        to_microtonOS.send(msg)
+        if msg.type == "clock":
+            to_clock.send(msg)
+        else:
+            to_microtonOS.send(msg)
 
     def microtonOS(self, msg):
         ignore = msg.type == "program_change"
         ignore = ignore or cc.is_in(msg, cc.bank_select)
         if not ignore:
             if msg.type == "control_change":
-                if any(x.items() <= msg.dict().items() for x in received["CV in 1"]):
+                if any(x.items() <= msg.dict().items() for x in received["CVin1"]):
+                    msg = xd.CVin1(
+                        bimodal=True, value=msg.value, channel=external_channel
+                    )
+                if any(x.items() <= msg.dict().items() for x in received["CVin2"]):
+                    msg = xd.CVin2(
+                        bimodal=True, value=msg.value, channel=external_channel
+                    )
+                if any(x.items() <= msg.dict().items() for x in received["CVin1+"]):
                     msg = xd.CVin1(
                         bimodal=False, value=msg.value, channel=external_channel
                     )
-                if any(x.items() <= msg.dict().items() for x in received["CV in 2"]):
+                if any(x.items() <= msg.dict().items() for x in received["CVin2+"]):
                     msg = xd.CVin2(
                         bimodal=False, value=msg.value, channel=external_channel
+                    )
+                if any(x.items() <= msg.dict().items() for x in received["CVin1-"]):
+                    msg = xd.CVin1(
+                        bimodal=False, value=-msg.value, channel=external_channel
+                    )
+                if any(x.items() <= msg.dict().items() for x in received["CVin2-"]):
+                    msg = xd.CVin2(
+                        bimodal=False, value=-msg.value, channel=external_channel
                     )
             elif hasattr(msg, "channel"):
                 msg.channel = external_channel
@@ -47,6 +66,7 @@ class Script:
 # run script
 to_microtonOS = Outport(client_name, name="microtonOS")
 to_minilogue_xd = Outport(client_name, name="Minilogue XD")
+to_clock = Outport(client_name, name="Clock")
 script = Script()
 from_minilogue_xd = Inport(script.minilogue_xd, client_name, name="Minilogue XD")
 from_microtonOS = Inport(script.microtonOS, client_name, name="microtonOS")
