@@ -107,7 +107,14 @@ class ControlChange:
     channel_mode_message[6] = mono_mode = 126
     channel_mode_message[7] = poly_mode = 127
 
-    not_knobs = [*config, *modulation_wheel, *breath_controller, *pedals, brightness, *channel_mode_message]
+    not_knobs = [
+        *config,
+        *modulation_wheel,
+        *breath_controller,
+        *pedals,
+        brightness,
+        *channel_mode_message,
+    ]
     knobs = []
     for control in range(128):
         if control not in not_knobs:
@@ -129,6 +136,26 @@ class SystemExclusive:
 
 
 system_exclusive = SystemExclusive()
+
+
+class RealTime:
+    def __init__(self):
+        self.times = [0] * 6
+        self.clock = 0
+
+    def bpm(self, msg, divisor=4):
+        if msg.type == "clock":
+            self.times[self.clock] = time.time()
+            self.clock = (self.clock + 1) % 6  # one midibeat is 6 clocks
+            if self.clock == 0:
+                diffs = [self.times[i + 1] - self.times[i] for i in range(5)]
+                mean = sum(diffs) / 5
+                midibeats_per_min = 60 / (mean * 6)
+                return midibeats_per_min / divisor
+        return None
+
+
+realtime = RealTime()
 
 
 class MtsEsp:
@@ -230,8 +257,14 @@ class MtsEsp:
     def bend_note(self, note_channel, tx_channel, velocity):
         note, pitch, in_range = self.note_pitch(note_channel)
         if in_range:
-            for sustain in [control_change.damper_pedal, control_change.sostenuto, control_change.hold2]:
-                pedal_off = mido.Message('control_change', control=sustain, value=0, channel=tx_channel)
+            for sustain in [
+                control_change.damper_pedal,
+                control_change.sostenuto,
+                control_change.hold2,
+            ]:
+                pedal_off = mido.Message(
+                    "control_change", control=sustain, value=0, channel=tx_channel
+                )
                 self.outport.send(pedal_off)
             pitchwheel = mido.Message("pitchwheel", pitch=pitch, channel=tx_channel)
             self.outport.send(pitchwheel)

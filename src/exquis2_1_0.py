@@ -4,7 +4,7 @@ import time
 
 # internal libraries
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
-from midi_implementation.midi1 import control_change as cc
+from midi_implementation.midi1 import control_change as cc, realtime as rt
 from utils import Inport, Outport, make_threads, load_config, set_gain
 
 config = {
@@ -52,9 +52,11 @@ def microtonOS(Display):
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
                 colors = [black] * 128
+                fx = [xq.no_fx] * 128
                 for led, on in zip(xq.encoder_knob, self.routing):
                     colors[led] = white if on else red
-                led_colors = xq.set_led_colors(colors)
+                    fx[led] = xq.pulse2black
+                led_colors = xq.set_led_colors(colors, fx=fx)
                 to_exquis.send(led_colors)
                 display.show("")
             elif xq.is_pressed(msg, xq.encoder_button[0]):
@@ -211,6 +213,10 @@ def microtonOS(Display):
         def clock(self, msg):
             # to_exquis.send(msg) # clock will freeze developer mode in exquis
             to_clock.send(msg)
+            bpm = rt.bpm(msg)
+            if bpm is not None:
+                out = xq.set_tempo(bpm)
+                to_exquis.send(out)
 
     to_exquis = Outport(client_name, name="Exquis")
     to_internal = Outport(client_name, name="Internal")
