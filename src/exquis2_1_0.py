@@ -57,8 +57,47 @@ def microtonOS(Display):
             set_gain4all(level=1.0, muted=False)
             set_volume4all(level=1.0, muted=False)
 
-            # self.routing = [True] * 4
-            # set_gain(level=1.0, muted=not self.routing[0])
+        def mic_led(self):
+            color = (
+                white * 2 * (self.mic["gain"] - 0.5)
+                + green * (1.5 - 2 * (self.mic["gain"]))
+                if self.mic["gain"] >= 0.5
+                else green * 2 * self.mic["gain"]
+            )
+            fx = xq.pulse2red if self.mic["muted"] else xq.no_fx
+            return color, fx
+
+        def midi_led(self):
+            color = (
+                white * 2 * (self.midi["volume"] - 0.5)
+                + green * (1.5 - 2 * self.midi["volume"])
+                if self.midi["volume"] >= 0.5
+                else green * 2 * self.midi["volume"]
+            )
+            fx = xq.pulse2red if self.midi["thru"] else xq.no_fx
+            return color, fx
+
+        def lower_led(self):
+            color = (
+                white
+                if self.lower["filter"] == "pc"
+                else green
+                if self.lower["filter"] == "cc+pc"
+                else black
+            )
+            fx = xq.pulse2red if not self.lower["local"] else xq.no_fx
+            return color, fx
+
+        def upper_led(self):
+            color = (
+                white
+                if self.upper["filter"] == "pc"
+                else green
+                if self.upper["filter"] == "cc+pc"
+                else black
+            )
+            fx = xq.pulse2red if not self.upper["local"] else xq.no_fx
+            return color, fx
 
         def update(self, msg=None):
             if msg is None:
@@ -66,45 +105,21 @@ def microtonOS(Display):
                 to_exquis.send(developer_mode)
                 colors = [black] * 128
                 fx = [xq.no_fx] * 128
-                colors[xq.encoder_knob[0]] = (
-                    white * self.mic["gain"] + green * (1.0 - self.mic["gain"])
-                    if self.mic["gain"] >= 0.5
-                    else green * self.mic["gain"]
-                )
-                fx[xq.encoder_knob[0]] = xq.pulse2red if self.mic["muted"] else xq.no_fx
-                colors[xq.encoder_knob[1]] = (
-                    white * self.midi["volume"] + green * (1.0 - self.midi["volume"])
-                    if self.midi["volume"] >= 0.5
-                    else green * self.midi["volume"]
-                )
-                fx[xq.encoder_knob[1]] = xq.pulse2red if self.midi["thru"] else xq.no_fx
-                colors[xq.encoder_knob[2]] = (
-                    white
-                    if self.lower["filter"] == "pc"
-                    else green
-                    if self.lower["filter"] == "cc+pc"
-                    else black
-                )
-                fx[xq.encoder_knob[2]] = (
-                    xq.pulse2red if not self.lower["local"] else xq.no_fx
-                )
-                colors[xq.encoder_knob[3]] = (
-                    white
-                    if self.upper["filter"] == "pc"
-                    else green
-                    if self.upper["filter"] == "cc+pc"
-                    else black
-                )
-                fx[xq.encoder_knob[3]] = (
-                    xq.pulse2red if not self.upper["local"] else xq.no_fx
-                )
+                (colors[xq.encoder_knob[0]], fx[xq.encoder_knob[0]]) = self.mic_led()
+                (colors[xq.encoder_knob[1]], fx[xq.encoder_knob[1]]) = self.midi_led()
+                (colors[xq.encoder_knob[2]], fx[xq.encoder_knob[2]]) = self.lower_led()
+                (colors[xq.encoder_knob[3]], fx[xq.encoder_knob[3]]) = self.upper_led()
                 led_colors = xq.set_led_colors(colors, fx=fx)
                 to_exquis.send(led_colors)
                 display.show("")
             elif xq.is_pressed(msg, xq.encoder_button[0]):
                 self.mic["muted"] = not self.mic["muted"]
                 set_gain4all(muted=self.mic["muted"])
-                script.page.update()
+                color, fx = self.mic_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[0]
+                )
+                to_exquis.send(led_colors)
                 display.show("mic", value="on" if not self.mic["muted"] else "off")
             elif xq.is_turned(msg, xq.encoder_knob[0]):
                 change = xq.is_turned(msg, xq.encoder_knob[0])
@@ -112,12 +127,20 @@ def microtonOS(Display):
                 self.mic["gain"] = 1.0 if self.mic["gain"] > 1.0 else self.mic["gain"]
                 self.mic["gain"] = 0.0 if self.mic["gain"] < 0.0 else self.mic["gain"]
                 set_gain4all(level=self.mic["gain"], muted=self.mic["muted"])
-                script.page.update()
+                color, fx = self.mic_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[0]
+                )
+                to_exquis.send(led_colors)
                 text = str(round(self.mic["gain"] * 100)) + "%"
                 display.show("gain", value=text)
             elif xq.is_pressed(msg, xq.encoder_button[1]):
                 self.midi["thru"] = not self.midi["thru"]
-                script.page.update()
+                color, fx = self.midi_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[1]
+                )
+                to_exquis.send(led_colors)
                 display.show("MIDI", value="thru" if self.midi["thru"] else "in")
             elif xq.is_turned(msg, xq.encoder_knob[1]):
                 change = xq.is_turned(msg, xq.encoder_knob[1])
@@ -129,7 +152,11 @@ def microtonOS(Display):
                     0.0 if self.midi["volume"] < 0.0 else self.midi["volume"]
                 )
                 set_volume4all(level=self.midi["volume"], muted=False)
-                script.page.update()
+                color, fx = self.midi_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[1]
+                )
+                to_exquis.send(led_colors)
                 text = str(round(self.midi["volume"] * 100)) + "%"
                 display.show("volume", value=text)
             elif xq.is_pressed(msg, xq.encoder_button[2]):
@@ -139,7 +166,11 @@ def microtonOS(Display):
                     "control_change", control=cc.local_onoff_switch, value=value
                 )
                 to_lower.send(local_control)
-                script.page.update()
+                color, fx = self.lower_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[2]
+                )
+                to_exquis.send(led_colors)
                 display.show(
                     "lower control", value="local" if self.lower["local"] else "remote"
                 )
@@ -159,7 +190,11 @@ def microtonOS(Display):
                         self.lower["filter"] = "pc"
                     else:
                         self.lower["filter"] = "cc+pc"
-                script.page.update()
+                color, fx = self.lower_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[2]
+                )
+                to_exquis.send(led_colors)
                 display.show("lower filter", value=self.lower["filter"])
             elif xq.is_pressed(msg, xq.encoder_button[3]):
                 self.upper["local"] = not self.upper["local"]
@@ -168,7 +203,11 @@ def microtonOS(Display):
                     "control_change", control=cc.local_onoff_switch, value=value
                 )
                 to_upper.send(local_control)
-                script.page.update()
+                color, fx = self.upper_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[3]
+                )
+                to_exquis.send(led_colors)
                 display.show(
                     "upper control", value="local" if self.upper["local"] else "remote"
                 )
@@ -188,7 +227,11 @@ def microtonOS(Display):
                         self.upper["filter"] = "pc"
                     else:
                         self.upper["filter"] = "cc+pc"
-                script.page.update()
+                color, fx = self.upper_led()
+                led_colors = xq.set_led_colors(
+                    [color], fx=[fx], start_index=xq.encoder_knob[3]
+                )
+                to_exquis.send(led_colors)
                 display.show("upper filter", value=self.upper["filter"])
             elif xq.is_pressed(msg, xq.sound):
                 script.page = instrument_page
@@ -293,15 +336,24 @@ def microtonOS(Display):
         def exquis(self, msg):
             active_sensing.ack = time.time()
             script.page.update(msg)
-            tempo = xq.get_tempo(msg)
-            if tempo is None:
-                print(msg)
+            # tempo = xq.get_tempo(msg)
+            # if tempo is None:
+            #     print(msg)
 
         def master(self, msg):
             to_internal.send(msg)
-            to_lower.send(msg)
-            to_upper.send(msg)
             show_cc(msg)
+            if msg.type != "program_change":
+                if start_page.lower["filter"] == "pc":
+                    to_lower.send(msg)
+                elif start_page.lower["filter"] == "cc+pc":
+                    if msg.type != "control_change":
+                        to_lower.send(msg)
+                if start_page.upper["filter"] == "pc":
+                    to_upper.send(msg)
+                elif start_page.upper["filter"] == "cc+pc":
+                    if msg.type != "control_change":
+                        to_upper.send(msg)
 
         def lower(self, msg):
             if not start_page.lower["local"]:
