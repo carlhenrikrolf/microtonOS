@@ -52,8 +52,8 @@ def microtonOS(Display):
         def __init__(self):
             self.mic = {"muted": False, "gain": 1.0}
             self.midi = {"thru": False, "volume": 1.0}
-            self.lower = {"local": True, "filter": "pc"}
-            self.upper = {"local": True, "filter": "pc"}
+            self.lower = {"local": True, "filter": "PC"}
+            self.upper = {"local": True, "filter": "PC"}
             set_gain4all(level=1.0, muted=False)
             set_volume4all(level=1.0, muted=False)
 
@@ -80,9 +80,9 @@ def microtonOS(Display):
         def lower_led(self):
             color = (
                 white
-                if self.lower["filter"] == "pc"
+                if self.lower["filter"] == "PC"
                 else green
-                if self.lower["filter"] == "cc+pc"
+                if self.lower["filter"] == "CC+PC"
                 else black
             )
             fx = xq.pulse2red if not self.lower["local"] else xq.no_fx
@@ -91,9 +91,9 @@ def microtonOS(Display):
         def upper_led(self):
             color = (
                 white
-                if self.upper["filter"] == "pc"
+                if self.upper["filter"] == "PC"
                 else green
-                if self.upper["filter"] == "cc+pc"
+                if self.upper["filter"] == "CC+PC"
                 else black
             )
             fx = xq.pulse2red if not self.upper["local"] else xq.no_fx
@@ -177,19 +177,19 @@ def microtonOS(Display):
             elif xq.is_turned(msg, xq.encoder_knob[2]):
                 change = xq.is_turned(msg, xq.encoder_knob[2])
                 if change > 0:
-                    if self.lower["filter"] == "pc":
-                        self.lower["filter"] = "cc+pc"
-                    elif self.lower["filter"] == "cc+pc":
+                    if self.lower["filter"] == "PC":
+                        self.lower["filter"] = "CC+PC"
+                    elif self.lower["filter"] == "CC+PC":
                         self.lower["filter"] = "MIDI"
                     else:
-                        self.lower["filter"] = "pc"
+                        self.lower["filter"] = "PC"
                 elif change < 0:
-                    if self.lower["filter"] == "pc":
+                    if self.lower["filter"] == "PC":
                         self.lower["filter"] = "MIDI"
-                    elif self.lower["filter"] == "cc+pc":
-                        self.lower["filter"] = "pc"
+                    elif self.lower["filter"] == "CC+PC":
+                        self.lower["filter"] = "PC"
                     else:
-                        self.lower["filter"] = "cc+pc"
+                        self.lower["filter"] = "CC+PC"
                 color, fx = self.lower_led()
                 led_colors = xq.set_led_colors(
                     [color], fx=[fx], start_index=xq.encoder_knob[2]
@@ -214,19 +214,19 @@ def microtonOS(Display):
             elif xq.is_turned(msg, xq.encoder_knob[3]):
                 change = xq.is_turned(msg, xq.encoder_knob[3])
                 if change > 0:
-                    if self.upper["filter"] == "pc":
-                        self.upper["filter"] = "cc+pc"
-                    elif self.upper["filter"] == "cc+pc":
+                    if self.upper["filter"] == "PC":
+                        self.upper["filter"] = "CC+PC"
+                    elif self.upper["filter"] == "CC+PC":
                         self.upper["filter"] = "MIDI"
                     else:
-                        self.upper["filter"] = "pc"
+                        self.upper["filter"] = "PC"
                 elif change < 0:
-                    if self.upper["filter"] == "pc":
+                    if self.upper["filter"] == "PC":
                         self.upper["filter"] = "MIDI"
-                    elif self.upper["filter"] == "cc+pc":
-                        self.upper["filter"] = "pc"
+                    elif self.upper["filter"] == "CC+PC":
+                        self.upper["filter"] = "PC"
                     else:
-                        self.upper["filter"] = "cc+pc"
+                        self.upper["filter"] = "CC+PC"
                 color, fx = self.upper_led()
                 led_colors = xq.set_led_colors(
                     [color], fx=[fx], start_index=xq.encoder_knob[3]
@@ -235,6 +235,18 @@ def microtonOS(Display):
                 display.show("upper filter", value=self.upper["filter"])
             elif xq.is_pressed(msg, xq.sound):
                 script.page = instrument_page
+                script.page.update()
+                all_sound_off()
+            elif xq.is_pressed(msg, xq.record):
+                script.page = drummachine_page
+                script.page.update()
+                all_sound_off()
+            elif xq.is_pressed(msg, xq.loop):
+                script.page = isomorphic_page
+                script.page.update()
+                all_sound_off()
+            elif xq.is_pressed(msg, xq.clips):
+                script.page = tuning_page
                 script.page.update()
                 all_sound_off()
 
@@ -258,11 +270,11 @@ def microtonOS(Display):
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
                 colors = [black] * 128
-                colors[xq.sound] = red
+                colors[xq.sound] = magenta
                 for bank, led in enumerate(self.bank_leds):
-                    colors[led] = white if bank == self.bank else red
+                    colors[led] = white if bank == self.bank else magenta
                 for pgm, led in enumerate(self.pgm_leds):
-                    colors[led] = white if pgm == self.pgm else red
+                    colors[led] = white if pgm == self.pgm else magenta
                 led_colors = xq.set_led_colors(colors)
                 to_exquis.send(led_colors)
                 pgm_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
@@ -313,6 +325,51 @@ def microtonOS(Display):
                 script.page = start_page
                 script.page.update()
 
+    class DrummachinePage:
+        def update(self, msg=None):
+            if msg is None:
+                developer_mode = xq.developer_mode("enter")
+                to_exquis.send(developer_mode)
+                colors = [black] * 128
+                colors[xq.record] = red
+                led_colors = xq.set_led_colors(colors)
+                to_exquis.send(led_colors)
+                display.show("")
+            elif xq.is_pressed(msg, xq.record):
+                script.page = start_page
+                script.page.update()
+                all_sound_off()
+
+    class IsomorphicPage:
+        def update(self, msg=None):
+            if msg is None:
+                developer_mode = xq.developer_mode("enter")
+                to_exquis.send(developer_mode)
+                colors = [black] * 128
+                colors[xq.loop] = yellow
+                led_colors = xq.set_led_colors(colors)
+                to_exquis.send(led_colors)
+                display.show("")
+            elif xq.is_pressed(msg, xq.loop):
+                script.page = start_page
+                script.page.update()
+                all_sound_off()
+
+    class TuningPage:
+        def update(self, msg=None):
+            if msg is None:
+                developer_mode = xq.developer_mode("enter")
+                to_exquis.send(developer_mode)
+                colors = [black] * 128
+                colors[xq.clips] = green
+                led_colors = xq.set_led_colors(colors)
+                to_exquis.send(led_colors)
+                display.show("")
+            elif xq.is_pressed(msg, xq.clips):
+                script.page = start_page
+                script.page.update()
+                all_sound_off()
+
     class ActiveSensing:
         ack_rate = 0.3  # seconds
 
@@ -335,7 +392,7 @@ def microtonOS(Display):
 
         def exquis(self, msg):
             active_sensing.ack = time.time()
-            script.page.update(msg)
+            self.page.update(msg)
             # tempo = xq.get_tempo(msg)
             # if tempo is None:
             #     print(msg)
@@ -344,57 +401,57 @@ def microtonOS(Display):
             to_internal.send(msg)
             show_cc(msg)
             if msg.type != "program_change":
-                if start_page.lower["filter"] == "pc":
+                if start_page.lower["filter"] == "PC":
                     to_lower.send(msg)
-                elif start_page.lower["filter"] == "cc+pc":
+                elif start_page.lower["filter"] == "CC+PC":
                     if msg.type != "control_change":
                         to_lower.send(msg)
-                if start_page.upper["filter"] == "pc":
+                if start_page.upper["filter"] == "PC":
                     to_upper.send(msg)
-                elif start_page.upper["filter"] == "cc+pc":
+                elif start_page.upper["filter"] == "CC+PC":
                     if msg.type != "control_change":
                         to_upper.send(msg)
 
         def lower(self, msg):
             if not start_page.lower["local"]:
                 to_lower.send(msg)
-            if start_page.lower["filter"] == "pc":
+            if start_page.lower["filter"] == "PC":
                 if msg.type != "program_change":
                     if not start_page.midi["thru"]:
                         to_internal.send(msg)
                         show_cc(msg)
-                    if start_page.upper["filter"] == "pc":
+                    if start_page.upper["filter"] == "PC":
                         to_upper.send(msg)
-                    elif start_page.upper["filter"] == "cc+pc":
+                    elif start_page.upper["filter"] == "CC+PC":
                         if msg.type != "control_change":
                             to_upper.send(msg)
-            elif start_page.lower["filter"] == "cc+pc":
+            elif start_page.lower["filter"] == "CC+PC":
                 if msg.type not in ["program_change", "control_change"]:
                     if not start_page.midi["thru"]:
                         to_internal.send(msg)
                         show_cc(msg)
-                    if start_page.upper["filter"] in ["pc", "cc+pc"]:
+                    if start_page.upper["filter"] in ["PC", "CC+PC"]:
                         to_upper.send(msg)
 
         def upper(self, msg):
             if not start_page.upper["local"]:
                 to_upper.send(msg)
-            if start_page.upper["filter"] == "pc":
+            if start_page.upper["filter"] == "PC":
                 if msg.type != "program_change":
                     if not start_page.midi["thru"]:
                         to_internal.send(msg)
                         show_cc(msg)
-                    if start_page.lower["filter"] == "pc":
+                    if start_page.lower["filter"] == "PC":
                         to_lower.send(msg)
-                    elif start_page.lower["filter"] == "cc+pc":
+                    elif start_page.lower["filter"] == "CC+PC":
                         if msg.type != "control_change":
                             to_lower.send(msg)
-            elif start_page.upper["filter"] == "cc+pc":
+            elif start_page.upper["filter"] == "CC+PC":
                 if msg.type not in ["program_change", "control_change"]:
                     if not start_page.midi["thru"]:
                         to_internal.send(msg)
                         show_cc(msg)
-                    if start_page.lower["filter"] in ["pc", "cc+pc"]:
+                    if start_page.lower["filter"] in ["PC", "CC+PC"]:
                         to_lower.send(msg)
 
         def clock(self, msg):
@@ -420,6 +477,9 @@ def microtonOS(Display):
 
     start_page = StartPage()
     instrument_page = InstrumentPage()
+    drummachine_page = DrummachinePage()
+    isomorphic_page = IsomorphicPage()
+    tuning_page = TuningPage()
     active_sensing = ActiveSensing()
     script = Script()
 
