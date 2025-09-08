@@ -5,22 +5,19 @@ manufacturer_id = [0x00, 0x21, 0x7E]
 
 
 def append_color(data, color):
-    if type(color) is tuple:
-        r, g, b = color
-    elif type(color) is Color:
+    if type(color) is Color:
         r, g, b = color.rgb
+    elif hasattr(color, "__len__"):
+        r, g, b = color
     data.append(round(r * 127))
     data.append(round(g * 127))
     data.append(round(b * 127))
 
 
 class Exquis2_1_0:
-    """Exquis firmware 2.1.0.
-    I Haven't tested it.
-    I realised that although the slider can be controlled,
-    only 12 note scales can be set,
-    whereas in the older version (1.2.0),
-    the entire 61 note range can be set."""
+    """
+    Exquis firmware 2.1.0.
+    """
 
     prefix = [*manufacturer_id, 0x7F]
 
@@ -75,9 +72,13 @@ class Exquis2_1_0:
     led_fx = [None] * 7
     led_fx[0] = no_fx = 0x00
     led_fx[1] = pulse2black = 0x3F  # synced to tempo
+    # pulse2black in fact pulses to green
     led_fx[2] = pulse2white = 0x7F  # same
-    led_fx[3] = pulse2red = 0x3E
-    led_fx[4] = pulse2green = 0x7E
+    # pulse2white in fact pulses to green
+    led_fx[3] = pulse2red = 0x1F
+    # manual says pulse2red = 0x3E, but this is not right.Is 0x5F also possible?
+    led_fx[4] = pulse2green = 0x3F
+    # manual says pulse2green = 0x7E, but this is not right. Is 0x7F also possible?
     led_fx[5] = alpha_channel = lambda x: round(0x3D * x)
     led_fx[6] = blend2white = lambda x: 0x40 + round((0x70 - 0x40) * x)
 
@@ -311,6 +312,12 @@ class Exquis2_1_0:
                 if msg.value == 0:
                     return True
         return False
+
+    def is_turned(self, msg, knob):
+        if msg.is_cc(knob):
+            if msg.channel == 15:
+                return (msg.value - 64.0) / 15.0
+        return 0
 
 
 exquis2_1_0 = Exquis2_1_0()

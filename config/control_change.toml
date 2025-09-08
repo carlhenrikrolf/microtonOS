@@ -2,8 +2,15 @@
 # Control change (continuous controller) mappings. #
 ####################################################
 
-# Note that it is not necessary to loop messages from one unit back to the same unit.
-# Doing so will not have an effect.
+# Avoid:
+# - bank select messages (0 and 32)
+# - data entry (6 and 38)
+# - brightness (74)
+# - high-resolution velocity prefix (88)
+# - data increment/decrement (96 and 97)
+# - non-registered parameter number (98 and 99)
+# - registered parameter number (100 and 101)
+# - channel mode messages (120-127)
 
 # Internal channel 0
 [[channel]]
@@ -17,6 +24,26 @@ device = "Self"
 [[channel]]
 device = "Reface CP"
 [channel.bilateral]
+sustain = 64
+tremolo = 92
+"tremolo depth" = 3
+"tremolo rate" = 9
+wah = 70
+"wah depth" = 14
+"wah rate" = 15
+chorus = 93
+"chorus depth" = 20
+"chorus speed" = 21
+phaser = 95
+"phaser depth" = 22
+"phaser speed" = 23
+"digital delay" = 12
+"digital delay depth" = 24
+"digital delay time" = 25
+"analog delay" = 13
+"analog delay depth" = 26
+"analog delay time" = 27
+reverb = 91
 [channel.transmitted]
 3 = {Pianoteq = "tremolo depth"}
 9 = {Pianoteq = "tremolo rate"}
@@ -45,18 +72,23 @@ sostenuto = [{control = 66, channel = 0}]
 modwheel = [{control = 1, channel = 2}]
 expression = []
 volume = []
-"local control" = [{control = 122, channel = 0}]
 
 # Internal channel 2
 [[channel]]
 device = "Minilogue XD"
 [channel.bilateral]
+"Y+" = 1
+"Y-" = 2
 "CVin1" = 118
 "CVin2" = 119
 [channel.transmitted]
+1 = {}
+2 = {}
 118 = {}
 119 = {}
 [channel.received]
+"Y+" = []
+"Y-" = []
 "CVin1" = []
 "CVin2" = []
 "CVin1+" = [{control = 66, channel = 0}]

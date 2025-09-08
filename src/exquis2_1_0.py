@@ -1,26 +1,32 @@
 # external libraries
 import mido
+import numpy as np
 import time
 
 # internal libraries
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
 from midi_implementation.midi1 import control_change as cc, realtime as rt
-from utils import Inport, Outport, make_threads, load_config, set_gain
+from utils import (
+    Inport,
+    Outport,
+    make_threads,
+    load_config,
+    set_gain4all,
+    set_volume4all,
+)
 
 config = {
     "microtonOS": load_config(__file__, "../config/microtonOS.toml"),
     "control_change": load_config(__file__, "../config/control_change.toml"),
 }
 
-black = config["microtonOS"]["palette"]["black"]
-white = config["microtonOS"]["palette"]["white"]
-red = config["microtonOS"]["palette"]["red"]
-orange = config["microtonOS"]["palette"]["orange"]
-yellow = config["microtonOS"]["palette"]["yellow"]
-green = config["microtonOS"]["palette"]["green"]
-cyan = config["microtonOS"]["palette"]["cyan"]
-blue = config["microtonOS"]["palette"]["blue"]
-magenta = config["microtonOS"]["palette"]["magenta"]
+black = np.array(config["microtonOS"]["palette"]["black"])
+white = np.array(config["microtonOS"]["palette"]["white"])
+red = np.array(config["microtonOS"]["palette"]["red"])
+yellow = np.array(config["microtonOS"]["palette"]["yellow"])
+green = np.array(config["microtonOS"]["palette"]["green"])
+cyan = np.array(config["microtonOS"]["palette"]["cyan"])
+magenta = np.array(config["microtonOS"]["palette"]["magenta"])
 
 
 def microtonOS(Display):
@@ -44,8 +50,15 @@ def microtonOS(Display):
 
     class StartPage:
         def __init__(self):
-            self.routing = [True] * 4
-            set_gain(level=1.0, muted=not self.routing[0])
+            self.mic = {"muted": False, "gain": 1.0}
+            self.midi = {"thru": False, "volume": 1.0}
+            self.lower = {"local": True, "filter": "pc"}
+            self.upper = {"local": True, "filter": "pc"}
+            set_gain4all(level=1.0, muted=False)
+            set_volume4all(level=1.0, muted=False)
+
+            # self.routing = [True] * 4
+            # set_gain(level=1.0, muted=not self.routing[0])
 
         def update(self, msg=None):
             if msg is None:
@@ -53,38 +66,134 @@ def microtonOS(Display):
                 to_exquis.send(developer_mode)
                 colors = [black] * 128
                 fx = [xq.no_fx] * 128
-                for led, on in zip(xq.encoder_knob, self.routing):
-                    colors[led] = white if on else red
-                    fx[led] = xq.pulse2black
+                colors[xq.encoder_knob[0]] = (
+                    white * self.mic["gain"] + green * (1.0 - self.mic["gain"])
+                    if self.mic["gain"] >= 0.5
+                    else green * self.mic["gain"]
+                )
+                fx[xq.encoder_knob[0]] = xq.pulse2red if self.mic["muted"] else xq.no_fx
+                colors[xq.encoder_knob[1]] = (
+                    white * self.midi["volume"] + green * (1.0 - self.midi["volume"])
+                    if self.midi["volume"] >= 0.5
+                    else green * self.midi["volume"]
+                )
+                fx[xq.encoder_knob[1]] = xq.pulse2red if self.midi["thru"] else xq.no_fx
+                colors[xq.encoder_knob[2]] = (
+                    white
+                    if self.lower["filter"] == "pc"
+                    else green
+                    if self.lower["filter"] == "cc+pc"
+                    else black
+                )
+                fx[xq.encoder_knob[2]] = (
+                    xq.pulse2red if not self.lower["local"] else xq.no_fx
+                )
+                colors[xq.encoder_knob[3]] = (
+                    white
+                    if self.upper["filter"] == "pc"
+                    else green
+                    if self.upper["filter"] == "cc+pc"
+                    else black
+                )
+                fx[xq.encoder_knob[3]] = (
+                    xq.pulse2red if not self.upper["local"] else xq.no_fx
+                )
                 led_colors = xq.set_led_colors(colors, fx=fx)
                 to_exquis.send(led_colors)
                 display.show("")
             elif xq.is_pressed(msg, xq.encoder_button[0]):
-                self.routing[0] = not self.routing[0]
-                set_gain(level=1.0, muted=not self.routing[0])
+                self.mic["muted"] = not self.mic["muted"]
+                set_gain4all(muted=self.mic["muted"])
                 script.page.update()
-                display.show("mic", value="on" if self.routing[0] else "off")
+                display.show("mic", value="on" if not self.mic["muted"] else "off")
+            elif xq.is_turned(msg, xq.encoder_knob[0]):
+                change = xq.is_turned(msg, xq.encoder_knob[0])
+                self.mic["gain"] += change / 3.0
+                self.mic["gain"] = 1.0 if self.mic["gain"] > 1.0 else self.mic["gain"]
+                self.mic["gain"] = 0.0 if self.mic["gain"] < 0.0 else self.mic["gain"]
+                set_gain4all(level=self.mic["gain"], muted=self.mic["muted"])
+                script.page.update()
+                text = str(round(self.mic["gain"] * 100)) + "%"
+                display.show("gain", value=text)
             elif xq.is_pressed(msg, xq.encoder_button[1]):
-                self.routing[1] = not self.routing[1]
+                self.midi["thru"] = not self.midi["thru"]
                 script.page.update()
-                display.show("MIDI", value="receive" if self.routing[1] else "bypass")
+                display.show("MIDI", value="thru" if self.midi["thru"] else "in")
+            elif xq.is_turned(msg, xq.encoder_knob[1]):
+                change = xq.is_turned(msg, xq.encoder_knob[1])
+                self.midi["volume"] += change / 3.0
+                self.midi["volume"] = (
+                    1.0 if self.midi["volume"] > 1.0 else self.midi["volume"]
+                )
+                self.midi["volume"] = (
+                    0.0 if self.midi["volume"] < 0.0 else self.midi["volume"]
+                )
+                set_volume4all(level=self.midi["volume"], muted=False)
+                script.page.update()
+                text = str(round(self.midi["volume"] * 100)) + "%"
+                display.show("volume", value=text)
             elif xq.is_pressed(msg, xq.encoder_button[2]):
-                self.routing[2] = not self.routing[2]
+                self.lower["local"] = not self.lower["local"]
+                value = 127 if self.lower["local"] else 0
+                local_control = mido.Message(
+                    "control_change", control=cc.local_onoff_switch, value=value
+                )
+                to_lower.send(local_control)
                 script.page.update()
                 display.show(
-                    "lower manual", value="global" if self.routing[2] else "local"
+                    "lower control", value="local" if self.lower["local"] else "remote"
                 )
+            elif xq.is_turned(msg, xq.encoder_knob[2]):
+                change = xq.is_turned(msg, xq.encoder_knob[2])
+                if change > 0:
+                    if self.lower["filter"] == "pc":
+                        self.lower["filter"] = "cc+pc"
+                    elif self.lower["filter"] == "cc+pc":
+                        self.lower["filter"] = "MIDI"
+                    else:
+                        self.lower["filter"] = "pc"
+                elif change < 0:
+                    if self.lower["filter"] == "pc":
+                        self.lower["filter"] = "MIDI"
+                    elif self.lower["filter"] == "cc+pc":
+                        self.lower["filter"] = "pc"
+                    else:
+                        self.lower["filter"] = "cc+pc"
+                script.page.update()
+                display.show("lower filter", value=self.lower["filter"])
             elif xq.is_pressed(msg, xq.encoder_button[3]):
-                self.routing[3] = not self.routing[3]
+                self.upper["local"] = not self.upper["local"]
+                value = 127 if self.upper["local"] else 0
+                local_control = mido.Message(
+                    "control_change", control=cc.local_onoff_switch, value=value
+                )
+                to_upper.send(local_control)
                 script.page.update()
                 display.show(
-                    "upper manual", value="global" if self.routing[3] else "local"
+                    "upper control", value="local" if self.upper["local"] else "remote"
                 )
+            elif xq.is_turned(msg, xq.encoder_knob[3]):
+                change = xq.is_turned(msg, xq.encoder_knob[3])
+                if change > 0:
+                    if self.upper["filter"] == "pc":
+                        self.upper["filter"] = "cc+pc"
+                    elif self.upper["filter"] == "cc+pc":
+                        self.upper["filter"] = "MIDI"
+                    else:
+                        self.upper["filter"] = "pc"
+                elif change < 0:
+                    if self.upper["filter"] == "pc":
+                        self.upper["filter"] = "MIDI"
+                    elif self.upper["filter"] == "cc+pc":
+                        self.upper["filter"] = "pc"
+                    else:
+                        self.upper["filter"] = "cc+pc"
+                script.page.update()
+                display.show("upper filter", value=self.upper["filter"])
             elif xq.is_pressed(msg, xq.sound):
                 script.page = instrument_page
                 script.page.update()
-                all_notes_off = mido.Message("control_change", control=cc.all_notes_off)
-                to_internal.send(all_notes_off)
+                all_sound_off()
 
     class InstrumentPage:
         def __init__(self):
@@ -184,9 +293,9 @@ def microtonOS(Display):
         def exquis(self, msg):
             active_sensing.ack = time.time()
             script.page.update(msg)
-            # tempo = xq.get_tempo(msg)
-            # if tempo is None:
-            #     print(msg)
+            tempo = xq.get_tempo(msg)
+            if tempo is None:
+                print(msg)
 
         def master(self, msg):
             to_internal.send(msg)
@@ -195,20 +304,46 @@ def microtonOS(Display):
             show_cc(msg)
 
         def lower(self, msg):
-            if start_page.routing[2]:
-                if start_page.routing[3]:
-                    to_upper.send(msg)
-                if start_page.routing[1]:
-                    to_internal.send(msg)
-                    show_cc(msg)
+            if not start_page.lower["local"]:
+                to_lower.send(msg)
+            if start_page.lower["filter"] == "pc":
+                if msg.type != "program_change":
+                    if not start_page.midi["thru"]:
+                        to_internal.send(msg)
+                        show_cc(msg)
+                    if start_page.upper["filter"] == "pc":
+                        to_upper.send(msg)
+                    elif start_page.upper["filter"] == "cc+pc":
+                        if msg.type != "control_change":
+                            to_upper.send(msg)
+            elif start_page.lower["filter"] == "cc+pc":
+                if msg.type not in ["program_change", "control_change"]:
+                    if not start_page.midi["thru"]:
+                        to_internal.send(msg)
+                        show_cc(msg)
+                    if start_page.upper["filter"] in ["pc", "cc+pc"]:
+                        to_upper.send(msg)
 
         def upper(self, msg):
-            if start_page.routing[3]:
-                if start_page.routing[2]:
-                    to_lower.send(msg)
-                if start_page.routing[1]:
-                    to_internal.send(msg)
-                    show_cc(msg)
+            if not start_page.upper["local"]:
+                to_upper.send(msg)
+            if start_page.upper["filter"] == "pc":
+                if msg.type != "program_change":
+                    if not start_page.midi["thru"]:
+                        to_internal.send(msg)
+                        show_cc(msg)
+                    if start_page.lower["filter"] == "pc":
+                        to_lower.send(msg)
+                    elif start_page.lower["filter"] == "cc+pc":
+                        if msg.type != "control_change":
+                            to_lower.send(msg)
+            elif start_page.upper["filter"] == "cc+pc":
+                if msg.type not in ["program_change", "control_change"]:
+                    if not start_page.midi["thru"]:
+                        to_internal.send(msg)
+                        show_cc(msg)
+                    if start_page.lower["filter"] in ["pc", "cc+pc"]:
+                        to_lower.send(msg)
 
         def clock(self, msg):
             # to_exquis.send(msg) # clock will freeze developer mode in exquis
@@ -224,6 +359,12 @@ def microtonOS(Display):
     to_lower = Outport(client_name, name="Lower")
     to_upper = Outport(client_name, name="Upper")
     to_clock = Outport(client_name, name="Clock")
+
+    def all_sound_off():
+        msg = mido.Message("control_change", control=cc.all_sound_off)
+        to_internal.send(msg)
+        to_lower.send(msg)
+        to_upper.send(msg)
 
     start_page = StartPage()
     instrument_page = InstrumentPage()

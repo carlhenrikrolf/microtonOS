@@ -38,7 +38,6 @@ def set_volume4all(level=None, muted=None):
         ports = re.findall(
             r"^\s*(?:│|\s)?\s*(?:\*\s*)?(\d+)\.", sinks_section.group(1), re.MULTILINE
         )
-    print(ports)
     for port in ports:
         set_volume(level, muted, port=port)
 
@@ -57,7 +56,6 @@ def set_gain4all(level=None, muted=None):
         ports = re.findall(
             r"^\s*(?:│|\s)?\s*(?:\*\s*)?(\d+)\.", sources_section.group(1), re.MULTILINE
         )
-    print(ports)
     for port in ports:
         set_gain(level, muted, port=port)
 

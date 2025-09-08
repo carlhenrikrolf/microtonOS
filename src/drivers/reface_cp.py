@@ -477,9 +477,7 @@ class Script:
                 msg = cp.expression(value=msg.value, channel=external_channel)
             elif any(x.items() <= msg.dict().items() for x in received["volume"]):
                 msg = cp.volume(value=msg.value, channel=external_channel)
-            elif any(
-                x.items() <= msg.dict().items() for x in received["local control"]
-            ):
+            elif msg.is_cc(cc.local_onoff_switch):
                 msg = cp.local_control(cp.on if msg.value >= 64 else cp.off)
             to_reface_cp.send(msg)
 

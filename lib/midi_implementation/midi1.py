@@ -130,6 +130,76 @@ class ControlChange:
 control_change = ControlChange()
 
 
+class Percussion:
+    # GM1
+    acoustic_bass_drum = low_bass_drum = 35
+    electric_bass_drum = high_bass_drum = 36
+    side_stick = 37
+    acoustic_snare = 38
+    hand_clap = 39
+    electric_snare = rimshot = 40
+    low_floor_tom = 41
+    closed_hihat = 42
+    high_floor_tom = 43
+    pedal_hihat = 44
+    low_tom = 45
+    open_hihat = 46
+    low_mid_tom = 47
+    high_mid_tom = 48
+    crash_cymbal_1 = 49
+    high_tom = 50
+    ride_cymbal_1 = 51
+    chinese_cymbal = 52
+    ride_bell = 53
+    tambourine = 54
+    splash_cymbal = 55
+    cowbell = 56
+    crash_cymbal_2 = 57
+    vibraslap = 58
+    ride_cymbal_2 = 59
+    high_bongo = 60
+    low_bongo = 61
+    mute_high_conga = 62
+    open_high_conga = 63
+    low_conga = 64
+    high_timbale = 65
+    low_timbale = 66
+    high_agogo = 67
+    low_agogo = 68
+    cabasa = 69
+    maracas = 70
+    short_whistle = 71
+    long_whistle = 72
+    short_guiro = 73
+    long_guiro = 74
+    claves = 75
+    high_woodblock = 76
+    low_woodblock = 77
+    mute_cuica = 78
+    open_cuica = 79
+    mute_triangle = 80
+    open_triangle = 81
+
+    # GM2
+    high_q = filter_snap = 27
+    slap = 28
+    scratch_push = 29
+    scratch_pull = 30
+    sticks = 31
+    square_click = 32
+    metronome_click = 33
+    metronome_bell = 34
+    shaker = 82
+    jingle_bell = 83
+    bell_tree = 84
+    castanets = 85
+    mute_surdo = 86
+    open_surdo = 87
+
+
+percussion = Percussion()
+
+
 class SystemExclusive:
     non_commercial = 0x7D
     device_inquiry = [0x7E, 0x7F, 0x06, 0x01]
