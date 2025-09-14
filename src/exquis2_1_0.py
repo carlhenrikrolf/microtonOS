@@ -243,22 +243,6 @@ def microtonOS(Display):
                 )
                 to_exquis.send(led_colors)
                 display.show("upper filter", value=self.upper["filter"])
-            elif xq.is_pressed(msg, xq.sound):
-                script.page = instrument_page
-                script.page.update()
-                all_sound_off()
-            elif xq.is_pressed(msg, xq.record):
-                script.page = rhythm_page
-                script.page.update()
-                all_sound_off()
-            elif xq.is_pressed(msg, xq.loop):
-                script.page = isomorphic_page
-                script.page.update()
-                all_sound_off()
-            elif xq.is_pressed(msg, xq.clips):
-                script.page = tuning_page
-                script.page.update()
-                all_sound_off()
 
     class InstrumentPage:
         def __init__(self):
@@ -428,6 +412,7 @@ def microtonOS(Display):
         def __init__(self):
             self.is_on = False
             self.to_all = False
+            self.counter = 0
 
         def update(self, msg=None):
             if msg is None:
@@ -454,6 +439,7 @@ def microtonOS(Display):
                     display.show("stop")
                 elif not shift.is_on:
                     self.is_on = True
+                    self.counter = 0
                     start = mido.Message("start")
                     to_clock.send(start)
                     led_color = xq.set_led_colors([cyan], start_index=xq.play)
@@ -464,6 +450,7 @@ def microtonOS(Display):
                     display.show("play", subtext)
                 elif shift.is_on:
                     self.to_all = True
+                    self.counter = 0
                     start = mido.Message("start")
                     to_lower.send(start)
                     to_upper.send(start)
@@ -474,6 +461,25 @@ def microtonOS(Display):
                         "" if script.bpm is None else "BPM " + str(round(script.bpm))
                     )
                     display.show("all play", subtext)
+
+        def tick(self, msg=None):
+            per32 = 3
+            if msg is None or msg.type == "clock":
+                if self.is_on or self.to_all:
+                    indicator = [
+                        (self.counter // (32 * per32)) % 2,
+                        (self.counter // (16 * per32)) % 2,
+                        (self.counter // (8 * per32)) % 2,
+                        (self.counter // (4 * per32)) % 2,
+                        (self.counter // (2 * per32)) % 2,
+                        (self.counter // per32) % 2,
+                    ]
+                    slider_colors = [white if indicator[i] else black for i in range(6)]
+                    self.counter += 1
+                else:
+                    slider_colors = [black] * len(xq.slider)
+                slider_leds = xq.set_led_colors(slider_colors, start_index=xq.slider[0])
+                to_exquis.send(slider_leds)
 
     class ActiveSensing:
         ack_rate = 0.3  # seconds
@@ -592,6 +598,7 @@ def microtonOS(Display):
 
         def clock(self, msg):
             to_clock.send(msg)
+            play.tick(msg)
             bpm = rt.bpm(msg)
             if bpm is not None:
                 self.bpm = bpm
