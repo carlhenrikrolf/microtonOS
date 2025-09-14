@@ -5,6 +5,8 @@ manufacturer_id = [0x00, 0x21, 0x7E]
 
 
 def append_color(data, color):
+    """Converts the color to the right format
+    and appends it to the data stream."""
     if type(color) is Color:
         r, g, b = color.rgb
     elif hasattr(color, "__len__"):
@@ -55,18 +57,24 @@ class Exquis2_1_0:
     slider = [i for i in range(80, 86)]  # same name
     slider_on = 90  # ??
     slider_off = 127  # ??
-    settings = 100
-    sound = 101
-    record = 102
-    loop = 103
-    clips = 104
-    play = 105
-    down = 106
-    up = 107
-    left = 108
-    right = 109
-    encoder_knob = [i for i in range(110, 114)]
+    button = [-1] * 10
+    menu = [-1] * 6
+    button[0] = menu[0] = settings = 100
+    button[1] = menu[1] = sound = 101
+    button[2] = menu[2] = record = 102
+    button[3] = menu[3] = loop = 103
+    button[4] = menu[4] = clips = 104
+    button[5] = menu[5] = play = 105
+    arrow = [-1] * 4
+    button[6] = arrow[0] = down = 106
+    button[7] = arrow[1] = up = 107
+    button[8] = arrow[2] = left = 108
+    button[9] = arrow[3] = right = 109
+    encoder_led = encoder_knob = [i for i in range(110, 114)]
     encoder_button = [i for i in range(114, 118)]
+    led = [*pad, *slider, *button, *encoder_led]
+    arrow_or_encoder = [*arrow, *encoder_led]
+    n_leds = max(led)
 
     # LED FX
     led_fx = [None] * 7
@@ -178,6 +186,11 @@ class Exquis2_1_0:
             return None
 
     def set_led_colors(self, colors, fx=None, start_index=0):
+        """Set colors of each led.
+        colors is a list of colors for consecutive led indices.
+        (If only setting the color for one led, use a one-element list.)
+        start_index is the first index of that list.
+        Optionally a fx can be set as a list of effects for consecutive led indices."""
         assert start_index in range(0, 128)
         assert len(colors) <= 128 - start_index
         if fx is None:
@@ -190,6 +203,8 @@ class Exquis2_1_0:
         return mido.Message("sysex", data=data)
 
     def get_tempo(self, msg=None):
+        """Request the tempo of the Exquis.
+        Alternatively convert a tempo message to bpm"""
         data = [*self.prefix, self.tempo]
         if msg is None:
             return mido.Message("sysex", data=data)
@@ -202,6 +217,7 @@ class Exquis2_1_0:
             return None
 
     def set_tempo(self, bpm):
+        """Set the tempo of the exquis."""
         if bpm < 20:
             bpm = 20
         elif bpm > 240:
@@ -299,7 +315,21 @@ class Exquis2_1_0:
             append_color(data, color)
         return data
 
+    def linearize(self, arr):
+        """Turn an array representation of the pads to a list."""
+        n_rows = 11
+        result = [None] * len(self.pads)
+        assert len(arr) == n_rows
+        index = 0
+        for i in range(n_rows):
+            row = n_rows - (i + 1)
+            for col in range(6 if row % 2 == 0 else 5):
+                result[index] = arr[row][col]
+                index += 1
+        return result
+
     def is_pressed(self, msg, button):
+        """Returns True if pressed else False"""
         if msg.is_cc(button):
             if msg.channel == 15:
                 if msg.value == 127:
@@ -307,6 +337,7 @@ class Exquis2_1_0:
         return False
 
     def is_released(self, msg, button):
+        """Returns True if released else False"""
         if msg.is_cc(button):
             if msg.channel == 15:
                 if msg.value == 0:
@@ -314,6 +345,9 @@ class Exquis2_1_0:
         return False
 
     def is_turned(self, msg, knob):
+        """Returns a value in [-1,1] \ 0 if turned.
+        This is interpreted as True in Python.
+        Otherwise, returns 0, which is interpreted as False"""
         if msg.is_cc(knob):
             if msg.channel == 15:
                 return (msg.value - 64.0) / 15.0
@@ -321,3 +355,5 @@ class Exquis2_1_0:
 
 
 exquis2_1_0 = Exquis2_1_0()
+
+exquis2_2_0 = exquis2_1_0  # no known updates to the developer mode

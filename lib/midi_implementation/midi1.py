@@ -146,7 +146,7 @@ class Percussion:
     open_hihat = 46
     low_mid_tom = 47
     high_mid_tom = 48
-    crash_cymbal_1 = 49
+    crash_cymbal = 49
     high_tom = 50
     ride_cymbal_1 = 51
     chinese_cymbal = 52
@@ -195,6 +195,8 @@ class Percussion:
     castanets = 85
     mute_surdo = 86
     open_surdo = 87
+
+    channel = [9, 10]
 
 
 percussion = Percussion()
