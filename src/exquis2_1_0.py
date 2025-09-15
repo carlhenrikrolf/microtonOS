@@ -522,7 +522,7 @@ def microtonOS(Display):
                 ack = xq.get_tempo()
                 to_exquis.send(ack)
                 if diff > 2 * self.ack_rate:
-                    script.page.update()
+                    script.page.update(enter_dev=True)
                 time.sleep(self.ack_rate)
 
     class Script:
