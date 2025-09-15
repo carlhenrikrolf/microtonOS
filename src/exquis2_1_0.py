@@ -14,10 +14,12 @@ from utils import (
     set_gain4all,
     set_volume4all,
 )
+# import tuning as tun
 
 config = {
     "microtonOS": load_config(__file__, "../config/microtonOS.toml"),
     "control_change": load_config(__file__, "../config/control_change.toml"),
+    "tuning": load_config(__file__, "../config/tuning.toml"),
 }
 
 black = np.array(config["microtonOS"]["palette"]["black"])
@@ -260,6 +262,7 @@ def microtonOS(Display):
                 config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
             )
             n_pgms = 11 if n_pgms > 11 else n_pgms
+            n_pgms = 0 if n_pgms == 1 else n_pgms
             self.pgm_leds = range(22, 22 + n_pgms)
 
         def update(self, msg=None, enter_dev=False):
@@ -290,18 +293,26 @@ def microtonOS(Display):
                     n_pgms = len(
                         config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
                     )
+                    n_pgms = 11 if n_pgms > 11 else n_pgms
+                    n_pgms = 0 if n_pgms == 1 else n_pgms
                     self.pgm_leds = range(22, 22 + n_pgms)
                     self.pgm = -1
-                    script.page.update()
-                    bank_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
-                        "name"
-                    ]
+                    self.update()
+                    if n_pgms == 0:
+                        self.pgm = 0
+                        bank_name = config["microtonOS"]["engine"][0]["bank"][
+                            self.bank
+                        ][0]["program"][0]
+                    else:
+                        bank_name = config["microtonOS"]["engine"][0]["bank"][
+                            self.bank
+                        ]["name"]
                     display.show(bank_name)
                 elif msg.note in self.pgm_leds:
                     self.pgm = msg.note - 22
                     self.prev_bank = self.bank
                     self.prev_pgm = self.pgm
-                    script.page.update()
+                    self.update()
                     pgm_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
                         "program"
                     ][self.pgm]
@@ -371,12 +382,29 @@ def microtonOS(Display):
     class TuningPage:
         base_color = green
 
+        def __init__(self):
+            self.bank = 0
+            self.prev_bank = 0
+            self.pgm = 0
+            self.prev_pgm = 0
+            n_banks = len(config["tuning"]["bank"])
+            n_banks = 11 if n_banks > 11 else n_banks
+            self.bank_leds = range(0, n_banks)
+            n_pgms = len(config["tuning"]["bank"][self.bank]["program"])
+            n_pgms = 11 if n_pgms > 11 else n_pgms
+            n_pgms = 0 if n_pgms == 1 else n_pgms
+            self.pgm_leds = range(22, 22 + n_pgms)
+
         def update(self, msg=None, enter_dev=False):
             if enter_dev:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
             if msg is None:
                 colors = [black] * 128
+                for bank, led in enumerate(self.bank_leds):
+                    colors[led] = white if bank == self.bank else self.base_color
+                for pgm, led in enumerate(self.pgm_leds):
+                    colors[led] = white if pgm == self.pgm else self.base_color
                 pad_colors = [colors[i] for i in xq.pad]
                 pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
                 to_exquis.send(pad_leds)
@@ -386,8 +414,44 @@ def microtonOS(Display):
                 )
                 to_exquis.send(misc_leds)
                 display.show("")
+                pgm_name = config["tuning"]["bank"][self.bank]["program"][self.pgm][
+                    "name"
+                ]
+                display.show(pgm_name)
+            elif msg.type == "note_on" and msg.velocity > 0 and msg.channel == 15:
+                if msg.note in self.bank_leds:
+                    self.bank = msg.note
+                    n_pgms = len(config["tuning"]["bank"][self.bank]["program"])  # 1=0
+                    n_pgms = 11 if n_pgms > 11 else n_pgms  # 1=0
+                    n_pgms = 0 if n_pgms == 1 else n_pgms
+                    self.pgm_leds = range(22, 22 + n_pgms)
+                    self.pgm = -1
+                    self.update()
+                    if n_pgms == 0:
+                        self.pgm = 0
+                        bank_name = config["tuning"]["bank"][self.bank]["program"][0][
+                            "name"
+                        ]
+                        # change tuning
+                    else:
+                        bank_name = config["tuning"]["bank"][self.bank]["name"]
+                    display.show(bank_name)
+                elif msg.note in self.pgm_leds:
+                    self.pgm = msg.note - 22
+                    self.prev_bank = self.bank
+                    self.prev_pgm = self.pgm
+                    self.update()
+                    pgm_name = config["tuning"]["bank"][self.bank]["program"][self.pgm][
+                        "name"
+                    ]
+                    # change tuning
+                    display.show(pgm_name)
+
             elif xq.is_pressed(msg, xq.clips):
-                pass
+                self.bank = self.prev_bank
+                self.pgm = self.prev_pgm
+                n_pgms = len(config["config"]["bank"][self.bank]["program"])
+                self.pgm_leds = range(22, 22 + n_pgms)
 
     class Shift:
         base_color = blue

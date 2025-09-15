@@ -90,10 +90,19 @@ node /path/to/open_stage_control
 
 **Rippler X**
 
+Download from git, enter the directory and run
+
 ```bash
 # linux
 sudo apt update
 sudo apt-get install libx11-dev libfreetype-dev libfontconfig1-dev libasound2-dev libxrandr-dev libxinerama-dev libxcursor-dev
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -S . -B ./build
 cmake --build ./build --config Release
+```
+
+Move the LV2 and VST3 plugins:
+
+```bash
+sudo cp -r build/RipplerX_artefacts/Release/LV2/RipplerX.lv2 /usr/lib/lv2/
+sudo cp -r build/RipplerX_artefacts/Release/VST3/RipplerX.vst3 /usr/lib/vst3/
 ```

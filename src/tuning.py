@@ -2,16 +2,20 @@ import numpy as np
 
 
 class Standard:
-    def lower(self, config):
+    def linear(self, config):
         root_note = config["root"]["note"]
         root_hertz = config["root"]["Hertz"]
         frequency = np.full(shape=128, fill_value=root_hertz)
         for i in range(128):
-            frequency[i] *= 2 ** ((i - root_note) / 12)
+            frequency[i] *= 2 ** ((i - root_note) / 12.0)
+        return frequency
+
+    def lower(self, config):
+        frequency = self.linear(config)
         return frequency
 
     def upper(self, config):
-        frequency = self.lower(config)
+        frequency = self.linear(config)
         return frequency
 
 
@@ -26,6 +30,15 @@ test = {
 
 
 class EqualTempered:
+    def linear(self, config):
+        root_note = config["root"]["note"]
+        root_hertz = config["root"]["Hertz"]
+        cents = config["cents"]
+        frequency = np.full(shape=128, fill_value=root_hertz)
+        for i in range(128):
+            frequency[i] *= 2 ** ((root_note - i) * cents / 1200.0)
+        return frequency
+
     def lower(self, config):
         root_note = config["root"]["note"]
         root_hertz = config["root"]["Hertz"]
@@ -49,3 +62,24 @@ class EqualTempered:
 
 
 equal_tempered = EqualTempered()
+
+
+def linear(bank, config):
+    if bank == "standard":
+        return standard.linear(config)
+    elif bank == "equal-tempered":
+        return equal_tempered.linear(config)
+
+
+def lower(bank, config):
+    if bank == "standard":
+        return standard.lower(config)
+    elif bank == "equal-tempered":
+        return equal_tempered.lower(config)
+
+
+def upper(bank, config):
+    if bank == "standard":
+        return standard.upper(config)
+    elif bank == "equal-tempered":
+        return equal_tempered.upper(config)
