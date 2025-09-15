@@ -1,0 +1,27 @@
+[[bank]]
+name = "standard"
+
+[[bank.program]]
+name = "standard"
+root = {note = 69, Hertz=440.0}
+
+[[bank]]
+name = "equal-tempered"
+
+[[bank.program]]
+name = "24edo"
+root = {note = 69, Hertz=440.0}
+cents = 50.00
+Halberstadt = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
+
+[[bank.program]]
+name = "9ed5th"
+root = {note = 69, Hertz=440.0}
+cents = 78.00
+Halberstadt = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14]
+
+# [[bank]]
+# name = "unequal"
+
+# [[bank]]
+# name = "macrotonal"
