@@ -102,10 +102,11 @@ def microtonOS(Display):
             fx = xq.pulse2red if not self.upper["local"] else xq.no_fx
             return color, fx
 
-        def update(self, msg=None):
-            if msg is None:
+        def update(self, msg=None, enter_dev=False):
+            if enter_dev:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
+            if msg is None:
                 colors = [black] * 128
                 fx = [xq.no_fx] * 128
                 pad_colors = [colors[i] for i in xq.pad]
@@ -245,6 +246,8 @@ def microtonOS(Display):
                 display.show("upper filter", value=self.upper["filter"])
 
     class InstrumentPage:
+        base_color = magenta
+
         def __init__(self):
             self.bank = 0
             self.prev_bank = 0
@@ -259,15 +262,16 @@ def microtonOS(Display):
             n_pgms = 11 if n_pgms > 11 else n_pgms
             self.pgm_leds = range(22, 22 + n_pgms)
 
-        def update(self, msg=None):
-            if msg is None:
+        def update(self, msg=None, enter_dev=False):
+            if enter_dev:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
+            if msg is None:
                 colors = [black] * 128
                 for bank, led in enumerate(self.bank_leds):
-                    colors[led] = white if bank == self.bank else magenta
+                    colors[led] = white if bank == self.bank else self.base_color
                 for pgm, led in enumerate(self.pgm_leds):
-                    colors[led] = white if pgm == self.pgm else magenta
+                    colors[led] = white if pgm == self.pgm else self.base_color
                 pad_colors = [colors[i] for i in xq.pad]
                 pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
                 to_exquis.send(pad_leds)
@@ -323,10 +327,13 @@ def microtonOS(Display):
                 self.pgm_leds = range(22, 22 + n_pgms)
 
     class RhythmPage:
-        def update(self, msg=None):
-            if msg is None:
+        base_color = red
+
+        def update(self, msg=None, enter_dev=False):
+            if enter_dev:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
+            if msg is None:
                 colors = [black] * 128
                 pad_colors = [colors[i] for i in xq.pad]
                 pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
@@ -341,10 +348,13 @@ def microtonOS(Display):
                 pass
 
     class IsomorphicPage:
-        def update(self, msg=None):
-            if msg is None:
+        base_color = yellow
+
+        def update(self, msg=None, enter_dev=False):
+            if enter_dev:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
+            if msg is None:
                 colors = [black] * 128
                 pad_colors = [colors[i] for i in xq.pad]
                 pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
@@ -359,10 +369,13 @@ def microtonOS(Display):
                 pass
 
     class TuningPage:
-        def update(self, msg=None):
-            if msg is None:
+        base_color = green
+
+        def update(self, msg=None, enter_dev=False):
+            if enter_dev:
                 developer_mode = xq.developer_mode("enter")
                 to_exquis.send(developer_mode)
+            if msg is None:
                 colors = [black] * 128
                 pad_colors = [colors[i] for i in xq.pad]
                 pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
@@ -377,6 +390,8 @@ def microtonOS(Display):
                 pass
 
     class Shift:
+        base_color = blue
+
         def __init__(self):
             self.is_on = False
             self.is_locked = False
@@ -394,15 +409,20 @@ def microtonOS(Display):
                     to_exquis.send(led_color)
                 else:
                     self.is_on = True
-                    led_color = xq.set_led_colors([blue], start_index=xq.settings)
+                    led_color = xq.set_led_colors(
+                        [self.base_color], start_index=xq.settings
+                    )
                     to_exquis.send(led_color)
                     display.show("shift")
             elif xq.is_released(msg, xq.settings):
                 if self.is_on:
                     self.is_locked = True
-                    led_color = xq.set_led_colors([blue], start_index=xq.settings)
+                    led_color = xq.set_led_colors(
+                        [self.base_color], start_index=xq.settings
+                    )
                     to_exquis.send(led_color)
-            else:
+                    display.show("shift lock")
+            elif msg.type == "control_change":
                 if self.is_on and not self.is_locked:
                     self.is_on = False
                     led_color = xq.set_led_colors([black], start_index=xq.settings)
@@ -410,6 +430,7 @@ def microtonOS(Display):
 
     class Play:
         def __init__(self):
+            self.base_color = cyan
             self.is_on = False
             self.to_all = False
             self.counter = 0
@@ -438,24 +459,31 @@ def microtonOS(Display):
                     to_exquis.send(led_color)
                     display.show("stop")
                 elif not shift.is_on:
+                    self.base_color = cyan
                     self.is_on = True
                     self.counter = 0
                     start = mido.Message("start")
                     to_clock.send(start)
-                    led_color = xq.set_led_colors([cyan], start_index=xq.play)
+                    led_color = xq.set_led_colors(
+                        [self.base_color], start_index=xq.play
+                    )
                     to_exquis.send(led_color)
                     subtext = (
                         "" if script.bpm is None else "BPM " + str(round(script.bpm))
                     )
                     display.show("play", subtext)
                 elif shift.is_on:
+                    self.base_color = white
                     self.to_all = True
+                    self.is_on = True
                     self.counter = 0
                     start = mido.Message("start")
                     to_lower.send(start)
                     to_upper.send(start)
                     to_clock.send(start)
-                    led_color = xq.set_led_colors([1 - cyan], start_index=xq.play)
+                    led_color = xq.set_led_colors(
+                        [self.base_color], start_index=xq.play
+                    )
                     to_exquis.send(led_color)
                     subtext = (
                         "" if script.bpm is None else "BPM " + str(round(script.bpm))
@@ -510,30 +538,32 @@ def microtonOS(Display):
             if xq.is_pressed(msg, xq.sound):
                 self.is_menu = [not self.is_menu[0], False, False, False]
                 self.page = instrument_page if self.is_menu[0] else start_page
-                self.page.update()
+                self.page.update(enter_dev=True)
             elif xq.is_pressed(msg, xq.record):
                 self.is_menu = [False, not self.is_menu[1], False, False]
                 self.page = rhythm_page if self.is_menu[1] else start_page
-                self.page.update()
+                self.page.update(enter_dev=True)
             elif xq.is_pressed(msg, xq.loop):
                 self.is_menu = [False, False, not self.is_menu[2], False]
                 self.page = isomorphic_page if self.is_menu[2] else start_page
-                self.page.update()
+                self.page.update(enter_dev=True)
             elif xq.is_pressed(msg, xq.clips):
                 self.is_menu = [False, False, False, not self.is_menu[3]]
                 self.page = tuning_page if self.is_menu[3] else start_page
-                self.page.update()
+                self.page.update(enter_dev=True)
             else:
                 self.page.update(msg)
             if any([xq.is_pressed(msg, button) for button in xq.menu]):
                 all_sound_off()
             menu_colors = [
-                magenta if self.is_menu[0] else black,
-                red if self.is_menu[1] else black,
-                yellow if self.is_menu[2] else black,
-                green if self.is_menu[3] else black,
+                shift.base_color if shift.is_on else black,
+                instrument_page.base_color if self.is_menu[0] else black,
+                rhythm_page.base_color if self.is_menu[1] else black,
+                isomorphic_page.base_color if self.is_menu[2] else black,
+                tuning_page.base_color if self.is_menu[3] else black,
+                play.base_color if play.is_on else black,
             ]
-            menu_leds = xq.set_led_colors(menu_colors, start_index=xq.sound)
+            menu_leds = xq.set_led_colors(menu_colors, start_index=xq.settings)
             to_exquis.send(menu_leds)
             # tempo = xq.get_tempo(msg)
             # if tempo is None:
