@@ -1,6 +1,7 @@
 # external libraries
 import jack
 import mido
+import mtsespy as esp
 import numpy as np
 import threading
 import time
@@ -8,6 +9,7 @@ import time
 # internal libraries
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
 from midi_implementation.midi1 import control_change as cc, realtime as rt
+import tuning as tun
 from utils import (
     Inport,
     Outport,
@@ -16,7 +18,6 @@ from utils import (
     set_gain4all,
     set_volume4all,
 )
-# import tuning as tun
 
 config = {
     "microtonOS": load_config(__file__, "../config/microtonOS.toml"),
@@ -398,6 +399,20 @@ def microtonOS(Display):
             n_pgms = 11 if n_pgms > 11 else n_pgms
             n_pgms = 0 if n_pgms == 1 else n_pgms
             self.pgm_leds = range(22, 22 + n_pgms)
+            self.retune()
+
+        def retune(self):
+            bank_config = config["tuning"]["bank"][self.bank]
+            bank_name = bank_config["name"]
+            pgm_config = bank_config["program"][self.pgm]
+            linear_freqs = tun.linear(bank_name, pgm_config)
+            esp.set_multi_channel_note_tunings(linear_freqs, linear_tun_ch)
+            lower_freqs = tun.lower(bank_name, pgm_config)
+            esp.set_multi_channel_note_tunings(lower_freqs, lower_tun_ch)
+            upper_freqs = tun.upper(bank_name, pgm_config)
+            esp.set_multi_channel_note_tunings(upper_freqs, upper_tun_ch)
+            pgm_name = pgm_config["name"]
+            esp.set_scale_name(pgm_name)
 
         def update(self, msg=None, enter_dev=False):
             if enter_dev:
@@ -436,7 +451,7 @@ def microtonOS(Display):
                         bank_name = config["tuning"]["bank"][self.bank]["program"][0][
                             "name"
                         ]
-                        # change tuning
+                        self.retune()
                     else:
                         bank_name = config["tuning"]["bank"][self.bank]["name"]
                     display.show(bank_name)
@@ -448,7 +463,7 @@ def microtonOS(Display):
                     pgm_name = config["tuning"]["bank"][self.bank]["program"][self.pgm][
                         "name"
                     ]
-                    # change tuning
+                    self.retune()
                     display.show(pgm_name)
 
             elif xq.is_pressed(msg, xq.clips):
@@ -640,7 +655,7 @@ def microtonOS(Display):
         def master(self, msg):
             to_internal.send(msg)
             show_cc(msg)
-            if msg.type != "program_change":
+            if msg.type != "program_change" and not hasattr(msg, "note"):
                 if start_page.lower["filter"] == "PC":
                     to_lower.send(msg)
                 elif start_page.lower["filter"] == "CC+PC":
@@ -658,7 +673,10 @@ def microtonOS(Display):
             if start_page.lower["filter"] == "PC":
                 if msg.type != "program_change":
                     if not start_page.midi["thru"]:
-                        to_internal.send(msg)
+                        if hasattr(msg, "note"):
+                            to_internal.send(msg.copy(channel=lower_tun_ch))
+                        else:
+                            to_internal.send(msg)
                         show_cc(msg)
                     if start_page.upper["filter"] == "PC":
                         to_upper.send(msg)
@@ -668,8 +686,11 @@ def microtonOS(Display):
             elif start_page.lower["filter"] == "CC+PC":
                 if msg.type not in ["program_change", "control_change"]:
                     if not start_page.midi["thru"]:
-                        to_internal.send(msg)
-                        show_cc(msg)
+                        if hasattr(msg, "note"):
+                            to_internal.send(msg.copy(channel=lower_tun_ch))
+                        else:
+                            to_internal.send(msg)
+                        # show_cc(msg)
                     if start_page.upper["filter"] in ["PC", "CC+PC"]:
                         to_upper.send(msg)
 
@@ -679,7 +700,10 @@ def microtonOS(Display):
             if start_page.upper["filter"] == "PC":
                 if msg.type != "program_change":
                     if not start_page.midi["thru"]:
-                        to_internal.send(msg)
+                        if hasattr(msg, "note"):
+                            to_internal.send(msg.copy(channel=upper_tun_ch))
+                        else:
+                            to_internal.send(msg)
                         show_cc(msg)
                     if start_page.lower["filter"] == "PC":
                         to_lower.send(msg)
@@ -689,8 +713,11 @@ def microtonOS(Display):
             elif start_page.upper["filter"] == "CC+PC":
                 if msg.type not in ["program_change", "control_change"]:
                     if not start_page.midi["thru"]:
-                        to_internal.send(msg)
-                        show_cc(msg)
+                        if hasattr(msg, "note"):
+                            to_internal.send(msg.copy(channel=upper_tun_ch))
+                        else:
+                            to_internal.send(msg)
+                        # show_cc(msg)
                     if start_page.lower["filter"] in ["PC", "CC+PC"]:
                         to_lower.send(msg)
 
@@ -703,68 +730,81 @@ def microtonOS(Display):
                 out = xq.set_tempo(self.bpm)
                 to_exquis.send(out)
 
-    to_exquis = Outport(client_name, name="Exquis")
-    to_internal = Outport(client_name, name="Internal")
-    to_lower = Outport(client_name, name="Lower")
-    to_upper = Outport(client_name, name="Upper")
-    to_clock = Outport(client_name, name="Clock")
+    if esp.has_ipc() and not esp.can_register_master():
+        esp.reinitialize()
 
-    def all_sound_off():
-        msg = mido.Message("control_change", control=cc.all_sound_off)
-        to_internal.send(msg)
-        to_lower.send(msg)
-        to_upper.send(msg)
+    with esp.Master():
+        linear_tun_ch = 0
+        lower_tun_ch = 1
+        upper_tun_ch = 2
+        for channel in range(16):
+            is_on = channel in [linear_tun_ch, lower_tun_ch, upper_tun_ch]
+            esp.set_multi_channel(is_on, channel)
 
-    start_page = StartPage()
-    instrument_page = InstrumentPage()
-    rhythm_page = RhythmPage()
-    isomorphic_page = IsomorphicPage()
-    tuning_page = TuningPage()
-    shift = Shift()
-    play = Play()
-    active_sensing = ActiveSensing()
-    script = Script()
+        to_exquis = Outport(client_name, name="Exquis")
+        to_internal = Outport(client_name, name="Internal")
+        to_lower = Outport(client_name, name="Lower")
+        to_upper = Outport(client_name, name="Upper")
+        to_clock = Outport(client_name, name="Clock")
 
-    from_exquis = Inport(script.exquis, client_name, name="Exquis")
-    from_master = Inport(script.master, client_name, name="Master")
-    from_upper = Inport(script.upper, client_name, name="Upper")
-    from_lower = Inport(script.lower, client_name, name="Lower")
-    from_clock = Inport(script.clock, client_name, name="Clock")
+        def all_sound_off():
+            msg = mido.Message("control_change", control=cc.all_sound_off)
+            to_internal.send(msg)
+            to_lower.send(msg)
+            to_upper.send(msg)
 
-    selector_client = jack.Client("microtonOS Selector")
+        start_page = StartPage()
+        instrument_page = InstrumentPage()
+        rhythm_page = RhythmPage()
+        isomorphic_page = IsomorphicPage()
+        tuning_page = TuningPage()
+        shift = Shift()
+        play = Play()
+        active_sensing = ActiveSensing()
+        script = Script()
 
-    @selector_client.set_process_callback
-    def process(frames):
-        assert frames == selector_client.blocksize
-        in_mono = selector_client.inports[0]
-        out_left = selector_client.outports[2 if start_page.mic["XentoTune"] else 0]
-        out_right = selector_client.outports[3 if start_page.mic["XentoTune"] else 1]
-        out_left.get_buffer()[:] = in_mono.get_buffer()
-        out_right.get_buffer()[:] = in_mono.get_buffer()
+        from_exquis = Inport(script.exquis, client_name, name="Exquis")
+        from_master = Inport(script.master, client_name, name="Master")
+        from_upper = Inport(script.upper, client_name, name="Upper")
+        from_lower = Inport(script.lower, client_name, name="Lower")
+        from_clock = Inport(script.clock, client_name, name="Clock")
 
-    selector_client.inports.register("input_MONO")
-    selector_client.outports.register("to_Vocoder_FL")
-    selector_client.outports.register("to_Vocoder_FR")
-    selector_client.outports.register("to_XentoTune_FL")
-    selector_client.outports.register("to_XentoTune_FR")
+        selector_client = jack.Client("microtonOS Selector")
 
-    def selector():
-        event = threading.Event()
-        with selector_client:
-            try:
-                event.wait()
-            except KeyboardInterrupt:
-                pass
+        @selector_client.set_process_callback
+        def process(frames):
+            assert frames == selector_client.blocksize
+            in_mono = selector_client.inports[0]
+            out_left = selector_client.outports[2 if start_page.mic["XentoTune"] else 0]
+            out_right = selector_client.outports[
+                3 if start_page.mic["XentoTune"] else 1
+            ]
+            out_left.get_buffer()[:] = in_mono.get_buffer()
+            out_right.get_buffer()[:] = in_mono.get_buffer()
 
-    make_threads(
-        [
-            from_exquis.open,
-            from_master.open,
-            from_upper.open,
-            from_lower.open,
-            from_clock.open,
-            active_sensing.run,
-            display.run,
-            selector,
-        ]
-    )
+        selector_client.inports.register("input_MONO")
+        selector_client.outports.register("to_Vocoder_FL")
+        selector_client.outports.register("to_Vocoder_FR")
+        selector_client.outports.register("to_XentoTune_FL")
+        selector_client.outports.register("to_XentoTune_FR")
+
+        def selector():
+            event = threading.Event()
+            with selector_client:
+                try:
+                    event.wait()
+                except KeyboardInterrupt:
+                    pass
+
+        make_threads(
+            [
+                from_exquis.open,
+                from_master.open,
+                from_upper.open,
+                from_lower.open,
+                from_clock.open,
+                active_sensing.run,
+                display.run,
+                selector,
+            ]
+        )
