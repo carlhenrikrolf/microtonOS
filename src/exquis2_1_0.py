@@ -401,18 +401,28 @@ def microtonOS(Display):
             self.pgm_leds = range(22, 22 + n_pgms)
             self.retune()
 
-        def retune(self):
-            bank_config = config["tuning"]["bank"][self.bank]
-            bank_name = bank_config["name"]
-            pgm_config = bank_config["program"][self.pgm]
-            linear_freqs = tun.linear(bank_name, pgm_config)
-            esp.set_multi_channel_note_tunings(linear_freqs, linear_tun_ch)
-            lower_freqs = tun.lower(bank_name, pgm_config)
-            esp.set_multi_channel_note_tunings(lower_freqs, lower_tun_ch)
-            upper_freqs = tun.upper(bank_name, pgm_config)
-            esp.set_multi_channel_note_tunings(upper_freqs, upper_tun_ch)
-            pgm_name = pgm_config["name"]
-            esp.set_scale_name(pgm_name)
+        def retune(self, msg=None):
+            if msg is None:
+                bank_config = config["tuning"]["bank"][self.bank]
+                bank_name = bank_config["name"]
+                pgm_config = bank_config["program"][self.pgm]
+                self.linear_freqs = tun.linear(bank_name, pgm_config)
+                esp.set_multi_channel_note_tunings(self.linear_freqs, linear_tun_ch)
+                esp.set_note_tunings(self.linear_freqs)
+                self.lower_freqs = tun.lower(bank_name, pgm_config)
+                esp.set_multi_channel_note_tunings(self.lower_freqs, lower_tun_ch)
+                self.upper_freqs = tun.upper(bank_name, pgm_config)
+                esp.set_multi_channel_note_tunings(self.upper_freqs, upper_tun_ch)
+                pgm_name = pgm_config["name"]
+                esp.set_scale_name(pgm_name)
+            elif msg.type == "note_on" and msg.velocity > 0:
+                if msg.channel == lower_tun_ch:
+                    freq = self.lower_freqs[msg.note]
+                elif msg.channel == upper_tun_ch:
+                    freq = self.upper_freqs[msg.note]
+                else:
+                    freq = self.linear_freqs[msg.note]
+                esp.set_note_tuning(freq, msg.note)
 
         def update(self, msg=None, enter_dev=False):
             if enter_dev:
@@ -674,7 +684,9 @@ def microtonOS(Display):
                 if msg.type != "program_change":
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
-                            to_internal.send(msg.copy(channel=lower_tun_ch))
+                            note = msg.copy(channel=lower_tun_ch)
+                            tuning_page.retune(note)
+                            to_internal.send(note)
                         else:
                             to_internal.send(msg)
                         show_cc(msg)
@@ -687,7 +699,9 @@ def microtonOS(Display):
                 if msg.type not in ["program_change", "control_change"]:
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
-                            to_internal.send(msg.copy(channel=lower_tun_ch))
+                            note = msg.copy(channel=lower_tun_ch)
+                            tuning_page.retune(note)
+                            to_internal.send(note)
                         else:
                             to_internal.send(msg)
                         # show_cc(msg)
@@ -701,7 +715,9 @@ def microtonOS(Display):
                 if msg.type != "program_change":
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
-                            to_internal.send(msg.copy(channel=upper_tun_ch))
+                            note = msg.copy(channel=upper_tun_ch)
+                            tuning_page.retune(note)
+                            to_internal.send(note)
                         else:
                             to_internal.send(msg)
                         show_cc(msg)
@@ -714,7 +730,9 @@ def microtonOS(Display):
                 if msg.type not in ["program_change", "control_change"]:
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
-                            to_internal.send(msg.copy(channel=upper_tun_ch))
+                            note = msg.copy(channel=upper_tun_ch)
+                            tuning_page.retune(note)
+                            to_internal.send(note)
                         else:
                             to_internal.send(msg)
                         # show_cc(msg)
