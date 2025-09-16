@@ -1,6 +1,8 @@
 # external libraries
+import jack
 import mido
 import numpy as np
+import threading
 import time
 
 # internal libraries
@@ -53,7 +55,7 @@ def microtonOS(Display):
 
     class StartPage:
         def __init__(self):
-            self.mic = {"muted": False, "gain": 1.0}
+            self.mic = {"XentoTune": False, "gain": 1.0}
             self.midi = {"thru": False, "volume": 1.0}
             self.lower = {"local": True, "filter": "PC"}
             self.upper = {"local": True, "filter": "PC"}
@@ -68,7 +70,7 @@ def microtonOS(Display):
             else:
                 color = green * self.mic["gain"]
                 color *= 2
-            fx = xq.pulse2red if self.mic["muted"] else xq.no_fx
+            fx = xq.pulse2red if self.mic["XentoTune"] else xq.no_fx
             return color, fx
 
         def midi_led(self):
@@ -126,20 +128,22 @@ def microtonOS(Display):
                 to_exquis.send(misc_leds)
                 display.show("")
             elif xq.is_pressed(msg, xq.encoder_button[0]):
-                self.mic["muted"] = not self.mic["muted"]
-                set_gain4all(muted=self.mic["muted"])
+                self.mic["XentoTune"] = not self.mic["XentoTune"]
+                # set_gain4all(muted=self.mic["muted"])
                 color, fx = self.mic_led()
                 led_colors = xq.set_led_colors(
                     [color], fx=[fx], start_index=xq.encoder_knob[0]
                 )
                 to_exquis.send(led_colors)
-                display.show("mic", value="on" if not self.mic["muted"] else "off")
+                display.show(
+                    "mic", value="XentoTune" if self.mic["XentoTune"] else "Vocoder"
+                )
             elif xq.is_turned(msg, xq.encoder_knob[0]):
                 change = xq.is_turned(msg, xq.encoder_knob[0])
                 self.mic["gain"] += change / 3.0
                 self.mic["gain"] = 1.0 if self.mic["gain"] > 1.0 else self.mic["gain"]
                 self.mic["gain"] = 0.0 if self.mic["gain"] < 0.0 else self.mic["gain"]
-                set_gain4all(level=self.mic["gain"], muted=self.mic["muted"])
+                set_gain4all(level=self.mic["gain"], muted=False)  # self.mic["muted"])
                 color, fx = self.mic_led()
                 led_colors = xq.set_led_colors(
                     [color], fx=[fx], start_index=xq.encoder_knob[0]
@@ -727,6 +731,31 @@ def microtonOS(Display):
     from_lower = Inport(script.lower, client_name, name="Lower")
     from_clock = Inport(script.clock, client_name, name="Clock")
 
+    selector_client = jack.Client("microtonOS Selector")
+
+    @selector_client.set_process_callback
+    def process(frames):
+        assert frames == selector_client.blocksize
+        in_mono = selector_client.inports[0]
+        out_left = selector_client.outports[2 if start_page.mic["XentoTune"] else 0]
+        out_right = selector_client.outports[3 if start_page.mic["XentoTune"] else 1]
+        out_left.get_buffer()[:] = in_mono.get_buffer()
+        out_right.get_buffer()[:] = in_mono.get_buffer()
+
+    selector_client.inports.register("input_MONO")
+    selector_client.outports.register("to_Vocoder_FL")
+    selector_client.outports.register("to_Vocoder_FR")
+    selector_client.outports.register("to_XentoTune_FL")
+    selector_client.outports.register("to_XentoTune_FR")
+
+    def selector():
+        event = threading.Event()
+        with selector_client:
+            try:
+                event.wait()
+            except KeyboardInterrupt:
+                pass
+
     make_threads(
         [
             from_exquis.open,
@@ -736,5 +765,6 @@ def microtonOS(Display):
             from_clock.open,
             active_sensing.run,
             display.run,
+            selector,
         ]
     )
