@@ -10,6 +10,7 @@ import time
 from display import Display
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
 from midi_implementation.midi1 import control_change as cc, realtime as rt
+from midi_implementation import mts
 import tuning as tun
 from utils import (
     Inport,

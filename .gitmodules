@@ -16,7 +16,6 @@
 [submodule "third_party/ripplerx"]
 	path = third_party/ripplerx
 	url = https://github.com/tiagolr/ripplerx.git
-	tag = v1.5.18
 	ignore = dirty
 [submodule "third_party/aeolus_plugin"]
 	path = third_party/aeolus_plugin

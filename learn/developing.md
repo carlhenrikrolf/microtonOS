@@ -110,3 +110,17 @@ sudo cp -r build/RipplerX_artefacts/Release/VST3/RipplerX.vst3 /usr/lib/vst3/
 **Dexed**
 
 Available in software downloader, but that one does not support microtuning.
+
+[install instructions](https://github.com/asb2m10/dexed?tab=readme-ov-file)
+
+[dependencies](https://github.com/asb2m10/dexed/wiki/Linux-build-dependencies)
+
+```bash
+sudo apt install libx11-dev libcurl4-gnutls-dev libfreetype6-dev libasound2-dev libxinerama-dev libjack-jackd2-dev libxcursor-dev libxrandr-dev
+git clone https://github.com/asb2m10/dexed.git --recurse-submodules
+cd dexed/
+mkdir build
+cd build
+cmake .. -DJUCE_COPY_PLUGIN_AFTER_BUILD=TRUE
+cmake --build .
+```
