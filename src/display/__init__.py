@@ -11,7 +11,7 @@ class Display:
         self.osc_display = OscDisplay()
         self.oled_display = OledDisplay()
 
-    def show(self, name, value=None, flipside=None, **kwargs):
+    def show(self, name=None, value=None, flipside=None, **kwargs):
         self.osc_display.show(name, value, flipside)
         self.oled_display.show(name, value, flipside, **kwargs)
 

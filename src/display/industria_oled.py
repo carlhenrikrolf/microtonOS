@@ -4,6 +4,7 @@ from luma.core.render import canvas
 from luma.oled.device import ssd1306
 from PIL import ImageFont
 import time
+from gpiozero import Button
 
 # rev.1 users set port=0
 # substitute spi(device=0, port=0) below if using that interface
@@ -12,6 +13,8 @@ serial = i2c(port=1, address=0x3C)
 
 # substitute ssd1331(...) or sh1106(...) below if using that device
 device = ssd1306(serial)
+
+button = Button(4)
 
 
 class Display:
@@ -37,6 +40,7 @@ class Display:
         self.flipside = ""
         self.is_flipped = False
         self.flipped_is_on = False
+        self.was_pressed = False
 
     def show(self, name=None, value=None, flipside=None):
         self.start_time = time.time()
@@ -49,8 +53,8 @@ class Display:
             self.name_height = bbox[3] - bbox[1]
             self.is_on = True
         if flipside is not None:
-            self.flipside = flipside
-            self.flip_is_on = True
+            self.flipside = str(flipside)
+            self.flipped_is_on = True
 
     def run(self):
         while True:
@@ -99,3 +103,9 @@ class Display:
                     with canvas(device) as draw:
                         pass
             time.sleep(self.refresh_rate)
+            if button.is_pressed:
+                if not self.was_pressed:
+                    self.is_flipped = not self.is_flipped
+                    self.was_pressed = True
+            else:
+                self.was_pressed = False

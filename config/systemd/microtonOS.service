@@ -5,6 +5,7 @@ After=graphical.targets
 [Service]
 User=pi
 Environment=XDG_RUNTIME_DIR="/run/user/1000"
+WorkingDirectory=/home/pi/microtonOS
 ExecStart=/usr/bin/pw-jack /home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src
 Restart=always
 RestartSec=2s

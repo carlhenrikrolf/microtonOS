@@ -415,6 +415,7 @@ class TuningPage:
             esp.set_multi_channel_note_tunings(self.upper_freqs, upper_tun_ch)
             pgm_name = pgm_config["name"]
             esp.set_scale_name(pgm_name)
+            self.last_freq = None
         elif msg.type == "note_on" and msg.velocity > 0:
             if msg.channel == lower_tun_ch:
                 freq = self.lower_freqs[msg.note]
@@ -423,6 +424,11 @@ class TuningPage:
             else:
                 freq = self.linear_freqs[msg.note]
             esp.set_note_tuning(freq, msg.note)
+            if self.last_freq is not None:
+                cents = np.log2(freq / self.last_freq) * 1200
+                cents = round(cents, ndigits=1)
+                display.show(flipside=str(cents) + "c")
+            self.last_freq = freq
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
