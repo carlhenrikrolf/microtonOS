@@ -106,3 +106,7 @@ Move the LV2 and VST3 plugins:
 sudo cp -r build/RipplerX_artefacts/Release/LV2/RipplerX.lv2 /usr/lib/lv2/
 sudo cp -r build/RipplerX_artefacts/Release/VST3/RipplerX.vst3 /usr/lib/vst3/
 ```
+
+**Dexed**
+
+Available in software downloader, but that one does not support microtuning.
