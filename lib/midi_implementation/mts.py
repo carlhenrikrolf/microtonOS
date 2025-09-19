@@ -1,5 +1,6 @@
 import mido
 import mtsespy as esp
+import numpy as np
 import time
 
 # sysex bytes
@@ -45,6 +46,24 @@ def encode(name: str, length=16, encoding="ascii"):
         result[i] = letter.encode(encoding, errors="replace").hex()
         result[i] = int(result[i], base=16)
     return result
+
+
+def to_notes_and_cents(frequency):  # double check
+    standard = [440.0 * 2 ** ((i - 69) / 12) for i in range(128)]
+    notes = [0] * len(frequency)
+    cents = [0.0] * len(frequency)
+    for i, freq in enumerate(frequency):
+        for j in range(128):
+            if freq > standard[-1]:
+                notes[i] = 127
+                break
+            elif standard[j] <= freq:
+                continue
+            elif standard[-1] >= freq >= standard[0]:
+                notes[i] = j - 1
+                cents[i] = float(np.log2(freq / standard[j - 1]) * 1200)
+                break
+    return notes, cents
 
 
 # sysex messages
@@ -127,7 +146,7 @@ def keybased_dump(
     if tuning_bank is None:
         header_length = 5
         message_length = header_length + data_length
-        data=[-1] * message_length
+        data = [-1] * message_length
         data[:header_length] = [
             universal_non_realtime,
             device_number,
@@ -138,7 +157,7 @@ def keybased_dump(
     else:
         header_length = 6
         message_length = header_length + data_length
-        data=[-1] * message_length
+        data = [-1] * message_length
         data[:header_length] = [
             universal_non_realtime,
             device_number,
@@ -160,11 +179,11 @@ def keybased_dump(
             tmp = round(c / resolution)
             yy[i] = tmp // 128
             zz[i] = tmp % 128
-    words = range(header_length + 16, message_length-1, 3)
+    words = range(header_length + 16, message_length - 1, 3)
     for key, i in enumerate(words):
         data[i : i + 3] = [xx[key], yy[key], zz[key]]
-    data[message_length-1] = checksum(data[:-1])
-    return mido.Message('sysex', data=data)
+    data[message_length - 1] = checksum(data[:-1])
+    return mido.Message("sysex", data=data)
 
 
 def octave(n_bytes, channels, realtime=True):
@@ -295,9 +314,7 @@ class MtsEsp:
         semitones = [i for i in range(128)]
         cents = [0] * 128
         for note in range(128):
-            retuning = esp.retuning_in_semitones(
-                self.client, note, -1
-            )
+            retuning = esp.retuning_in_semitones(self.client, note, -1)
             fraction = note + retuning
             semitones[note], cents[note], _ = self.convert(fraction)
         sysex = keybased_dump(
@@ -322,9 +339,7 @@ class MtsEsp:
                     should_filter = esp.should_filter_note(
                         self.client, msg.note, msg.channel
                     )
-                    should_filter = (
-                        should_filter or not in_range
-                    )
+                    should_filter = should_filter or not in_range
                     if not should_filter:
                         self.is_on[msg.note][msg.channel] = True
                         note_on = msg.copy(channel=tx_channel)
