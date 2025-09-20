@@ -61,10 +61,18 @@ def show_cc(msg):
             Pianoteq = config["control_change"]["channel"][msg.channel]["transmitted"][
                 control
             ]["Pianoteq"]
-            display.show(
-                Pianoteq,
-                msg.value,
-            )
+            if type(Pianoteq) is str:
+                display.show(
+                    name=Pianoteq,
+                    value=msg.value,
+                )
+            else:
+                name = Pianoteq[0]
+                label = Pianoteq[1]
+                i = int(msg.value / 128 * len(label))
+                display.show(name=name, value=label[i])
+        else:
+            display.show(name="", value=msg.value)
 
 
 class StartPage:

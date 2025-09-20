@@ -198,68 +198,72 @@ class MinilogueXD:
                     return 2 * self.CVin2_value - 127
             return None
 
-    # USER SCALE DATA DUMP REQUEST
-    # xd receives it
-    # specify scale number
-    # USER OCTAVE DATA DUMP REQUEST
-    # simile
-    # USER SCALE DATA DUMP
-    # xd can receive or send it
-    # xd sends it when choosing "All Dump"
-    # specify scale number and all pitches
-    # USER SCALE DATA DUMP (CURRENT)
-    # xd receives it
-    # specify scale number and all pitches
-    # xd sends it when receiving REQUEST?
-    # USER OCTAVE DATA DUMP
-    # xd can receive or send it
-    # xd sends it when choosing "All Dump"
-    # specify scale number and pitches for an octave
-    # USER SCALE DATA DUMP (CURRENT)
-    # not sure what the difference is
-    # this one is hex45 while the other was hex44
-    # this is in response to OCTAVE DATA DUMPR REQUEST,
-    # so maybe typo
-
-    def header(self, channel):
-        assert channel in range(16)
-        data = [0x42]
-        data.append(0x30 + channel)
-        data.append(0x00)
-        data.append(0x01)
-        data.append(0x44)
-        return data
-
-    def user_scale_data_dump_request(self, channel, scale_number):
-        assert scale_number in range(8)
-        data = self.header(channel)
-        data.append(0x14)
-        data.append(scale_number)
-        sysex = mido.Message("sysex", data=data)
-        return sysex
-
-    def user_scale_data_dump_current(self, channel, notes, cents, scale_number=None):
-        data = self.header(channel)
-        data.append(0x44)
-        if scale_number is None:
-            current = 0x7F
-            data.append(current)
-        else:
-            assert scale_number in range(8)
-            data.append(scale_number)
-        resolution = resolution = 100 / 2**14
-        yy = [0] * 128
-        zz = [0] * 128
-        for i, c in enumerate(cents):
-            tmp = round(c / resolution)
-            yy[i] = tmp // 128
-            zz[i] = tmp % 128
-        for i in range(128):
-            data.append(notes[i])
-            data.append(yy[i])
-            data.append(zz[i])
-        sysex = mido.Message("sysex", data=data)
-        return sysex
-
 
 minilogue_xd = MinilogueXD()
+
+
+# USER SCALE DATA DUMP REQUEST
+# xd receives it
+# specify scale number
+# USER OCTAVE DATA DUMP REQUEST
+# simile
+# USER SCALE DATA DUMP
+# xd can receive or send it
+# xd sends it when choosing "All Dump"
+# specify scale number and all pitches
+# USER SCALE DATA DUMP (CURRENT)
+# xd receives it
+# specify scale number and all pitches
+# xd sends it when receiving REQUEST?
+# USER OCTAVE DATA DUMP
+# xd can receive or send it
+# xd sends it when choosing "All Dump"
+# specify scale number and pitches for an octave
+# USER SCALE DATA DUMP (CURRENT)
+# not sure what the difference is
+# this one is hex45 while the other was hex44
+# this is in response to OCTAVE DATA DUMPR REQUEST,
+# so maybe typo
+
+
+def header(channel):
+    assert channel in range(16)
+    data = manufacturer_id
+    data.append(0x30 + channel)
+    data.append(0x00)
+    data.append(0x01)
+    data.append(0x44)
+    return data
+
+
+def user_scale_data_dump_request(channel, scale_number):
+    assert scale_number in range(8)
+    data = header(channel)
+    data.append(0x14)
+    data.append(scale_number)
+    sysex = mido.Message("sysex", data=data)
+    return sysex
+
+
+def user_scale_data_dump_current(channel, notes, cents, scale_number=None):
+    data = header(channel)
+    data.append(0x44)
+    if scale_number is None:
+        current = 0x7F
+        data.append(current)
+    else:
+        assert scale_number in range(8)
+        data.append(scale_number)
+    resolution = resolution = 100 / 2**14
+    yy = [0] * 128
+    zz = [0] * 128
+    for i, c in enumerate(cents):
+        tmp = round(c / resolution)
+        yy[i] = tmp // 128
+        zz[i] = tmp % 128
+    for i in range(128):
+        data.append(notes[i])
+        data.append(yy[i])
+        data.append(zz[i])
+    sysex = mido.Message("sysex", data=data)
+    return sysex

@@ -21,17 +21,28 @@ received = config["control_change"]["channel"][internal_channel]["received"]
 
 # definitions
 class Script:
+    def __init__(self):
+        self.is_local = False
+
     def minilogue_xd(self, msg):
-        if msg.type == "control_change":
-            msg.channel = internal_channel
+        if not self.is_local and msg.type in [
+            "control_change",
+            "program_change",
+            "sysex",
+        ]:
+            to_minilogue_xd.send(msg)
         if msg.type == "clock":
             to_clock.send(msg)
+        elif msg.type == "control_change":
+            if xd.is_continuous(msg):
+                to_microtonOS.send(msg.copy(channel=internal_channel))
         else:
             to_microtonOS.send(msg)
 
     def microtonOS(self, msg):
         ignore = msg.type == "program_change"
-        ignore = ignore or cc.is_in(msg, cc.bank_select)
+        ignore |= cc.is_in(msg, cc.bank_select)
+        ignore |= msg.type == "control_change" and msg.channel == internal_channel
         if not ignore:
             if msg.type == "control_change":
                 if any(x.items() <= msg.dict().items() for x in received["CVin1"]):
@@ -58,6 +69,9 @@ class Script:
                     msg = xd.CVin2(
                         bimodal=False, value=-msg.value, channel=external_channel
                     )
+                if msg.is_cc(cc.local_onoff_switch):
+                    self.is_local = True if msg.value >= 64 else False
+                    print("local", self.is_local)
             elif hasattr(msg, "channel"):
                 msg.channel = external_channel
             to_minilogue_xd.send(msg)

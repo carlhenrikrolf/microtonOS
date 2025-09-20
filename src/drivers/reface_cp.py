@@ -25,7 +25,12 @@ received = config["control_change"]["channel"][internal_channel]["received"]
 
 
 class Script:
+    def __init__(self):
+        self.is_local = False
+
     def reface_cp(self, msg):
+        if not self.is_local and msg.type in ["control_change", "sysex"]:
+            to_reface_cp.send(msg)
         if msg.type == "note_on" and msg.velocity == 0:
             to_microtonOS.send(
                 mido.Message(
@@ -464,7 +469,7 @@ class Script:
             msg.channel = external_channel
         if msg.type != "control_change":
             to_reface_cp.send(msg)
-        else:
+        elif msg.channel != internal_channel:
             if any(x.items() <= msg.dict().items() for x in received["sustain"]):
                 pass
             elif any(x.items() <= msg.dict().items() for x in received["sostenuto"]):
@@ -478,6 +483,7 @@ class Script:
             elif any(x.items() <= msg.dict().items() for x in received["volume"]):
                 msg = cp.volume(value=msg.value, channel=external_channel)
             elif msg.is_cc(cc.local_onoff_switch):
+                self.is_local = True if msg.value >= 64 else False
                 msg = cp.local_control(cp.on if msg.value >= 64 else cp.off)
             to_reface_cp.send(msg)
 
