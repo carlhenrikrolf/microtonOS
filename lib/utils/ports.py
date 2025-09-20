@@ -1,6 +1,7 @@
 import mido
 import time
 
+
 def is_expression(msg):
     if msg.type in ["aftertouch", "polytouch", "pitchwheel"]:
         return True
@@ -8,7 +9,8 @@ def is_expression(msg):
         return True
     else:
         return False
-    
+
+
 class Outport:
     def __init__(self, client_name, name=None, verbose=False):
         self.name = name
@@ -22,13 +24,16 @@ class Outport:
                 self.name + " from " + client_name, client_name=client_name
             )
 
-    def send(self, msg):
-        self.output.send(msg)
-        if self.verbose and not is_expression(msg):
-            if self.name is None:
-                print("Send:", msg)
-            else:
-                print("Send (to " + self.name + "):", msg)
+    def send(self, msg, seconds_between=0):
+        messages = msg if hasattr("__len__") else [msg]
+        for message in messages:
+            self.output.send(message)
+            if self.verbose and not is_expression(message):
+                if self.name is None:
+                    print("Send:", message)
+                else:
+                    print("Send (to " + self.name + "):", message)
+            time.sleep(seconds_between)
 
 
 class Inport:

@@ -3,7 +3,12 @@ import subprocess
 import os
 
 # internal modules
-from utils import Outport, Inport, handle_terminations, load_config
+from utils import (
+    Outport,
+    Inport,
+    handle_terminations,
+    load_config,
+)
 from midi_implementation.midi1 import control_change as cc
 
 # configurations
