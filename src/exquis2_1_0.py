@@ -44,6 +44,7 @@ display = Display()
 def mts_message(freqs, pgm_name=""):
     notes, cents = mts.to_notes_and_cents(freqs)
     tuning_program = 0
+    print(cents)
     sysex = mts.keybased_dump(
         pgm_name,
         notes,
@@ -448,27 +449,26 @@ class TuningPage:
                 freq = self.upper_freqs[msg.note]
             esp.set_note_tuning(freq, msg.note)
             self.dynamic_freqs[msg.note] = freq
-            pgm_name = config["tuning"]["bank"][self.bank]["program"][self.pgm]["name"]
-            sysex = mts_message(self.dynamic_freqs, pgm_name)
-            to_lower.send(sysex)
-            to_upper.send(sysex)
+            # pgm_name = config["tuning"]["bank"][self.bank]["program"][self.pgm]["name"]
+            # sysex = mts_message(self.dynamic_freqs, pgm_name)
+            # to_lower.send(sysex)
+            # to_upper.send(sysex)
             if self.last_freq is not None:
                 cents = np.log2(freq / self.last_freq) * 1200
                 cents = round(cents, ndigits=1)
                 display.show(flipside=str(cents) + "c")
             self.last_freq = freq
 
-    def untune(self, channel):
-        # return None
+    def sysex(self, channel=None):
         pgm_name = config["tuning"]["bank"][self.bank]["program"][self.pgm]["name"]
-        if channel == lower_tun_ch:
-            sysex = mts_message(self.lower_freqs, pgm_name)
-            to_lower.send(sysex)
+        if channel == linear_tun_ch:
+            return mts_message(self.linear_freqs, pgm_name)
+        elif channel == lower_tun_ch:
+            return mts_message(self.lower_freqs, pgm_name)
         elif channel == upper_tun_ch:
-            sysex = mts_message(self.upper_freqs, pgm_name)
-            to_upper.send(sysex)
+            return mts_message(self.upper_freqs, pgm_name)
         else:
-            raise ValueError("Invalid channel")
+            return mts_message(self.dynamic_freqs, pgm_name)
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
@@ -718,7 +718,14 @@ class Script:
                     to_upper.send(msg)
 
     def lower(self, msg):
-        tuning_page.retune(msg, channel=lower_tun_ch)
+        untune = False
+        if msg.type == "note_on" and msg.velocity > 0:
+            sysex = tuning_page.sysex(lower_tun_ch)
+            to_lower.send(sysex)
+            if start_page.lower["filter"] != "MIDI":
+                tuning_page.retune(msg, channel=lower_tun_ch)
+                to_upper.send(sysex)
+                untune = True
         if start_page.lower["filter"] == "PC":
             if msg.type != "program_change":
                 if not start_page.midi["thru"]:
@@ -748,15 +755,28 @@ class Script:
                     to_upper.send(msg)
         if not start_page.lower["local"]:
             to_lower.send(msg)
+        if untune:
+            sysex = tuning_page.sysex(upper_tun_ch)
+            to_upper.send(sysex)
 
     def upper(self, msg):
-        tuning_page.retune(msg, channel=upper_tun_ch)
+        untune = False
+        if msg.type == "note_on" and msg.velocity > 0:
+            sysex = tuning_page.sysex(upper_tun_ch)
+            to_upper.send(sysex)
+            if start_page.upper["filter"] != "MIDI":
+                tuning_page.retune(msg, upper_tun_ch)
+                to_lower.send(msg)
+                untune = True
+        # tuning_page.retune(msg, channel=upper_tun_ch)
+        # if msg.type == "note_on" and msg.velocity > 0:
+        #     sysex = tuning_page.sysex(upper_tun_ch)
+        #     to_upper.send(sysex)
         if start_page.upper["filter"] == "PC":
             if msg.type != "program_change":
                 if not start_page.midi["thru"]:
                     if hasattr(msg, "note"):
                         note = msg.copy(channel=upper_tun_ch)
-                        # tuning_page.retune(note)
                         to_internal.send(note)
                     else:
                         to_internal.send(msg)
@@ -771,15 +791,16 @@ class Script:
                 if not start_page.midi["thru"]:
                     if hasattr(msg, "note"):
                         note = msg.copy(channel=upper_tun_ch)
-                        # tuning_page.retune(note)
                         to_internal.send(note)
                     else:
                         to_internal.send(msg)
-                    # show_cc(msg)
                 if start_page.lower["filter"] in ["PC", "CC+PC"]:
                     to_lower.send(msg)
         if not start_page.upper["local"]:
             to_upper.send(msg)
+        if untune:
+            sysex = tuning_page.sysex(lower_tun_ch)
+            to_lower.send(sysex)
 
     def clock(self, msg):
         to_clock.send(msg)

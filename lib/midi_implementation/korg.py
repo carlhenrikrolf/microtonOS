@@ -226,35 +226,42 @@ minilogue_xd = MinilogueXD()
 # so maybe typo
 
 
-def header(channel):
+def scale_header(channel):
     assert channel in range(16)
-    data = manufacturer_id
+    data = [manufacturer_id]
     data.append(0x30 + channel)
     data.append(0x00)
     data.append(0x01)
-    data.append(0x44)
+    scale = 0x44
+    data.append(scale)
     return data
 
 
 def user_scale_data_dump_request(channel, scale_number):
     assert scale_number in range(8)
-    data = header(channel)
-    data.append(0x14)
+    data = scale_header(channel)
+    user_scale_request = 0x14
+    data.append(user_scale_request)
     data.append(scale_number)
     sysex = mido.Message("sysex", data=data)
     return sysex
 
 
-def user_scale_data_dump_current(channel, notes, cents, scale_number=None):
-    data = header(channel)
-    data.append(0x44)
+def user_scale_data_dump(channel, notes, cents, scale_number=None):
+    """
+    If scale number is not provided (the default),
+    the current scale will be edited
+    """
+    data = scale_header(channel)
+    user_scale = 0x44
+    data.append(user_scale)
     if scale_number is None:
         current = 0x7F
         data.append(current)
     else:
         assert scale_number in range(8)
         data.append(scale_number)
-    resolution = resolution = 100 / 2**14
+    resolution = 100 / 2**14
     yy = [0] * 128
     zz = [0] * 128
     for i, c in enumerate(cents):

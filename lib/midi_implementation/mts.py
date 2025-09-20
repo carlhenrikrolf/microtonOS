@@ -50,6 +50,7 @@ def encode(name: str, length=16, encoding="ascii"):
 
 def to_notes_and_cents(frequency):  # double check
     standard = [440.0 * 2 ** ((i - 69) / 12) for i in range(128)]
+    eps = 1e-13
     notes = [0] * len(frequency)
     cents = [0.0] * len(frequency)
     for i, freq in enumerate(frequency):
@@ -61,7 +62,8 @@ def to_notes_and_cents(frequency):  # double check
                 continue
             elif standard[-1] >= freq >= standard[0]:
                 notes[i] = j - 1
-                cents[i] = float(np.log2(freq / standard[j - 1]) * 1200)
+                tmp = np.log2(freq / standard[j - 1]) * 1200
+                cents[i] = float(min([tmp, max_cents - eps]))
                 break
     return notes, cents
 
