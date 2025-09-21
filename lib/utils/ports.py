@@ -25,7 +25,7 @@ class Outport:
             )
 
     def send(self, msg, seconds_between=0):
-        messages = msg if hasattr("__len__") else [msg]
+        messages = [msg] if type(msg) is mido.Message else msg
         for message in messages:
             self.output.send(message)
             if self.verbose and not is_expression(message):

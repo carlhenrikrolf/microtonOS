@@ -29,18 +29,3 @@ def handle_terminations(processes):
         sys.exit(0)
 
     signal.signal(signal.SIGTERM, signal_handler)
-
-
-def handle_exits(processes, poll_rate=0.3):
-    def poll_exits():
-        running = True
-        while running:
-            if hasattr(processes, "__len__"):
-                for process in processes:
-                    running &= True if process.poll() is None else False
-            else:
-                running = True if processes.poll() is None else False
-            time.sleep(poll_rate)
-        raise ChildProcessError("Window was closed or process otherwise exited")
-
-    return poll_exits
