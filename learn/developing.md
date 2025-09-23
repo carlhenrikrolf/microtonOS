@@ -137,3 +137,16 @@ cd surge
 git submodule update --init --recursive
 cmake -Bbuild
 cmake --build build --config Release --target surge-staged-assets
+
+**Carla**
+
+```bash
+cd Carla
+make
+```
+
+The following command will build the apps in `/usr/bin/`, `/usr/lib` etc.
+```bash
+sudo make install PREFIX=/usr
+```
+(It uses sudo and leaves out DESTDIR.)

@@ -25,3 +25,7 @@
 	path = third_party/dexed
 	url = https://github.com/asb2m10/dexed.git
 	ignore = dirty
+[submodule "third_party/surge"]
+	path = third_party/surge
+	url = https://github.com/surge-synthesizer/surge.git
+	ignore = unrtacked
