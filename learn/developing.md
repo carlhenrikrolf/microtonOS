@@ -131,12 +131,16 @@ cmake --build .
 ```
 
 **Surge XT**
-
+```bash
 git clone https://github.com/surge-synthesizer/surge.git
 cd surge
+```
+
+```bash
 git submodule update --init --recursive
 cmake -Bbuild
 cmake --build build --config Release --target surge-staged-assets
+```
 
 **Carla**
 
@@ -150,3 +154,16 @@ The following command will build the apps in `/usr/bin/`, `/usr/lib` etc.
 sudo make install PREFIX=/usr
 ```
 (It uses sudo and leaves out DESTDIR.)
+
+**SonoBus**
+
+```bash
+git clone https://github.com/sonosaurus/sonobus.git --recurse-submodules
+cd sonobus
+```
+
+```bash
+cd linux
+./deb_get_prereqs.sh
+./build.sh
+```
