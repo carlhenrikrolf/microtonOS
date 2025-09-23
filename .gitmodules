@@ -1,11 +1,11 @@
 [submodule "mts-dylib-reference"]
 	path = third_party/mts-dylib-reference
 	url = https://github.com/baconpaul/mts-dylib-reference.git
-	ignore = dirty
+	ignore = untracked
 [submodule "tuneBfree"]
 	path = third_party/tuneBfree
 	url = git@github.com:carlhenrikrolf/tuneBfree.git
-	ignore = dirty
+	ignore = untracked
 [submodule "third_party/Carla"]
 	path = third_party/Carla
 	url = https://github.com/falkTX/Carla.git
@@ -13,19 +13,19 @@
 [submodule "third_party/xentotune"]
 	path = third_party/xentotune
 	url = https://github.com/narenratan/xentotune.git
-	ignore = dirty
+	ignore = untracked
 [submodule "third_party/ripplerx"]
 	path = third_party/ripplerx
 	url = https://github.com/tiagolr/ripplerx.git
-	ignore = dirty
+	ignore = untracked
 [submodule "third_party/aeolus_plugin"]
 	path = third_party/aeolus_plugin
 	url = https://github.com/Archie3d/aeolus_plugin.git
-	ignore = dirty
+	ignore = untracked
 [submodule "third_party/dexed"]
 	path = third_party/dexed
 	url = https://github.com/asb2m10/dexed.git
-	ignore = dirty
+	ignore = untracked
 [submodule "third_party/surge"]
 	path = third_party/surge
 	url = https://github.com/surge-synthesizer/surge.git
