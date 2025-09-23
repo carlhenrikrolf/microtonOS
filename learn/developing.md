@@ -63,6 +63,11 @@ sudo cp -r DecentSampler.vst3 /usr/lib/vst3
 ```
 Cannot load tunings dynamically but accepts mpe.
 
+Samples can be loaded into
+```bash
+cp -r <sample library> /home/pi/.config/Sample\ Libraries/
+```
+
 **Open Stage Control**
 To run **Open Stage Control**, you need [nodejs](https://nodejs.org/en/download)
 
@@ -124,3 +129,11 @@ cd build
 cmake .. -DJUCE_COPY_PLUGIN_AFTER_BUILD=TRUE
 cmake --build .
 ```
+
+**Surge XT**
+
+git clone https://github.com/surge-synthesizer/surge.git
+cd surge
+git submodule update --init --recursive
+cmake -Bbuild
+cmake --build build --config Release --target surge-staged-assets

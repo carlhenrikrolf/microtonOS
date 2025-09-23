@@ -14,274 +14,168 @@
   <BeatsPerMinute>120</BeatsPerMinute>
  </Transport>
 
- <!-- x42 Whirl - Rotary Speaker -->
+ <!-- DecentSampler -->
  <Plugin>
   <Info>
-   <Type>LV2</Type>
-   <Name>x42 Whirl - Rotary Speaker</Name>
-   <URI>http://gareus.org/oss/lv2/b_whirl#extended</URI>
+   <Type>VST3</Type>
+   <Name>DecentSampler</Name>
+   <Binary>/usr/lib/vst3/DecentSampler.vst3</Binary>
+   <Label>DecentSampler</Label>
   </Info>
 
   <Data>
    <Active>Yes</Active>
    <ControlChannel>1</ControlChannel>
-   <Options>0x3</Options>
+   <Options>0x1f9</Options>
 
-   <Parameter>
-    <Index>0</Index>
-    <Name>Enable</Name>
-    <Symbol>enable</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>1</Index>
-    <Name>Motors Ac/Dc</Name>
-    <Symbol>rt_speed</Symbol>
-    <Value>4</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>2</Index>
-    <Name>Horn Level</Name>
-    <Symbol>hornlvl</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>3</Index>
-    <Name>Drum Level</Name>
-    <Symbol>drumlvl</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>4</Index>
-    <Name>Drum Stereo Width</Name>
-    <Symbol>drumwidth</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>5</Index>
-    <Name>Horn Speed Slow</Name>
-    <Symbol>hornrpmslow</Symbol>
-    <Value>40.3199996948242</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>6</Index>
-    <Name>Horn Speed Fast</Name>
-    <Symbol>hornrpmfast</Symbol>
-    <Value>423.359985351562</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>7</Index>
-    <Name>Horn Acceleration</Name>
-    <Symbol>hornaccel</Symbol>
-    <Value>0.160999998450279</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>8</Index>
-    <Name>Horn Deceleration</Name>
-    <Symbol>horndecel</Symbol>
-    <Value>0.321000009775162</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>9</Index>
-    <Name>Horn Brake Position</Name>
-    <Symbol>hornbrakepos</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>10</Index>
-    <Name>Horn Filter-1 Type</Name>
-    <Symbol>filtatype</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>11</Index>
-    <Name>Horn Filter-1 Frequency</Name>
-    <Symbol>filtafreq</Symbol>
-    <Value>4500</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>12</Index>
-    <Name>Horn Filter-1 Quality</Name>
-    <Symbol>filtaq</Symbol>
-    <Value>2.74559998512268</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>13</Index>
-    <Name>Horn Filter-1 Gain</Name>
-    <Symbol>filtagain</Symbol>
-    <Value>-30</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>14</Index>
-    <Name>Horn Filter-2 Type</Name>
-    <Symbol>filtbtype</Symbol>
-    <Value>7</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>15</Index>
-    <Name>Horn Filter-2 Frequency</Name>
-    <Symbol>filtbfreq</Symbol>
-    <Value>300</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>16</Index>
-    <Name>Horn Filter-2 Quality</Name>
-    <Symbol>filtbq</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>17</Index>
-    <Name>Horn Filter-2 Gain</Name>
-    <Symbol>filtbgain</Symbol>
-    <Value>-30</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>18</Index>
-    <Name>Drum Speed Slow</Name>
-    <Symbol>drumrpmslow</Symbol>
-    <Value>36</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>19</Index>
-    <Name>Drum Speed Fast</Name>
-    <Symbol>drumrpmfast</Symbol>
-    <Value>357.299987792969</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>20</Index>
-    <Name>Drum Acceleration</Name>
-    <Symbol>drumaccel</Symbol>
-    <Value>4.1269998550415</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>21</Index>
-    <Name>Drum Deceleration</Name>
-    <Symbol>drumdecel</Symbol>
-    <Value>1.37100005149841</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>22</Index>
-    <Name>Drum Brake Position</Name>
-    <Symbol>drumbrake</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>23</Index>
-    <Name>Drum Filter Type</Name>
-    <Symbol>filtdtype</Symbol>
-    <Value>8</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>24</Index>
-    <Name>Drum Filter Frequency</Name>
-    <Symbol>filtdfreq</Symbol>
-    <Value>811.969482421875</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>25</Index>
-    <Name>Drum Filter Quality</Name>
-    <Symbol>filtdq</Symbol>
-    <Value>1.60160005092621</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>26</Index>
-    <Name>Drum Filter Gain</Name>
-    <Symbol>filtdgain</Symbol>
-    <Value>-38.9291000366211</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>27</Index>
-    <Name>Horn Signal Leakage</Name>
-    <Symbol>hornleak</Symbol>
-    <Value>-16.4699993133545</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>28</Index>
-    <Name>Horn Radius</Name>
-    <Symbol>hornradius</Symbol>
-    <Value>19.2000007629395</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>29</Index>
-    <Name>Drum Radius</Name>
-    <Symbol>drumradius</Symbol>
-    <Value>22</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>30</Index>
-    <Name>Horn X-Axis Offset</Name>
-    <Symbol>hornxoff</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>31</Index>
-    <Name>Horn Z-Axis Offset</Name>
-    <Symbol>hornzoff</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>32</Index>
-    <Name>Microphone Distance</Name>
-    <Symbol>micdist</Symbol>
-    <Value>42</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>38</Index>
-    <Name>Link Speed Control</Name>
-    <Symbol>link</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>39</Index>
-    <Name>Microphone Angle</Name>
-    <Symbol>micangle</Symbol>
-    <Value>180</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>40</Index>
-    <Name>Horn Stereo Width</Name>
-    <Symbol>hornwidth</Symbol>
-    <Value>1</Value>
-   </Parameter>
+   <Chunk>
+VkMyIfUvAAA8P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJVVEYtOCI/PiA8RGVjZW50U2FtcGxlciBtaW5WZXJzaW9uPSIxLjAuMCIgX3NhbXBsZVBh
+dGg9Ii9ob21lL3BpLy5jb25maWcvRGVjZW50U2FtcGxlci9TYW1wbGUgTGlicmFyaWVzL0RydW0gS2l0cy9BY291c3RpYyIgX3ByZXNldE5hbWU9IkFjb3Vz
+dGljIiBfbGlicmFyeVVybD0iZmlsZTovLy9ob21lL3BpLy5jb25maWcvRGVjZW50U2FtcGxlci9TYW1wbGUlMjBMaWJyYXJpZXMvRHJ1bSUyMEtpdHMvQWNv
+dXN0aWMvQWNvdXN0aWMuZHNwcmVzZXQiIF9saWJyYXJ5Q2Fub25pY2FsVXJsPSJmaWxlOi8vL2hvbWUvcGkvLmNvbmZpZy9EZWNlbnRTYW1wbGVyL1NhbXBs
+ZSUyMExpYnJhcmllcy9EcnVtJTIwS2l0cy9BY291c3RpYyIgX3NhbXBsZUxpYnJhcnlJZD0iMiIgX2xpYnJhcnlCb29rbWFyaz0iMC4iIF90dW5pbmdBNjlG
+cmVxdWVuY3k9IjQ0MC4wIiBfdmVsb2NpdHlQcmVwcm9jZXNzb3JPdXRMb3c9IjAiIF92ZWxvY2l0eVByZXByb2Nlc3Nvck91dEhpZ2g9IjEyNyIgX3ZlbG9j
+aXR5UHJlcHJvY2Vzc29yRHJpdmU9IjAuMCIgX3ZlbG9jaXR5UHJlcHJvY2Vzc29yQ29tcHJlc3Npb249IjAuMCIgX3ZlbG9jaXR5UHJlcHJvY2Vzc29yUmFu
+ZG9tPSIwIiBfbXBlVGltYnJlU2Vuc2l0aXZpdHk9IjAuMCIgX21wZVRpbWJyZU1pbj0iMC4wIiBfbXBlVGltYnJlTWF4PSIxLjAiIF9tcGVQcmVzc3VyZVNl
+bnNpdGl2aXR5PSIwLjAiIF9tcGVQcmVzc3VyZU1pbj0iMC4wIiBfbXBlUHJlc3N1cmVNYXg9IjEuMCI+PHVpIHdpZHRoPSI4MTIiIGhlaWdodD0iMzc1IiBs
+YXlvdXRNb2RlPSJyZWxhdGl2ZSIgYmdNb2RlPSJ0b3BfbGVmdCIgYmdJbWFnZT0iYmdJbWFnZS5qcGciPjx0YWIgbmFtZT0ibWFpbiI+PGxhYmVsZWQta25v
+YiB4PSIzNTAiIHk9Ijc1IiBsYWJlbD0iQ2hvcnVzIiBtaW5WYWx1ZT0iMCIgbWF4VmFsdWU9IjEwMCIgdmFsdWU9IjAiIHRleHRDb2xvcj0iMDBGRkZGRkYi
+IHRyYWNrQmFja2dyb3VuZENvbG9yPSJGRjQwNDA0MCIgdHJhY2tGb3JlZ3JvdW5kQ29sb3I9IkZGRkZGRkZGIiBfaW5kZXg9IjAiIF91aWQ9InhUcHo1eWd1
+cW9pIj48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJpbnN0cnVtZW50IiBwb3NpdGlvbj0iMSIgcGFyYW1ldGVyPSJGWF9NSVgiIHRyYW5zbGF0aW9u
+PSJ0YWJsZSIgdHJhbnNsYXRpb25UYWJsZT0iMCwwOzI1LDEiLz48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJpbnN0cnVtZW50IiBwb3NpdGlvbj0i
+MSIgcGFyYW1ldGVyPSJGWF9NT0RfREVQVEgiIHRyYW5zbGF0aW9uPSJ0YWJsZSIgdHJhbnNsYXRpb25UYWJsZT0iMCwwOzEwMC4xLDAuMiIvPjxiaW5kaW5n
+IHR5cGU9ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1lbnQiIHBvc2l0aW9uPSIxIiBwYXJhbWV0ZXI9IkZYX01PRF9SQVRFIiB0cmFuc2xhdGlvbj0idGFibGUi
+IHRyYW5zbGF0aW9uVGFibGU9IjAsMDsxMDAuMSwyIi8+PC9sYWJlbGVkLWtub2I+PGxhYmVsZWQta25vYiB4PSI0NTAiIHk9Ijc1IiBsYWJlbD0iUGhhc2Vy
+IiBtaW5WYWx1ZT0iMCIgbWF4VmFsdWU9IjEwMCIgdmFsdWU9IjAiIHRleHRDb2xvcj0iMDBGRkZGRkYiIHRyYWNrQmFja2dyb3VuZENvbG9yPSJGRjQwNDA0
+MCIgdHJhY2tGb3JlZ3JvdW5kQ29sb3I9IkZGRkZGRkZGIiBfaW5kZXg9IjEiIF91aWQ9ImZFQWhpRldBeU9tIj48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxl
+dmVsPSJpbnN0cnVtZW50IiBwb3NpdGlvbj0iMyIgcGFyYW1ldGVyPSJGWF9NSVgiIHRyYW5zbGF0aW9uPSJ0YWJsZSIgdHJhbnNsYXRpb25UYWJsZT0iMCww
+OzI1LDEiLz48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJpbnN0cnVtZW50IiBwb3NpdGlvbj0iMyIgcGFyYW1ldGVyPSJGWF9NT0RfREVQVEgiIHRy
+YW5zbGF0aW9uPSJ0YWJsZSIgdHJhbnNsYXRpb25UYWJsZT0iMCwwOzEwMC4xLDAuMiIvPjxiaW5kaW5nIHR5cGU9ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1l
+bnQiIHBvc2l0aW9uPSIzIiBwYXJhbWV0ZXI9IkZYX01PRF9SQVRFIiB0cmFuc2xhdGlvbj0idGFibGUiIHRyYW5zbGF0aW9uVGFibGU9IjAsMDsxMDAuMSwy
+Ii8+PC9sYWJlbGVkLWtub2I+PGxhYmVsZWQta25vYiB4PSI1NTAiIHk9Ijc1IiBsYWJlbD0iRGVsYXkiIG1pblZhbHVlPSIwIiBtYXhWYWx1ZT0iMTAwIiB2
+YWx1ZT0iMCIgdGV4dENvbG9yPSIwMEZGRkZGRiIgdHJhY2tCYWNrZ3JvdW5kQ29sb3I9IkZGNDA0MDQwIiB0cmFja0ZvcmVncm91bmRDb2xvcj0iRkZGRkZG
+RkYiIF9pbmRleD0iMiIgX3VpZD0icGxDZHVNdEFDUkMiPjxiaW5kaW5nIHR5cGU9ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1lbnQiIHBvc2l0aW9uPSIyIiBw
+YXJhbWV0ZXI9IkZYX1dFVF9MRVZFTCIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7NTAsNzU7MTAwLjEsMSIvPjxiaW5kaW5n
+IHR5cGU9ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1lbnQiIHBvc2l0aW9uPSIyIiBwYXJhbWV0ZXI9IkZYX0RFTEFZX1RJTUUiIHRyYW5zbGF0aW9uPSJ0YWJs
+ZSIgdHJhbnNsYXRpb25UYWJsZT0iMCw1OzUwLDEwOzEwMC4xLDIwIi8+PC9sYWJlbGVkLWtub2I+PGxhYmVsZWQta25vYiB4PSI2NTAiIHk9Ijc1IiBsYWJl
+bD0iUmV2ZXJiIiBtaW5WYWx1ZT0iMCIgbWF4VmFsdWU9IjEwMCIgdmFsdWU9IjUuMCIgdGV4dENvbG9yPSIwMEZGRkZGRiIgdHJhY2tCYWNrZ3JvdW5kQ29s
+b3I9IkZGNDA0MDQwIiB0cmFja0ZvcmVncm91bmRDb2xvcj0iRkZGRkZGRkYiIF9pbmRleD0iMyIgX3VpZD0iSjAxNDBUOTdENDkiPjxiaW5kaW5nIHR5cGU9
+ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1lbnQiIHBvc2l0aW9uPSIwIiBwYXJhbWV0ZXI9IkZYX1JFVkVSQl9XRVRfTEVWRUwiIHRyYW5zbGF0aW9uPSJ0YWJs
+ZSIgdHJhbnNsYXRpb25UYWJsZT0iMCwwOzEwLDAuNTsxMDAuMSwxIi8+PGJpbmRpbmcgdHlwZT0iZWZmZWN0IiBsZXZlbD0iaW5zdHJ1bWVudCIgcG9zaXRp
+b249IjAiIHBhcmFtZXRlcj0iRlhfUkVWRVJCX1JPT01fU0laRSIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7MTAsMC41OzEw
+MC4xLDEiLz48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJpbnN0cnVtZW50IiBwb3NpdGlvbj0iMCIgcGFyYW1ldGVyPSJGWF9SRVZFUkJfREFNUElO
+RyIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7MTAsMC41OzEwMC4xLDEiLz48L2xhYmVsZWQta25vYj48L3RhYj48a2V5Ym9h
+cmQvPjwvdWk+PGdyb3VwcyBhbXBWZWxUcmFjaz0iMSIgYXR0YWNrPSIwIj48Z3JvdXA+PHNhbXBsZSBsb05vdGU9IjM1IiBoaU5vdGU9IjM1IiByb290Tm90
+ZT0iMzUiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMDEud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9Ijg4MjAwIiBf
+ZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iMzYiIGhpTm90ZT0iMzYiIHJvb3ROb3RlPSIzNiIgcGF0aD0iU2FtcGxlcy9FeHF1
+aXNfRHJ1bUtpdF9BY291c3RpY18wMi53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iODgyMDAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIv
+PjxzYW1wbGUgbG9Ob3RlPSIzNyIgaGlOb3RlPSIzNyIgcm9vdE5vdGU9IjM3IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzAzLndh
+diIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI4ODIwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjM4IiBoaU5v
+dGU9IjM4IiByb290Tm90ZT0iMzgiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMDQud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVM
+ZW5ndGg9Ijg4MjAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iMzkiIGhpTm90ZT0iMzkiIHJvb3ROb3RlPSIzOSIgcGF0
+aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18wNS53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iODgyMDAiIF9maWxlU2FtcGxl
+UmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI0MCIgaGlOb3RlPSI0MCIgcm9vdE5vdGU9IjQwIiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0
+X0Fjb3VzdGljXzA2LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI4ODIwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBs
+b05vdGU9IjQxIiBoaU5vdGU9IjQxIiByb290Tm90ZT0iNDEiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMDcud2F2IiBfZ3JvdXBJ
+bmRleD0iMCIgX2ZpbGVMZW5ndGg9Ijg4MjAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNDIiIGhpTm90ZT0iNDIiIHJv
+b3ROb3RlPSI0MiIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18wOC53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iODgy
+MDAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI0MyIgaGlOb3RlPSI0MyIgcm9vdE5vdGU9IjQzIiBwYXRoPSJTYW1wbGVz
+L0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzA5LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI4ODIwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEw
+MC4wIi8+PHNhbXBsZSBsb05vdGU9IjQ0IiBoaU5vdGU9IjQ0IiByb290Tm90ZT0iNDQiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNf
+MTAud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9Ijg4MjAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNDUi
+IGhpTm90ZT0iNDUiIHJvb3ROb3RlPSI0NSIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18xMS53YXYiIF9ncm91cEluZGV4PSIwIiBf
+ZmlsZUxlbmd0aD0iODgyMDAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI0NiIgaGlOb3RlPSI0NiIgcm9vdE5vdGU9IjQ2
+IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzEyLndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI4ODIwMCIgX2ZpbGVT
+YW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjQ3IiBoaU5vdGU9IjQ3IiByb290Tm90ZT0iNDciIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0Ry
+dW1LaXRfQWNvdXN0aWNfMTMud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9Ijg4MjAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2Ft
+cGxlIGxvTm90ZT0iNDgiIGhpTm90ZT0iNDgiIHJvb3ROb3RlPSI0OCIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18xNC53YXYiIF9n
+cm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iODgyMDAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI0OSIgaGlOb3RlPSI0
+OSIgcm9vdE5vdGU9IjQ5IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzE1LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3Ro
+PSIxNzY0MDAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI1MCIgaGlOb3RlPSI1MCIgcm9vdE5vdGU9IjUwIiBwYXRoPSJT
+YW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzE2LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI4ODIwMCIgX2ZpbGVTYW1wbGVSYXRl
+PSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjUxIiBoaU5vdGU9IjUxIiByb290Tm90ZT0iNTEiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNv
+dXN0aWNfMTcud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjE3NjQwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05v
+dGU9IjUyIiBoaU5vdGU9IjUyIiByb290Tm90ZT0iNTIiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMTgud2F2IiBfZ3JvdXBJbmRl
+eD0iMCIgX2ZpbGVMZW5ndGg9IjE3NjQwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjUzIiBoaU5vdGU9IjUzIiByb290
+Tm90ZT0iNTMiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMTkud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjE3NjQw
+MCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjU0IiBoaU5vdGU9IjU0IiByb290Tm90ZT0iNTQiIHBhdGg9IlNhbXBsZXMv
+RXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMjAud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjQzMjE2IiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAw
+LjAiLz48c2FtcGxlIGxvTm90ZT0iNTUiIGhpTm90ZT0iNTUiIHJvb3ROb3RlPSI1NSIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18y
+MS53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iMTc2NDAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNTYi
+IGhpTm90ZT0iNTYiIHJvb3ROb3RlPSI1NiIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18yMi53YXYiIF9ncm91cEluZGV4PSIwIiBf
+ZmlsZUxlbmd0aD0iMTc2NDAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNTciIGhpTm90ZT0iNTciIHJvb3ROb3RlPSI1
+NyIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18yMy53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iMTc2NDAwIiBfZmls
+ZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNTgiIGhpTm90ZT0iNTgiIHJvb3ROb3RlPSI1OCIgcGF0aD0iU2FtcGxlcy9FeHF1aXNf
+RHJ1bUtpdF9BY291c3RpY18yNC53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iNzUxNDMiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxz
+YW1wbGUgbG9Ob3RlPSI1OSIgaGlOb3RlPSI1OSIgcm9vdE5vdGU9IjU5IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzI1LndhdiIg
+X2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSIyNjQ2MDAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI2MCIgaGlOb3Rl
+PSI2MCIgcm9vdE5vdGU9IjYwIiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzI2LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVu
+Z3RoPSIzMzA3NCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjYxIiBoaU5vdGU9IjYxIiByb290Tm90ZT0iNjEiIHBhdGg9
+IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMjcud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjMzMDc1IiBfZmlsZVNhbXBsZVJh
+dGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNjIiIGhpTm90ZT0iNjIiIHJvb3ROb3RlPSI2MiIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9B
+Y291c3RpY18yOC53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iMzMwNzUiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9O
+b3RlPSI2MyIgaGlOb3RlPSI2MyIgcm9vdE5vdGU9IjYzIiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzI5LndhdiIgX2dyb3VwSW5k
+ZXg9IjAiIF9maWxlTGVuZ3RoPSI0NDEwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjY0IiBoaU5vdGU9IjY0IiByb290
+Tm90ZT0iNjQiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMzAud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjQ0MTAw
+IiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNjUiIGhpTm90ZT0iNjUiIHJvb3ROb3RlPSI2NSIgcGF0aD0iU2FtcGxlcy9F
+eHF1aXNfRHJ1bUtpdF9BY291c3RpY18zMS53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iNDk2MTIiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAu
+MCIvPjxzYW1wbGUgbG9Ob3RlPSI2NiIgaGlOb3RlPSI2NiIgcm9vdE5vdGU9IjY2IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzMy
+LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI4ODIwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjY3IiBo
+aU5vdGU9IjY3IiByb290Tm90ZT0iNjciIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMzMud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2Zp
+bGVMZW5ndGg9IjQ0MTAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNjgiIGhpTm90ZT0iNjgiIHJvb3ROb3RlPSI2OCIg
+cGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18zNC53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iNDQxMDAiIF9maWxlU2Ft
+cGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI2OSIgaGlOb3RlPSI2OSIgcm9vdE5vdGU9IjY5IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVt
+S2l0X0Fjb3VzdGljXzM1LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSI0NDEwMCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBs
+ZSBsb05vdGU9IjcwIiBoaU5vdGU9IjcwIiByb290Tm90ZT0iNzAiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfMzYud2F2IiBfZ3Jv
+dXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjQ0MTAwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iNzEiIGhpTm90ZT0iNzEi
+IHJvb3ROb3RlPSI3MSIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY18zNy53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0i
+MzMwNzUiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI3MiIgaGlOb3RlPSI3MiIgcm9vdE5vdGU9IjcyIiBwYXRoPSJTYW1w
+bGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzM4LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSIyNzU2MiIgX2ZpbGVTYW1wbGVSYXRlPSI0
+NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9IjczIiBoaU5vdGU9IjczIiByb290Tm90ZT0iNzMiIHBhdGg9IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0
+aWNfMzkud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjE2NTM3IiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0i
+NzQiIGhpTm90ZT0iNzQiIHJvb3ROb3RlPSI3NCIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY180MC53YXYiIF9ncm91cEluZGV4PSIw
+IiBfZmlsZUxlbmd0aD0iMjIwNTAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI3NSIgaGlOb3RlPSI3NSIgcm9vdE5vdGU9
+Ijc1IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzQxLndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVuZ3RoPSIxNjUzNyIgX2Zp
+bGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9Ijc2IiBoaU5vdGU9Ijc2IiByb290Tm90ZT0iNzYiIHBhdGg9IlNhbXBsZXMvRXhxdWlz
+X0RydW1LaXRfQWNvdXN0aWNfNDIud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjIyMDUwIiBfZmlsZVNhbXBsZVJhdGU9IjQ0MTAwLjAiLz48
+c2FtcGxlIGxvTm90ZT0iNzciIGhpTm90ZT0iNzciIHJvb3ROb3RlPSI3NyIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9BY291c3RpY180My53YXYi
+IF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iMjIwNTAiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9Ob3RlPSI3OCIgaGlOb3Rl
+PSI3OCIgcm9vdE5vdGU9Ijc4IiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzQ0LndhdiIgX2dyb3VwSW5kZXg9IjAiIF9maWxlTGVu
+Z3RoPSIyMjA1MCIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PHNhbXBsZSBsb05vdGU9Ijc5IiBoaU5vdGU9Ijc5IiByb290Tm90ZT0iNzkiIHBhdGg9
+IlNhbXBsZXMvRXhxdWlzX0RydW1LaXRfQWNvdXN0aWNfNDUud2F2IiBfZ3JvdXBJbmRleD0iMCIgX2ZpbGVMZW5ndGg9IjI3NTYyIiBfZmlsZVNhbXBsZVJh
+dGU9IjQ0MTAwLjAiLz48c2FtcGxlIGxvTm90ZT0iODAiIGhpTm90ZT0iODAiIHJvb3ROb3RlPSI4MCIgcGF0aD0iU2FtcGxlcy9FeHF1aXNfRHJ1bUtpdF9B
+Y291c3RpY180Ni53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iMTA1NTUiIF9maWxlU2FtcGxlUmF0ZT0iNDQxMDAuMCIvPjxzYW1wbGUgbG9O
+b3RlPSI4MSIgaGlOb3RlPSI4MSIgcm9vdE5vdGU9IjgxIiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzQ3LndhdiIgX2dyb3VwSW5k
+ZXg9IjAiIF9maWxlTGVuZ3RoPSIzMTE5NyIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PGVmZmVjdHM+PGVmZmVjdCB0eXBlPSJsb3dwYXNzIiBmcmVx
+dWVuY3k9IjI0MDAwIi8+PGVmZmVjdCB0eXBlPSJoaWdocGFzcyIgZnJlcXVlbmN5PSI2MCIvPjxlZmZlY3QgdHlwZT0iZ2FpbiIgbGV2ZWw9IjIiLz48L2Vm
+ZmVjdHM+PC9ncm91cD48L2dyb3Vwcz48ZWZmZWN0cz48ZWZmZWN0IHR5cGU9InJldmVyYiIgcm9vbVNpemU9IjAuMjUiIHdldExldmVsPSIwLjI1IiBkYW1w
+aW5nPSIwLjI1Ii8+PGVmZmVjdCB0eXBlPSJjaG9ydXMiIG1vZERlcHRoPSIwLjAiIG1peD0iMC4wIiBtb2RSYXRlPSIwLjAiLz48ZWZmZWN0IHR5cGU9ImRl
+bGF5IiBkZWxheVRpbWVGb3JtYXQ9Im11c2ljYWxfdGltZSIgd2V0TGV2ZWw9IjAuMCIgZGVsYXlUaW1lPSI1LjAiLz48ZWZmZWN0IHR5cGU9InBoYXNlciIg
+bW9kUmF0ZT0iMC4wIiBtaXg9IjAuMCIgbW9kRGVwdGg9IjAuMCIvPjwvZWZmZWN0cz48bW9kdWxhdG9ycz48bXBlVGltYnJlIG1vZEFtb3VudD0iMSIgc2Nv
+cGU9InZvaWNlIiBmYWxsaW5nU21vb3RoaW5nVGltZT0iMTAwIiByaXNpbmdTbW9vdGhpbmdUaW1lPSIxMDAiPjxiaW5kaW5nIHR5cGU9ImVmZmVjdCIgbGV2
+ZWw9Imdyb3VwIiBncm91cEluZGV4PSIwIiBlZmZlY3RJbmRleD0iMCIgcGFyYW1ldGVyPSJGWF9GSUxURVJfRlJFUVVFTkNZIiBtb2RCZWhhdmlvcj0ic2V0
+IiB0cmFuc2xhdGlvbj0idGFibGUiIHRyYW5zbGF0aW9uVGFibGU9IjAsMTAwOzAuMTUsMTUwOzAuMiw0NTA7MC4yNSwxMTAwOzAuMzUsNDEwMDswLjQ1LDIy
+MDAwOzEsMjIwMDAiLz48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJncm91cCIgZ3JvdXBJbmRleD0iMCIgZWZmZWN0SW5kZXg9IjEiIHBhcmFtZXRl
+cj0iRlhfRklMVEVSX0ZSRVFVRU5DWSIgbW9kQmVoYXZpb3I9InNldCIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7MC42LDA7
+MC42NSw3NTswLjcsMjI1OzAuNzUsNTUwOzAuOTUsMzgwMDsxLDgyMDAiLz48L21wZVRpbWJyZT48L21vZHVsYXRvcnM+PG1pZGk+PGNjIG51bWJlcj0iNDEi
+PjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjAiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRy
+YW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDIiPjxiaW5kaW5nIGxldmVsPSJ1aSIg
+dHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjEiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIw
+IiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDMiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1l
+dGVyPSJWQUxVRSIgcG9zaXRpb249IjIiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1h
+eD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDQiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249
+IjMiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PC9taWRpPjx0
+YWdzLz48YnVzZXMvPjxub3RlU2VxdWVuY2VzLz48L0RlY2VudFNhbXBsZXI+AAAAAAAAAAAASlVDRVByaXZhdGVEYXRhAAEBQnlwYXNzAAEBAwAdAAAAAAAA
+AEpVQ0VQcml2YXRlRGF0YQ==
+   </Chunk>
   </Data>
  </Plugin>
 
  <ExternalPatchbay>
+  <Connection>
+   <Source>Audio Adapter (Unitek Y-247A) Mono:capture_MONO</Source>
+   <Target>microtonOS Selector:input_MONO</Target>
+  </Connection>
   <Connection>
    <Source>librespot:out_0</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
@@ -302,25 +196,5 @@
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
    <Target>Pianoteq:midi_in</Target>
   </Connection>
-  <Positions>
-   <Position x1="1695" y1="1103">
-    <Name>Carla</Name>
-   </Position>
-   <Position x1="1345" y1="1266" x2="2107" y2="1274">
-    <Name>Audio Adapter (Unitek Y-247A) Mono</Name>
-   </Position>
-   <Position x1="1683" y1="1295">
-    <Name>librespot</Name>
-   </Position>
-   <Position x1="1513" y1="1197">
-    <Name>Pianoteq</Name>
-   </Position>
-   <Position x1="1891" y1="1433" x2="2009" y2="1289">
-    <Name>Audio Adapter (Unitek Y-247A) Analog Stereo</Name>
-   </Position>
-   <Position x1="1314" y1="1424" x2="1858" y2="1595">
-    <Name>Midi-Bridge</Name>
-   </Position>
-  </Positions>
  </ExternalPatchbay>
 </CARLA-PROJECT>
