@@ -9,6 +9,7 @@
 [submodule "third_party/Carla"]
 	path = third_party/Carla
 	url = https://github.com/falkTX/Carla.git
+	ignore = untracked
 [submodule "third_party/xentotune"]
 	path = third_party/xentotune
 	url = https://github.com/narenratan/xentotune.git
@@ -28,4 +29,8 @@
 [submodule "third_party/surge"]
 	path = third_party/surge
 	url = https://github.com/surge-synthesizer/surge.git
+	ignore = untracked
+[submodule "third_party/sonobus"]
+	path = third_party/sonobus
+	url = https://github.com/sonosaurus/sonobus.git
 	ignore = untracked

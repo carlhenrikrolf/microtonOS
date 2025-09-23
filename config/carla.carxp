@@ -1369,6 +1369,21 @@ AEpVQ0VQcml2YXRlRGF0YQ==
   </Data>
  </Plugin>
 
+ <!-- SonoBus -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>SonoBus</Name>
+   <URI>https://sonobus.net/lv2/sonobus</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x3f1</Options>
+  </Data>
+ </Plugin>
+
  <ExternalPatchbay>
   <Connection>
    <Source>Audio Adapter (Unitek Y-247A) Mono:capture_MONO</Source>
@@ -1407,17 +1422,23 @@ AEpVQ0VQcml2YXRlRGF0YQ==
    <Position x1="1464" y1="1415">
     <Name>Pianoteq</Name>
    </Position>
+   <Position x1="1758" y1="1192" x2="2161" y2="1274">
+    <Name>Audio Adapter (Unitek Y-247A) Analog Stereo</Name>
+   </Position>
+   <Position x1="1556" y1="1543" x2="2098" y2="1402">
+    <Name>Midi-Bridge</Name>
+   </Position>
    <Position x1="1737" y1="1186" pluginId="0">
     <Name>XentoTune</Name>
-   </Position>
-   <Position x1="1860" y1="1303" pluginId="2">
-    <Name>tuneBfree DSP Tonewheel Organ</Name>
    </Position>
    <Position x1="1728" y1="1509" pluginId="1">
     <Name>tuneBfreeGUI</Name>
    </Position>
-   <Position x1="1999" y1="1161" pluginId="1">
+   <Position x1="1580" y1="1039" pluginId="2">
     <Name>DecentSampler</Name>
+   </Position>
+   <Position x1="1947" y1="1122" pluginId="3">
+    <Name>SonoBus</Name>
    </Position>
   </Positions>
  </ExternalPatchbay>
