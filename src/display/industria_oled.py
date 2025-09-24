@@ -29,9 +29,9 @@ class Display:
         self.typeface = typeface
         self.scroll_speed = scroll_speed
         self.wait_time = wait_time
-        self.name_font = ImageFont.truetype(typeface, 24)
+        self.name_font = ImageFont.truetype(typeface, 22)
         self.value_font = ImageFont.truetype(typeface, 18)
-        self.flipside_font = ImageFont.truetype(typeface, 21)
+        self.flipside_font = ImageFont.truetype(typeface, 20)
         self.display_width = device.width
         self.x = 0
         self.is_on = False
@@ -41,10 +41,11 @@ class Display:
         self.is_flipped = False
         self.flipped_is_on = False
         self.was_pressed = False
+        self.flip_time = None
 
     def show(self, name=None, value=None, flipside=None):
-        self.start_time = time.time()
         if name is not None:
+            self.start_time = time.time()
             self.x = 0
             self.name = name
             self.value = "" if value is None else str(value)
@@ -53,16 +54,18 @@ class Display:
             self.name_height = bbox[3] - bbox[1]
             self.is_on = True
         if flipside is not None:
+            self.flip_time = time.time()
             self.flipside = str(flipside)
             self.flipped_is_on = True
 
     def run(self):
         while True:
+            # add self.x
             if self.is_flipped:
                 if self.flipped_is_on:
                     current_time = time.time()
                     with canvas(device) as draw:
-                        if current_time - self.start_time >= self.wait_time:
+                        if current_time - self.flip_time >= self.wait_time:
                             self.flipped_is_on = False
                         draw.text(
                             (64, 32),
@@ -82,13 +85,6 @@ class Display:
                         draw.text(
                             (self.x, 0), self.name, fill="white", font=self.name_font
                         )
-                        current_time = time.time()
-                        if current_time - self.start_time >= self.wait_time:
-                            self.x -= self.scroll_speed
-                            if (
-                                self.x < -self.name_width
-                            ):  # Reset when text is completely off screen
-                                self.is_on = False
 
                         # draw value
                         draw.text(
@@ -102,6 +98,13 @@ class Display:
                     # Clear the display when text has scrolled off
                     with canvas(device) as draw:
                         pass
+            current_time = time.time()
+            if current_time - self.start_time >= self.wait_time:
+                self.x -= self.scroll_speed
+                if (
+                    self.x < -self.name_width
+                ):  # Reset when text is completely off screen
+                    self.is_on = False
             time.sleep(self.refresh_rate)
             if button.is_pressed:
                 if not self.was_pressed:
