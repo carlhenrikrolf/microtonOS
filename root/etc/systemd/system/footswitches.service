@@ -1,0 +1,16 @@
+[Unit]
+Description=Start the footswitches driver
+After=graphical.target
+Requires=qjackctl.service
+
+[Service]
+User=pi
+Environment=XDG_RUNTIME_DIR="/run/user/1000"
+WorkingDirectory=/home/pi/microtonOS/tmp/
+ExecStart=/home/pi/microtonOS/.venv/bin/python3 /home/pi/microtonOS/src/drivers/footswitches.py
+Restart=always
+RestartSec=2s
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target

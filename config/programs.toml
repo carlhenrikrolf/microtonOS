@@ -1,0 +1,37 @@
+# Ordered according to engine, bank, and program.
+# Each engine corresponds to one software instrument.
+# The distinction between banks and programs is software-dependent
+# and to some extent arbitrary.
+# For the moment, only Pianoteq is supported.
+
+[[engine]]
+name = "Pianoteq"
+[[engine.bank]]
+name = "acoustic"
+program = [
+    "NY Steinway D",
+    "HB Steinway D",
+    "J Schantz", "JE Schmidt",
+    "A Walter", "D Schöffstoss",
+    "C Graf", "Érard",
+    "Pleyel"]
+[[engine.bank]]
+name = "electric"
+program = [
+    "Rhodes MKI",
+    "Rhodes MKII",
+    "Wurlitzer 200",
+    "Wurlitzer 100",
+    "Yamaha CP-80"]
+[[engine.bank]]
+name = "historical"
+program = [
+    "cimbalom",
+    "Neupert clavichord",
+    "FE Blanchet harpsichord",
+    "C Grimaldi harpsichord"]
+[[engine.bank]]
+name = "Bells"
+program = [
+    "church bells",
+    "tubular bells"]

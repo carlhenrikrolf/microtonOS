@@ -1,11 +1,14 @@
 import subprocess
 from utils import handle_terminations
 
-cache_path = "/home/pi/microtonOS/config/.librespot/"
+path = "/usr/bin/librespot" # "/home/pi/.cargo/bin/librespot"
+cache_path = "."
+name = "Librespot microtonOS"
 
 command = [
 	"/usr/bin/pw-jack",
-	"/home/pi/.cargo/bin/librespot",
+	path,
+	"--name=" + name, 
 	"--backend=" + "jackaudio",
 	"--cache=" + cache_path,
 	"--system-cache=" + cache_path,

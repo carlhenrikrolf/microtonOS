@@ -10,14 +10,11 @@ curl https://sh.rustup.rs -sSf | sh
 
 Install librespot with the JACK backend.
 ```bash
-cargo install librespot --features jackaudio-backend
+cd ~/.cargo/bin/
+./cargo install librespot --features jackaudio-backend
+sudo cp librespot /usr/bin/
 ```
-
-Create a directory for storing the credentials from the Spotify account.
-Note that git will not track this directory.
-Then run the wrapper script.
-The terminal should provide you with a link to a webpage to register your credentials.
-```bash
-mkdir /home/pi/microtonOS/config/.librespot
-/home/pi/.venv/bin/python3 /home/pi/microtonOS/src/wrappers/librespot.py
-```
+You need to specify where to store credentials and temporary data.
+The wrapper script saves these in `~/microtonOS/tmp/`.
+Note that git is set to ignore anything saved in the tmp directory apart from the `.gitignore` file.
+You may have to repeat these steps if there is an update to spotify.
