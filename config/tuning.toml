@@ -1,3 +1,7 @@
+###############
+# Twelve-Tone #
+###############
+
 [[bank]]
 name = "twelve-tone"
 
@@ -41,11 +45,15 @@ name = "reverse"
 root = {note = 69, Hertz=440.0}
 cents = [0.00, -100.00, -200.00, -300.00, -400.00, -500.00, -600.00, -700.00, -800.00, -900.00, -1000.00, -1100.00, -1200.00]
 
+##################
+# Equal-Tempered #
+##################
+
 [[bank]]
 name = "equal-tempered"
 
 [[bank.program]]
-name = "8ed5th"
+name = "8ed3/2"
 root = {note = 69, Hertz=440.0}
 cents = 87.74
 Halberstadt = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14]
@@ -60,10 +68,10 @@ Halberstadt = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14]
 name = "15edo"
 root = {note = 69, Hertz=440.0}
 cents = 80.00
-Halberstadt = [0, 1, 3, 4, 5, 6, 7, 9, 10, 12, 13, 14, 15]
+Halberstadt = [-1, 0, 2, 3, 4, 5, 6, 8, 9, 11, 12, 13, 14]
 
 [[bank.program]]
-name = "9ed5th (alpha)"
+name = "9ed3/2 (alpha)"
 root = {note = 69, Hertz=440.0}
 cents = 78.00
 Halberstadt = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14]
@@ -74,8 +82,8 @@ root = {note = 69, Hertz=440.0}
 cents = 75.00
 Halberstadt = [0, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 15, 16]
 
-[[bank.program]]
-name = "26ed12th (BP)"
+[[bank.program]] # BP = Bohlen-Pierce, doubled
+name = "26ed3 (BP)"
 root = {note = 69, Hertz=440.0}
 cents = 73.15
 Halberstadt = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14]
@@ -99,7 +107,7 @@ cents = 63.16
 Halberstadt = [0, 2, 3, 5, 6, 8, 10, 11, 13, 14, 16, 17, 19]
 
 [[bank.program]]
-name = "8ed4th (gamma)"
+name = "8ed4/3 (gamma)"
 root = {note = 69, Hertz=440.0}
 cents = 62.26
 Halberstadt = [0, 2, 3, 5, 6, 8, 10, 11, 13, 14, 16, 17, 19]
@@ -128,8 +136,170 @@ root = {note = 69, Hertz=440.0}
 cents = 50.00
 Halberstadt = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
 
+#############
+# Finetuned #
+#############
+
 # [[bank]]
 # name = "finetuned"
 
+# [[bank.program]]
+# name = "Pythagorean"
+# root = {note = 69, Hertz=440.0}
+# cents = [90.2, 180.4, 203.9, 294.1, 384.4, 407.8, 498.0, 588.3, 678.5, 702.0, 792.2, 882.4, 905.9, 996.1, 1086.3, 1176.5, 1200.0]
+# Halberstadt = [0, [1,2], 3, 4, [6,5], 7, [8,9], 10, [11,12], 13, 14, [15,16], 17]
+
+# [[bank.program]]
+# name = "41edo (jali)"
+# root = {note = 69, Hertz=440.0}
+# cents = [175.6, 204.9, 234.1, 322.0, 351.2, 380.5, 409.8, 497.6, 614.6, 702.4, 848.8, 878.0, 907.3, 936.6, 1024.4, 1082.9, 1112.2, 1200.0]
+# Halberstadt = [-8, -7, [-5,-4,-6], -3, [-2,-1], 0, 1, [2,3], 5, [6,7,4], 8, 9, 10]
+
+# [[bank.program]]
+# name = "48edo (makam)"
+# root = {note = 69, Hertz=440.0}
+# cents = [75.0, 100.0, 200.0, 300.0, 325.0, 375.0, 400.0, 500.0, 575.0, 600.0, 700.0, 775.0, 800.0, 900.0, 1000.0, 1025.0, 1075.0, 1100.0, 1200.0]
+# Halberstadt = [0, [2,1], 3, [4,5], [6,7], 8, [10,9], 11, [13,12], 14, [15,16], [17,18], 19]
+
+# [[bank.program]]
+# name = "eikosany"
+# root = {note = 69, Hertz=440.0}
+# cents = [53.3, 84.5, 165.0, 203.9, 266.9, 368.9, 431.9, 470.8, 551.3, 582.5, 635.8, 702.0, 786.4, 818.2, 867.0, 968.8, 1017.6, 1049.4, 1133.8, 1200.0]
+# Halberstadt = [0, [2,1], [4,3], 5, [6,7], 8, [10,9], [12,11], [14,13], [16,14], 17, [18,19], 20]
+
+# [[bank.program]]
+# name = "53edo (shruti)"
+# root = {note = 69, Hertz=440.0}
+# cents = [90.6, 113.2, 181.1, 203.8, 294.3, 317.0, 384.9, 407.5, 498.1, 588.7, 611.3, 679.2, 701.9, 792.5, 815.1, 883.0, 905.7, 996.2, 1018.9, 1086.8, 1109.4, 1200.0]
+# Halberstadt = [0, [1,2], [3,4], [5,6], [7,8], 9, [10,11], [13,12], [14,15], [17,16], [18,19], [20,21], 22]
+
+# [[bank.program]] # Arabic
+# name = "29edo"
+# root = {note = 69, Hertz=440.0}
+# cents = [41.38]
+# Halberstadt = [0, [2,3], 5, [7,8], [9,10], 12, [14,15], 17, [19,20], 22, [24,25], [26,27], 29]
+
+# [[bank.program]] # European
+# name = "31edo"
+# root = {note = 69, Hertz=440.0}
+# cents = [38.71]
+# Halberstadt = [0, [3,2], [5,6], [8,7], [10,9], 13, [16,15], [18,19], [21,20], [23,24], [26,25], [28,27], 31]
+
+# [[bank.program]]
+# name = "gamma"
+# root = {note = 69, Hertz=440.0}
+# cents = [35.10]
+# Halberstadt = [[0,-1], [3,2], [6,5], [9,8], [11,10], [14,13], [17,16], [20,19], [23,22], [25,24], [28,27], [1,30], [34,33]]
+
+# [[bank.program]]
+# name = "Georgian"
+# root = {note = 69, Hertz=440.0}
+# cents = [35.10]
+# Halberstadt = [[-10,-11], -9, -7, -5, 0, [5,4], 6, 9, 10, [15,14], 19, 20, [25,24]]
+
+##############
+# Macrotonal #
+##############
+
 # [[bank]]
 # name = "macrotonal"
+
+# [[bank.program]] # sléndro
+# name = "5edo-10Hz"
+# root = {note = 69, Hertz = 440.0}
+# cents = [120.0]
+# Halberstadt = [nan, 0, nan, 1, nan, nan, 2, nan, 3, nan, 4, nan, nan]
+# ombak = {pengumbang = 10.0, pengisep = 0.0}
+
+# [[bank.program]] # membrane overtones
+# name = "5 drumonics"
+# root = {note = 70, Hertz = 440.0}
+# cents = [514, 639, 884, 1052, 1189]
+# Halberstadt = [nan, -4, nan, -3, nan, nan, -2, nan, -1, nan, 0, nan, nan]
+# ombak = {pengumbang = 0.0, pengisep = 0.0}
+
+# [[bank.program]]
+# name = "hexany"
+# root = {note = 70, Hertz = 440.0}
+# cents = [272, 386, 655, 888, 869, 1200]
+# Halberstadt = [0, nan, 1, nan, 2, nan, 3, nan, 4, nan, 5, nan, 6]
+# ombak = {pengumbang = 0.0, pengisep = 0.0}
+
+# [[bank.program]] # pélog
+# name = "9edo+8Hz"
+# root = {note = 70, Hertz = 440.0}
+# cents = [133.33]
+# Halberstadt = [0, 1, nan, 2, 3, 4, 5, nan, 6, nan, 7, 8, 9]
+# ombak = {pengumbang = 0.0, pengisep = 8.0}
+
+# [[bank.program]]
+# name = "dekany"
+# root = {note = 69, Hertz = 440.0}
+# cents = [84.0, 204.0, 267.0, 471.0, 583.0, 702.0, 786.0, 969.0, 1018.0, 1200.0]
+# Halberstadt = [-4, -3, -2, nan, -1, 0, 1, 2, 3, 4, nan, 5, 6]
+
+# [[bank.program]]
+# name = "11 Huis"
+# root = {note = 69, Hertz = 440.0}
+# cents = [231.2, 266.9, 315.6, 386.3, 498.0,  582.5, 702.0, 813.7, 884.4,  968.8, 1200.0]
+# Halberstadt = [-8, -7, -6, -5, -4, -3, -2, -1, nan, 0, 1, 2, 3]
+# ombak = {pengumbang = 0.0, pengisep = 0.0}
+
+# [[bank.program]]
+# name = "11 Harmonics"
+# root = {note = 69, Hertz = 440.0}
+# cents = [105.0, 203.9, 297.5, 386.3, 470.8, 551.3, 702.0, 840.5, 968.8, 1088.3, 1200.0]
+# Halberstadt = [-4, -3, -2, nan, -1, 0, 1, 2, 3, 4, 5, 6, 7]
+# ombak = {pengumbang = 0.0, pengisep = 0.0}
+
+# [[bank.program]]
+# name = "11 Subharmonics"
+# root = {note = 69, Hertz = 440.0}
+# cents = [111.7, 231.2, 359.5, 498.0, 648.7, 729.2, 813.7, 902.5, 996.1, 1095.0, 1200.0]
+# Halberstadt = [-5, -4, -3, -2, -1, 0, 1, 2, nan, 3, 4, 5, 6]
+# ombak = {pengumbang = 0.0, pengisep = 0.0}
+
+# [[bank.program]]
+# name = "12edo+-3Hz"
+# root = {note=69, Hertz=440.0}
+# cents = [100]
+# ombak = {pengumbang = 3.0, pengisep = 3.0}
+
+##########
+# Rank-2 #
+##########
+
+# [[bank]]
+# name = "rank-2"
+
+# [[bank.program]]
+# name = "Pythagorean"
+# root = {note = 69, Hertz = 440.0}
+# cents = {period = 120.00, generator = 701.96}
+# Halberstadt = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+##############
+# Arithmetic #
+##############
+
+# [[bank]]
+# name = "arithmetic"
+
+# [[bank.program]] # Andean
+# name = '43Hz Bb=413Hz'
+# root = {note = 70, frequency = 413.0}
+# Hertz = 43.0
+# Halberstadt = [nan, 0, 1, 2, nan, nan, 3, nan, 4, nan, 5, nan, nan]
+
+# [[bank.program]] # Harmonic Series
+# name = "10Hz A=440Hz"
+# root = {note=69, Hertz=440.0}
+# Hertz = 20.0
+# Halberstadt = [0, nan, 1, nan, 2, 3, nan, 4, nan, 5, nan, 6, 7]
+
+# [[bank.program]] # Australian
+# name = "10Hz A=441Hz"
+# root = {note = 69, Hertz=441.0}
+# Hertz = 10.0
+# Halberstadt = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+

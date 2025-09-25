@@ -16,12 +16,11 @@ device = ssd1306(serial)
 
 button = Button(4)
 
-
 class Display:
     def __init__(
         self,
         refresh_rate=0.03,
-        typeface="/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        typeface="/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 
         wait_time=1,
         scroll_speed=2,
     ):
@@ -60,7 +59,6 @@ class Display:
 
     def run(self):
         while True:
-            # add self.x
             if self.is_flipped:
                 if self.flipped_is_on:
                     current_time = time.time()

@@ -2,12 +2,7 @@
 # General Settings #
 ####################
 
-# Defines the color palette in use.
-# Colors are defined through rgb.
-# Values should be floats between 0.0 and 1.0.
-# They need not correspond to their labels
-
-[palette]
+[palette] # rgb values between 0 and 1
 black = [0.0, 0.0, 0.0]
 white = [1.0, 1.0, 1.0]
 red = [1.0, 0.0, 0.0]
@@ -17,3 +12,29 @@ green = [0.0, 1.0, 0.0]
 cyan = [0.0, 1.0, 1.0]
 blue = [0.0, 0.0, 1.0]
 magenta = [1.0, 0.0, 1.0]
+
+[QjackCtl]
+patchbay = "/home/pi/microtonOS/config/qjackctl.xml"
+
+[Carla]
+headless = false
+project = "/home/pi/microtonOS/config/carla.carxp"
+
+[Pianoteq]
+standalone = true
+headless = false
+directory = "/home/pi/microtonOS/config/Pianoteq/"
+midimapping = "midimapping"
+preset0 = "My Presets/NY Steinway D.fxp"
+
+[tuneBfree]
+standalone = true
+directory = "/home/pi/microtonOS/config/tuneBfree/"
+midimapping = "midimapping.toml"
+presets = "drawbars.pgm"
+
+["Surge XT"]
+standalone = false
+
+[dexed]
+standalone = false

@@ -4,6 +4,13 @@
 # and to some extent arbitrary.
 # For the moment, only Pianoteq is supported.
 
+############
+# Pianoteq #
+############
+
+# Only accepts program change,
+# so program := bank ** 11 + program
+
 [[engine]]
 name = "Pianoteq"
 [[engine.bank]]
@@ -27,11 +34,180 @@ program = [
 name = "historical"
 program = [
     "cimbalom",
-    "Neupert clavichord",
-    "FE Blanchet harpsichord",
-    "C Grimaldi harpsichord"]
+    "Neupert Clavichord",
+    "FE Blanchet Harpsichord",
+    "C Grimaldi Harpsichord"]
 [[engine.bank]]
-name = "Bells"
+name = "bells"
 program = [
     "church bells",
     "tubular bells"]
+
+#############
+# tuneBfree #
+#############
+
+# Accepts both bank and program change
+
+# [[engine]]
+# name = "tuneBfree"
+# [[engine.bank]]
+# name = "tonewheel"
+# program = [
+#     "Jimmy Smith",
+#     "Charles Earland",
+#     "squabbling",
+#     "pure percussion",
+#     "full organ",
+#     "bossa/reggae",
+#     "unison",
+#     "octaves",
+#     "fifths",
+#     "fourths",
+#     "thirds"]
+# [[engine.bank]]
+# name = "square"
+# program = [
+#     "Jimmy Smith",
+#     "Charles Earland",
+#     "squabbling",
+#     "pure percussion",
+#     "full organ",
+#     "bossa/reggae",
+#     "unison",
+#     "octaves",
+#     "fifths",
+#     "fourths",
+#     "thirds"]
+# [[engine.bank]]
+# name = "sawtooth"
+# program = [
+#     "Jimmy Smith",
+#     "Charles Earland",
+#     "squabbling",
+#     "pure percussion",
+#     "full organ",
+#     "bossa/reggae",
+#     "unison",
+#     "octaves",
+#     "fifths",
+#     "fourths",
+#     "thirds"]
+
+#########
+# dexed #
+#########
+
+# Only accepts program change,
+# so program := bank ** 11 + program
+
+# [[engine]]
+# name = "dexed"
+# [[engine.bank]]
+# name = "bank 0"
+# program = [
+#     "say again",
+#     "Laurie",
+#     "beatmehrdr",
+#     "pharoh",
+#     "chroma",
+#     "lavitar",
+#     "SloSwl",
+#     "OB Gen",
+#     "saw em up",
+#     "LFORez",
+#     "encounters"]
+# [[engine.bank]]
+# name = "bank 1"
+# program = [
+#     "thunder",
+#     "echoecho",
+#     "analog",
+#     "P ICE",
+#     "flexi",
+#     "ARP 2600",
+#     "Arp+BuzzRs",
+#     "TRW",
+#     "miridor",
+#     "devil tack",
+#     "rumble"]
+# [[engine.bank]]
+# name = "bank 2"
+# program = [
+#     "cascade",
+#     "C D Eb F",
+#     "TundStatc",
+#     "wobble",
+#     "filter-swp",
+#     "sahara",
+#     "electron",
+#     "banks",
+#     "slow 3D pad",
+#     "LFO Sweep"]
+
+############
+# Surge XT #
+############
+
+# Accepts both bank and program change
+
+# [[engine]]
+# name = "Surge XT"
+# [[engine.bank]]
+# name = "lead"
+# program = [
+#     "analogue foundation",
+#     "clean shit",
+#     "cray",
+#     "deep end",
+#     "mellow",
+#     "moogy saw",
+#     "sub 4",
+#     "triple"]
+# [[engine.bank]]
+# name = "polysynth"
+# program = [
+#     "1804",
+#     "analog pad",
+#     "CS-80",
+#     "drone bee",
+#     "filter sweep",
+#     "Juno-60 Strings",
+#     "Jupiter-8",
+#     "Korg Triton",
+#     "MKS-70 Warm Pad",
+#     "Oberheim Dreams",
+#     "polymoog",
+#     "primes",
+#     "Prophet VS",
+#     "Super Jupiter"]
+# [[engine.bank]]
+# name = "string machine"
+# program = [
+#     "bowed string",
+#     "chamber strings",
+#     "string machine 4",
+#     "string machine 5",
+#     "string machine 6",
+#     "string machine 8",
+#     "super thick strings"]
+# [[engine.bank]]
+# name = "wind synth"
+# program = [
+#     "baritonosaurus saxus",
+#     "brassy",
+#     "clarinet",
+#     "recorder"]
+# [[engine.bank]]
+# name = "experimental"
+# program = [
+#     "brain stem",
+#     "computers in space",
+#     "mystic",
+#     "ocean shimmer"]
+# [[engine.bank]]
+# name = "vocoder"
+# program = [
+#     "noise",
+#     "pop",
+#     "solo"]
