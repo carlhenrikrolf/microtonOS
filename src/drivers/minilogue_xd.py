@@ -9,10 +9,10 @@ client_name = "Minilogue XD Driver"
 
 # configurations
 config = {
-    "microtonOS": load_config(__file__, "../../config/microtonOS.toml"),
+    "general_settings": load_config(__file__, "../../config/general_settings.toml"),
     "control_change": load_config(__file__, "../../config/control_change.toml"),
 }
-external_channel = config["microtonOS"][device_name]["channel"]
+external_channel = config["general_settings"][device_name]["channel"]
 for i in range(16):
     if device_name == config["control_change"]["channel"][i]["device"]:
         internal_channel = i

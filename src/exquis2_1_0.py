@@ -22,19 +22,20 @@ from utils import (
 )
 
 config = {
-    "microtonOS": load_config(__file__, "../config/microtonOS.toml"),
+    "general_settings": load_config(__file__, "../config/general_settings.toml"),
+    "programs": load_config(__file__, "../config/programs.toml"),
     "control_change": load_config(__file__, "../config/control_change.toml"),
     "tuning": load_config(__file__, "../config/tuning.toml"),
 }
 
-black = np.array(config["microtonOS"]["palette"]["black"])
-white = np.array(config["microtonOS"]["palette"]["white"])
-blue = np.array(config["microtonOS"]["palette"]["blue"])
-magenta = np.array(config["microtonOS"]["palette"]["magenta"])
-red = np.array(config["microtonOS"]["palette"]["red"])
-yellow = np.array(config["microtonOS"]["palette"]["yellow"])
-green = np.array(config["microtonOS"]["palette"]["green"])
-cyan = np.array(config["microtonOS"]["palette"]["cyan"])
+black = np.array(config["general_settings"]["palette"]["black"])
+white = np.array(config["general_settings"]["palette"]["white"])
+blue = np.array(config["general_settings"]["palette"]["blue"])
+magenta = np.array(config["general_settings"]["palette"]["magenta"])
+red = np.array(config["general_settings"]["palette"]["red"])
+yellow = np.array(config["general_settings"]["palette"]["yellow"])
+green = np.array(config["general_settings"]["palette"]["green"])
+cyan = np.array(config["general_settings"]["palette"]["cyan"])
 
 
 client_name = "microtonOS"
@@ -286,10 +287,10 @@ class InstrumentPage:
         self.prev_bank = 0
         self.pgm = 0
         self.prev_pgm = 0
-        n_banks = len(config["microtonOS"]["engine"][0]["bank"])
+        n_banks = len(config["programs"]["engine"][0]["bank"])
         n_banks = 11 if n_banks > 11 else n_banks
         self.bank_leds = range(0, n_banks)
-        n_pgms = len(config["microtonOS"]["engine"][0]["bank"][self.bank]["program"])
+        n_pgms = len(config["programs"]["engine"][0]["bank"][self.bank]["program"])
         n_pgms = 11 if n_pgms > 11 else n_pgms
         n_pgms = 0 if n_pgms == 1 else n_pgms
         self.pgm_leds = range(22, 22 + n_pgms)
@@ -312,7 +313,7 @@ class InstrumentPage:
                 misc_colors, start_index=xq.arrow_or_encoder[0]
             )
             to_exquis.send(misc_leds)
-            pgm_name = config["microtonOS"]["engine"][0]["bank"][self.bank]["program"][
+            pgm_name = config["programs"]["engine"][0]["bank"][self.bank]["program"][
                 self.pgm
             ]
             display.show(pgm_name)
@@ -320,7 +321,7 @@ class InstrumentPage:
             if msg.note in self.bank_leds:
                 self.bank = msg.note
                 n_pgms = len(
-                    config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
+                    config["programs"]["engine"][0]["bank"][self.bank]["program"]
                 )
                 n_pgms = 11 if n_pgms > 11 else n_pgms
                 n_pgms = 0 if n_pgms == 1 else n_pgms
@@ -329,11 +330,11 @@ class InstrumentPage:
                 self.update()
                 if n_pgms == 0:
                     self.pgm = 0
-                    bank_name = config["microtonOS"]["engine"][0]["bank"][self.bank][0][
+                    bank_name = config["programs"]["engine"][0]["bank"][self.bank][0][
                         "program"
                     ][0]
                 else:
-                    bank_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
+                    bank_name = config["programs"]["engine"][0]["bank"][self.bank][
                         "name"
                     ]
                 display.show(bank_name)
@@ -342,7 +343,7 @@ class InstrumentPage:
                 self.prev_bank = self.bank
                 self.prev_pgm = self.pgm
                 self.update()
-                pgm_name = config["microtonOS"]["engine"][0]["bank"][self.bank][
+                pgm_name = config["programs"]["engine"][0]["bank"][self.bank][
                     "program"
                 ][self.pgm]
                 display.show(pgm_name)
@@ -359,9 +360,7 @@ class InstrumentPage:
         elif xq.is_pressed(msg, xq.sound):
             self.bank = self.prev_bank
             self.pgm = self.prev_pgm
-            n_pgms = len(
-                config["microtonOS"]["engine"][0]["bank"][self.bank]["program"]
-            )
+            n_pgms = len(config["programs"]["engine"][0]["bank"][self.bank]["program"])
             self.pgm_leds = range(22, 22 + n_pgms)
 
 

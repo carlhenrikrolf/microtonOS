@@ -40,3 +40,9 @@ standalone = false
 
 [dexed]
 standalone = false
+
+["Reface CP"]
+channel = 0
+
+["Minilogue XD"]
+channel = 0
