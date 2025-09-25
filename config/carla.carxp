@@ -1367,85 +1367,68 @@ AEpVQ0VQcml2YXRlRGF0YQ==
    <Target>microtonOS Selector:input_MONO</Target>
   </Connection>
   <Connection>
-   <Source>Notepad-8FX Digital Stereo (IEC958):capture_FL</Source>
-   <Target>microtonOS Selector:input_MONO</Target>
+   <Source>microtonOS Selector:to_XentoTune_FL</Source>
+   <Target>XentoTune:input_1</Target>
   </Connection>
   <Connection>
-   <Source>Notepad-8FX Digital Stereo (IEC958):capture_FR</Source>
-   <Target>microtonOS Selector:input_MONO</Target>
+   <Source>microtonOS Selector:to_XentoTune_FR</Source>
+   <Target>XentoTune:input_2</Target>
   </Connection>
   <Connection>
    <Source>librespot:out_0</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
   </Connection>
   <Connection>
-   <Source>librespot:out_0</Source>
-   <Target>Notepad-8FX Analog Stereo:playback_FL</Target>
-  </Connection>
-  <Connection>
    <Source>librespot:out_1</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
-  </Connection>
-  <Connection>
-   <Source>librespot:out_1</Source>
-   <Target>Notepad-8FX Analog Stereo:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>Pianoteq:out_1</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
   </Connection>
   <Connection>
-   <Source>Pianoteq:out_1</Source>
-   <Target>Notepad-8FX Analog Stereo:playback_FL</Target>
-  </Connection>
-  <Connection>
    <Source>Pianoteq:out_2</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
   </Connection>
   <Connection>
-   <Source>Pianoteq:out_2</Source>
-   <Target>Notepad-8FX Analog Stereo:playback_FR</Target>
+   <Source>XentoTune:output_1</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>XentoTune:output_2</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
    <Target>Pianoteq:midi_in</Target>
   </Connection>
   <Positions>
-   <Position x1="1414" y1="1227" x2="2107" y2="1274">
+   <Position x1="1338" y1="1169" x2="2107" y2="1274">
     <Name>Audio Adapter (Unitek Y-247A) Mono</Name>
    </Position>
-   <Position x1="1610" y1="1300">
+   <Position x1="1671" y1="1253">
     <Name>microtonOS Selector</Name>
    </Position>
    <Position x1="1845" y1="1405">
     <Name>librespot</Name>
    </Position>
-   <Position x1="2012" y1="1613">
+   <Position x1="1890" y1="1602">
     <Name>Pianoteq</Name>
    </Position>
    <Position x1="1758" y1="1192" x2="2161" y2="1274">
     <Name>Audio Adapter (Unitek Y-247A) Analog Stereo</Name>
    </Position>
-   <Position x1="1550" y1="1718" x2="2154" y2="1523">
-    <Name>Notepad-8FX Analog Stereo</Name>
-   </Position>
    <Position x1="1252" y1="1339" x2="2098" y2="1402">
     <Name>Midi-Bridge</Name>
    </Position>
-   <Position x1="1737" y1="1186" pluginId="0">
+   <Position x1="1914" y1="1265" pluginId="0">
     <Name>XentoTune</Name>
    </Position>
-   <Position x1="1833" y1="1538" pluginId="1">
-    <Name>tuneBfreeGUI</Name>
-   </Position>
-   <Position x1="1851" y1="1502" pluginId="1">
+   <Position x1="1695" y1="1732" pluginId="1">
     <Name>DecentSampler</Name>
    </Position>
-   <Position x1="1947" y1="1122" pluginId="2">
+   <Position x1="1594" y1="736" pluginId="2">
     <Name>SonoBus</Name>
-   </Position>
-   <Position x1="1803" y1="1523" pluginId="1">
-    <Name>tuneBfree DSP Tonewheel Organ</Name>
    </Position>
   </Positions>
  </ExternalPatchbay>

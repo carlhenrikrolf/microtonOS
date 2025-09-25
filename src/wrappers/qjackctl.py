@@ -5,18 +5,15 @@ from utils import handle_terminations, load_config
 config = {
     "general_settings": load_config(__file__, "../../config/general_settings.toml"),
 }
-headless = config["general_settings"]["Carla"]["headless"]
-project = config["general_settings"]["Carla"]["project"]
-
+patchbay = config["general_settings"]["QjackCtl"]["patchbay"]
 pwjack = "/usr/bin/pw-jack"
-path = "/usr/bin/carla-jack-multi"
 command = [
     pwjack,
-    path,
-    project,
+    "/usr/bin/qjackctl",
+    "--start",
+    "--active-patchbay",
+    patchbay,
 ]
-if headless:
-    command.append("--no-gui")
 
 with subprocess.Popen(command) as process:
     handle_terminations(process)

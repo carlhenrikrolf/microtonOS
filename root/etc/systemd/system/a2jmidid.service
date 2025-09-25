@@ -5,6 +5,7 @@ Requires=qjackctl.service
 
 [Service]
 User=pi
+WorkingDirectory=/home/pi/microtonOS/tmp/
 ExecStart=/usr/bin/a2jmidid -u
 Restart=always
 RestartSec=2s

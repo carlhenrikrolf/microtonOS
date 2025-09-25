@@ -1,7 +1,6 @@
 [Unit]
 Description=Start the footswitches driver
 After=graphical.target
-Requires=qjackctl.service
 
 [Service]
 User=pi
