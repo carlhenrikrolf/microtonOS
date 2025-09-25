@@ -13,33 +13,40 @@ from midi_implementation.midi1 import control_change as cc
 
 # configurations
 config = {
-    "microtonOS": load_config(__file__, "../../config/microtonOS.toml"),
+    "general_settings": load_config(__file__, "../../config/general_settings.toml"),
+    "programs": load_config(__file__, "../../config/programs.toml"),
 }
-pw_jack = config["microtonOS"]["pw-jack"]["path"]
-for index, engine in enumerate(config["microtonOS"]["engine"]):
+version = config["general_settings"]["Pianoteq"]["version"]
+standalone = config["general_settings"]["Pianoteq"]["standalone"]
+headless = config["general_settings"]["Pianoteq"]["headless"]
+midimapping = config["general_settings"]["Pianoteq"]["midimapping"]
+preset0 = config["general_settings"]["Pianoteq"]["preset0"]
+files = config["general_settings"]["Pianoteq"]["files"]
+directories = config["general_settings"]["Pianoteq"]["directories"]
+
+for index, engine in enumerate(config["programs"]["engine"]):
     if engine["name"] == "Pianoteq":
         break
-headless = engine["headless"]
-path = engine["path"]
-preset = engine["preset"]
-midimapping = engine["midimapping"]
-files = list(engine["files"])
+
+pwjack = "/usr/bin/pw-jack"
+path = "/usr/bin/" + version
+all_files = list(files)
 extensions = (".fxp", ".mfxp", ".ptm", ".scl", ".kbm")
-for dir in engine["directories"]:
+for dir in directories:
     for ext in extensions:
         ls = os.listdir(dir)
         for file in ls:
             if file.endswith(extensions):
-                files.append(dir + file)
+                all_files.append(dir + file)
 
 
 # definitions
 client_name = "Pianoteq Wrapper"
 commandline = [
-    pw_jack,
+    pwjack,
     path,
-    "--fxp" if preset.endswith(".fxp") else "--preset",
-    preset,
+    "--fxp" if preset0.endswith(".fxp") else "--preset",
+    preset0,
     "--midimapping",
     midimapping,
 ]
@@ -49,9 +56,9 @@ if len(files) > 0:
     commandline.append("--open")
 for file in files:
     commandline.append(file)
-if len(files) > 0 and preset.endswith(".fxp"):
+if len(files) > 0 and preset0.endswith(".fxp"):
     commandline.append(
-        preset
+        preset0
     )  # --preset or --fxp options are not active after other .fxp files are loaded
 
 
@@ -72,9 +79,15 @@ class Script:
 
 
 # run script
-process = subprocess.Popen(commandline)
-handle_terminations(process)
-outport = Outport(client_name, verbose=False)
-script = Script()
-inport = Inport(script.run, client_name, verbose=False)
-inport.open()
+if standalone:
+    with subprocess.Popen(commandline) as process:
+        handle_terminations(process)
+        outport = Outport(client_name, verbose=False)
+        script = Script()
+        inport = Inport(script.run, client_name, verbose=False)
+        inport.open()
+else:
+    outport = Outport(client_name, verbose=False)
+    script = Script()
+    inport = Inport(script.run, client_name, verbose=False)
+    inport.open()

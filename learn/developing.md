@@ -167,3 +167,7 @@ cd linux
 ./deb_get_prereqs.sh
 ./build.sh
 ```
+
+**Pianoteq**
+
+Under Options > General > Folders, pick `~/microtonOS/config/Pianoteq`.

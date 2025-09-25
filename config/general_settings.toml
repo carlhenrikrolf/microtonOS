@@ -21,11 +21,13 @@ headless = false
 project = "/home/pi/microtonOS/config/carla.carxp"
 
 [Pianoteq]
+version = "Pianoteq 8 STAGE"
 standalone = true
 headless = false
-directory = "/home/pi/microtonOS/config/Pianoteq/"
 midimapping = "midimapping"
-preset0 = "My Presets/NY Steinway D.fxp"
+preset0 = "/home/pi/microtonOS/config/Pianoteq/Presets/My Presets/NY Steinway D.fxp"
+files = []
+directories = []
 
 [tuneBfree]
 standalone = true
