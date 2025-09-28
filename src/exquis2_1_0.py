@@ -11,7 +11,8 @@ from display import Display
 from midi_implementation.intuitive_instruments import exquis2_1_0 as xq
 from midi_implementation.midi1 import control_change as cc, realtime as rt
 from midi_implementation import mts
-from tuning import Tuning  # import tuning as tun
+from tuning import Tuning
+from layouts import Drums
 from utils import (
     Inport,
     Outport,
@@ -44,6 +45,7 @@ tuning = Tuning(
     bank_name=config["tuning"]["bank"][0]["name"],
     config=config["tuning"]["bank"][0]["program"][0],
 )
+drums = Drums(high="congas", low="congas", device="Exquis", color0=red, color1=magenta)
 
 
 def mts_message(freqs, pgm_name=""):
@@ -135,7 +137,7 @@ class StartPage:
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
-            developer_mode = xq.developer_mode("enter")
+            developer_mode = xq.enter_developer_mode()
             to_exquis.send(developer_mode)
         if msg is None:
             colors = [black] * 128
@@ -297,7 +299,7 @@ class InstrumentPage:
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
-            developer_mode = xq.developer_mode("enter")
+            developer_mode = xq.enter_developer_mode()
             to_exquis.send(developer_mode)
         if msg is None:
             colors = [black] * 128
@@ -369,13 +371,20 @@ class RhythmPage:
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
-            developer_mode = xq.developer_mode("enter")
+            developer_mode = xq.enter_developer_mode(pads=False)
             to_exquis.send(developer_mode)
         if msg is None:
+            snapshot_data = xq.generate_snapshot(
+                notes=drums.notes,
+                colors=drums.colors,
+                polytouch=True,
+            )
+            snapshot = xq.set_snapshot(snapshot_data)
+            to_exquis.send(snapshot)
             colors = [black] * 128
-            pad_colors = [colors[i] for i in xq.pad]
-            pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
-            to_exquis.send(pad_leds)
+            # pad_colors = [colors[i] for i in xq.pad]
+            # pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
+            # to_exquis.send(pad_leds)
             misc_colors = [colors[i] for i in xq.arrow_or_encoder]
             misc_leds = xq.set_led_colors(
                 misc_colors, start_index=xq.arrow_or_encoder[0]
@@ -391,7 +400,7 @@ class IsomorphicPage:
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
-            developer_mode = xq.developer_mode("enter")
+            developer_mode = xq.enter_developer_mode()
             to_exquis.send(developer_mode)
         if msg is None:
             colors = [black] * 128
@@ -474,7 +483,7 @@ class TuningPage:
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
-            developer_mode = xq.developer_mode("enter")
+            developer_mode = xq.enter_developer_mode()
             to_exquis.send(developer_mode)
         if msg is None:
             colors = [black] * 128
@@ -642,36 +651,15 @@ class Play:
             to_exquis.send(slider_leds)
 
 
-class ActiveSensing:
-    ack_rate = 0.28  # seconds
-
-    def __init__(self):
-        self.ack = 0.0
-
-    def run(self):
-        while True:
-            # Exquis
-            now = time.time()
-            diff = now - self.ack
-            ack = xq.get_tempo()
-            to_exquis.send(ack)
-            if diff > 2 * self.ack_rate:
-                script.page.update(enter_dev=True)
-            # The rest
-            to_internal.send(mido.Message("active_sensing"))
-            to_lower.send(mido.Message("active_sensing"))
-            to_upper.send(mido.Message("active_sensing"))
-            time.sleep(self.ack_rate)
-
-
 class Script:
     def __init__(self):
+        self.ack = 0.0
         self.page = start_page
         self.bpm = None
         self.is_menu = [False] * 4
 
     def exquis(self, msg):
-        active_sensing.ack = time.time()
+        self.ack = time.time()
         shift.update(msg)
         play.update(msg)
         if xq.is_pressed(msg, xq.sound):
@@ -814,6 +802,22 @@ class Script:
             out = xq.set_tempo(self.bpm)
             to_exquis.send(out)
 
+    def active_sensing(self):
+        ack_interval = 0.28  # seconds
+        while True:
+            # Exquis
+            now = time.time()
+            diff = now - self.ack
+            ack = xq.get_tempo()
+            to_exquis.send(ack)
+            if diff > 2 * ack_interval:
+                self.page.update(enter_dev=True)
+            # The rest
+            to_internal.send(mido.Message("active_sensing"))
+            to_lower.send(mido.Message("active_sensing"))
+            to_upper.send(mido.Message("active_sensing"))
+            time.sleep(ack_interval)
+
 
 if esp.has_ipc() and not esp.can_register_master():
     esp.reinitialize()
@@ -845,7 +849,6 @@ with esp.Master():
     tuning_page = TuningPage()
     shift = Shift()
     play = Play()
-    active_sensing = ActiveSensing()
     script = Script()
 
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
@@ -886,7 +889,7 @@ with esp.Master():
             from_upper.open,
             from_lower.open,
             from_clock.open,
-            active_sensing.run,
+            script.active_sensing,
             display.run,
             selector,
         ]

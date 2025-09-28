@@ -90,6 +90,40 @@ class Exquis2_1_0:
     led_fx[5] = alpha_channel = lambda x: round(0x3D * x)
     led_fx[6] = blend2white = lambda x: 0x40 + round((0x70 - 0x40) * x)
 
+    def enter_developer_mode(
+        self,
+        pads=True,
+        encoders=True,
+        slider=True,
+        up=True,
+        down=True,
+        settings=True,
+        sound=True,
+        misc=True,
+    ):
+        mode = 0
+        if pads:
+            mode += self.pad_mode
+        if encoders:
+            mode += self.encoder_mode
+        if slider:
+            mode += self.slider_mode
+        if up and down:
+            mode += self.up_down_mode
+        if settings and sound:
+            mode += self.settings_sound_mode
+        if misc:
+            mode += self.misc_mode
+        data = [*self.prefix, self.setup_developer_mode, mode]
+        msg = mido.Message("sysex", data=data)
+        return msg
+
+    def exit_developer_mode(self):
+        mode = 0
+        data = [*self.prefix, self.setup_developer_mode, mode]
+        msg = mido.Message("sysex", data=data)
+        return msg
+
     def developer_mode(
         self,
         action,
@@ -112,9 +146,9 @@ class Exquis2_1_0:
                 mode += self.encoder_mode
             if slider:
                 mode += self.slider_mode
-            if up or down:
+            if up and down:
                 mode += self.up_down_mode
-            if settings or sound:
+            if settings and sound:
                 mode += self.settings_sound_mode
             if misc:
                 mode += self.misc_mode
@@ -285,40 +319,53 @@ class Exquis2_1_0:
         if msg is None:
             return mido.Message("sysex", data=data)
         elif msg.type == "sysex" and msg.data[: len(data)] == data:
-            snapshot = msg.data[len(data) :]
-            return snapshot
+            snapshot_data = msg.data[len(data) :]
+            return snapshot_data
         else:
             return None
 
-    def set_snapshot(self, snapshot):
+    def set_snapshot(self, snapshot_data):
         """Set a snapshot of all the settings."""
-        data = [*self.prefix, self.snapshot, *snapshot]
+        data = [*self.prefix, self.snapshot, *snapshot_data]
         return mido.Message("sysex", data=data)
 
-    def settings_to_snapshot(notes, colors):
+    def generate_snapshot(
+        self,
+        notes,
+        colors,
+        polytouch=False,
+        pitchbend_range=1,
+        mpe_channels=14,
+        midi_channel=0,
+        note_layout=0,
+    ):
         assert len(notes) == len(colors) == 61
-        data = [
-            0x00,
-            0x01,
-            0x00,  # pitchbend range?
-            0x0E,  # number of MPE channels?
-            0x00,
-            0x00,
-            0x01,
-            0x01,
-            0x00,
-            0x00,
-            0x00,
+        assert pitchbend_range in range(49)  # or is it 0 to 12 and 24 and 48?
+        assert mpe_channels in range(1, 15)
+        assert midi_channel in range(16)
+        assert note_layout in range(6)
+        snapshot_data = [
+            0,  # unknown
+            0 if polytouch else 1,
+            pitchbend_range,
+            mpe_channels,
+            midi_channel,
+            note_layout,
+            1 if note_layout in [0, 1, 2] else 0,
+            1 if note_layout in [0, 2] else 0,
+            0,  # unknown
+            0,  # unknown
+            0,  # unknown
         ]
         for note, color in zip(notes, colors):
-            data.append(note)
-            append_color(data, color)
-        return data
+            snapshot_data.append(note)
+            append_color(snapshot_data, color)
+        return snapshot_data
 
     def linearize(self, arr):
         """Turn an array representation of the pads to a list."""
         n_rows = 11
-        result = [None] * len(self.pads)
+        result = [None] * len(self.pad)
         assert len(arr) == n_rows
         index = 0
         for i in range(n_rows):
