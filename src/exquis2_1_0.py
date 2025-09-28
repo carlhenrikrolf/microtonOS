@@ -45,7 +45,15 @@ tuning = Tuning(
     bank_name=config["tuning"]["bank"][0]["name"],
     config=config["tuning"]["bank"][0]["program"][0],
 )
-drums = Drums(high="congas", low="congas", device="Exquis", color0=red, color1=magenta)
+ghostnote = 127
+drums = Drums(
+    high="congas",
+    low="congas",
+    device="Exquis",
+    color0=red,
+    color1=magenta,
+    ghostnote=ghostnote,
+)
 
 
 def mts_message(freqs, pgm_name=""):
@@ -60,24 +68,22 @@ def mts_message(freqs, pgm_name=""):
     return sysex
 
 
-def show_cc(msg):
+def show_cc(msg, engine_name="Pianoteq"):
     if msg.type == "control_change":
         control = str(msg.control)
         transmitted = config["control_change"]["channel"][msg.channel]["transmitted"]
-        if control in transmitted:
-            Pianoteq = config["control_change"]["channel"][msg.channel]["transmitted"][
-                control
-            ]["Pianoteq"]
-            if type(Pianoteq) is str:
+        if control in transmitted and engine_name in transmitted[control]:
+            name = transmitted[control][engine_name]
+            if type(name) is str:
                 display.show(
-                    name=Pianoteq,
+                    name=name,
                     value=msg.value,
                 )
             else:
-                name = Pianoteq[0]
-                label = Pianoteq[1]
+                n = name[0]
+                label = name[1]
                 i = int(msg.value / 128 * len(label))
-                display.show(name=name, value=label[i])
+                display.show(name=n, value=label[i])
         else:
             display.show(name="", value=msg.value)
 
@@ -165,7 +171,7 @@ class StartPage:
             )
             to_exquis.send(led_colors)
             display.show(
-                "mic", value="XentoTune" if self.mic["XentoTune"] else "Vocoder"
+                "mic (+CC)", value="XentoTune" if self.mic["XentoTune"] else "Vocoder"
             )
         elif xq.is_turned(msg, xq.encoder_knob[0]):
             change = xq.is_turned(msg, xq.encoder_knob[0])
@@ -369,6 +375,9 @@ class InstrumentPage:
 class RhythmPage:
     base_color = red
 
+    def __init__(self):
+        self.output_is_internal = True
+
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
             developer_mode = xq.enter_developer_mode(pads=False)
@@ -382,15 +391,21 @@ class RhythmPage:
             snapshot = xq.set_snapshot(snapshot_data)
             to_exquis.send(snapshot)
             colors = [black] * 128
-            # pad_colors = [colors[i] for i in xq.pad]
-            # pad_leds = xq.set_led_colors(pad_colors, start_index=xq.pad[0])
-            # to_exquis.send(pad_leds)
             misc_colors = [colors[i] for i in xq.arrow_or_encoder]
             misc_leds = xq.set_led_colors(
                 misc_colors, start_index=xq.arrow_or_encoder[0]
             )
             to_exquis.send(misc_leds)
             display.show("")
+        elif hasattr(msg, "note") and msg.note != ghostnote:
+            to_exquis.send(
+                msg.copy(channel=15)
+            )  # this does not seem to light all notes
+            if msg.type in ["note_on", "polytouch"]:
+                if self.output_is_internal:
+                    to_internal_rhythm.send(msg)
+                else:
+                    to_external_rhythm.send(msg)
         elif xq.is_pressed(msg, xq.record):
             pass
 
@@ -596,14 +611,20 @@ class Play:
                 stop = mido.Message("stop")
                 to_lower.send(stop)
                 to_upper.send(stop)
-                to_clock.send(stop)
+                if rhythm_page.output_is_internal:
+                    to_internal_rhythm.send(stop)
+                else:
+                    to_external_rhythm.send(stop)
                 led_color = xq.set_led_colors([black], start_index=xq.play)
                 to_exquis.send(led_color)
                 display.show("all stop")
             elif self.is_on:
                 self.is_on = False
                 stop = mido.Message("stop")
-                to_clock.send(stop)
+                if rhythm_page.output_is_internal:
+                    to_internal_rhythm.send(stop)
+                else:
+                    to_external_rhythm.send(stop)
                 led_color = xq.set_led_colors([black], start_index=xq.play)
                 to_exquis.send(led_color)
                 display.show("stop")
@@ -612,7 +633,10 @@ class Play:
                 self.is_on = True
                 self.counter = 0
                 start = mido.Message("start")
-                to_clock.send(start)
+                if rhythm_page.output_is_internal:
+                    to_internal_rhythm.send(start)
+                else:
+                    to_external_rhythm.send(start)
                 led_color = xq.set_led_colors([self.base_color], start_index=xq.play)
                 to_exquis.send(led_color)
                 subtext = "" if script.bpm is None else "BPM " + str(round(script.bpm))
@@ -625,7 +649,10 @@ class Play:
                 start = mido.Message("start")
                 to_lower.send(start)
                 to_upper.send(start)
-                to_clock.send(start)
+                if rhythm_page.output_is_internal:
+                    to_internal_rhythm.send(start)
+                else:
+                    to_external_rhythm.send(start)
                 led_color = xq.set_led_colors([self.base_color], start_index=xq.play)
                 to_exquis.send(led_color)
                 subtext = "" if script.bpm is None else "BPM " + str(round(script.bpm))
@@ -697,9 +724,14 @@ class Script:
         #     print(msg)
 
     def master(self, msg):
-        to_internal.send(msg)
-        show_cc(msg)
-        if msg.type != "program_change" and not hasattr(msg, "note"):
+        if msg.type == "control_change":
+            to_external.send(msg)
+            if start_page.mic["XentoTune"]:
+                to_xentotune.send(msg)
+                show_cc(msg, "XentoTune")
+            else:
+                to_internal.send(msg)
+                show_cc(msg)
             if start_page.lower["filter"] == "PC":
                 to_lower.send(msg)
             elif start_page.lower["filter"] == "CC+PC":
@@ -713,7 +745,7 @@ class Script:
 
     def lower(self, msg):
         untune = False
-        if msg.type != "active_sensing":
+        if not msg.is_realtime and msg.type != "active_sensing":
             if msg.type == "note_on" and msg.velocity > 0:
                 sysex = tuning_page.sysex(lower_tun_ch)
                 to_lower.send(sysex)
@@ -723,10 +755,21 @@ class Script:
                     untune = True
             if start_page.lower["filter"] == "PC":
                 if msg.type != "program_change":
+                    if hasattr(msg, "note"):
+                        sysex = tuning_page.sysex(lower_tun_ch)
+                        to_external.send(sysex)
+                    to_external.send(msg)
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
                             note = msg.copy(channel=lower_tun_ch)
                             to_internal.send(note)
+                        elif msg.type == "control_change":
+                            if start_page.mic["XentoTune"]:
+                                to_xentotune.send(msg)
+                                show_cc(msg, "XentoTune")
+                            else:
+                                to_internal.send(msg)
+                                show_cc(msg)
                         else:
                             to_internal.send(msg)
                         show_cc(msg)
@@ -737,14 +780,16 @@ class Script:
                             to_upper.send(msg)
             elif start_page.lower["filter"] == "CC+PC":
                 if msg.type not in ["program_change", "control_change"]:
+                    if hasattr(msg, "note"):
+                        sysex = tuning_page.sysex(lower_tun_ch)
+                        to_external.send(sysex)
+                    to_external.send(msg)
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
                             note = msg.copy(channel=lower_tun_ch)
-                            # tuning_page.retune(note)
                             to_internal.send(note)
                         else:
                             to_internal.send(msg)
-                        # show_cc(msg)
                     if start_page.upper["filter"] in ["PC", "CC+PC"]:
                         to_upper.send(msg)
             if not start_page.lower["local"]:
@@ -755,7 +800,7 @@ class Script:
 
     def upper(self, msg):
         untune = False
-        if msg.type != "active_sensing":
+        if not msg.is_realtime and msg.type != "active_sensing":
             if msg.type == "note_on" and msg.velocity > 0:
                 sysex = tuning_page.sysex(upper_tun_ch)
                 to_upper.send(sysex)
@@ -765,10 +810,21 @@ class Script:
                     untune = True
             if start_page.upper["filter"] == "PC":
                 if msg.type != "program_change":
+                    if hasattr(msg, "note"):
+                        sysex = tuning_page.sysex(upper_tun_ch)
+                        to_external.send(sysex)
+                    to_external.send(msg)
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
                             note = msg.copy(channel=upper_tun_ch)
                             to_internal.send(note)
+                        elif msg.type == "control_change":
+                            if start_page.mic["XentoTune"]:
+                                to_xentotune.send(msg)
+                                show_cc(msg, "XentoTune")
+                            else:
+                                to_internal.send(msg)
+                                show_cc(msg)
                         else:
                             to_internal.send(msg)
                         show_cc(msg)
@@ -779,6 +835,10 @@ class Script:
                             to_lower.send(msg)
             elif start_page.upper["filter"] == "CC+PC":
                 if msg.type not in ["program_change", "control_change"]:
+                    if hasattr(msg, "note"):
+                        sysex = tuning_page.sysex(upper_tun_ch)
+                        to_external.send(sysex)
+                    to_external.send(msg)
                     if not start_page.midi["thru"]:
                         if hasattr(msg, "note"):
                             note = msg.copy(channel=upper_tun_ch)
@@ -794,13 +854,17 @@ class Script:
                 to_lower.send(sysex)
 
     def clock(self, msg):
-        to_clock.send(msg)
-        play.tick(msg)
-        bpm = rt.bpm(msg)
-        if bpm is not None:
-            self.bpm = bpm
-            out = xq.set_tempo(self.bpm)
-            to_exquis.send(out)
+        if msg.is_realtime and msg.type != "active_sensing":
+            if rhythm_page.output_is_internal:
+                to_internal_rhythm.send(msg)
+            else:
+                to_external_rhythm.send(msg)
+            play.tick(msg)
+            bpm = rt.bpm(msg)
+            if bpm is not None:
+                self.bpm = bpm
+                out = xq.set_tempo(self.bpm)
+                to_exquis.send(out)
 
     def active_sensing(self):
         ack_interval = 0.28  # seconds
@@ -831,10 +895,13 @@ with esp.Master():
         esp.set_multi_channel(is_on, channel)
 
     to_exquis = Outport(client_name, name="Exquis")
-    to_internal = Outport(client_name, name="Internal")
     to_lower = Outport(client_name, name="Lower")
     to_upper = Outport(client_name, name="Upper")
-    to_clock = Outport(client_name, name="Clock")
+    to_internal = Outport(client_name, name="Internal")
+    to_external = Outport(client_name, name="External")
+    to_internal_rhythm = Outport(client_name, name="Internal Rhythm")
+    to_external_rhythm = Outport(client_name, name="External Rhythm")
+    to_xentotune = Outport(client_name, name="XentoTune")
 
     def all_sound_off():
         msg = mido.Message("control_change", control=cc.all_sound_off)
@@ -852,9 +919,9 @@ with esp.Master():
     script = Script()
 
     from_exquis = Inport(script.exquis, client_name, name="Exquis")
-    from_master = Inport(script.master, client_name, name="Master")
     from_upper = Inport(script.upper, client_name, name="Upper")
     from_lower = Inport(script.lower, client_name, name="Lower")
+    from_master = Inport(script.master, client_name, name="Master")
     from_clock = Inport(script.clock, client_name, name="Clock")
 
     selector_client = jack.Client("microtonOS Selector")
@@ -885,9 +952,9 @@ with esp.Master():
     make_threads(
         [
             from_exquis.open,
-            from_master.open,
             from_upper.open,
             from_lower.open,
+            from_master.open,
             from_clock.open,
             script.active_sensing,
             display.run,
