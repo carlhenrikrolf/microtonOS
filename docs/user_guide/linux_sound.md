@@ -40,6 +40,7 @@ ___
 Python modules for dealing with sound include
 - mido and rtmidi
 - mtsespy
+- jack (JACK-Client)
 
 mido and rtmidi can be used to process MIDI data.
 mtsespy is for interfacing with the MTS-ESP shared object used for tuning.

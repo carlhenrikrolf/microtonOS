@@ -2,7 +2,7 @@ import subprocess
 from utils import handle_terminations
 
 path = "/usr/bin/librespot"  # "/home/pi/.cargo/bin/librespot"
-cache_path = "."  # run from tmp directory preferably
+cache_path = ".librespot/"  # run from tmp directory preferably
 name = "Librespot microtonOS"
 initial_volume = 20  # default 50, between 0 and 100
 
@@ -16,6 +16,9 @@ command = [
     "--enable-oauth",
     "--initial-volume=" + str(initial_volume),
 ]
-
+try:
+    subprocess.run(["mkdir", cache_path])
+except FileExistsError:
+    print(".librespot/ exists, moving on")
 with subprocess.Popen(command) as process:
     handle_terminations(process)

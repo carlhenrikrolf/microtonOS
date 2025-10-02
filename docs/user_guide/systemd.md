@@ -52,6 +52,7 @@ You can use this repeatedly if several other applications are necessary.
 If you need to define a variable before running `<commandline>`, you can add `Environment=<definition>` under `[Service]`.
 An example is that applications with an (active) GUI should have `Environment=DISPLAY=:0`.
 If you instead need to run another command, you can use `ExecStartPre=<other command>`or `ExecStartPost=<other command>` for running it before or after, respectively.
+Sometimes, temporary files need to be created, e.g., if using the GPIO pins on the Raspberry Pi. If so, add `WorkingDirectory=<tmp directory>`.
 
 **Installing the .service file.**
 Copy or move the file to `/lib/systemd/system/`.
