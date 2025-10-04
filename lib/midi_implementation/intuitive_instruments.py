@@ -55,8 +55,7 @@ class Exquis2_1_0:
     # LED/control IDs
     pad = [i for i in range(0, 61)]
     slider = [i for i in range(80, 86)]  # same name
-    slider_on = 90  # ??
-    slider_off = 127  # ??
+    slider_touched = 90
     button = [-1] * 10
     menu = [-1] * 6
     button[0] = menu[0] = settings = 100
@@ -399,6 +398,24 @@ class Exquis2_1_0:
             if msg.channel == 15:
                 return (msg.value - 64.0) / 15.0
         return 0
+
+    def is_slid(self, msg):
+        """Returns a value in [1,6] if slid.
+        This is interpreted as True in Python.
+        Otherwise, returns 0, which is interpreted as False"""
+        if msg.is_cc(self.slider_touched):
+            if msg.channel == 15:
+                if msg.value in range(6):
+                    return msg.value + 1
+        return 0
+
+    def is_unslid(self, msg):
+        """Returns True if the slider is released else False"""
+        if msg.is_cc(self.slider_touched):
+            if msg.channel == 15:
+                if msg.value == 127:
+                    return True
+        return False
 
 
 exquis2_1_0 = Exquis2_1_0()

@@ -284,20 +284,20 @@ class Isomorphic:
 
 
 class Drums:
-    def __init__(self, high, low, device, ghostnote=127, color0=red, color1=magenta):
+    def __init__(
+        self,
+        device,
+        high="congas",
+        low="congas",
+        ghostnote=127,
+        color0=red,
+        color1=magenta,
+    ):
         self.device = device
-        high_inner, high_outer = self.high_to_notes(high)
-        low_inner, low_outer = self.low_to_notes(low)
-        if self.device == "Exquis":
-            notes = self.exquis(
-                high_inner, high_outer, low_inner, low_inner, low_outer, ghostnote
-            )
-            self.notes = xq.linearize(notes)
-            black = np.array([0.0, 0.0, 0.0])
-            colors = self.exquis(black, color0, black, color1, color0, black)
-            self.colors = xq.linearize(colors)
-        else:
-            raise ValueError("Not (yet) implemented for this device")
+        self.ghostnote = ghostnote
+        self.color0 = color0
+        self.color1 = color1
+        self.reinitialize(high, low)
 
     def high_to_notes(self, high):
         match high:
@@ -369,13 +369,24 @@ class Drums:
         ]
         return result
 
-    def reinitialize(self, high, low, ghostnote=127):
+    def reinitialize(self, high, low, ghostnote=None, color0=None, color1=None):
+        if ghostnote is not None:
+            self.ghostnote = ghostnote
+        if color0 is not None:
+            self.color0 = color0
+        if color1 is not None:
+            self.color1 = color1
         high_inner, high_outer = self.high_to_notes(high)
         low_inner, low_outer = self.low_to_notes(low)
         if self.device == "Exquis":
             notes = self.exquis(
-                high_inner, high_outer, low_inner, low_inner, low_outer, ghostnote
+                high_inner, high_outer, low_inner, low_inner, low_outer, self.ghostnote
             )
             self.notes = xq.linearize(notes)
+            black = np.array([0.0, 0.0, 0.0])
+            colors = self.exquis(
+                black, self.color0, black, self.color1, self.color0, black
+            )
+            self.colors = xq.linearize(colors)
         else:
             raise ValueError("Not (yet) implemented for this device")

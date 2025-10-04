@@ -210,6 +210,15 @@ class SystemExclusive:
 system_exclusive = SystemExclusive()
 
 
+class ActiveSensing:
+    transmit_sec = 0.27
+    receive_sec = 0.33
+    sec = 0.3
+
+
+active_sensing = ActiveSensing()
+
+
 class RealTime:
     def __init__(self):
         self.times = [0] * 6
@@ -225,6 +234,11 @@ class RealTime:
                 midibeats_per_min = 60 / (mean * 6)
                 return midibeats_per_min / divisor
         return None
+
+    def sleep(self, tempo_in_bpm, divisor=4):
+        sec_per_beat = 60 / tempo_in_bpm
+        sec_per_clock = sec_per_beat * (divisor / 4) / (4 * 6)
+        time.sleep(sec_per_clock)
 
 
 realtime = RealTime()

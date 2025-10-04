@@ -4,4 +4,7 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff",
     },
+    "git.openRepositoryInParentFolders": "always",
+    "git.detectSubmodules": true,
+    "git.detectSubmodulesLimit": 25,
 }
