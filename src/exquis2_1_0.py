@@ -867,9 +867,14 @@ class Script:
         self.page = start_page
         self.bpm = 120.0
         self.is_menu = [False] * 4
+        self.is_slid = False
 
     def exquis(self, msg):
         self.ack = time.time()
+        if xq.is_slid(msg):
+            self.is_slid = True
+        elif xq.is_unslid(msg):
+            self.is_slid = False
         shift.update(msg)
         play.update(msg)
         if xq.is_pressed(msg, xq.sound):
@@ -1058,6 +1063,10 @@ class Script:
                 to_lower.send(msg)
             if loop != "upper":
                 to_upper.send(msg)
+            if not self.is_slid:
+                colors = [white if step_sequencer.display() else black]
+                leds = xq.set_led_colors(colors, start_index=xq.slider[0])
+                to_exquis.send(leds)
         notes_on = step_sequencer.play(msg)
         if rhythm_page.target[rhythm_page.output] == "internal":
             to_internal_rhythm.send(notes_on)
