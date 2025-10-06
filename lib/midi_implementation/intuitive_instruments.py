@@ -415,6 +415,8 @@ class Exquis2_1_0:
             if msg.channel == 15:
                 if msg.value == 127:
                     return True
+        elif msg.type == "reset":  # This is not part of the dev resources
+            return True
         return False
 
 

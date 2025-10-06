@@ -465,11 +465,15 @@ class RhythmPage:
         elif xq.is_released(msg, xq.down):
             led = xq.set_led_colors([self.base_color], start_index=xq.down)
             to_exquis.send(led)
-        elif xq.is_slid(msg):  # I think I will have to deal with slider separately
-            self.divisor = 2 ** (xq.is_slid(msg) - 1)
+        elif xq.is_slid(msg):
+            i = xq.is_slid(msg) - 1
+            self.divisor = 2**i
             step_sequencer.time_signature(divisor=self.divisor)
             subtext = str(self.dividend) + "/" + str(self.divisor)
             display.show("time signature", value=subtext)
+            colors = [self.base_color if j == i else black for j in range(6)]
+            leds = xq.set_led_colors(colors, start_index=xq.slider[0])
+            to_exquis.send(leds)
         elif xq.is_pressed(msg, xq.left):
             dividend = self.dividend - 1
             self.dividend = max(min(dividend, 64), 1)
@@ -874,6 +878,7 @@ class Script:
         if xq.is_slid(msg):
             self.is_slid = True
         elif xq.is_unslid(msg):
+            print("unslid")
             self.is_slid = False
         shift.update(msg)
         play.update(msg)
@@ -907,9 +912,9 @@ class Script:
         ]
         menu_leds = xq.set_led_colors(menu_colors, start_index=xq.settings)
         to_exquis.send(menu_leds)
-        # tempo = xq.get_tempo(msg)
-        # if tempo is None:
-        #     print(msg)
+        tempo = xq.get_tempo(msg)
+        if tempo is None:
+            print(msg)
 
     def master(self, msg):
         if msg.type == "control_change":
@@ -1064,7 +1069,7 @@ class Script:
             if loop != "upper":
                 to_upper.send(msg)
             if not self.is_slid:
-                colors = [white if step_sequencer.display() else black]
+                colors = [white if one else black for one in step_sequencer.display()]
                 leds = xq.set_led_colors(colors, start_index=xq.slider[0])
                 to_exquis.send(leds)
         notes_on = step_sequencer.play(msg)
