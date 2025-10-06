@@ -24,20 +24,20 @@ class StepSequencer:
         )
         self.is_playing = False
 
-    def time_signature(
-        self, dividend
-    ):  # changing the time signature resets the recording
-        self.step = 0
-        self.is_pressed = np.full(shape=(n_notes, n_channels), fill_value=0, dtype=int)
-        self.velocity = np.full(
-            shape=(n_notes, n_channels, dividend), fill_value=0, dtype=int
-        )
-        self.is_playing = False
+    def time_signature(self, dividend=None, divisor=None):
+        if dividend is not None:  # changing the dividend resets the recording
+            self.step = 0
+            self.is_pressed = np.full(
+                shape=(n_notes, n_channels), fill_value=0, dtype=int
+            )
+            self.velocity = np.full(
+                shape=(n_notes, n_channels, dividend), fill_value=0, dtype=int
+            )
+            self.is_playing = False
+        if divisor is not None:
+            self.divisor = divisor
 
-    def divide_tempo(self, divisor):
-        self.divisor = divisor
-
-    def record(self, msg, dividend=None):
+    def record(self, msg):
         if hasattr(msg, "note") and not self.is_playing:
             if msg.type == "note_on" and msg.velocity > 0:
                 self.is_pressed[msg.note, msg.channel] = 1

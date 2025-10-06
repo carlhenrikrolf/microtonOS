@@ -223,6 +223,7 @@ class RealTime:
     def __init__(self):
         self.times = [0] * 6
         self.clock = 0
+        self.current_bpm = 120
 
     def bpm(self, msg, divisor=4):
         if msg.type == "clock":
@@ -232,8 +233,8 @@ class RealTime:
                 diffs = [self.times[i + 1] - self.times[i] for i in range(5)]
                 mean = sum(diffs) / 5
                 midibeats_per_min = 60 / (mean * 6)
-                return midibeats_per_min / divisor
-        return None
+                self.current_bpm = midibeats_per_min / divisor
+        return self.current_bpm
 
     def sleep(self, tempo_in_bpm, divisor=4):
         sec_per_beat = 60 / tempo_in_bpm

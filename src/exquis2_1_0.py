@@ -17,6 +17,7 @@ from midi_implementation.midi1 import (
 from midi_implementation import mts
 from tuning import Tuning
 from layouts import Drums
+from sequencer import StepSequencer
 from utils import (
     Inport,
     Outport,
@@ -51,6 +52,7 @@ tuning = Tuning(
 )
 ghostnote = 127
 drums = Drums(device="Exquis", ghostnote=ghostnote)
+step_sequencer = StepSequencer(display_length=6)
 
 
 def mts_message(freqs, pgm_name=""):
@@ -400,6 +402,13 @@ class RhythmPage:
         self.dividend = 4
         self.divisor = 4
         self.control_value = [64, 64, 64, 64, 0, 0, 0, 0]
+        step_sequencer.time_signature(dividend=self.dividend, divisor=self.divisor)
+
+    def encoder_colors(self):
+        color = self.base_color if self.target[self.output] == "internal" else magenta
+        colors = [black] * 4
+        colors[self.input] = color
+        return colors
 
     def update(self, msg=None, enter_dev=False):
         if enter_dev:
@@ -414,6 +423,11 @@ class RhythmPage:
             snapshot = xq.set_snapshot(snapshot_data)
             to_exquis.send(snapshot)
             colors = [black] * 128
+            colors[xq.up] = self.base_color
+            colors[xq.down] = self.base_color
+            colors[xq.left] = self.base_color
+            colors[xq.right] = self.base_color
+            colors[xq.encoder_led[0] : xq.encoder_led[3] + 1] = self.encoder_colors()
             misc_colors = [colors[i] for i in xq.arrow_or_encoder]
             misc_leds = xq.set_led_colors(
                 misc_colors, start_index=xq.arrow_or_encoder[0]
@@ -421,36 +435,63 @@ class RhythmPage:
             to_exquis.send(misc_leds)
             display.show("")
         elif hasattr(msg, "note") and msg.note != ghostnote:
-            to_exquis.send(
-                msg.copy(channel=15)
-            )  # this does not seem to light all notes
+            step_sequencer.record(msg)
             if msg.type in ["note_on", "polytouch"]:
                 if self.target[self.output] == "internal":
                     to_internal_rhythm.send(msg)
                 else:
                     to_external_rhythm.send(msg)
         elif xq.is_pressed(msg, xq.up):
-            bpm = self.bpm + 2
-            self.bpm = max(min(bpm, 240), 20)
-            display.show("tempo", value=str(self.bpm) + " bpm")
+            if self.source[self.input] == "internal":
+                bpm = self.bpm + 2
+                self.bpm = max(min(bpm, 240), 20)
+                display.show("tempo", value=str(self.bpm) + " bpm")
+            else:
+                display.show("tempo", value=self.source[self.input])
+            led = xq.set_led_colors([white], start_index=xq.up)
+            to_exquis.send(led)
+        elif xq.is_released(msg, xq.up):
+            led = xq.set_led_colors([self.base_color], start_index=xq.up)
+            to_exquis.send(led)
         elif xq.is_pressed(msg, xq.down):
-            bpm = self.bpm - 2
-            self.bpm = max(min(bpm, 240), 20)
-            display.show("tempo", value=str(self.bpm) + " bpm")
-        elif xq.is_slid(msg):
+            if self.source[self.input] == "internal":
+                bpm = self.bpm - 2
+                self.bpm = max(min(bpm, 240), 20)
+                display.show("tempo", value=str(self.bpm) + " bpm")
+            else:
+                display.show("tempo", value=self.source[self.input])
+            led = xq.set_led_colors([white], start_index=xq.down)
+            to_exquis.send(led)
+        elif xq.is_released(msg, xq.down):
+            led = xq.set_led_colors([self.base_color], start_index=xq.down)
+            to_exquis.send(led)
+        elif xq.is_slid(msg):  # I think I will have to deal with slider separately
             self.divisor = 2 ** (xq.is_slid(msg) - 1)
+            step_sequencer.time_signature(divisor=self.divisor)
             subtext = str(self.dividend) + "/" + str(self.divisor)
             display.show("time signature", value=subtext)
         elif xq.is_pressed(msg, xq.left):
             dividend = self.dividend - 1
             self.dividend = max(min(dividend, 64), 1)
+            step_sequencer.time_signature(dividend=self.dividend)
             subtext = str(self.dividend) + "/" + str(self.divisor)
             display.show("time signature", value=subtext)
+            led = xq.set_led_colors([white], start_index=xq.left)
+            to_exquis.send(led)
+        elif xq.is_released(msg, xq.left):
+            led = xq.set_led_colors([self.base_color], start_index=xq.left)
+            to_exquis.send(led)
         elif xq.is_pressed(msg, xq.right):
             dividend = self.dividend + 1
             self.dividend = max(min(dividend, 64), 1)
+            step_sequencer.time_signature(dividend=self.dividend)
             subtext = str(self.dividend) + "/" + str(self.divisor)
             display.show("time signature", value=subtext)
+            led = xq.set_led_colors([white], start_index=xq.right)
+            to_exquis.send(led)
+        elif xq.is_released(msg, xq.right):
+            led = xq.set_led_colors([self.base_color], start_index=xq.right)
+            to_exquis.send(led)
         elif xq.is_turned(msg, xq.encoder_knob[0]):
             if shift.is_on:
                 control_value = self.control_value[0] + int(
@@ -461,9 +502,15 @@ class RhythmPage:
                     "CC " + str(self.controller[0]), value=str(self.control_value[0])
                 )
             else:
-                i = self.input + int(15 * xq.is_turned(msg, xq.encoder_knob[0]))
+                sensitivity = min(15, len(self.source))
+                i = self.input + int(
+                    sensitivity * xq.is_turned(msg, xq.encoder_knob[0])
+                )
                 self.input = max(min(i, 3), 0)
                 display.show("source", value=self.source[self.input])
+                colors = self.encoder_colors()
+                leds = xq.set_led_colors(colors, start_index=xq.encoder_led[0])
+                to_exquis.send(leds)
         elif xq.is_turned(msg, xq.encoder_knob[1]):
             if shift.is_on:
                 control_value = self.control_value[1] + int(
@@ -475,8 +522,11 @@ class RhythmPage:
                 )
             else:
                 o = self.output + int(15 * xq.is_turned(msg, xq.encoder_knob[1]))
-                self.output = max(min(o, 1), 0)
+                self.output = 1 if o > 0 else 0
                 display.show("target", value=self.target[self.output])
+                colors = self.encoder_colors()
+                leds = xq.set_led_colors(colors, start_index=xq.encoder_led[0])
+                to_exquis.send(leds)
         elif xq.is_turned(msg, xq.encoder_knob[2]):
             if shift.is_on:
                 control_value = self.control_value[2] + int(
@@ -487,11 +537,21 @@ class RhythmPage:
                     "CC " + str(self.controller[2]), value=str(self.control_value[2])
                 )
             else:
-                low = self.low + int(15 * xq.is_turned(msg, xq.encoder_knob[2]))
+                sensitivity = min(15, len(self.percussion))
+                low = self.low + int(
+                    sensitivity * xq.is_turned(msg, xq.encoder_knob[2])
+                )
                 self.low = max(min(low, len(self.percussion) - 1), 0)
                 drums.reinitialize(
                     high=self.percussion[self.high], low=self.percussion[self.low]
                 )
+                snapshot_data = xq.generate_snapshot(
+                    notes=drums.notes,
+                    colors=drums.colors,
+                    polytouch=True,
+                )
+                snapshot = xq.set_snapshot(snapshot_data)
+                to_exquis.send(snapshot)
                 display.show("low drum", value=self.percussion[self.low])
         elif xq.is_turned(msg, xq.encoder_knob[3]):
             if shift.is_on:
@@ -503,11 +563,21 @@ class RhythmPage:
                     "CC " + str(self.controller[3]), value=str(self.control_value[3])
                 )
             else:
-                high = self.high + int(15 * xq.is_turned(msg, xq.encoder_knob[3]))
+                sensitivity = min(15, len(self.percussion))
+                high = self.high + int(
+                    sensitivity * xq.is_turned(msg, xq.encoder_knob[3])
+                )
                 self.high = max(min(high, len(self.percussion) - 1), 0)
                 drums.reinitialize(
                     high=self.percussion[self.high], low=self.percussion[self.low]
                 )
+                snapshot_data = xq.generate_snapshot(
+                    notes=drums.notes,
+                    colors=drums.colors,
+                    polytouch=True,
+                )
+                snapshot = xq.set_snapshot(snapshot_data)
+                to_exquis.send(snapshot)
                 display.show("high drum", value=self.percussion[self.high])
         elif xq.is_pressed(msg, xq.encoder_button[0]):
             if shift.is_on:
@@ -732,7 +802,6 @@ class Play:
         self.base_color = cyan
         self.is_on = False
         self.to_all = False
-        self.counter = 0
 
     def update(self, msg=None):
         if msg is None:
@@ -744,18 +813,16 @@ class Play:
                 self.to_all = False
                 self.is_on = False
                 stop = mido.Message("stop")
-                to_lower.send(stop)
-                to_upper.send(stop)
-                if rhythm_page.target[rhythm_page.output] == "internal":
-                    to_internal_rhythm.send(stop)
-                else:
-                    to_external_rhythm.send(stop)
+                step_sequencer.play(stop)
+                to_internal_rhythm.send(stop)
+                to_external_rhythm.send(stop)
                 led_color = xq.set_led_colors([black], start_index=xq.play)
                 to_exquis.send(led_color)
                 display.show("all stop")
             elif self.is_on:
                 self.is_on = False
                 stop = mido.Message("stop")
+                step_sequencer.play(stop)
                 if rhythm_page.target[rhythm_page.output] == "internal":
                     to_internal_rhythm.send(stop)
                 else:
@@ -768,6 +835,7 @@ class Play:
                 self.is_on = True
                 self.counter = 0
                 start = mido.Message("start")
+                step_sequencer.play(start)
                 if rhythm_page.target[rhythm_page.output] == "internal":
                     to_internal_rhythm.send(start)
                 else:
@@ -782,35 +850,15 @@ class Play:
                 self.is_on = True
                 self.counter = 0
                 start = mido.Message("start")
+                step_sequencer.play(start)
+                to_internal_rhythm.send(start)
+                to_external_rhythm.send(start)
                 to_lower.send(start)
                 to_upper.send(start)
-                if rhythm_page.target[rhythm_page.output] == "internal":
-                    to_internal_rhythm.send(start)
-                else:
-                    to_external_rhythm.send(start)
                 led_color = xq.set_led_colors([self.base_color], start_index=xq.play)
                 to_exquis.send(led_color)
                 subtext = str(round(script.bpm)) + " bpm"
                 display.show("all play", subtext)
-
-    # def tick(self, msg=None):
-    #     per32 = 3
-    #     if msg is None or msg.type == "clock":
-    #         if self.is_on or self.to_all:
-    #             indicator = [
-    #                 (self.counter // (32 * per32)) % 2,
-    #                 (self.counter // (16 * per32)) % 2,
-    #                 (self.counter // (8 * per32)) % 2,
-    #                 (self.counter // (4 * per32)) % 2,
-    #                 (self.counter // (2 * per32)) % 2,
-    #                 (self.counter // per32) % 2,
-    #             ]
-    #             slider_colors = [white if indicator[i] else black for i in range(6)]
-    #             self.counter += 1
-    #         else:
-    #             slider_colors = [black] * len(xq.slider)
-    #         slider_leds = xq.set_led_colors(slider_colors, start_index=xq.slider[0])
-    #         to_exquis.send(slider_leds)
 
 
 class Script:
@@ -881,9 +929,7 @@ class Script:
     def lower(self, msg):
         untune = False
         if msg.is_realtime and rhythm_page.source[rhythm_page.input] == "lower":
-            bpm = realtime.bpm(msg)
-            if bpm is not None:
-                self.bpm = bpm
+            self.bpm = realtime.bpm(msg)
             self.tick(msg, loop="lower")
         elif msg.type != "active_sensing":
             if msg.type == "note_on" and msg.velocity > 0:
@@ -941,9 +987,7 @@ class Script:
     def upper(self, msg):
         untune = False
         if msg.is_realtime and rhythm_page.source[rhythm_page.input] == "upper":
-            bpm = realtime.bpm(msg)
-            if bpm is not None:
-                self.bpm = bpm
+            self.bpm = realtime.bpm(msg)
             self.tick(msg, loop="upper")
         elif msg.type != "active_sensing":
             if msg.type == "note_on" and msg.velocity > 0:
@@ -1000,13 +1044,11 @@ class Script:
 
     def rhythm(self, msg):
         if msg.is_realtime and rhythm_page.source[rhythm_page.input] == "external":
-            bpm = realtime.bpm(msg)
-            if bpm is not None:
-                self.bpm = bpm
+            self.bpm = realtime.bpm(msg)
             self.tick(msg, loop="external")
 
     def tick(self, msg, loop=None):
-        if msg.type == "clock":
+        if msg.is_realtime:
             sysex = xq.set_tempo(self.bpm)
             to_exquis.send(sysex)
             to_internal_rhythm.send(msg)
@@ -1016,26 +1058,18 @@ class Script:
                 to_lower.send(msg)
             if loop != "upper":
                 to_upper.send(msg)
+        notes_on = step_sequencer.play(msg)
+        if rhythm_page.target[rhythm_page.output] == "internal":
+            to_internal_rhythm.send(notes_on)
+        else:
+            to_external_rhythm.send(notes_on)
 
     def clock(self):
         while True:
             if rhythm_page.source[rhythm_page.input] == "internal":
                 msg = mido.Message("clock")
                 self.tick(msg)
-            realtime.sleep(self.bpm)
-
-    # def clock(self, msg):
-    #     if msg.is_realtime and msg.type != "active_sensing":
-    #         if rhythm_page.output_is_internal:
-    #             to_internal_rhythm.send(msg)
-    #         else:
-    #             to_external_rhythm.send(msg)
-    #         play.tick(msg)
-    #         bpm = rt.bpm(msg)
-    #         if bpm is not None:
-    #             self.bpm = bpm
-    #             out = xq.set_tempo(self.bpm)
-    #             to_exquis.send(out)
+            realtime.sleep(rhythm_page.bpm)
 
     def active_sensing(self):
         while True:
@@ -1136,14 +1170,3 @@ with esp.Master():
             selector,
         ]
     )
-
-
-# TODO
-# - Let clock inputs be ~master~, upper, lower, or internal. No input should be on a specific rhythm port.
-#   There should nt be loops where clocks received from source are reflected.
-#   On the display, I'm uncertain whetehr to call it internal or master as per routing
-# - Rewrite current clock into not having any input, just outputting through internal and external rhythm
-# - am I always syncing clocks? Ig, why not. Check minilogue can ignore clocks.
-# - change active sensing timing
-# - change drums and uning not to have to be initialised before page
-#   apart from being initialised to some kind of standard.
