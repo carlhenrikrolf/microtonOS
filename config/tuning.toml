@@ -112,7 +112,7 @@ cents = 63.16
 Halberstadt = [0, 2, 3, 5, 6, 8, 10, 11, 13, 14, 16, 17, 19]
 
 [[bank.program]]
-name = "8ed4/3 (gamma)"
+name = "8ed4/3 (beta)"
 root = {note = 69, Hertz=440.0}
 cents = 62.26
 Halberstadt = [0, 2, 3, 5, 6, 8, 10, 11, 13, 14, 16, 17, 19]
@@ -133,7 +133,7 @@ Halberstadt = [0,2,3,5,7,9,11,12,14,15,18,19,21]
 name = "22edo"
 root = {note = 69, Hertz=440.0}
 cents = 54.55
-Halberstadt = [0, 2, 4, 6, 8, 9, 11, 13, 15, 17, 19, 21, 22]
+Halberstadt = [0, 2, 4, 5, 7, 9, 11, 13, 15, 17, 18, 20, 22]
 
 [[bank.program]]
 name = "24edo"

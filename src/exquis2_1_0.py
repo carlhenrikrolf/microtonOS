@@ -392,7 +392,10 @@ class RhythmPage:
 
     def __init__(self):
         drums.reinitialize(
-            high="congas", low="congas", color0=self.base_color, color1=magenta
+            high=self.percussion[0],
+            low=self.percussion[0],
+            color0=self.base_color,
+            color1=magenta,
         )
         self.input = 0
         self.output = 0
@@ -434,9 +437,9 @@ class RhythmPage:
             )
             to_exquis.send(misc_leds)
             display.show("")
-        elif hasattr(msg, "note") and msg.note != ghostnote:
+        elif hasattr(msg, "note"):
             step_sequencer.record(msg)
-            if msg.type in ["note_on", "polytouch"]:
+            if msg.type in ["note_on", "polytouch"] and msg.note != ghostnote:
                 if self.target[self.output] == "internal":
                     to_internal_rhythm.send(msg)
                 else:
@@ -541,7 +544,7 @@ class RhythmPage:
                     "CC " + str(self.controller[2]), value=str(self.control_value[2])
                 )
             else:
-                sensitivity = min(15, len(self.percussion))
+                sensitivity = 15  # min(15, len(self.percussion))
                 low = self.low + int(
                     sensitivity * xq.is_turned(msg, xq.encoder_knob[2])
                 )
@@ -567,7 +570,7 @@ class RhythmPage:
                     "CC " + str(self.controller[3]), value=str(self.control_value[3])
                 )
             else:
-                sensitivity = min(15, len(self.percussion))
+                sensitivity = 15  # min(15, len(self.percussion))
                 high = self.high + int(
                     sensitivity * xq.is_turned(msg, xq.encoder_knob[3])
                 )
@@ -878,7 +881,6 @@ class Script:
         if xq.is_slid(msg):
             self.is_slid = True
         elif xq.is_unslid(msg):
-            print("unslid")
             self.is_slid = False
         shift.update(msg)
         play.update(msg)
@@ -912,9 +914,9 @@ class Script:
         ]
         menu_leds = xq.set_led_colors(menu_colors, start_index=xq.settings)
         to_exquis.send(menu_leds)
-        tempo = xq.get_tempo(msg)
-        if tempo is None:
-            print(msg)
+        # tempo = xq.get_tempo(msg)
+        # if tempo is None:
+        #     print(msg)
 
     def master(self, msg):
         if msg.type == "control_change":
@@ -1146,6 +1148,7 @@ with esp.Master():
     from_master = Inport(script.master, client_name, name="Master")
     from_rhythm = Inport(script.rhythm, client_name, name="Rhythm")
 
+    # The following has stopped working and I can't tell why
     selector_client = jack.Client("microtonOS Selector")
 
     @selector_client.set_process_callback
@@ -1154,8 +1157,9 @@ with esp.Master():
         in_mono = selector_client.inports[0]
         out_left = selector_client.outports[2 if start_page.mic["XentoTune"] else 0]
         out_right = selector_client.outports[3 if start_page.mic["XentoTune"] else 1]
-        out_left.get_buffer()[:] = in_mono.get_buffer()
-        out_right.get_buffer()[:] = in_mono.get_buffer()
+        buffer = in_mono.get_buffer()
+        out_left.get_buffer()[:] = buffer
+        out_right.get_buffer()[:] = buffer
 
     selector_client.inports.register("input_MONO")
     selector_client.outports.register("to_Vocoder_FL")

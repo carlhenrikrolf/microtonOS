@@ -41,6 +41,12 @@ standalone = false
 [dexed]
 standalone = false
 
+# [DecentSampler]
+# path = "/usr/bin/DecentSampler"
+# standalone = false
+# drumkit = "/home/pi/microtonOS/config/DecentSampler/drumkit"
+# #drumkit = "/home/pi/.config/DecentSampler/Sample Libraries/Drum Kits/Acoustic.dsbundle"
+
 ["Reface CP"]
 channel = 0
 

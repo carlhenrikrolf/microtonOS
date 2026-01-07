@@ -61,9 +61,9 @@ class StepSequencer:
         if msg.type == "start":
             self.is_playing = True
             self.step = 0
+            self.counter = 0
         elif msg.type == "stop":
             self.is_playing = False
-            self.step = 0
         if msg.type == "clock":
             if self.is_playing:
                 ticks_per_beat = (32 // self.divisor) * per32
@@ -80,7 +80,7 @@ class StepSequencer:
                             velocity=self.velocity[note, channel, step],
                         )
                         notes_on.append(note_on)
-            self.counter += 1
+                self.counter += 1
         return notes_on
 
     def display(self):

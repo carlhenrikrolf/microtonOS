@@ -54,7 +54,7 @@
    <Parameter>
     <Index>4</Index>
     <Name>WET_DRY</Name>
-    <Value>50</Value>
+    <Value>100</Value>
    </Parameter>
 
    <Parameter>
@@ -66,7 +66,7 @@
    <Parameter>
     <Index>6</Index>
     <Name>Dry/Wet</Name>
-    <Value>50</Value>
+    <Value>100</Value>
    </Parameter>
 
    <Parameter>
@@ -462,7 +462,7 @@
    <Parameter>
     <Index>108</Index>
     <Name>Dry Level</Name>
-    <Value>80</Value>
+    <Value>100</Value>
    </Parameter>
 
    <Parameter>
@@ -563,7 +563,7 @@
     &lt;Index&gt;4&lt;/Index&gt;
     &lt;Name&gt;WET_DRY&lt;/Name&gt;
     &lt;Symbol&gt;WET_DRY&lt;/Symbol&gt;
-    &lt;Value&gt;50&lt;/Value&gt;
+    &lt;Value&gt;100&lt;/Value&gt;
    &lt;/Parameter&gt;
 
    &lt;Parameter&gt;
@@ -598,7 +598,7 @@
     &lt;Index&gt;0&lt;/Index&gt;
     &lt;Name&gt;Dry/Wet&lt;/Name&gt;
     &lt;Symbol&gt;dry_wet&lt;/Symbol&gt;
-    &lt;Value&gt;50&lt;/Value&gt;
+    &lt;Value&gt;100&lt;/Value&gt;
    &lt;/Parameter&gt;
 
    &lt;Parameter&gt;
@@ -646,7 +646,7 @@
   &lt;/Info&gt;
 
   &lt;Data&gt;
-   &lt;Active&gt;Yes&lt;/Active&gt;
+   &lt;Active&gt;No&lt;/Active&gt;
    &lt;ControlChannel&gt;1&lt;/ControlChannel&gt;
    &lt;Options&gt;0x3f1&lt;/Options&gt;
 
@@ -779,7 +779,7 @@
   &lt;/Info&gt;
 
   &lt;Data&gt;
-   &lt;Active&gt;Yes&lt;/Active&gt;
+   &lt;Active&gt;No&lt;/Active&gt;
    &lt;ControlChannel&gt;1&lt;/ControlChannel&gt;
    &lt;Options&gt;0x3f1&lt;/Options&gt;
 
@@ -891,7 +891,7 @@
   &lt;/Info&gt;
 
   &lt;Data&gt;
-   &lt;Active&gt;Yes&lt;/Active&gt;
+   &lt;Active&gt;No&lt;/Active&gt;
    &lt;ControlChannel&gt;1&lt;/ControlChannel&gt;
    &lt;Options&gt;0x3f1&lt;/Options&gt;
 
@@ -1003,7 +1003,7 @@
   &lt;/Info&gt;
 
   &lt;Data&gt;
-   &lt;Active&gt;Yes&lt;/Active&gt;
+   &lt;Active&gt;No&lt;/Active&gt;
    &lt;ControlChannel&gt;1&lt;/ControlChannel&gt;
    &lt;Options&gt;0x3f1&lt;/Options&gt;
 
@@ -1170,9 +1170,9 @@
 
    &lt;Chunk&gt;
 X19kcGZfc3RhdGVfYmVnaW5fXwBwcmVzZXQAU21hbGwgQ2xlYXIgSGFsbABfX2RwZl9zdGF0ZV9lbmRfXwBfX2RwZl9wYXJhbWV0ZXJzX2JlZ2luX18AZHJ5
-X2xldmVsADgwAGVhcmx5X2xldmVsADEwAGxhdGVfbGV2ZWwAMjAAc2l6ZQAyNAB3aWR0aAAxMDAAZGVsYXkANABkaWZmdXNlADkwAGxvd19jdXQANABsb3df
-eG8ANTAwAGxvd19tdWx0ADEuMjk5OTk5OTUyMzIAaGlnaF9jdXQANzYwMABoaWdoX3hvADU1MDAAaGlnaF9tdWx0ADAuNQBzcGluADMuMjk5OTk5OTUyMzIA
-d2FuZGVyADE1AGRlY2F5ADEuMjk5OTk5OTUyMzIAZWFybHlfc2VuZAAyMABtb2R1bGF0aW9uADE1AF9fZHBmX3BhcmFtZXRlcnNfZW5kX18A/gA=
+X2xldmVsADEwMABlYXJseV9sZXZlbAAxMABsYXRlX2xldmVsADIwAHNpemUAMjQAd2lkdGgAMTAwAGRlbGF5ADQAZGlmZnVzZQA5MABsb3dfY3V0ADQAbG93
+X3hvADUwMABsb3dfbXVsdAAxLjI5OTk5OTk1MjMyAGhpZ2hfY3V0ADc2MDAAaGlnaF94bwA1NTAwAGhpZ2hfbXVsdAAwLjUAc3BpbgAzLjI5OTk5OTk1MjMy
+AHdhbmRlcgAxNQBkZWNheQAxLjI5OTk5OTk1MjMyAGVhcmx5X3NlbmQAMjAAbW9kdWxhdGlvbgAxNQBfX2RwZl9wYXJhbWV0ZXJzX2VuZF9fAP4A
    &lt;/Chunk&gt;
   &lt;/Data&gt;
  &lt;/Plugin&gt;
@@ -1204,7 +1204,7 @@ d2FuZGVyADE1AGRlY2F5ADEuMjk5OTk5OTUyMzIAZWFybHlfc2VuZAAyMABtb2R1bGF0aW9uADE1AF9f
    <Options>0x1f9</Options>
 
    <Chunk>
-VkMyIfUvAAA8P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJVVEYtOCI/PiA8RGVjZW50U2FtcGxlciBtaW5WZXJzaW9uPSIxLjAuMCIgX3NhbXBsZVBh
+VkMyIfIvAAA8P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJVVEYtOCI/PiA8RGVjZW50U2FtcGxlciBtaW5WZXJzaW9uPSIxLjAuMCIgX3NhbXBsZVBh
 dGg9Ii9ob21lL3BpLy5jb25maWcvRGVjZW50U2FtcGxlci9TYW1wbGUgTGlicmFyaWVzL0RydW0gS2l0cy9BY291c3RpYyIgX3ByZXNldE5hbWU9IkFjb3Vz
 dGljIiBfbGlicmFyeVVybD0iZmlsZTovLy9ob21lL3BpLy5jb25maWcvRGVjZW50U2FtcGxlci9TYW1wbGUlMjBMaWJyYXJpZXMvRHJ1bSUyMEtpdHMvQWNv
 dXN0aWMvQWNvdXN0aWMuZHNwcmVzZXQiIF9saWJyYXJ5Q2Fub25pY2FsVXJsPSJmaWxlOi8vL2hvbWUvcGkvLmNvbmZpZy9EZWNlbnRTYW1wbGVyL1NhbXBs
@@ -1233,7 +1233,7 @@ RkYiIF9pbmRleD0iMiIgX3VpZD0iVnJySXVTY0E0UTEiPjxiaW5kaW5nIHR5cGU9ImVmZmVjdCIgbGV2
 YXJhbWV0ZXI9IkZYX1dFVF9MRVZFTCIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7NTAsNzU7MTAwLjEsMSIvPjxiaW5kaW5n
 IHR5cGU9ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1lbnQiIHBvc2l0aW9uPSIyIiBwYXJhbWV0ZXI9IkZYX0RFTEFZX1RJTUUiIHRyYW5zbGF0aW9uPSJ0YWJs
 ZSIgdHJhbnNsYXRpb25UYWJsZT0iMCw1OzUwLDEwOzEwMC4xLDIwIi8+PC9sYWJlbGVkLWtub2I+PGxhYmVsZWQta25vYiB4PSI2NTAiIHk9Ijc1IiBsYWJl
-bD0iUmV2ZXJiIiBtaW5WYWx1ZT0iMCIgbWF4VmFsdWU9IjEwMCIgdmFsdWU9IjUuMCIgdGV4dENvbG9yPSIwMEZGRkZGRiIgdHJhY2tCYWNrZ3JvdW5kQ29s
+bD0iUmV2ZXJiIiBtaW5WYWx1ZT0iMCIgbWF4VmFsdWU9IjEwMCIgdmFsdWU9IjAuMCIgdGV4dENvbG9yPSIwMEZGRkZGRiIgdHJhY2tCYWNrZ3JvdW5kQ29s
 b3I9IkZGNDA0MDQwIiB0cmFja0ZvcmVncm91bmRDb2xvcj0iRkZGRkZGRkYiIF9pbmRleD0iMyIgX3VpZD0iSEtMS3lLZGE0MkMiPjxiaW5kaW5nIHR5cGU9
 ImVmZmVjdCIgbGV2ZWw9Imluc3RydW1lbnQiIHBvc2l0aW9uPSIwIiBwYXJhbWV0ZXI9IkZYX1JFVkVSQl9XRVRfTEVWRUwiIHRyYW5zbGF0aW9uPSJ0YWJs
 ZSIgdHJhbnNsYXRpb25UYWJsZT0iMCwwOzEwLDAuNTsxMDAuMSwxIi8+PGJpbmRpbmcgdHlwZT0iZWZmZWN0IiBsZXZlbD0iaW5zdHJ1bWVudCIgcG9zaXRp
@@ -1323,47 +1323,40 @@ Y291c3RpY180Ni53YXYiIF9ncm91cEluZGV4PSIwIiBfZmlsZUxlbmd0aD0iMTA1NTUiIF9maWxlU2Ft
 b3RlPSI4MSIgaGlOb3RlPSI4MSIgcm9vdE5vdGU9IjgxIiBwYXRoPSJTYW1wbGVzL0V4cXVpc19EcnVtS2l0X0Fjb3VzdGljXzQ3LndhdiIgX2dyb3VwSW5k
 ZXg9IjAiIF9maWxlTGVuZ3RoPSIzMTE5NyIgX2ZpbGVTYW1wbGVSYXRlPSI0NDEwMC4wIi8+PGVmZmVjdHM+PGVmZmVjdCB0eXBlPSJsb3dwYXNzIiBmcmVx
 dWVuY3k9IjI0MDAwIi8+PGVmZmVjdCB0eXBlPSJoaWdocGFzcyIgZnJlcXVlbmN5PSI2MCIvPjxlZmZlY3QgdHlwZT0iZ2FpbiIgbGV2ZWw9IjIiLz48L2Vm
-ZmVjdHM+PC9ncm91cD48L2dyb3Vwcz48ZWZmZWN0cz48ZWZmZWN0IHR5cGU9InJldmVyYiIgcm9vbVNpemU9IjAuMjUiIHdldExldmVsPSIwLjI1IiBkYW1w
-aW5nPSIwLjI1Ii8+PGVmZmVjdCB0eXBlPSJjaG9ydXMiIG1vZERlcHRoPSIwLjAiIG1peD0iMC4wIiBtb2RSYXRlPSIwLjAiLz48ZWZmZWN0IHR5cGU9ImRl
-bGF5IiBkZWxheVRpbWVGb3JtYXQ9Im11c2ljYWxfdGltZSIgd2V0TGV2ZWw9IjAuMCIgZGVsYXlUaW1lPSI1LjAiLz48ZWZmZWN0IHR5cGU9InBoYXNlciIg
-bW9kUmF0ZT0iMC4wIiBtaXg9IjAuMCIgbW9kRGVwdGg9IjAuMCIvPjwvZWZmZWN0cz48bW9kdWxhdG9ycz48bXBlVGltYnJlIG1vZEFtb3VudD0iMSIgc2Nv
-cGU9InZvaWNlIiBmYWxsaW5nU21vb3RoaW5nVGltZT0iMTAwIiByaXNpbmdTbW9vdGhpbmdUaW1lPSIxMDAiPjxiaW5kaW5nIHR5cGU9ImVmZmVjdCIgbGV2
-ZWw9Imdyb3VwIiBncm91cEluZGV4PSIwIiBlZmZlY3RJbmRleD0iMCIgcGFyYW1ldGVyPSJGWF9GSUxURVJfRlJFUVVFTkNZIiBtb2RCZWhhdmlvcj0ic2V0
-IiB0cmFuc2xhdGlvbj0idGFibGUiIHRyYW5zbGF0aW9uVGFibGU9IjAsMTAwOzAuMTUsMTUwOzAuMiw0NTA7MC4yNSwxMTAwOzAuMzUsNDEwMDswLjQ1LDIy
-MDAwOzEsMjIwMDAiLz48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJncm91cCIgZ3JvdXBJbmRleD0iMCIgZWZmZWN0SW5kZXg9IjEiIHBhcmFtZXRl
-cj0iRlhfRklMVEVSX0ZSRVFVRU5DWSIgbW9kQmVoYXZpb3I9InNldCIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7MC42LDA7
-MC42NSw3NTswLjcsMjI1OzAuNzUsNTUwOzAuOTUsMzgwMDsxLDgyMDAiLz48L21wZVRpbWJyZT48L21vZHVsYXRvcnM+PG1pZGk+PGNjIG51bWJlcj0iNDEi
-PjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjAiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRy
-YW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDIiPjxiaW5kaW5nIGxldmVsPSJ1aSIg
-dHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjEiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIw
-IiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDMiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1l
-dGVyPSJWQUxVRSIgcG9zaXRpb249IjIiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1h
-eD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDQiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249
-IjMiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PC9taWRpPjx0
-YWdzLz48YnVzZXMvPjxub3RlU2VxdWVuY2VzLz48L0RlY2VudFNhbXBsZXI+AAAAAAAAAAAASlVDRVByaXZhdGVEYXRhAAEBQnlwYXNzAAEBAwAdAAAAAAAA
-AEpVQ0VQcml2YXRlRGF0YQ==
+ZmVjdHM+PC9ncm91cD48L2dyb3Vwcz48ZWZmZWN0cz48ZWZmZWN0IHR5cGU9InJldmVyYiIgcm9vbVNpemU9IjAuMCIgd2V0TGV2ZWw9IjAuMCIgZGFtcGlu
+Zz0iMC4wIi8+PGVmZmVjdCB0eXBlPSJjaG9ydXMiIG1vZERlcHRoPSIwLjAiIG1peD0iMC4wIiBtb2RSYXRlPSIwLjAiLz48ZWZmZWN0IHR5cGU9ImRlbGF5
+IiBkZWxheVRpbWVGb3JtYXQ9Im11c2ljYWxfdGltZSIgd2V0TGV2ZWw9IjAuMCIgZGVsYXlUaW1lPSI1LjAiLz48ZWZmZWN0IHR5cGU9InBoYXNlciIgbW9k
+UmF0ZT0iMC4wIiBtaXg9IjAuMCIgbW9kRGVwdGg9IjAuMCIvPjwvZWZmZWN0cz48bW9kdWxhdG9ycz48bXBlVGltYnJlIG1vZEFtb3VudD0iMSIgc2NvcGU9
+InZvaWNlIiBmYWxsaW5nU21vb3RoaW5nVGltZT0iMTAwIiByaXNpbmdTbW9vdGhpbmdUaW1lPSIxMDAiPjxiaW5kaW5nIHR5cGU9ImVmZmVjdCIgbGV2ZWw9
+Imdyb3VwIiBncm91cEluZGV4PSIwIiBlZmZlY3RJbmRleD0iMCIgcGFyYW1ldGVyPSJGWF9GSUxURVJfRlJFUVVFTkNZIiBtb2RCZWhhdmlvcj0ic2V0IiB0
+cmFuc2xhdGlvbj0idGFibGUiIHRyYW5zbGF0aW9uVGFibGU9IjAsMTAwOzAuMTUsMTUwOzAuMiw0NTA7MC4yNSwxMTAwOzAuMzUsNDEwMDswLjQ1LDIyMDAw
+OzEsMjIwMDAiLz48YmluZGluZyB0eXBlPSJlZmZlY3QiIGxldmVsPSJncm91cCIgZ3JvdXBJbmRleD0iMCIgZWZmZWN0SW5kZXg9IjEiIHBhcmFtZXRlcj0i
+RlhfRklMVEVSX0ZSRVFVRU5DWSIgbW9kQmVoYXZpb3I9InNldCIgdHJhbnNsYXRpb249InRhYmxlIiB0cmFuc2xhdGlvblRhYmxlPSIwLDA7MC42LDA7MC42
+NSw3NTswLjcsMjI1OzAuNzUsNTUwOzAuOTUsMzgwMDsxLDgyMDAiLz48L21wZVRpbWJyZT48L21vZHVsYXRvcnM+PG1pZGk+PGNjIG51bWJlcj0iNDEiPjxi
+aW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjAiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5z
+bGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDIiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlw
+ZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjEiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0
+cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PGNjIG51bWJlcj0iNDMiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVy
+PSJWQUxVRSIgcG9zaXRpb249IjIiIHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0i
+MSIvPjwvY2M+PGNjIG51bWJlcj0iNDQiPjxiaW5kaW5nIGxldmVsPSJ1aSIgdHlwZT0iY29udHJvbCIgcGFyYW1ldGVyPSJWQUxVRSIgcG9zaXRpb249IjMi
+IHRyYW5zbGF0aW9uPSJsaW5lYXIiIHRyYW5zbGF0aW9uT3V0cHV0TWluPSIwIiB0cmFuc2xhdGlvbk91dHB1dE1heD0iMSIvPjwvY2M+PC9taWRpPjx0YWdz
+Lz48YnVzZXMvPjxub3RlU2VxdWVuY2VzLz48L0RlY2VudFNhbXBsZXI+AAAAAAAAAAAASlVDRVByaXZhdGVEYXRhAAEBQnlwYXNzAAEBAwAdAAAAAAAAAEpV
+Q0VQcml2YXRlRGF0YQ==
    </Chunk>
-  </Data>
- </Plugin>
-
- <!-- SonoBus -->
- <Plugin>
-  <Info>
-   <Type>LV2</Type>
-   <Name>SonoBus</Name>
-   <URI>https://sonobus.net/lv2/sonobus</URI>
-  </Info>
-
-  <Data>
-   <Active>Yes</Active>
-   <ControlChannel>1</ControlChannel>
-   <Options>0x3f1</Options>
   </Data>
  </Plugin>
 
  <ExternalPatchbay>
   <Connection>
    <Source>Audio Adapter (Unitek Y-247A) Mono:capture_MONO</Source>
+   <Target>microtonOS Selector:input_MONO</Target>
+  </Connection>
+  <Connection>
+   <Source>Notepad-8FX Digital Stereo (IEC958):capture_FL</Source>
+   <Target>microtonOS Selector:input_MONO</Target>
+  </Connection>
+  <Connection>
+   <Source>Notepad-8FX Digital Stereo (IEC958):capture_FR</Source>
    <Target>microtonOS Selector:input_MONO</Target>
   </Connection>
   <Connection>
@@ -1379,24 +1372,72 @@ AEpVQ0VQcml2YXRlRGF0YQ==
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
   </Connection>
   <Connection>
+   <Source>librespot:out_0</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
    <Source>librespot:out_1</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>librespot:out_1</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>Pianoteq:out_1</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
   </Connection>
   <Connection>
+   <Source>Pianoteq:out_1</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
    <Source>Pianoteq:out_2</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Pianoteq:out_2</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FR</Target>
   </Connection>
   <Connection>
    <Source>XentoTune:output_1</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
   </Connection>
   <Connection>
+   <Source>XentoTune:output_1</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
    <Source>XentoTune:output_2</Source>
    <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>XentoTune:output_2</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>DecentSampler:output_1</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>DecentSampler:output_1</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FL</Target>
+  </Connection>
+  <Connection>
+   <Source>DecentSampler:output_2</Source>
+   <Target>Audio Adapter (Unitek Y-247A) Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>DecentSampler:output_2</Source>
+   <Target>Notepad-8FX Analog Stereo:playback_FR</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:microtonOS:(capture_0) Internal Rhythm from microtonOS</Source>
+   <Target>DecentSampler:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi-Bridge:microtonOS:(capture_0) XentoTune from microtonOS</Source>
+   <Target>XentoTune:events-in</Target>
   </Connection>
   <Connection>
    <Source>Midi-Bridge:Pianoteq Wrapper:(capture_0) from Pianoteq Wrapper</Source>
@@ -1406,7 +1447,10 @@ AEpVQ0VQcml2YXRlRGF0YQ==
    <Position x1="1338" y1="1169" x2="2107" y2="1274">
     <Name>Audio Adapter (Unitek Y-247A) Mono</Name>
    </Position>
-   <Position x1="1671" y1="1253">
+   <Position x1="1516" y1="1300" x2="2107" y2="1348">
+    <Name>Notepad-8FX Digital Stereo (IEC958)</Name>
+   </Position>
+   <Position x1="1757" y1="1176">
     <Name>microtonOS Selector</Name>
    </Position>
    <Position x1="1845" y1="1405">
@@ -1418,10 +1462,10 @@ AEpVQ0VQcml2YXRlRGF0YQ==
    <Position x1="1849" y1="1081" x2="2161" y2="1274">
     <Name>Audio Adapter (Unitek Y-247A) Analog Stereo</Name>
    </Position>
-   <Position x1="1252" y1="1339" x2="2098" y2="1402">
+   <Position x1="1238" y1="1441" x2="2098" y2="1402">
     <Name>Midi-Bridge</Name>
    </Position>
-   <Position x1="1914" y1="1265" pluginId="0">
+   <Position x1="1981" y1="1231" pluginId="0">
     <Name>XentoTune</Name>
    </Position>
    <Position x1="1695" y1="1732" pluginId="1">
