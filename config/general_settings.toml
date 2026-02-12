@@ -21,7 +21,7 @@ headless = false
 project = "/home/pi/microtonOS/config/carla.carxp"
 
 [Pianoteq]
-version = "Pianoteq 8 STAGE"
+path = "/usr/bin/Pianoteq 8 STAGE"
 standalone = true
 headless = false
 midimapping = "midimapping"
@@ -30,10 +30,16 @@ files = []
 directories = []
 
 [tuneBfree]
+path = "/home/pi/microtonOS/third_party/tuneBfree/build/tuneBfree"
 standalone = true
-directory = "/home/pi/microtonOS/config/tuneBfree/"
-midimapping = "midimapping.toml"
-presets = "drawbars.pgm"
+midimapping = "/home/pi/microtonOS/config/tuneBfree/midimapping.toml"
+banks = [
+    "/home/pi/microtonOS/config/tuneBfree/tonewheel.cfg",
+    "/home/pi/microtonOS/config/tuneBfree/sawtooth.cfg",
+    "/home/pi/microtonOS/config/tuneBfree/square.cfg",
+]
+presets = "/home/pi/microtonOS/config/tuneBfree/drawbars.pgm"
+audio_output = "Built-in Audio Stereo"
 
 ["Surge XT"]
 standalone = false

@@ -16,7 +16,7 @@ config = {
     "general_settings": load_config(__file__, "../../config/general_settings.toml"),
     "programs": load_config(__file__, "../../config/programs.toml"),
 }
-version = config["general_settings"]["Pianoteq"]["version"]
+path = config["general_settings"]["Pianoteq"]["path"]
 standalone = config["general_settings"]["Pianoteq"]["standalone"]
 headless = config["general_settings"]["Pianoteq"]["headless"]
 midimapping = config["general_settings"]["Pianoteq"]["midimapping"]
@@ -29,7 +29,7 @@ for index, engine in enumerate(config["programs"]["engine"]):
         break
 
 pwjack = "/usr/bin/pw-jack"
-path = "/usr/bin/" + version
+# path = "/usr/bin/" + version
 all_files = list(files)
 extensions = (".fxp", ".mfxp", ".ptm", ".scl", ".kbm")
 for dir in directories:
