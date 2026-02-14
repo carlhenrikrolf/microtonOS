@@ -531,6 +531,632 @@
   </Data>
  </Plugin>
 
+ <!-- LSP Impulse Reverb Stereo -->
+ <Plugin>
+  <Info>
+   <Type>LV2</Type>
+   <Name>LSP Impulse Reverb Stereo</Name>
+   <URI>http://lsp-plug.in/plugins/lv2/impulse_reverb_stereo</URI>
+  </Info>
+
+  <Data>
+   <Active>Yes</Active>
+   <ControlChannel>1</ControlChannel>
+   <Options>0x1</Options>
+
+   <Parameter>
+    <Index>0</Index>
+    <Name>Enabled</Name>
+    <Symbol>enabled</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>1</Index>
+    <Name>File selector</Name>
+    <Symbol>fsel</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>2</Index>
+    <Name>FFT size</Name>
+    <Symbol>fft</Symbol>
+    <Value>6</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>3</Index>
+    <Name>Pre-delay</Name>
+    <Symbol>pd</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>4</Index>
+    <Name>Left channel panorama</Name>
+    <Symbol>pl</Symbol>
+    <Value>-100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>5</Index>
+    <Name>Right channel panorama</Name>
+    <Symbol>pr</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>6</Index>
+    <Name>Dry amount</Name>
+    <Symbol>dry</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>7</Index>
+    <Name>Wet amount</Name>
+    <Symbol>wet</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>8</Index>
+    <Name>Dry/Wet balance</Name>
+    <Symbol>drywet</Symbol>
+    <MidiChannel>15</MidiChannel>
+    <MappedControlIndex>91</MappedControlIndex>
+    <MappedMinimum>0</MappedMinimum>
+    <MappedMaximum>10</MappedMaximum>
+    <MidiCC>91</MidiCC>
+    <Value>6.771653175354</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>9</Index>
+    <Name>Output gain</Name>
+    <Symbol>g_out</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>10</Index>
+    <Name>File pitch 0</Name>
+    <Symbol>psh0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>11</Index>
+    <Name>Head cut 0</Name>
+    <Symbol>ihc0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>12</Index>
+    <Name>Tail cut 0</Name>
+    <Symbol>itc0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>13</Index>
+    <Name>Fade in 0</Name>
+    <Symbol>ifi0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>14</Index>
+    <Name>Fade out 0</Name>
+    <Symbol>ifo0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>15</Index>
+    <Name>Impulse listen preview 0</Name>
+    <Symbol>ils0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>16</Index>
+    <Name>Impulse stop preview 0</Name>
+    <Symbol>ilc0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>17</Index>
+    <Name>Impulse reverse 0</Name>
+    <Symbol>irv0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>20</Index>
+    <Name>File pitch 1</Name>
+    <Symbol>psh1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>21</Index>
+    <Name>Head cut 1</Name>
+    <Symbol>ihc1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>22</Index>
+    <Name>Tail cut 1</Name>
+    <Symbol>itc1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>23</Index>
+    <Name>Fade in 1</Name>
+    <Symbol>ifi1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>24</Index>
+    <Name>Fade out 1</Name>
+    <Symbol>ifo1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>25</Index>
+    <Name>Impulse listen preview 1</Name>
+    <Symbol>ils1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>26</Index>
+    <Name>Impulse stop preview 1</Name>
+    <Symbol>ilc1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>27</Index>
+    <Name>Impulse reverse 1</Name>
+    <Symbol>irv1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>30</Index>
+    <Name>File pitch 2</Name>
+    <Symbol>psh2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>31</Index>
+    <Name>Head cut 2</Name>
+    <Symbol>ihc2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>32</Index>
+    <Name>Tail cut 2</Name>
+    <Symbol>itc2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>33</Index>
+    <Name>Fade in 2</Name>
+    <Symbol>ifi2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>34</Index>
+    <Name>Fade out 2</Name>
+    <Symbol>ifo2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>35</Index>
+    <Name>Impulse listen preview 2</Name>
+    <Symbol>ils2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>36</Index>
+    <Name>Impulse stop preview 2</Name>
+    <Symbol>ilc2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>37</Index>
+    <Name>Impulse reverse 2</Name>
+    <Symbol>irv2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>40</Index>
+    <Name>File pitch 3</Name>
+    <Symbol>psh3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>41</Index>
+    <Name>Head cut 3</Name>
+    <Symbol>ihc3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>42</Index>
+    <Name>Tail cut 3</Name>
+    <Symbol>itc3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>43</Index>
+    <Name>Fade in 3</Name>
+    <Symbol>ifi3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>44</Index>
+    <Name>Fade out 3</Name>
+    <Symbol>ifo3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>45</Index>
+    <Name>Impulse listen preview 3</Name>
+    <Symbol>ils3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>46</Index>
+    <Name>Impulse stop preview 3</Name>
+    <Symbol>ilc3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>47</Index>
+    <Name>Impulse reverse 3</Name>
+    <Symbol>irv3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>50</Index>
+    <Name>Left/Right input mix 0</Name>
+    <Symbol>cim0</Symbol>
+    <Value>-100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>51</Index>
+    <Name>Channel source file 0</Name>
+    <Symbol>csf0</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>52</Index>
+    <Name>Channel source track 0</Name>
+    <Symbol>cst0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>53</Index>
+    <Name>Makeup gain 0</Name>
+    <Symbol>mk0</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>54</Index>
+    <Name>Channel mute 0</Name>
+    <Symbol>cam0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>56</Index>
+    <Name>Channel pre-delay 0</Name>
+    <Symbol>pd0</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>57</Index>
+    <Name>Channel Left/Right output mix 0</Name>
+    <Symbol>com0</Symbol>
+    <Value>-100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>58</Index>
+    <Name>Left/Right input mix 1</Name>
+    <Symbol>cim1</Symbol>
+    <Value>-100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>59</Index>
+    <Name>Channel source file 1</Name>
+    <Symbol>csf1</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>60</Index>
+    <Name>Channel source track 1</Name>
+    <Symbol>cst1</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>61</Index>
+    <Name>Makeup gain 1</Name>
+    <Symbol>mk1</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>62</Index>
+    <Name>Channel mute 1</Name>
+    <Symbol>cam1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>64</Index>
+    <Name>Channel pre-delay 1</Name>
+    <Symbol>pd1</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>65</Index>
+    <Name>Channel Left/Right output mix 1</Name>
+    <Symbol>com1</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>66</Index>
+    <Name>Left/Right input mix 2</Name>
+    <Symbol>cim2</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>67</Index>
+    <Name>Channel source file 2</Name>
+    <Symbol>csf2</Symbol>
+    <Value>2</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>68</Index>
+    <Name>Channel source track 2</Name>
+    <Symbol>cst2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>69</Index>
+    <Name>Makeup gain 2</Name>
+    <Symbol>mk2</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>70</Index>
+    <Name>Channel mute 2</Name>
+    <Symbol>cam2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>72</Index>
+    <Name>Channel pre-delay 2</Name>
+    <Symbol>pd2</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>73</Index>
+    <Name>Channel Left/Right output mix 2</Name>
+    <Symbol>com2</Symbol>
+    <Value>-100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>74</Index>
+    <Name>Left/Right input mix 3</Name>
+    <Symbol>cim3</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>75</Index>
+    <Name>Channel source file 3</Name>
+    <Symbol>csf3</Symbol>
+    <Value>2</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>76</Index>
+    <Name>Channel source track 3</Name>
+    <Symbol>cst3</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>77</Index>
+    <Name>Makeup gain 3</Name>
+    <Symbol>mk3</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>78</Index>
+    <Name>Channel mute 3</Name>
+    <Symbol>cam3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>80</Index>
+    <Name>Channel pre-delay 3</Name>
+    <Symbol>pd3</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>81</Index>
+    <Name>Channel Left/Right output mix 3</Name>
+    <Symbol>com3</Symbol>
+    <Value>100</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>82</Index>
+    <Name>Wet post-process</Name>
+    <Symbol>wpp</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>83</Index>
+    <Name>Equalizer visibility</Name>
+    <Symbol>eqv</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>84</Index>
+    <Name>Low-cut mode</Name>
+    <Symbol>lcm</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>85</Index>
+    <Name>Low-cut frequency</Name>
+    <Symbol>lcf</Symbol>
+    <Value>50</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>86</Index>
+    <Name>Band 50Hz gain</Name>
+    <Symbol>eq_0</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>87</Index>
+    <Name>Band 107Hz gain</Name>
+    <Symbol>eq_1</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>88</Index>
+    <Name>Band 227Hz gain</Name>
+    <Symbol>eq_2</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>89</Index>
+    <Name>Band 484Hz gain</Name>
+    <Symbol>eq_3</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>90</Index>
+    <Name>Band 1 kHz gain</Name>
+    <Symbol>eq_4</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>91</Index>
+    <Name>Band 2.2 kHz gain</Name>
+    <Symbol>eq_5</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>92</Index>
+    <Name>Band 4.7 kHz gain</Name>
+    <Symbol>eq_6</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>93</Index>
+    <Name>Band 10 kHz gain</Name>
+    <Symbol>eq_7</Symbol>
+    <Value>1</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>94</Index>
+    <Name>High-cut mode</Name>
+    <Symbol>hcm</Symbol>
+    <Value>0</Value>
+   </Parameter>
+
+   <Parameter>
+    <Index>95</Index>
+    <Name>High-cut frequency</Name>
+    <Symbol>hcf</Symbol>
+    <Value>10000</Value>
+   </Parameter>
+
+   <CustomData>
+    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
+    <Key>CarlaSkinIsCompacted</Key>
+    <Value>false</Value>
+   </CustomData>
+
+   <CustomData>
+    <Type>http://lv2plug.in/ns/ext/atom#Path</Type>
+    <Key>http://lsp-plug.in/plugins/lv2/impulse_reverb_stereo/ports#ifn0</Key>
+    <Value>r1_ortf-48k.wav</Value>
+   </CustomData>
+
+   <CustomData>
+    <Type>http://lv2plug.in/ns/ext/atom#Object</Type>
+    <Key>http://lsp-plug.in/plugins/lv2/impulse_reverb_stereo/preset_state</Key>
+    <Value>AAAAAFUAAABWAAAAAAAAAAEAAAARAAAAAAAAAAAAAABXAAAAAAAAAAQAAAAHAAAAAAAAAAAAAABYAAAAAAAAAAQAAAAHAAAAAAAAAAAAAAA=</Value>
+   </CustomData>
+  </Data>
+ </Plugin>
+
  <Patchbay>
   <Connection>
    <Source>Audio Input:Left</Source>
@@ -582,13 +1208,28 @@
   </Connection>
   <Connection>
    <Source>Calf Phaser:Out L</Source>
-   <Target>Audio Output:Left</Target>
+   <Target>LSP Impulse Reverb Stereo:Input L</Target>
   </Connection>
   <Connection>
    <Source>Calf Phaser:Out R</Source>
+   <Target>LSP Impulse Reverb Stereo:Input R</Target>
+  </Connection>
+  <Connection>
+   <Source>LSP Impulse Reverb Stereo:Output L</Source>
+   <Target>Audio Output:Left</Target>
+  </Connection>
+  <Connection>
+   <Source>LSP Impulse Reverb Stereo:Output R</Source>
    <Target>Audio Output:Right</Target>
   </Connection>
+  <Connection>
+   <Source>Midi Input:Capture 1</Source>
+   <Target>LSP Impulse Reverb Stereo:event-in</Target>
+  </Connection>
   <Positions>
+   <Position x1="2367" y1="1222" pluginId="4">
+    <Name>LSP Impulse Reverb Stereo</Name>
+   </Position>
    <Position x1="2180" y1="1208" pluginId="3">
     <Name>Calf Phaser</Name>
    </Position>
@@ -607,7 +1248,7 @@
    <Position x1="2193" y1="1384" x2="1943" y2="1355">
     <Name>Midi Input</Name>
    </Position>
-   <Position x1="1550" y1="1281" x2="2496" y2="1227">
+   <Position x1="1550" y1="1281" x2="2614" y2="1237">
     <Name>Audio Output</Name>
    </Position>
    <Position x1="1501" y1="1075" x2="1952" y2="1200">
