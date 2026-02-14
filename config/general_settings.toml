@@ -22,7 +22,7 @@ project = "/home/pi/microtonOS/config/carla.carxp"
 
 [Pianoteq]
 path = "/usr/bin/Pianoteq 8 STAGE"
-standalone = true
+standalone = false
 headless = false
 midimapping = "midimapping"
 preset0 = "/home/pi/microtonOS/config/Pianoteq/Presets/My Presets/NY Steinway D.fxp"

@@ -1,9 +1,10 @@
 from frozendict import frozendict
 from os import path
 import tomllib as toml
+from typing import Any, Mapping, cast
 
 
-def make_immutable(obj):
+def make_immutable(obj: Any) -> Any:
     if isinstance(obj, dict):
         return frozendict({k: make_immutable(v) for k, v in obj.items()})
     elif isinstance(obj, list):
@@ -18,11 +19,13 @@ def load_relative(current_file, relative_path):
     return path.join(script_dir, relative_path)
 
 
-def load_config(current_file, relative_path, frozen=True):
+def load_config(
+    current_file: str, relative_path: str, frozen: bool = True
+) -> Mapping[str, Any]:
     config_path = load_relative(current_file, relative_path)
     with open(config_path, "rb") as config_file:
         config = toml.load(config_file)
     if frozen:
-        return make_immutable(config)
+        return cast(Mapping[str, Any], make_immutable(config))
     else:
         return config
