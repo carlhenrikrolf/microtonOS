@@ -74,7 +74,7 @@
     <MappedMinimum>0</MappedMinimum>
     <MappedMaximum>1</MappedMaximum>
     <MidiCC>3</MidiCC>
-    <Value>0.511811017990112</Value>
+    <Value>0.755905508995056</Value>
    </Parameter>
 
    <Parameter>
@@ -109,7 +109,7 @@
     <Index>17</Index>
     <Name>Pulse Width</Name>
     <Symbol>pulsewidth</Symbol>
-    <Value>3</Value>
+    <Value>2</Value>
    </Parameter>
 
    <Parameter>
@@ -142,7 +142,7 @@
     <MappedMinimum>0.00999999977648258</MappedMinimum>
     <MappedMaximum>100</MappedMaximum>
     <MidiCC>9</MidiCC>
-    <Value>0.964388430118561</Value>
+    <Value>2.86215353012085</Value>
    </Parameter>
   </Data>
  </Plugin>
@@ -244,7 +244,7 @@
     <MappedMinimum>0.015625</MappedMinimum>
     <MappedMaximum>64</MappedMaximum>
     <MidiCC>14</MidiCC>
-    <Value>32.7635345458984</Value>
+    <Value>48.3817672729492</Value>
    </Parameter>
 
    <Parameter>
@@ -263,14 +263,8 @@
     <MappedMinimum>-1</MappedMinimum>
     <MappedMaximum>1</MappedMaximum>
     <MidiCC>15</MidiCC>
-    <Value>-0.0078740119934082</Value>
+    <Value>-0.385826766490936</Value>
    </Parameter>
-
-   <CustomData>
-    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
-    <Key>CarlaSkinIsCompacted</Key>
-    <Value>false</Value>
-   </CustomData>
   </Data>
  </Plugin>
 
@@ -303,7 +297,7 @@
     <MappedMinimum>0.100000001490116</MappedMinimum>
     <MappedMaximum>10</MappedMaximum>
     <MidiCC>20</MidiCC>
-    <Value>0.913334667682648</Value>
+    <Value>0.734753608703613</Value>
    </Parameter>
 
    <Parameter>
@@ -315,7 +309,7 @@
     <MappedMinimum>0.00999999977648258</MappedMinimum>
     <MappedMaximum>20</MappedMaximum>
     <MidiCC>21</MidiCC>
-    <Value>0.385065078735352</Value>
+    <Value>0.83836829662323</Value>
    </Parameter>
 
    <Parameter>
@@ -413,12 +407,6 @@
     <Symbol>lfo</Symbol>
     <Value>1</Value>
    </Parameter>
-
-   <CustomData>
-    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
-    <Key>CarlaSkinIsCompacted</Key>
-    <Value>false</Value>
-   </CustomData>
   </Data>
  </Plugin>
 
@@ -451,7 +439,7 @@
     <MappedMinimum>0</MappedMinimum>
     <MappedMaximum>10800</MappedMaximum>
     <MidiCC>22</MidiCC>
-    <Value>5187.40185546875</Value>
+    <Value>2211.0234375</Value>
    </Parameter>
 
    <Parameter>
@@ -463,7 +451,7 @@
     <MappedMinimum>0.00999999977648258</MappedMinimum>
     <MappedMaximum>20</MappedMaximum>
     <MidiCC>23</MidiCC>
-    <Value>0.385065078735352</Value>
+    <Value>1.2746217250824</Value>
    </Parameter>
 
    <Parameter>
@@ -543,21 +531,6 @@
   </Data>
  </Plugin>
 
- <!-- REEV-R -->
- <Plugin>
-  <Info>
-   <Type>LV2</Type>
-   <Name>REEV-R</Name>
-   <URI>https://github.com/tiagolr/reevr</URI>
-  </Info>
-
-  <Data>
-   <Active>Yes</Active>
-   <ControlChannel>1</ControlChannel>
-   <Options>0x3f1</Options>
-  </Data>
- </Plugin>
-
  <Patchbay>
   <Connection>
    <Source>Audio Input:Left</Source>
@@ -608,51 +581,36 @@
    <Target>Calf Phaser:In R</Target>
   </Connection>
   <Connection>
-   <Source>Midi Input:Capture 1</Source>
-   <Target>REEV-R:event-in</Target>
-  </Connection>
-  <Connection>
    <Source>Calf Phaser:Out L</Source>
-   <Target>REEV-R:Audio In 1</Target>
-  </Connection>
-  <Connection>
-   <Source>Calf Phaser:Out R</Source>
-   <Target>REEV-R:Audio In 2</Target>
-  </Connection>
-  <Connection>
-   <Source>REEV-R:Audio Out 1</Source>
    <Target>Audio Output:Left</Target>
   </Connection>
   <Connection>
-   <Source>REEV-R:Audio Out 2</Source>
+   <Source>Calf Phaser:Out R</Source>
    <Target>Audio Output:Right</Target>
   </Connection>
   <Positions>
-   <Position x1="2228" y1="1332" pluginId="4">
-    <Name>REEV-R</Name>
-   </Position>
-   <Position x1="2062" y1="1316" pluginId="3">
+   <Position x1="2180" y1="1208" pluginId="3">
     <Name>Calf Phaser</Name>
    </Position>
-   <Position x1="1881" y1="1272" pluginId="2">
+   <Position x1="1986" y1="1163" pluginId="2">
     <Name>Calf Multi Chorus</Name>
    </Position>
-   <Position x1="1652" y1="1194" pluginId="1">
+   <Position x1="1802" y1="1128" pluginId="1">
     <Name>Calf Envelope Filter</Name>
    </Position>
-   <Position x1="1470" y1="1144" pluginId="0">
+   <Position x1="1643" y1="1102" pluginId="0">
     <Name>Calf Pulsator</Name>
    </Position>
-   <Position x1="1550" y1="1418" x2="1627" y2="1042">
+   <Position x1="1550" y1="1200" x2="1863" y2="1440">
     <Name>Midi Output</Name>
    </Position>
-   <Position x1="1642" y1="1428" x2="1943" y2="1355">
+   <Position x1="2193" y1="1384" x2="1943" y2="1355">
     <Name>Midi Input</Name>
    </Position>
-   <Position x1="1550" y1="1281" x2="2419" y2="1332">
+   <Position x1="1550" y1="1281" x2="2496" y2="1227">
     <Name>Audio Output</Name>
    </Position>
-   <Position x1="1277" y1="1256" x2="1952" y2="1200">
+   <Position x1="1501" y1="1075" x2="1952" y2="1200">
     <Name>Audio Input</Name>
    </Position>
   </Positions>

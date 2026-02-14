@@ -1,228 +1,223 @@
 <!DOCTYPE patchbay>
 <patchbay name="qjackctl" version="0.9.9">
  <output-sockets>
-  <socket name="microtonOS to External Rhythm" type="jack-midi" client="Midi\-Bridge" exclusive="off">
+  <socket type="jack-midi" exclusive="off" name="microtonOS to External Rhythm" client="Midi\-Bridge">
    <plug>microtonOS\:\(capture_0\)\ External\ Rhythm\ from\ microtonOS</plug>
   </socket>
-  <socket name="Effects" type="jack-audio" client="Effects" exclusive="off">
-   <plug>output_1</plug>
-   <plug>output_2</plug>
-  </socket>
-  <socket name="microtonOS Selector" type="jack-audio" client="microtonOS\ Selector" exclusive="on">
+  <socket type="jack-audio" exclusive="on" name="microtonOS Selector" client="microtonOS\ Selector">
    <plug>to_XentoTune_FL</plug>
    <plug>to_XentoTune_FR</plug>
   </socket>
-  <socket name="Minilogue XD Driver to Clock" type="alsa-midi" client="Minilogue\ XD\ Driver" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Minilogue XD Driver to Clock" client="Minilogue\ XD\ Driver">
    <plug>Clock\ from\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket name="Carla Wrapper" type="alsa-midi" client="Carla\ Wrapper" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Carla Wrapper" client="Carla\ Wrapper">
    <plug>from\ Carla\ Wrapper</plug>
   </socket>
-  <socket name="WIDI Master" type="alsa-midi" client="WIDI\ Master" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="WIDI Master" client="WIDI\ Master">
    <plug>WIDI\ Master\ Bluetooth</plug>
   </socket>
-  <socket name="Reface CP Driver to Reface CP" type="alsa-midi" client="Reface\ CP\ Driver" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Reface CP Driver to Reface CP" client="Reface\ CP\ Driver">
    <plug>Reface\ CP\ from\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket name="Reface CP Driver to microtonOS" type="alsa-midi" client="Reface\ CP\ Driver" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="Reface CP Driver to microtonOS" client="Reface\ CP\ Driver">
    <plug>microtonOS\ from\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket name="Minilogue XD Driver to Minilogue XD" type="alsa-midi" client="Minilogue\ XD\ Driver" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Minilogue XD Driver to Minilogue XD" client="Minilogue\ XD\ Driver">
    <plug>Minilogue\ XD\ from\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket name="Minilogue XD Driver to microtonOS" type="alsa-midi" client="Minilogue\ XD\ Driver" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="Minilogue XD Driver to microtonOS" client="Minilogue\ XD\ Driver">
    <plug>microtonOS\ from\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket name="Minilogue XD" type="alsa-midi" client="minilogue\ xd" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Minilogue XD" client="minilogue\ xd">
    <plug>minilogue\ xd\ _\ SOUND</plug>
    <plug>minilogue\ xd\ _\ MIDI\ OUT</plug>
   </socket>
-  <socket name="Pianoteq Wrapper" type="jack-midi" client="Midi\-Bridge" exclusive="off">
+  <socket type="jack-midi" exclusive="off" name="Pianoteq Wrapper" client="Midi\-Bridge">
    <plug>Pianoteq\ Wrapper\:\(capture_0\)\ from\ Pianoteq\ Wrapper</plug>
   </socket>
-  <socket name="Reface CP" type="alsa-midi" client="reface\ CP" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="Reface CP" client="reface\ CP">
    <plug>reface\ CP\ MIDI\ 1</plug>
   </socket>
-  <socket name="microtonOS to Upper" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="microtonOS to Upper" client="microtonOS">
    <plug>Upper\ from\ microtonOS</plug>
   </socket>
-  <socket name="microtonOS to Lower" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="microtonOS to Lower" client="microtonOS">
    <plug>Lower\ from\ microtonOS</plug>
   </socket>
-  <socket name="microtonOS to Exquis" type="alsa-midi" client="microtonOS" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="microtonOS to Exquis" client="microtonOS">
    <plug>Exquis\ from\ microtonOS</plug>
   </socket>
-  <socket name="microtonOS to Internal" type="jack-midi" client="Midi\-Bridge" exclusive="off">
+  <socket type="jack-midi" exclusive="off" name="microtonOS to Internal" client="Midi\-Bridge">
    <plug>microtonOS\:\(capture_0\)\ Internal\ from\ microtonOS</plug>
   </socket>
-  <socket name="microtonOS to External" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="microtonOS to External" client="microtonOS">
    <plug>External\ from\ microtonOS</plug>
   </socket>
-  <socket name="microtonOS to Internal Rhythm" type="jack-midi" client="Midi\-Bridge" exclusive="on">
+  <socket type="jack-midi" exclusive="on" name="microtonOS to Internal Rhythm" client="Midi\-Bridge">
    <plug>microtonOS\:\(capture_0\)\ Internal\ Rhythm\ from\ microtonOS</plug>
   </socket>
-  <socket name="microtonOS to XentoTune" type="jack-midi" client="Midi\-Bridge" exclusive="on">
+  <socket type="jack-midi" exclusive="on" name="microtonOS to XentoTune" client="Midi\-Bridge">
    <plug>microtonOS\:\(capture_0\)\ XentoTune\ from\ microtonOS</plug>
   </socket>
-  <socket name="Footswitches" type="alsa-midi" client="Footswitches" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Footswitches" client="Footswitches">
    <plug>from\ Footswitches</plug>
   </socket>
-  <socket name="Exquis" type="alsa-midi" client="Exquis" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="Exquis" client="Exquis">
    <plug>Exquis\ MIDI\ 1</plug>
    <plug>Exquis\ MIDI\ 2</plug>
   </socket>
-  <socket name="Pianoteq Standalone" type="jack-audio" client="Pianoteq" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Pianoteq Standalone" client="Pianoteq">
    <plug>out_1</plug>
    <plug>out_2</plug>
    <plug>out_3</plug>
    <plug>out_4</plug>
    <plug>out_5</plug>
   </socket>
-  <socket name="Pianoteq" type="jack-audio" client="Pianoteq\ 8\ STAGE" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Pianoteq" client="Pianoteq\ 8\ STAGE">
    <plug>Audio\ Out\ 1</plug>
    <plug>Audio\ Out\ 2</plug>
   </socket>
-  <socket name="Librespot" type="jack-audio" client="librespot" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Librespot" client="librespot">
    <plug>out_0</plug>
    <plug>out_1</plug>
   </socket>
-  <socket name="DecentSampler" type="jack-audio" client="DecentSampler" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="DecentSampler" client="DecentSampler">
    <plug>output_1</plug>
    <plug>output_2</plug>
   </socket>
-  <socket name="Soundcard" type="jack-audio" client="Audio\ Adapter\ \(Unitek\ Y\-247A\)\ Mono" exclusive="on">
-   <plug>capture_MONO</plug>
+  <socket type="jack-audio" exclusive="off" name="Effects" client="Effects">
+   <plug>output_1</plug>
+   <plug>output_2</plug>
   </socket>
-  <socket name="Notepad-8FX 1" type="jack-audio" client="Notepad\-8FX\ Digital\ Stereo\ \(IEC958\)" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Notepad-8FX 1" client="Notepad\-8FX\ Digital\ Stereo\ \(IEC958\)">
    <plug>capture_FL</plug>
   </socket>
-  <socket name="Notepad-8FX 2" type="jack-audio" client="Notepad\-8FX\ Digital\ Stereo\ \(IEC958\)" exclusive="on">
+  <socket type="jack-audio" exclusive="off" name="Notepad-8FX 2" client="Notepad\-8FX\ Digital\ Stereo\ \(IEC958\)">
    <plug>capture_FR</plug>
+  </socket>
+  <socket type="jack-audio" exclusive="on" name="Soundcard" client="Audio\ Adapter\ \(Unitek\ Y\-247A\)\ Mono">
+   <plug>capture_MONO</plug>
   </socket>
  </output-sockets>
  <input-sockets>
-  <socket name="RC-5" type="jack-midi" client="Midi\-Bridge" exclusive="off">
+  <socket type="jack-midi" exclusive="off" name="RC-5" client="Midi\-Bridge">
    <plug>BOSS\ BOSS_RC\-5\ at\ usb\-xhci\-hcd\-1\-2\-\ high\ speed\:\(playback_0\)\ BOSS_RC\-5\ MIDI\ 1</plug>
   </socket>
-  <socket name="XentoTune" type="jack-audio" client="XentoTune" exclusive="on">
+  <socket type="jack-audio" exclusive="on" name="XentoTune" client="XentoTune">
    <plug>input_1</plug>
    <plug>input_2</plug>
   </socket>
-  <socket name="microtonOS Selector" type="jack-audio" client="microtonOS\ Selector" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="microtonOS Selector" client="microtonOS\ Selector">
    <plug>input_MONO</plug>
   </socket>
-  <socket name="Clock to microtonOS" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Clock to microtonOS" client="microtonOS">
    <plug>Clock\ to\ microtonOS</plug>
   </socket>
-  <socket name="WIDI Master" type="alsa-midi" client="WIDI\ Master" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="WIDI Master" client="WIDI\ Master">
    <plug>WIDI\ Master\ Bluetooth</plug>
   </socket>
-  <socket name="microtonOS to Minilogue XD Driver" type="alsa-midi" client="Minilogue\ XD\ Driver" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="microtonOS to Minilogue XD Driver" client="Minilogue\ XD\ Driver">
    <plug>microtonOS\ to\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket name="microtonOS to Reface CP Driver" type="alsa-midi" client="Reface\ CP\ Driver" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="microtonOS to Reface CP Driver" client="Reface\ CP\ Driver">
    <plug>microtonOS\ to\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket name="Reface CP to Reface CP Driver" type="alsa-midi" client="Reface\ CP\ Driver" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="Reface CP to Reface CP Driver" client="Reface\ CP\ Driver">
    <plug>Reface\ CP\ to\ Reface\ CP\ Driver</plug>
   </socket>
-  <socket name="Minilogue XD to Minilogue XD Driver" type="alsa-midi" client="Minilogue\ XD\ Driver" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Minilogue XD to Minilogue XD Driver" client="Minilogue\ XD\ Driver">
    <plug>Minilogue\ XD\ to\ Minilogue\ XD\ Driver</plug>
   </socket>
-  <socket name="Minilogue XD" type="alsa-midi" client="minilogue\ xd" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Minilogue XD" client="minilogue\ xd">
    <plug>minilogue\ xd\ _\ SOUND</plug>
    <plug>minilogue\ xd\ _\ MIDI\ OUT</plug>
   </socket>
-  <socket name="macOS" type="alsa-midi" client="MacBookAirM3" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="macOS" client="MacBookAirM3">
    <plug>MacBookAirM3\ Bluetooth</plug>
   </socket>
-  <socket name="Master to microtonOS" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Master to microtonOS" client="microtonOS">
    <plug>Master\ to\ microtonOS</plug>
   </socket>
-  <socket name="Pianoteq Standalone" type="jack-midi" client="Pianoteq" exclusive="on">
+  <socket type="jack-midi" exclusive="on" name="Pianoteq Standalone" client="Pianoteq">
    <plug>midi_in</plug>
   </socket>
-  <socket name="Pianoteq" type="jack-midi" client="Pianoteq\ 8\ STAGE" exclusive="on">
+  <socket type="jack-midi" exclusive="on" name="Pianoteq" client="Pianoteq\ 8\ STAGE">
    <plug>event\-in</plug>
   </socket>
-  <socket name="Reface CP" type="alsa-midi" client="reface\ CP" exclusive="on">
+  <socket type="alsa-midi" exclusive="on" name="Reface CP" client="reface\ CP">
    <plug>reface\ CP\ MIDI\ 1</plug>
   </socket>
-  <socket name="DecentSampler" type="jack-midi" client="DecentSampler" exclusive="on">
+  <socket type="jack-midi" exclusive="on" name="DecentSampler" client="DecentSampler">
    <plug>event\-in</plug>
   </socket>
-  <socket name="XentoTune FX" type="jack-midi" client="XentoTune" exclusive="on">
+  <socket type="jack-midi" exclusive="on" name="XentoTune FX" client="XentoTune">
    <plug>events\-in</plug>
   </socket>
-  <socket name="Exquis" type="alsa-midi" client="Exquis" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Exquis" client="Exquis">
    <plug>Exquis\ MIDI\ 1</plug>
    <plug>Exquis\ MIDI\ 2</plug>
   </socket>
-  <socket name="Exquis to microtonOS" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Exquis to microtonOS" client="microtonOS">
    <plug>Exquis\ to\ microtonOS</plug>
   </socket>
-  <socket name="Upper to microtonOS" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Upper to microtonOS" client="microtonOS">
    <plug>Upper\ to\ microtonOS</plug>
   </socket>
-  <socket name="Lower to microtonOS" type="alsa-midi" client="microtonOS" exclusive="off">
+  <socket type="alsa-midi" exclusive="off" name="Lower to microtonOS" client="microtonOS">
    <plug>Lower\ to\ microtonOS</plug>
   </socket>
-  <socket name="Pianoteq Wrapper" type="jack-midi" client="Midi\-Bridge" exclusive="off">
+  <socket type="jack-midi" exclusive="off" name="Pianoteq Wrapper" client="Midi\-Bridge">
    <plug>Pianoteq\ Wrapper\:\(playback_0\)\ to\ Pianoteq\ Wrapper</plug>
   </socket>
-  <socket name="Effects" type="jack-audio" client="Effects" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Effects FL" client="Effects">
    <plug>input_1</plug>
-   <plug>input_2</plug>
   </socket>
-  <socket name="Effects MIDI" type="jack-midi" client="Effects" exclusive="off">
+  <socket type="jack-midi" exclusive="off" name="Effects MIDI" client="Effects">
    <plug>events\-in</plug>
   </socket>
-  <socket name="Effects FL" type="jack-audio" client="Effects" exclusive="off">
-   <plug>input_1</plug>
-  </socket>
-  <socket name="Effects FR" type="jack-audio" client="Effects" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Effects FR" client="Effects">
    <plug>input_2</plug>
   </socket>
-  <socket name="Soundcard" type="jack-audio" client="Audio\ Adapter\ \(Unitek\ Y\-247A\)\ Analog\ Stereo" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Notepad-8FX" client="Notepad\-8FX\ Analog\ Stereo">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
-  <socket name="Notepad-8FX" type="jack-audio" client="Notepad\-8FX\ Analog\ Stereo" exclusive="off">
+  <socket type="jack-audio" exclusive="off" name="Soundcard" client="Audio\ Adapter\ \(Unitek\ Y\-247A\)\ Analog\ Stereo">
    <plug>playback_FL</plug>
    <plug>playback_FR</plug>
   </socket>
  </input-sockets>
  <slots/>
  <cables>
-  <cable type="jack-midi" output="microtonOS to External Rhythm" input="RC-5"/>
-  <cable type="jack-audio" output="Effects" input="Soundcard"/>
-  <cable type="jack-audio" output="Effects" input="Notepad-8FX"/>
-  <cable type="jack-audio" output="microtonOS Selector" input="XentoTune"/>
-  <cable type="alsa-midi" output="Minilogue XD Driver to Clock" input="Clock to microtonOS"/>
-  <cable type="alsa-midi" output="Reface CP Driver to Reface CP" input="Reface CP"/>
-  <cable type="alsa-midi" output="Reface CP Driver to microtonOS" input="Lower to microtonOS"/>
-  <cable type="alsa-midi" output="Minilogue XD Driver to Minilogue XD" input="Minilogue XD"/>
-  <cable type="alsa-midi" output="Minilogue XD Driver to microtonOS" input="Upper to microtonOS"/>
-  <cable type="alsa-midi" output="Minilogue XD" input="Minilogue XD to Minilogue XD Driver"/>
-  <cable type="jack-midi" output="Pianoteq Wrapper" input="Pianoteq"/>
-  <cable type="jack-midi" output="Pianoteq Wrapper" input="Pianoteq Standalone"/>
-  <cable type="alsa-midi" output="Reface CP" input="Reface CP to Reface CP Driver"/>
-  <cable type="alsa-midi" output="microtonOS to Upper" input="microtonOS to Minilogue XD Driver"/>
-  <cable type="alsa-midi" output="microtonOS to Lower" input="microtonOS to Reface CP Driver"/>
-  <cable type="alsa-midi" output="microtonOS to Exquis" input="Exquis"/>
-  <cable type="jack-midi" output="microtonOS to Internal" input="Pianoteq Wrapper"/>
-  <cable type="jack-midi" output="microtonOS to Internal" input="Effects MIDI"/>
-  <cable type="alsa-midi" output="microtonOS to External" input="macOS"/>
-  <cable type="jack-midi" output="microtonOS to Internal Rhythm" input="DecentSampler"/>
-  <cable type="jack-midi" output="microtonOS to XentoTune" input="XentoTune FX"/>
-  <cable type="alsa-midi" output="Footswitches" input="Master to microtonOS"/>
-  <cable type="alsa-midi" output="Exquis" input="Exquis to microtonOS"/>
-  <cable type="jack-audio" output="Pianoteq Standalone" input="Notepad-8FX"/>
-  <cable type="jack-audio" output="Pianoteq" input="Notepad-8FX"/>
-  <cable type="jack-audio" output="Librespot" input="Notepad-8FX"/>
-  <cable type="jack-audio" output="DecentSampler" input="Notepad-8FX"/>
-  <cable type="jack-audio" output="Notepad-8FX 1" input="Effects FL"/>
-  <cable type="jack-audio" output="Notepad-8FX 1" input="Effects FR"/>
+  <cable type="jack-midi" input="RC-5" output="microtonOS to External Rhythm"/>
+  <cable type="jack-audio" input="XentoTune" output="microtonOS Selector"/>
+  <cable type="alsa-midi" input="Clock to microtonOS" output="Minilogue XD Driver to Clock"/>
+  <cable type="alsa-midi" input="Reface CP" output="Reface CP Driver to Reface CP"/>
+  <cable type="alsa-midi" input="Lower to microtonOS" output="Reface CP Driver to microtonOS"/>
+  <cable type="alsa-midi" input="Minilogue XD" output="Minilogue XD Driver to Minilogue XD"/>
+  <cable type="alsa-midi" input="Upper to microtonOS" output="Minilogue XD Driver to microtonOS"/>
+  <cable type="alsa-midi" input="Minilogue XD to Minilogue XD Driver" output="Minilogue XD"/>
+  <cable type="jack-midi" input="Pianoteq" output="Pianoteq Wrapper"/>
+  <cable type="jack-midi" input="Pianoteq Standalone" output="Pianoteq Wrapper"/>
+  <cable type="alsa-midi" input="Reface CP to Reface CP Driver" output="Reface CP"/>
+  <cable type="alsa-midi" input="microtonOS to Minilogue XD Driver" output="microtonOS to Upper"/>
+  <cable type="alsa-midi" input="microtonOS to Reface CP Driver" output="microtonOS to Lower"/>
+  <cable type="alsa-midi" input="Exquis" output="microtonOS to Exquis"/>
+  <cable type="jack-midi" input="Pianoteq Wrapper" output="microtonOS to Internal"/>
+  <cable type="jack-midi" input="Effects MIDI" output="microtonOS to Internal"/>
+  <cable type="alsa-midi" input="macOS" output="microtonOS to External"/>
+  <cable type="jack-midi" input="DecentSampler" output="microtonOS to Internal Rhythm"/>
+  <cable type="jack-midi" input="XentoTune FX" output="microtonOS to XentoTune"/>
+  <cable type="alsa-midi" input="Master to microtonOS" output="Footswitches"/>
+  <cable type="alsa-midi" input="Exquis to microtonOS" output="Exquis"/>
+  <cable type="jack-audio" input="Notepad-8FX" output="Pianoteq Standalone"/>
+  <cable type="jack-audio" input="Notepad-8FX" output="Pianoteq"/>
+  <cable type="jack-audio" input="Notepad-8FX" output="Librespot"/>
+  <cable type="jack-audio" input="Notepad-8FX" output="DecentSampler"/>
+  <cable type="jack-audio" input="Notepad-8FX" output="Effects"/>
+  <cable type="jack-audio" input="Effects FR" output="Notepad-8FX 1"/>
+  <cable type="jack-audio" input="Effects FL" output="Notepad-8FX 1"/>
  </cables>
 </patchbay>
 
