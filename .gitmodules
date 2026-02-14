@@ -34,3 +34,7 @@
 	path = third_party/sonobus
 	url = https://github.com/sonosaurus/sonobus.git
 	ignore = untracked
+[submodule "third_party/reevr"]
+	path = third_party/reevr
+	url = https://github.com/tiagolr/reevr.git
+	ignore = untracked

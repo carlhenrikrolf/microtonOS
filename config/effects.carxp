@@ -543,172 +543,18 @@
   </Data>
  </Plugin>
 
- <!-- Calf Vintage Delay -->
+ <!-- REEV-R -->
  <Plugin>
   <Info>
    <Type>LV2</Type>
-   <Name>Calf Vintage Delay</Name>
-   <URI>http://calf.sourceforge.net/plugins/VintageDelay</URI>
+   <Name>REEV-R</Name>
+   <URI>https://github.com/tiagolr/reevr</URI>
   </Info>
 
   <Data>
    <Active>Yes</Active>
    <ControlChannel>1</ControlChannel>
    <Options>0x3f1</Options>
-
-   <Parameter>
-    <Index>0</Index>
-    <Name>Active</Name>
-    <Symbol>on</Symbol>
-    <MidiChannel>15</MidiChannel>
-    <MappedControlIndex>13</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>1</MappedMaximum>
-    <MidiCC>13</MidiCC>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>1</Index>
-    <Name>Input Gain</Name>
-    <Symbol>level_in</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>2</Index>
-    <Name>Output Gain</Name>
-    <Symbol>level_out</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>11</Index>
-    <Name>Subdivide</Name>
-    <Symbol>subdiv</Symbol>
-    <MidiChannel>15</MidiChannel>
-    <MappedControlIndex>27</MappedControlIndex>
-    <MappedMinimum>16</MappedMinimum>
-    <MappedMaximum>1</MappedMaximum>
-    <MidiCC>27</MidiCC>
-    <Value>9</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>12</Index>
-    <Name>Time L</Name>
-    <Symbol>time_l</Symbol>
-    <Value>3</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>13</Index>
-    <Name>Time R</Name>
-    <Symbol>time_r</Symbol>
-    <Value>5</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>14</Index>
-    <Name>Feedback</Name>
-    <Symbol>feedback</Symbol>
-    <MidiChannel>15</MidiChannel>
-    <MappedControlIndex>26</MappedControlIndex>
-    <MappedMinimum>0</MappedMinimum>
-    <MappedMaximum>1</MappedMaximum>
-    <MidiCC>26</MidiCC>
-    <Value>0.448818892240524</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>15</Index>
-    <Name>Wet</Name>
-    <Symbol>amount</Symbol>
-    <Value>0.25</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>16</Index>
-    <Name>Mix mode</Name>
-    <Symbol>mix_mode</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>17</Index>
-    <Name>Medium</Name>
-    <Symbol>medium</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>18</Index>
-    <Name>Dry</Name>
-    <Symbol>dry</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>19</Index>
-    <Name>Stereo Width</Name>
-    <Symbol>width</Symbol>
-    <Value>1</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>20</Index>
-    <Name>Fragmentation</Name>
-    <Symbol>fragmentation</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>21</Index>
-    <Name>Pattern Beats</Name>
-    <Symbol>pbeats</Symbol>
-    <Value>4</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>22</Index>
-    <Name>Pattern Fragmentation</Name>
-    <Symbol>pfrag</Symbol>
-    <Value>4</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>23</Index>
-    <Name>Timing</Name>
-    <Symbol>timing</Symbol>
-    <Value>0</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>24</Index>
-    <Name>BPM</Name>
-    <Symbol>bpm</Symbol>
-    <Value>120</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>25</Index>
-    <Name>ms</Name>
-    <Symbol>ms</Symbol>
-    <Value>500</Value>
-   </Parameter>
-
-   <Parameter>
-    <Index>26</Index>
-    <Name>Frequency</Name>
-    <Symbol>hz</Symbol>
-    <Value>2</Value>
-   </Parameter>
-
-   <CustomData>
-    <Type>http://kxstudio.sf.net/ns/carla/property</Type>
-    <Key>CarlaSkinIsCompacted</Key>
-    <Value>false</Value>
-   </CustomData>
   </Data>
  </Plugin>
 
@@ -727,7 +573,15 @@
   </Connection>
   <Connection>
    <Source>Midi Input:Capture 1</Source>
+   <Target>Calf Envelope Filter:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi Input:Capture 1</Source>
    <Target>Calf Multi Chorus:event-in</Target>
+  </Connection>
+  <Connection>
+   <Source>Midi Input:Capture 1</Source>
+   <Target>Calf Phaser:event-in</Target>
   </Connection>
   <Connection>
    <Source>Calf Pulsator:Out L</Source>
@@ -746,10 +600,6 @@
    <Target>Calf Multi Chorus:In R</Target>
   </Connection>
   <Connection>
-   <Source>Midi Input:Capture 1</Source>
-   <Target>Calf Envelope Filter:event-in</Target>
-  </Connection>
-  <Connection>
    <Source>Calf Multi Chorus:Out L</Source>
    <Target>Calf Phaser:In L</Target>
   </Connection>
@@ -759,31 +609,27 @@
   </Connection>
   <Connection>
    <Source>Midi Input:Capture 1</Source>
-   <Target>Calf Phaser:event-in</Target>
-  </Connection>
-  <Connection>
-   <Source>Midi Input:Capture 1</Source>
-   <Target>Calf Vintage Delay:event-in</Target>
+   <Target>REEV-R:event-in</Target>
   </Connection>
   <Connection>
    <Source>Calf Phaser:Out L</Source>
-   <Target>Calf Vintage Delay:In L</Target>
+   <Target>REEV-R:Audio In 1</Target>
   </Connection>
   <Connection>
    <Source>Calf Phaser:Out R</Source>
-   <Target>Calf Vintage Delay:In R</Target>
+   <Target>REEV-R:Audio In 2</Target>
   </Connection>
   <Connection>
-   <Source>Calf Vintage Delay:Out L</Source>
+   <Source>REEV-R:Audio Out 1</Source>
    <Target>Audio Output:Left</Target>
   </Connection>
   <Connection>
-   <Source>Calf Vintage Delay:Out R</Source>
+   <Source>REEV-R:Audio Out 2</Source>
    <Target>Audio Output:Right</Target>
   </Connection>
   <Positions>
-   <Position x1="2234" y1="1358" pluginId="4">
-    <Name>Calf Vintage Delay</Name>
+   <Position x1="2228" y1="1332" pluginId="4">
+    <Name>REEV-R</Name>
    </Position>
    <Position x1="2062" y1="1316" pluginId="3">
     <Name>Calf Phaser</Name>
@@ -803,7 +649,7 @@
    <Position x1="1642" y1="1428" x2="1943" y2="1355">
     <Name>Midi Input</Name>
    </Position>
-   <Position x1="1550" y1="1281" x2="2440" y2="1369">
+   <Position x1="1550" y1="1281" x2="2419" y2="1332">
     <Name>Audio Output</Name>
    </Position>
    <Position x1="1277" y1="1256" x2="1952" y2="1200">
