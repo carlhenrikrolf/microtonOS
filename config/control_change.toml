@@ -127,8 +127,8 @@ reverb = 91
 23 = {Pianoteq = "phaser rate"}
 24 = {Pianoteq = "delay feedback"}
 25 = {Pianoteq = "delay time"}
-26 = {Pianoteq = "flanger depth"}
-27 = {Pianoteq = "flanger delay"}
+26 = {Pianoteq = "flanger feedback"}
+27 = {Pianoteq = "flanger rate"}
 64 = {Pianoteq = "sustain/CV"}
 70 = {Pianoteq = ["wah", ["off", "on"]]}
 91 = {Pianoteq = "reverb duration"}
